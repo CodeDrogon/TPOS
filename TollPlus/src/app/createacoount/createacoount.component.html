@@ -1,0 +1,1519 @@
+<!--
+<h3>Convertion Technics </h3>
+<form
+  [formGroup]="form">
+
+  <input type="text" name="decimal"
+         (ngModelChange)="decimalChanged(oldValue, newValue = $event)"
+          placeholder="decimal" formControlName="decimal"/><br>
+  <input type="text" name="binary" placeholder="binary" formControlName="binary"/><br>
+
+  <input type="text" name="octal" placeholder="octal" formControlName="octal"/><br>
+  <input type="text" name="hexa" placeholder="hexa" formControlName="hexa"/><br>
+
+  <input type="submit" value=""Submit/>
+</form>-->
+<!--
+<div id="page-wrapper">
+  <div class="row">
+    <h4 class="page-header">Employee Registration </h4>
+    <div class="col-lg-10">
+
+      <div class="panel panel-default">
+
+        <div class="panel-body">
+          <div class="row">
+<form
+  [formGroup]="form"
+  (ngSubmit) ='onSubmit(form.value)'>
+
+  <input type="text" name="firstName" placeholder="firstName" formControlName="firstName"/><br>
+  <input type="text" name="lastName" placeholder="LastName" formControlName="lastName" /><br>
+  <select name="language" formControlName="language">
+    <option value="Java">java</option>
+    <option value="C">C</option>
+    <option value="C++">c++</option>
+  </select><br>
+  <input type="submit" value="Submit" [disabled]="!form.valid"/>
+</form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+<a routerLink="/signin" class="btn btn-block btn-primary">Sign In</a>
+<a routerLink="/signup" class="btn btn-block btn-primary">Sign Up</a>
+<div id="exTab1" class="container">
+  <ul  class="nav nav-tabs nav-pills nav-wizard ">
+    <li class="active">
+      <a  href="#1a" data-toggle="tab" class="arrow">Account Information</a>
+    </li>
+    <li><a href="#4a" data-toggle="tab">Vehicle Information</a>
+    </li>
+    <li><a href="#5a" data-toggle="tab">Additional Information</a>
+    </li>
+    <li><a href="#6a" data-toggle="tab">Payment Information</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <div class="tab-pane active" id="1a">
+      <div id="page-wrapper">
+        <div class="row">
+          <!--<div class="col-lg-12">
+            <h1 class="page-header">Employee Form</h1>
+          </div>-->
+          <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <form role="form" #userForm="ngForm" class="bgColor"
+              (ngSubmit) ='savePersonal(userForm.value)'>
+          <div class="row">
+            <div class="col-lg-12">
+              <!--<div class="panel panel-default">-->
+
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+
+                      <a data-toggle="collapse" data-parent="#accordion" href="#personalDetails1"  class="collase-icon glyphicon glyphicon-chevron-down">
+                        Personal Details</a>
+                    </h4>
+                  </div>
+                  <!--<div id="collapse1" class="panel-collapse collapse in">
+                  </div>-->
+                  <div class="panel-body" id="personalDetails1">
+                    <div  class="panel-collapse collapse in">
+                      <div class="row">
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user"></i>
+                              <select class="form-control"  placeholder="Business Customer"  name="businessCustomerType" ngModel>
+                                <option label="Business Customer" disabled selected="selected" value=""></option>
+                                <option>Individual</option>
+                                <option>Business</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+
+                            <select class="form-control" placeholder="Title"  name="title" ngModel>
+                              <option label="Title" disabled selected="selected" value=""></option>
+                              <option>MR</option>
+                              <option>MISS</option>
+                              <option>MISS</option>
+                              <option>MISS</option>
+                              <option>MISS</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user"></i>
+                              <input class="form-control" placeholder="First Name"  name="firstName" ngModel>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user"></i>
+                              <input class="form-control" placeholder="Last Name"  name="lastName" ngModel>
+                            </div>
+                          </div>
+                          <!--<div class="form-group">
+                            <label>MI</label>
+                            <input class="form-control" placeholder="Enter text" placeholder="MI"  name="mi" ngModel>
+                          </div>-->
+
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+                        <div class="col-lg-6">
+                          <!-- <div class="form-group">-->
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Business Name"  name="businessName" ngModel>
+                              <option label="Business Name" disabled selected="selected" value=""></option>
+                              <option>Business1</option>
+                              <option>Business2</option>
+                              <option>Business3</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Suffix"  name="suffix" ngModel>
+                              <option label="Suffix" disabled selected="selected" value=""></option>
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>TransGender</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-group">
+                              <div class="left-inner-addon ">
+                                <i class="icon-user"></i>
+                                <input class="form-control" placeholder="Middle Name"  name="middleName" ngModel>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="row" >
+                              <div class="col-lg-6">
+                                <select class="form-control" placeholder="Gender"  name="gender" ngModel>
+                                  <option value="">Gender</option>
+                                  <option>Male</option>
+                                  <option>Female</option>
+                                  <option>TransGender</option>
+                                </select>
+                              </div>
+                              <div class="col-lg-6">
+                                <date-picker   name="date" placeholder="Date Of Birth"  name="dateOfBirth" ngModel></date-picker>
+
+                              </div>
+
+
+
+                            </div>
+                          </div>
+
+                          <!--</div>-->
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+
+                      </div>
+
+                      <!-- /.row (nested) -->
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+
+                <!-- /.panel-body -->
+                <!--</div>-->
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+
+                      <a data-toggle="collapse" data-parent="#accordion" href="#contactDetails1"  class="collase-icon glyphicon glyphicon-chevron-down">
+                        Contact Details</a>
+                    </h4>
+                  </div>
+                  <!--<div id="collapse1" class="panel-collapse collapse in">
+                  </div>-->
+                  <div id="contactDetails1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Primary Email"  name="primaryEmail" ngModel>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Secondary Email"  name="secondaryEmail" ngModel>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr/>
+                        <div class="panel-body">
+                          <div class="row">
+
+
+                            <div class="col-lg-6">
+
+
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Enter text" placeholder="Day Phone Number"  name="dayPhone" ngModel>
+                              </div>
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Mobile Phone Number"  name="mobilePhone" ngModel>
+                              </div>
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Fax"  name="fax" ngModel>
+                              </div>
+
+
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <input class="form-control" placeholder="Evening Phone Number"  name="eveningPhone" ngModel>
+                              </div>
+                              <div class="form-group">
+                                <div class="row">
+                                  <div class="col-lg-5">
+                                    <input class="form-control" placeholder="Work Phone Number"  name="workPhone" ngModel>
+                                  </div>
+                                  <div class="col-lg-2">
+                                    <input class="form-control" placeholder="Ext"  name="ext" ngModel>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+
+
+
+                            <!-- /.col-lg-6 (nested) -->
+
+                          </div>
+                          <!-- /.row (nested) -->
+                        </div>
+                        <hr/>
+                        <div class="panel-body">
+                          <div class="row">
+                            <!-- /.col-lg-6 (nested) -->
+
+
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <select class="form-control-static" id="country" name ="country"></select>
+                                </div>
+                                <div class="form-group">
+                                  <input class="form-control" placeholder="City"  name="city" ngModel>
+                                </div>
+
+
+
+
+                              </div>
+
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <select name ="state" id ="state" class="form-control-static" style="width:40%"></select>
+                                </div>
+                                <div class="form-group">
+                                  <div class="row" style="padding-top: 0%;">
+                                    <div class="col-lg-6">
+                                      <input class="form-control" placeholder="Zip1"  name="zip" ngModel>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <input class="form-control" placeholder="Zip2"  name="zip1" ngModel>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /.col-lg-6 (nested) -->
+                              <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <div class="form-group">
+                              <input class="form-control" placeholder="Address Line 1"  name="addressLine1" ngModel>
+                            </div>
+                            <div class="form-group">
+                              <input class="form-control" placeholder="Address Line 2"  name="addressLine2" ngModel>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+
+                                  <select class="form-control" placeholder="Id Proof Type"  name="idProofType" ngModel>
+                                    <option label="Id Proof Type" disabled selected="selected" value=""></option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">
+
+                                  <input class="form-control" placeholder="Id Proof No"  name="idProofNo" ngModel>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="center">
+                              <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="dropped($event)"
+                                         (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+
+                              </file-drop>
+
+                              <!--<div class="upload-table">
+                                <table class="table">
+                                  <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody class="upload-name-style">
+                                  <tr *ngFor="let item of files; let i=index">
+                                    <td><strong>{{ item.relativePath }}</strong></td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>-->
+                            </div>
+                            <!--<div class="form-group">
+                              <label class="control-label">ID Proof</label>
+                              <input id="input-1" type="file" class="file" placeholder="Select File"  name="idProof" ngModel>
+                            </div>-->
+                            <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
+                              <div class="col-lg-6">
+                                <select class="form-control" placeholder="Address Proof"  name="addressProof" ngModel>
+                                  <option label="Address Proof Type" disabled selected="selected" value=""></option>
+                                  <option>PanCard</option>
+                                  <option>Passport</option>
+                                  <option>DrivingLicence</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="center">
+                              <file-drop headertext="Address Proof File Drop here to upload, or" (onFileDrop)="dropped($event)"
+                                         (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+
+                              </file-drop>
+
+                              <!--<div class="upload-table">
+                                <table class="table">
+                                  <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody class="upload-name-style">
+                                  <tr *ngFor="let item of files; let i=index">
+                                    <td><strong>{{ item.relativePath }}</strong></td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>-->
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label">Address Proof</label>
+                              <input id="input-2" type="file" class="file" placeholder="Address Proof "  name="addressProof" ngModel>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+
+                                  <input class="form-control" placeholder="User Name"  name="userName" ngModel>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+
+                          </div>
+                          <!-- /.row (nested) -->
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                    </div>
+                    <div class="col-md-1">
+                      <input type="submit" class="btn btn-primary"  value="Submit"/>
+                    </div>
+                    <div class="col-md-1">
+                      <a class="btn btn-primary btnNext" >Next</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- /.panel -->
+
+            </div>
+            <!-- /.col-lg-12 -->
+          </div>
+        </form>
+        <!-- /.row -->
+      </div>
+    </div>
+
+
+
+
+    <div class="tab-pane" id="4a">
+      <div id="page-wrapper">
+
+        <form role="form" #userForm="ngForm" class="bgColor"
+              (ngSubmit) ='savePersonal(userForm.value)'>
+          <div class="row">
+            <div class="col-lg-12">
+
+              <div class="panel-group" id="Vehicleaccordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+
+                      <a data-toggle="collapse" data-parent="#Vehicleaccordion" href="#VehicleDet"  class="collase-icon glyphicon glyphicon-chevron-down">
+                        Vehicle Details</a>
+                    </h4>
+                  </div>
+
+                  <div class="panel-collapse collapse in" id="VehicleDet">
+                    <div class="panel-body">
+
+                      <div class="row">
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <input class="form-control" placeholder="Plate Number"  name="plateNumber" ngModel>
+                          </div>
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Year"  name="year" ngModel>
+                              <option label="Year" disabled selected="selected" value=""></option>
+                              <option>2017</option>
+                              <option>2016</option>
+                              <option>2015</option>
+                              <option>2014</option>
+                              <option>2013</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Model"  name="model" ngModel>
+                              <option label="Model" disabled selected="selected" value=""></option>
+                              <option>Model1</option>
+                              <option>Model2</option>
+                              <option>Model3</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Registered Country"  name="country" ngModel>
+                              <option label="Registered Country" disabled selected="selected" value=""></option>
+                              <option>India</option>
+                              <option>USA</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <date-picker  placeholder="Start Date & Time"  name="startDate&Time" [showClearButton]="false" ngModel></date-picker>
+                          </div>
+
+                          <div class="col-lg-6">
+                            <input type="checkbox" class="form-control" name="isTemporaryLicencePlateNumber"/>Is temporary licence plate number?
+                          </div>
+
+
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <input class="form-control" placeholder="Class"  name="class" ngModel>
+                          </div>
+                          <div class="form-group">
+
+                            <!--<select class="form-control" placeholder="Make"  name="make" ngModel>
+                              <option label="Make" disabled selected="selected" value=""></option>
+                              <option>Make1</option>
+                              <option>Make2</option>
+                              <option>Make3</option>
+                            </select>-->
+                          </div>
+
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Color"  name="color" ngModel>
+                              <option label="Color" disabled selected="selected" value=""></option>
+                              <option>Blue</option>
+                              <option>Gray</option>
+                              <option>White</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Registered State"  name="gender" ngModel>
+                              <option label="Registered State" disabled selected="selected" value=""></option>
+                              <option>State1</option>
+                              <option>State2</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <date-picker  placeholder="End Date & Time"  name="endDate&Time" [showClearButton]="false" ngModel></date-picker>
+                          </div>
+
+
+
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <a class="btn btn-primary " >Reset</a>
+                      </div>
+                      <div class="col-md-4">
+                        <a class="btn btn-primary " >Save & Add Another Vehicle</a>
+                      </div>
+
+                      <div class="col-md-4">
+                        <a class="btn btn-primary " >Save</a>
+                      </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                  </div>
+                  <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+              </div>
+              <!-- /.col-lg-12 -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+
+                    <a data-toggle="collapse" data-parent="#Vehicleaccordion" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down">
+                      Vehicles</a>
+                  </h4>
+                </div>
+
+
+
+                <div id="VehiclesDet" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <div class="row ">
+                      <div class="bgColor">
+                        <table class="table table-bordered ">
+                          <thead>
+                          <tr>
+                            <th>Plate No.</th>
+                            <th>Class</th>
+                            <th>Color</th>
+                            <th>Description</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Start Date & Time</th>
+                            <th>End Date & Time</th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td>Apz1252z</td>
+                            <td>Bus-ts</td>
+                            <td>Red</td>
+                            <td>Ac Bus</td>
+                            <td>TN</td>
+                            <td>South Africa</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal"
+                                   data-Plat-No="Apz1252z"
+                                   data-Class="Bus-ts"
+                                   data-Color="Red"
+                                   data-Description="Ac Bus"
+                                   data-State="TN"
+                                   data-Country="South Africa"
+                                   data-Start-Date="12 July 2017:11:06Am"
+                                   data-End-Date="12 July 2017:11:06Am"
+                                   data-target="#myModal"
+                                   (click)="editRecord($event)"></a> </td>
+                            <td><p class="glyphicon glyphicon-remove"></p> </td>
+                          </tr>
+                          <tr>
+                            <td>Apz1252z</td>
+                            <td>Bus-ts</td>
+                            <td>Red</td>
+                            <td>Ac Bus</td>
+                            <td>TN</td>
+                            <td>South Africa</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal"
+                                   data-Plat-No="Apz1252z"
+                                   data-Class="Bus-ts"
+                                   data-Color="Red"
+                                   data-Description="Ac Bus"
+                                   data-State="TN"
+                                   data-Country="South Africa"
+                                   data-Start-Date="12 July 2017:11:06Am"
+                                   data-End-Date="12 July 2017:11:06Am"
+                                   data-target="#myModal"
+                                   (click)="editRecord($event)"></a> </td>
+                            <td><p class="glyphicon glyphicon-remove"></p> </td>
+                          </tr>
+                          <tr>
+                            <td>Apz1252z</td>
+                            <td>Bus-ts</td>
+                            <td>Red</td>
+                            <td>Ac Bus</td>
+                            <td>TN</td>
+                            <td>South Africa</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal"
+                                   data-Plat-No="Apz1252z"
+                                   data-Class="Bus-ts"
+                                   data-Color="Red"
+                                   data-Description="Ac Bus"
+                                   data-State="TN"
+                                   data-Country="South Africa"
+                                   data-Start-Date="12 July 2017:11:06Am"
+                                   data-End-Date="12 July 2017:11:06Am"
+                                   data-target="#myModal"
+                                   (click)="editRecord($event)"></a> </td>
+                            <td><p class="glyphicon glyphicon-remove"></p> </td>
+                          </tr>
+                          <tr>
+                            <td>Apz1252z</td>
+                            <td>Bus-ts</td>
+                            <td>Red</td>
+                            <td>Ac Bus</td>
+                            <td>TN</td>
+                            <td>South Africa</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td>12 July 2017:11:06Am</td>
+                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal"
+                                   data-Plat-No="Apz1252z"
+                                   data-Class="Bus-ts"
+                                   data-Color="Red"
+                                   data-Description="Ac Bus"
+                                   data-State="TN"
+                                   data-Country="South Africa"
+                                   data-Start-Date="12 July 2017:11:06Am"
+                                   data-End-Date="12 July 2017:11:06Am"
+                                   data-target="#myModal"
+                                   (click)="editRecord($event)"></a> </td>
+                            <td><p class="glyphicon glyphicon-remove"></p> </td>
+                          </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" >
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="col-lg-3">
+                        <select class="form-control" placeholder="Records"  name="records" ngModel>
+                          <option label="Records" disabled selected="selected" value=""></option>
+                          <option>5</option>
+                          <option>10</option>
+                          <option>15</option>
+                          <option>20</option>
+                          <option>25</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-3">Per Page</div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <a class="btn btn-primary btnPrevious" >Account Information</a>
+                  </div>
+
+                  <div class="col-md-1" align="right">
+                    <a class="btn btn-primary btnNext" >Additional Information</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </form>
+
+
+        <!-- /.row -->
+      </div>
+
+    </div>
+    <div class="tab-pane" id="5a">
+      <div id="page-wrapper">
+        <div class="row">
+          <!--<div class="col-lg-12">
+            <h1 class="page-header">Employee Form</h1>
+          </div>-->
+          <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <form role="form" #userForm="ngForm"
+              (ngSubmit) ='saveAdditionalInformation(userForm.value)'>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  Additional Information
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Friendship Reward Account No."  name="friendshipRewardAccountNo" ngModel>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control" placeholder="Statement Delivery Option"  name="statementDeliveryOption" ngModel>
+                          <option label="Statement Delivery Option" disabled selected="selected" value=""></option>
+                          <option>Post</option>
+                          <option>Email</option>
+                          <option>Courier</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- /.col-lg-6 (nested) -->
+                    <div class="col-lg-6">
+                      <div class="form-group">
+
+                        <select class="form-control" placeholder="How did you hear about us?"  name="howDidYouHearUs" ngModel>
+                          <option label="How did you hear about us?" disabled selected="selected" value=""></option>
+                          <option>SureIt</option>
+                          <option>Facebook</option>
+                          <option>Twitter</option>
+                          <option>Other Website</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control" placeholder="Account Category"  name="accountCategory" ngModel>
+                          <option label="Account Category" disabled selected="selected" value=""></option>
+                          <option>Savings</option>
+                          <option>Current</option>
+                          <option>Demat</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- /.col-lg-6 (nested) -->
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-9" align="right">
+                      <a class="btn btn-primary btnPrevious" >Vehicle Information</a>
+                    </div>
+                    <div class="col-md-1" align="left">
+                      <a class="btn btn-primary btnNext" >Payment Information</a>
+                    </div>
+                  </div>
+                  <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+              </div>
+              <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+          </div>
+        </form>
+        <!-- /.row -->
+      </div>
+    </div>
+
+    <div class="tab-pane " id="6a">
+      <div id="page-wrapper">
+        <div class="row">
+          <!--<div class="col-lg-12">
+            <h1 class="page-header">Employee Form</h1>
+          </div>-->
+          <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <form role="form" #userForm="ngForm"
+              (ngSubmit) ='savePersonal(userForm.value)' class="bgColor">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="panel panel-default">
+
+
+
+                    <div class="panel-group" id="accordion1">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+
+                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1"  class="collase-icon glyphicon glyphicon-chevron-down">
+                            </a>Toll Type
+                          </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                          <ul  class="nav nav-tabs nav-pills">
+                            <li class="active">
+                              <a  href="#postPaid" data-toggle="tab">PostPaid</a>
+                            </li>
+                            <li><a href="#prePaid" data-toggle="tab">PrePaid</a>
+                            </li>
+                          </ul>
+
+                          <div class="tab-content" style="background-color: white">
+                            <div class="tab-pane active scrollit" id="postPaid">
+
+
+                              <!-- /.row -->
+                              <div class="row" style="background-color: #bbbbbb">
+
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Plan Name</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Plan Code</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Tag Required</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Replenishment Amount</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" *ngFor="let selection of Selections">
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <input type="radio" name="radiogroup" ngModel>{{selection.description}}
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    PretToll
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    -
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    For Credit Card is $30.00 and Threshold Amount is $10.00
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                              <div style="background-color: #999999;margin-bottom: 3px;">
+                                Tag Details
+                              </div>
+                              <!-- /.row -->
+                              <div class="row" style="background-color: #bbbbbb">
+
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Protocol</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>No of Tags</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Per Tag Fee ($)</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Per Tag Deposit ($)</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row" *ngFor="let tagDetail of TagDetails">
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    {{tagDetail.protocol}}
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    {{tagDetail.noOftags}}
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    {{tagDetail.perTagFee}}
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    {{tagDetail.perTagDeposit}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-4">
+                                  <div class="form-group">
+                                    <label>Statement Cycle</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <!--<select class="form-control" placeholder="Statement Cycle"  name="statementCycle" ngModel>
+                                      <option>Monthly</option>
+                                      <option>Quarterly</option>
+                                      <option>Half-Yearly</option>
+                                      <option>Annually</option>
+                                    </select>-->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-4">
+                                  <div class="form-group">
+                                    <label>Tag Delivery Method</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <select class="form-control" placeholder="Tag Delivery Method"  name="tagDeliverMethod" ngModel>
+                                      <option>Shipment by Post</option>
+                                      <option>Email</option>
+                                      <option>Shipment by Courier</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row" style="background-color: #bbbbbb">
+
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Service Type</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Description</label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Amount ($)</label>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row" *ngFor="let service of ServiceType">
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    {{service.description}}
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    US Mail Service
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    2.00
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <div class="panel-heading" >
+                                <div style="background-color: #999999">
+                                  Shipping Address
+                                </div>
+                                <div class="row">
+                                  <div class="col-lg-2" *ngFor="let shipping of shippingAddress">
+                                    <input type="radio" name="Use Existing Address">{{shipping.description}}
+                                  </div>
+                                  <div class="col-lg-2" *ngFor="let address of addressSelection">
+                                    <input type="radio" name="Use Existing Address">{{address.description}}
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+
+                            <div class="tab-pane" id="prePaid">
+
+
+                              <!-- /.row -->
+                              <form role="form" #userForm="ngForm" class="bgColor"
+                                    (ngSubmit) ='savePersonal(userForm.value)'>
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                      <div style="background-color: #999999">
+                                        PrePaid
+                                      </div>
+                                      <div class="panel-body">
+                                        <div class="row">
+
+                                          <div class="col-lg-6">
+                                            <div class="form-group">
+                                              <label>Plat No</label>
+                                              <input class="form-control" placeholder="Plat No"  name="platNo" ngModel>
+                                            </div>
+
+                                            <div class="form-group">
+                                              <label>Class</label>
+                                              <input class="form-control" placeholder="Class"  name="class" ngModel>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                </div>
+                              </form>
+                            </div>
+
+
+
+
+
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+
+                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse2"  class="collase-icon glyphicon glyphicon-chevron-down">
+                            </a>Billing Address
+                          </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <form>
+                              <div class="row">
+
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Same As Shipping Address
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Use An Exsting Address
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Add New Address
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse3"  class="collase-icon glyphicon glyphicon-chevron-down">
+                            </a>Payment
+                          </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <form>
+                              <div class="row">
+
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Credit Card
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Bank Account
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Check
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Cash
+                                    </label>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label>Card Type</label>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <select class="form-control"  placeholder="Account Type"  name="accountType" ngModel>
+                                      <option>1</option>
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <label>Card No:</label>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder=""  name="class" ngModel>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder=""  name="class" ngModel>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder=""  name="class" ngModel>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder=""  name="class" ngModel>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                              <div class="row">
+
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label>Name On Card:</label>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder="Class"  name="class" ngModel>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label>Expiry Date</label>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+
+                                    <select class="form-control"  placeholder="Account Type"  name="accountType" ngModel>
+                                      <option>1</option>
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                  <div class="form-group">
+
+                                    <select class="form-control"  placeholder="Account Type"  name="accountType" ngModel>
+                                      <option>1</option>
+                                      <option>1</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </form>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.panel-body -->
+                  </div>
+                  <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+              </div>
+              <div class="row">
+                <div class="col-md-9">
+                  <a class="btn btn-primary btnPrevious" >Additional Information</a>
+                </div>
+
+                <div class="col-md-1" align="right">
+                  <a class="btn btn-primary" >Submit</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <form role="form" #userForm="ngForm" class="bgColor"
+                    (ngSubmit) ='savePersonal(userForm.value)'>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="panel panel-default">
+                      <div style="background-color: #999999">
+                        Amount Summary Information
+                      </div>
+                      <div class="panel-body">
+                        <form>
+                          <div class="row">
+
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label>
+                                  Description
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label>
+                                  Amount
+                                </label>
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
+
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                {{summaryDetails.description}}
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                {{summaryDetails.amount}}
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              Need help
+                              <ul>
+                                <li><a href="www.sureitinc.com">Shipping</a> </li>
+                                <li><a href="www.sureitinc.com">Contact Us</a> </li>
+                              </ul>
+
+                              Accepted Payment Methods<br>
+
+                              <img src="./../../assets/icons/credit-cards-logos_orig.png" width="250">
+                            </div>
+                            <!-- /.panel-body -->
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              Note
+                              <ul>
+                                <li>Service Tax 10% Applied on Tag Fee</li>
+                                <li>Service Tax 2% Applied on Credit Card Payment</li>
+                              </ul>
+                            </div>
+                            <!-- /.panel-body -->
+                          </div>
+
+
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </form>
+        <!-- /.row -->
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Vehicle Information</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form"
+              (ngSubmit) ='updateUser(form.value)'>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+
+                <div class="panel-body">
+                  <div class="row">
+
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input  class="form-control" placeholder="Plate Number"  name="plateNumber" formControlName="platNo">
+                      </div>
+
+                      <div class="form-group">
+                        <!--<select class="form-control" placeholder="Year"  name="year" formControlName="year">
+                          <option label="Year" disabled selected="selected" value="">{{year}}</option>
+                          <option>2017</option>
+                          <option>2016</option>
+                          <option>2015</option>
+                          <option>2014</option>
+                          <option>2013</option>
+                        </select>-->
+                      </div>
+                      <div class="form-group">
+                        <!--<select class="form-control" placeholder="Model"  name="model" formControlName="model">
+                          <option label="Model" disabled selected="selected" value=""></option>
+                          <option>Model1</option>
+                          <option>Model2</option>
+                          <option>Model3</option>
+                        </select>-->
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control" placeholder="Registered Country"  name="country" formControlName="country">
+                          <option label="Registered Country" disabled selected="selected" value=""></option>
+                          <option>India</option>
+                          <option>USA</option>
+                        </select>
+
+                      </div>
+
+                      <div class="form-group">
+                        <date-picker    placeholder="Start Effective Date"
+                                        [showClearButton]="false" name="startEffectiveDate" id="startEffectiveDate" ></date-picker>
+                      </div>
+                    </div>
+                    <!-- /.col-lg-6 (nested) -->
+                    <div class="col-lg-6">
+
+                      <div class="form-group">
+                        <input class="form-control" placeholder="Class"  name="class" formControlName="class">
+                      </div>
+
+                      <div class="form-group">
+
+                        <!--<select class="form-control" placeholder="Make"  name="make" formControlName="make">
+                          <option label="Make" disabled selected="selected" value=""></option>
+                          <option>Make1</option>
+                          <option>Make2</option>
+                          <option>Make3</option>
+                        </select>-->
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control" placeholder="Color"  name="color" formControlName="color">
+                          <option label="Color" disabled selected="selected" value=""></option>
+                          <option>Blue</option>
+                          <option>Gray</option>
+                          <option>White</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control" placeholder="Registered State"  name="gender" formControlName="state">
+                          <option label="Registered State" disabled selected="selected" value=""></option>
+                          <option>State1</option>
+                          <option>State2</option>
+                        </select>
+                      </div>
+
+
+                      <div class="form-group">
+                        <date-picker   name="date" placeholder="End Effective Date"  name="endEffectiveDate"
+                                       [showClearButton]="false" formControlName="endEffectiveDate"></date-picker>
+                      </div>
+                    </div>
+                    <!-- /.col-lg-6 (nested) -->
+
+                  </div>
+
+                  <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+              </div>
+              <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-2">
+              <a class="btn btn-primary btnPrevious" >Reset</a>
+            </div>
+            <div class="col-md-2">
+              <a class="btn btn-primary btnPrevious" >Cancel</a>
+            </div>
+            <div class="col-md-2">
+              <input type="submit" class="btn btn-primary"  value="Update"/>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  <script>
+  </script>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TollPlus</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="./assets/countries.js"></script>
+</head>
+<body style="background-color: #ebebeb !important;">
+  <app-root></app-root>
+</body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $(".dropdown").hover(
+      function() {
+        $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+        $(this).toggleClass('open');
+      },
+      function() {
+        $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+        $(this).toggleClass('open');
+      });
+
+
+
+
+
+
+
+  });
+
+</script>

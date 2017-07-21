@@ -1,0 +1,169 @@
+<body style="background-color: #ebebeb !important;">
+<nav class="navbar" [hidden]="!isLogin">
+
+  <ul class="nav navbar-nav">
+
+    <li class="col-md-1"></li>
+    <li class="col-md-2"><img src="../assets/icons/TollPlus_logo.png"  ></li>
+    <li class="col-md-2"></li>
+    <li class="col-md-3">
+      <div class="input-group add-on" >
+        <input type="text" class="form-control"  placeholder="Search" name="srch-term" id="srch-term">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
+
+    </li>
+
+    <li ><a><img src="../assets/icons/notifications.png"  ></a></li>
+    <li  ><a><img src="../assets/icons/settings.png"  ></a></li>
+
+    <li class="col-sm-1"><img src="../assets/icons/IMG_4116_1.jpg"  id="circle">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="caret"></span></a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+
+</nav>
+<div class="container">
+  <nav class="navbar navbar-inverse " [hidden]="!isLogin">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div>
+
+    <div class="collapse navbar-collapse js-navbar-collapse Primary-Navigation-BG">
+      <ul class="nav navbar-nav">
+        <li class="col-sm-1"><a><img src="../assets/icons/csc.png"  i18n>CSC</a></li>
+        <li class="col-sm-1"><a><img src="../assets/icons/sac.png"  i18n>SAC</a></li>
+        <li class="dropdown mega-dropdown col-sm-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" i18n>
+            <img src="../assets/icons/imc.png"  >IMC</a>
+
+          <ul class="dropdown-menu mega-dropdown-menu">
+
+            <li class="col-sm-3 megawidthauto" >
+              <ul>
+                <li class="dropdown-header Rectangle" >Features</li>
+                <li><a href="#">Auto Carousel</a></li>
+                <li><a href="#">Carousel Control</a></li>
+                <li><a href="#">Left & Right Navigation</a></li>
+                <li><a href="#">Four Columns Grid</a></li>
+                <li class="divider"></li>
+
+              </ul>
+            </li>
+            <li class="col-sm-3 megawidthauto">
+              <ul>
+                <li class="dropdown-header Rectangle">Plus</li>
+                <li><a href="#">Navbar Inverse</a></li>
+                <li><a href="#">Pull Right Elements</a></li>
+                <li><a href="#">Coloured Headers</a></li>
+                <li><a href="#">Primary Buttons & Default</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3 megawidthauto">
+              <ul>
+                <li class="dropdown-header Rectangle">Much more</li>
+                <li><a href="#">Easy to Customize</a></li>
+                <li><a href="#">Calls to action</a></li>
+                <li><a href="#">Custom Fonts</a></li>
+                <li><a href="#">Slide down on Hover</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown mega-dropdown col-sm-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/icons/tvc.png"  >TVC</a>
+
+          <ul class="dropdown-menu mega-dropdown-menu">
+            <li class="col-sm-3">
+              <ul>
+                <li class="dropdown-header Rectangle megawidthauto">Features</li>
+                <li><a routerLink="getEmployeeList">Get Employee List</a></li>
+                <li><a routerLink="product">Product</a></li>
+                <li><a routerLink="modelDriven">CSC</a></li>
+                <li><a href="#">Carousel Control</a></li>
+                <li><a href="#">Left & Right Navigation</a></li>
+                <li><a href="#">Four Columns Grid</a></li>
+                <li class="divider"></li>
+
+
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li class="dropdown-header Rectangle megawidthauto">Plus</li>
+                <li><a href="#">Navbar Inverse</a></li>
+                <li><a href="#">Pull Right Elements</a></li>
+                <li><a href="#">Coloured Headers</a></li>
+                <li><a href="#">Primary Buttons & Default</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li class="dropdown-header Rectangle megawidthauto">Much more</li>
+                <li><a href="#">Easy to Customize</a></li>
+                <li><a href="#">Calls to action</a></li>
+                <li><a href="#">Custom Fonts</a></li>
+                <li><a href="#">Slide down on Hover</a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <ul>
+                <li class="dropdown-header Rectangle megawidthauto">Women Collection</li>
+                <!-- /.carousel -->
+                <li class="divider"></li>
+                <li><a href="#">View all Collection <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="col-sm-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/icons/fmc.png"  >FMC</a>
+        </li>
+        <li class="col-sm-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/icons/rpc.png"  >RPC</a>
+        </li>
+        <li class="col-sm-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/icons/court.png"  >COURT</a>
+        </li>
+        <li class="col-sm-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/icons/count_out.png"  >COUNTOUT</a>
+        </li>
+      </ul>
+      <!--<span class="caret"></span>-->
+      <!--<ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My account <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+        <li><a href="#">LogOut</a></li>
+      </ul>-->
+    </div><!-- /.nav-collapse -->
+  </nav>
+  <breadcrumb [hidden]="!isLogin"></breadcrumb>
+  <router-outlet></router-outlet>
+  <footer class="navbar-fixed-bottom" style="background-color: #ebebeb !important;">
+    <p class="text-muted" align="center">This is a footer</p>
+  </footer>
+</div>
+</body>
+
+
