@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit=function(userInfo){
-    console.log("user "+userInfo);
+    /*console.log("user "+userInfo);
 this.loginService.validateLogin(userInfo.emailAddress).subscribe(
 
   (value) => {
@@ -35,7 +35,8 @@ this.loginService.validateLogin(userInfo.emailAddress).subscribe(
     }
 
   }
-);
+);*/
+    this.router.navigateByUrl('createaccount');
   }
 
 }
