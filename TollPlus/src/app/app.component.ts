@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {MyDataService} from './my-data.service';
 import{Response} from '@angular/http';
-import $ from 'jquery';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',

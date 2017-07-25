@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MyDataService} from './../my-data.service';
 import {FormGroup, FormControl, NgModelGroup,Validators} from '@angular/forms';
 import {AppComponent} from './../app.component';
-import $ from 'jquery';
+import * as $ from 'jquery';
 declare var populateCountries: any;
 
 @Component({
@@ -282,7 +282,7 @@ export class CreateacoountComponent implements OnInit {
     });
     var startDate=item.currentTarget.getAttribute("data-Start-Date");
 
-    $("#startEffectiveDate").value(startDate);
+    $("#startEffectiveDate").val(startDate);
 
 
 
