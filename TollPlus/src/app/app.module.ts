@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import {MyDataService} from './my-data.service';
 import { LoginComponent } from './login/login.component';
 import {LoginService} from './login.service';
-import {DatePickerModule} from 'angular-io-datepicker';
 import {} from 'ng';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { RootComponent } from "./root/root.component";
@@ -40,7 +39,6 @@ import { SignupComponent } from "./signup/signup.component";
     routing,
     BrowserModule,
     FormsModule,
-    DatePickerModule,
     HttpModule,
     FileDropModule,
     ReactiveFormsModule

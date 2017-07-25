@@ -110,7 +110,7 @@ ul.nav-wizard li a:hover {
 ul.nav-wizard li:before {
   position: absolute;
   display: block;
-  border: 24px solid transparent;
+  border: 20px solid transparent;
   border-left: 16px solid #337ab7;
   border-right: 0;
   top: -1px;
@@ -121,7 +121,7 @@ ul.nav-wizard li:before {
 ul.nav-wizard li:after {
   position: absolute;
   display: block;
-  border: 24px solid transparent;
+  border: 20px solid transparent;
   border-left: 16px solid #ebebeb;
   border-right: 0;
   top: -1px;
@@ -210,4 +210,5 @@ ul.breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
 }
+
 

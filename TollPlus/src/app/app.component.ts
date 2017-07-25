@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MyDataService} from './my-data.service';
 import{Response} from '@angular/http';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,15 @@ export class AppComponent {
   constructor(private newService:MyDataService){}
   isLogin:boolean;
   ngOnInit() {
+
+    $(document) .ready(function(){
+
+
+
+    });
+
+
+
     this.isLogin = this.newService.getLogin();
     console.log("from componenet isLogin " + this.isLogin);
   }
