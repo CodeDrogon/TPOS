@@ -1,0 +1,24 @@
+.breadcrumb {
+  padding: 8px 15px;
+  margin-bottom: 0px !important;
+  list-style: none;
+  background-color: #ebebeb !important;
+  border-radius: 4px;
+}
+
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: ">" !important;
+}
+
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: ">" !important;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: ">" !important;
+}
