@@ -33,7 +33,7 @@ export class CreateacoountComponent implements OnInit {
 
     $(document).ready(function() {
 
-
+$('.datepicker').css({"z-index":"5000"});
 
       $('.collapse').on('shown.bs.collapse', function(){
         $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
