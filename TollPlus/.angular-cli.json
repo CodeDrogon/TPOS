@@ -22,14 +22,11 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/bootstrap/dist/css/bootstrap-theme.css",
-        "../node_modules/air-datepicker/dist/css/datepicker.min.css",
         "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js",
-        "../node_modules/air-datepicker/dist/js/datepicker.min.js",
-        "../node_modules/air-datepicker/dist/js/i18n/datepicker.en.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
