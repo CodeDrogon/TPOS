@@ -2,7 +2,7 @@ import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from  './login/login.component';
 import { RootComponent } from "./root/root.component";
-import {CreateacoountComponent} from "./createacoount/createacoount.component";
+import {CreateaccountComponent} from "./createaccount/createaccount.component";
 import { AppComponent } from './app.component';
 import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
@@ -40,7 +40,7 @@ const routes: Routes = [
 
       {
         path: 'createaccount',
-        component:CreateacoountComponent,
+        component:CreateaccountComponent,
         data: {
           breadcrumb: "CSC > Create Account ",
           main:"true"

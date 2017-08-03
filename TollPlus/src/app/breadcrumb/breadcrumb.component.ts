@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from "@angular/router";
 import "rxjs/add/operator/filter";
 import { routing } from ".././app.routing.module";
-import {MyDataService} from './../my-data.service';
 
 @Component({
   selector: "breadcrumb",
@@ -16,8 +15,8 @@ export class  BreadcrumbComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private myDataService:MyDataService,
+    private router: Router
+
 
   ) {
 

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MyDataService} from './my-data.service';
 import{Response} from '@angular/http';
 import * as $ from 'jquery';
 
@@ -10,7 +9,7 @@ import * as $ from 'jquery';
 })
 export class AppComponent {
   title = 'app';
-  constructor(private newService:MyDataService){}
+  constructor(){}
   isLogin:boolean;
   ngOnInit() {
 
@@ -22,7 +21,7 @@ export class AppComponent {
 
 
 
-    this.isLogin = this.newService.getLogin();
+
     console.log("from componenet isLogin " + this.isLogin);
   }
 }

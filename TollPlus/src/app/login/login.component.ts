@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from './../login.service';
-import {MyDataService} from './../my-data.service';
+import {LoginService} from '../services/login.service';
 import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
@@ -9,7 +8,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService:LoginService,private myDataService:MyDataService,private router:Router) { }
+  constructor(private loginService:LoginService,private router:Router) { }
   isLogin:boolean=false;
   ngOnInit() {
     console.log("login component ")

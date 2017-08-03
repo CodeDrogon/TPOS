@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<testsuite name="Edge 15.15063.0 (Windows 10 0.0.0)" package="unit" timestamp="2017-07-31T13:31:31" id="0" hostname="Sureit-D1" tests="3" errors="1" failures="0" time="0">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063"/>
+  </properties>
+  <system-out>
+    <![CDATA[Edge 15.15063.0 (Windows 10 0.0.0) ERROR
+  Disconnected, because no message in 10000 ms.
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
