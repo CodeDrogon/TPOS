@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import { Headers, RequestOptions } from '@angular/http';
-import $ from 'jquery';
+import * as $ from 'jquery';
 @Injectable()
 export class TollPlusHttpService {
 
