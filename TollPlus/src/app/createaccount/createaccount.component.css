@@ -310,3 +310,14 @@ ul.breadcrumb li a:hover {
   border-radius: 6px;
   background-color: #438dcc
 }
+.panel-title{
+  word-spacing: -12px !important;
+}
+
+.anchor-no-underline{
+  text-decoration: none !important
+}
+.badge{
+  padding: 4px 7px 4px 7px !important;
+  background-color: #015db1
+}
