@@ -1,12 +1,13 @@
 .left-inner-addon {
   position: relative;
+  color: darkred !important;
 }
 .left-inner-addon input {
-  padding-left: 30px;
+  padding-left: 17px;
 }
 .left-inner-addon i {
   position: absolute;
-  padding: 10px 12px;
+  padding: 10px 7px;
   pointer-events: none;
 }
 #tooltip:after{
@@ -322,10 +323,6 @@ ul.breadcrumb li a:hover {
   background-color: #015db1
 }
 
-.icon-user{
-  color: darkred;
-}
-
 #addressInputField1  {
   width: 95.666667% !important;
 }
@@ -341,3 +338,8 @@ ul.breadcrumb li a:hover {
 #addressSpantooltip2 {
   width: 4.333333% !important;
 }
+
+.form-control {
+  color: #999999;
+}
+
