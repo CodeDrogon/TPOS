@@ -1,5 +1,6 @@
 <!--<a routerLink="/signin" class="btn btn-block btn-primary">Sign In</a>
 <a routerLink="/signup" class="btn btn-block btn-primary">Sign Up</a>-->
+Account Information
 <div id="exTab1" class="container">
   <ul class="nav nav-tabs nav-pills nav-wizard ">
     <li class="active">
@@ -66,7 +67,7 @@
                               <div class="tooltip1">
                                 <span class="tooltipbadge">?</span>
 
-                                <span class="tooltiptext1">Please select Customer Type</span>
+                                <span class="tooltiptext1">Please Select Customer Type</span>
                               </div>
                             </div>
                           </div>
@@ -86,7 +87,7 @@
                             <div class="col-lg-1">
                               <div class="tooltip1">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1">Please select Title</span>
+                                <span class="tooltiptext1">Please Select Title</span>
                               </div>
                             </div>
                           </div>
@@ -103,8 +104,8 @@
                             <div class="col-lg-1">
                               <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['first_Name'].invalid && user_Form.controls['first_Name'].touched}">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['first_Name'].valid && user_Form.controls['first_Name'].touched}">please enter first name</span>
-                                <div *ngIf="user_Form.controls['first_Name'].hasError('required') && user_Form.controls['first_Name'].touched && user_Form.controls['first_Name'].invalid" class="tooltiptext1">first name is mandatory</div>
+                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['first_Name'].valid && user_Form.controls['first_Name'].touched}">Please Enter First Name</span>
+                                <div *ngIf="user_Form.controls['first_Name'].hasError('required') && user_Form.controls['first_Name'].touched && user_Form.controls['first_Name'].invalid" class="tooltiptext1">First Name Is Mandatory</div>
                               </div>
                             </div>
                           </div>
@@ -120,8 +121,8 @@
                             <div class="col-lg-1">
                               <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['last_Name'].invalid && user_Form.controls['last_Name'].touched}">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['last_Name'].valid && user_Form.controls['last_Name'].touched}">please enter last name</span>
-                                <div *ngIf="user_Form.controls['last_Name'].hasError('required') && user_Form.controls['last_Name'].touched && user_Form.controls['last_Name'].invalid" class="tooltiptext1">last name is mandatory.</div>
+                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['last_Name'].valid && user_Form.controls['last_Name'].touched}">Please Enter Last Name</span>
+                                <div *ngIf="user_Form.controls['last_Name'].hasError('required') && user_Form.controls['last_Name'].touched && user_Form.controls['last_Name'].invalid" class="tooltiptext1">Last Name Is Mandatory.</div>
                               </div>
                             </div>
                           </div>
@@ -145,7 +146,7 @@
                             <div class="col-lg-1">
                               <div class="tooltip1">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1">please select business name</span>
+                                <span class="tooltiptext1">Please Select Business Name</span>
                               </div>
                             </div>
                           </div>
@@ -165,7 +166,7 @@
                             <div class="col-lg-1">
                               <div class="tooltip1">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1">please select business name</span>
+                                <span class="tooltiptext1">Please Select Suffix</span>
                               </div>
                             </div>
                           </div>
@@ -180,10 +181,9 @@
                               </div>
                             </div>
                             <div class="col-lg-1">
-                              <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['middle_Name'].invalid && user_Form.controls['middle_Name'].touched}">
+                              <div class="tooltip1">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['middle_Name'].valid && user_Form.controls['middle_Name'].touched}">please enter valid middle name</span>
-                                <div *ngIf="user_Form.controls['middle_Name'].hasError('required') && user_Form.controls['middle_Name'].touched && user_Form.controls['middle_Name'].invalid" class="tooltiptext1">middle name is mandatory</div>
+                                <span class="tooltiptext1">Please Enter Middle Name</span>
                               </div>
                             </div>
                           </div>
@@ -205,7 +205,7 @@
                                   <div class="col-lg-1">
                                     <div class="tooltip1">
                                       <span class="tooltipbadge">?</span>
-                                      <span class="tooltiptext1">please select gender</span>
+                                      <span class="tooltiptext1">Please Select Gender</span>
                                     </div>
                                   </div>
                                 </div>
@@ -221,10 +221,9 @@
                                     </div>
                                   </div>
                                   <div class="col-lg-1">
-                                    <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['date_Of_Birth'].invalid && user_Form.controls['date_Of_Birth'].touched}">
+                                    <div class="tooltip1">
                                       <span class="tooltipbadge">?</span>
-                                      <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['date_Of_Birth'].valid && user_Form.controls['date_Of_Birth'].touched}">please enter valid date of birth</span>
-                                      <div *ngIf="user_Form.controls['date_Of_Birth'].hasError('required') && user_Form.controls['date_Of_Birth'].touched && user_Form.controls['date_Of_Birth'].invalid" class="tooltiptext1">Date of birth is mandatory</div>
+                                      <span class="tooltiptext1">Please Select Date Of Birth</span>
                                     </div>
                                   </div>
                                 </div>
@@ -274,30 +273,36 @@
                           <div class="row">
                             <div class="col-lg-6">
                               <div class="row">
-                                <div class="col-lg-11">
+                                <div class="col-lg-8">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
-                                      <input class="form-control" placeholder="Primary Email" name="primary_Email" [formControl]="user_Form.controls['primary_Email']">
+                                      <input class="form-control"  placeholder="Primary Email"  name="primary_Email"
+                                             [formControl]="user_Form.controls['primary_Email']" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].touched}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].touched,
+                                  'has-danger': user_Form.controls.primary_Email.invalid && user_Form.controls.primary_Email.dirty,
+                                  'has-success': user_Form.controls.primary_Email.valid && user_Form.controls.primary_Email.dirty}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['primary_Email'].valid && user_Form.controls['primary_Email'].touched}">please enter valid primary email</span>
-                                    <div *ngIf="user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">primary email is mandatory</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].valid && user_Form.controls['primary_Email'].pristine}">Please Enter Email Address</span>
+                                    <div *ngIf="user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched" class="tooltiptext1">Email is Mandatory.</div>
+                                    <div *ngIf="user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].dirty" class="tooltiptext1">Email is invalid</div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred" >Is Preferred?
                                   </div>
                                 </div>
                               </div>
-                              <!--<div class="form-group" [ngClass]="{'has-error': user_Form.controls['first_Name'].invalid && user_Form.controls['first_Name'].touched}">
-                                <input class="form-control" placeholder="Primary Email"  name="primaryEmail" >
-                              </div>-->
                             </div>
                             <div class="col-lg-6">
                               <div class="row">
-                                <div class="col-lg-11">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].touched}">
+                                <div class="col-lg-8">
+                                  <div class="form-group" >
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
                                       <input class="form-control" placeholder="Secondary Email" name="secondary_Email" [formControl]="user_Form.controls['secondary_Email']">
@@ -305,28 +310,29 @@
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].touched}">
+                                  <div class="tooltip1">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['secondary_Email'].valid && user_Form.controls['secondary_Email'].touched}">please enter valid secondary email</span>
-                                    <div *ngIf="user_Form.controls['secondary_Email'].hasError('required') && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid" class="tooltiptext1">secondary email is mandatory</div>
+                                    <span class="tooltiptext1">Please Enter Secondary Email</span>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input type="radio" name="secondaryEmailIsPreferred" value="secondaryEmailIsPreferred" >Is Preferred?
                                   </div>
                                 </div>
                               </div>
-                              <!--<div class="form-group">
-                                <input class="form-control" placeholder="Secondary Email"  name="secondaryEmail" >
-                              </div>-->
                             </div>
                           </div>
                         </div>
                         <hr/>
                         <div class="panel-body">
                           <div class="row">
-
-
                             <div class="col-lg-6">
                               <div class="row">
-                                <div class="col-lg-11">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched}">
+                                <div class="col-lg-8">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched,
+                                  'has-danger': user_Form.controls.day_Phone_Number.invalid && user_Form.controls.day_Phone_Number.dirty,
+                                  'has-success': user_Form.controls.day_Phone_Number.valid && user_Form.controls.day_Phone_Number.dirty }">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
                                       <input class="form-control" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']">
@@ -334,10 +340,16 @@
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].dirty}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['day_Phone_Number'].valid && user_Form.controls['day_Phone_Number'].touched}">please enter valid phone number</span>
-                                    <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">phone number is mandatory</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['day_Phone_Number'].valid && user_Form.controls['day_Phone_Number'].touched && !user_Form.controls['day_Phone_Number'].dirty}">Please Enter Day Phone Number</span>
+                                    <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched" class="tooltiptext1">Day Phone Number Is Mandatory</div>
+                                    <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input type="radio" name="dayPhoneIsPreferred" value="dayPhoneIsPreferred" >Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -345,8 +357,37 @@
                               <!--<div class="form-group">
                                 <input class="form-control" placeholder="Enter text" placeholder="Day Phone Number"  name="dayPhone" >
                               </div>-->
+
+
+
+
+                            </div>
+                            <div class="col-lg-6">
                               <div class="row">
-                                <div class="col-lg-11">
+                                <div class="col-lg-8">
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder="Evening Phone Number" name="eveningPhone" formControlName="eveningPhone">
+                                  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                  <div class="tooltip1">
+                                    <span class="tooltipbadge">?</span>
+                                    <span class="tooltiptext1">Please Enter Evening Phone Number</span>
+                                  </div>
+
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input type="radio" name="eveningPhoneIsPreferred" value="eveningPhoneIsPreferred" >Is Preferred?
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="row">
+                                <div class="col-lg-8">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
@@ -361,14 +402,51 @@
                                     <div *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile number is mandatory</div>
                                   </div>
                                 </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input type="radio" name="mobilePhoneIsPreferred" value="mobilePhoneIsPreferred" >Is Preferred?
+                                  </div>
+                                </div>
                               </div>
-
+                            </div>
+                            <div class="col-lg-6">
                               <div class="row">
-                                <div class="col-lg-11">
+                                <div class="col-lg-5">
+                                  <input class="form-control" placeholder="Work Phone Number" name="workPhone" formControlName="workPhone">
+                                </div>
+                                <div class="col-lg-1">
+                                  <div class="tooltip1">
+                                    <span class="tooltipbadge">?</span>
+                                    <span class="tooltiptext1">Please Enter Work Phone Number</span>
+                                  </div>
+
+                                </div>
+                                <div class="col-lg-2">
+                                  <input class="form-control" placeholder="Ext" name="ext" formControlName="ext">
+                                </div>
+                                <div class="col-lg-1">
+                                  <div class="tooltip1">
+                                    <span class="tooltipbadge">?</span>
+                                    <span class="tooltiptext1">Please Enter Ext</span>
+                                  </div>
+
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred" >Is Preferred?
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="row">
+                                <div class="col-lg-8">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['fax'].invalid && user_Form.controls['fax'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
-                                      <input class="form-control" placeholder="Middle Fax" name="fax" [formControl]="user_Form.controls['fax']">
+                                      <input class="form-control" placeholder="Fax" name="fax" [formControl]="user_Form.controls['fax']">
                                     </div>
                                   </div>
                                 </div>
@@ -380,172 +458,293 @@
                                   </div>
                                 </div>
                               </div>
-
                             </div>
-                            <div class="col-lg-6">
-                              <div class="row">
-                                <div class="col-lg-11">
-                                  <div class="form-group">
-                                    <input class="form-control" placeholder="Evening Phone Number" name="eveningPhone" formControlName="eveningPhone">
-                                  </div>
-                                </div>
-                                <div class="col-lg-1">
-
-                                  <span class="tooltipbadge">?</span>
-                                </div>
-                              </div>
-
-                              <div class="form-group">
-                                <div class="row">
-                                  <div class="col-lg-6">
-                                    <input class="form-control" placeholder="Work Phone Number" name="workPhone" formControlName="workPhone">
-                                  </div>
-                                  <div class="col-lg-5">
-                                    <input class="form-control" placeholder="Ext" name="ext" formControlName="ext">
-                                  </div>
-                                  <div class="col-lg-1">
-
-                                    <span class="tooltipbadge">?</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- /.col-lg-6 (nested) -->
-
-
-
-                            <!-- /.col-lg-6 (nested) -->
-
                           </div>
-                          <!-- /.row (nested) -->
+
                         </div>
                         <hr/>
                         <div class="panel-body">
                           <div class="row">
-                            <!-- /.col-lg-6 (nested) -->
+                            <div class="col-lg-12">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group">
+                                        <select class="form-control" name="country" formControlName="country" id="countryId" (change)="getStates()">
+                                          <option value="" disabled>Country</option>
+                                          <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1">Please Select Country</span>
+                                      </div>
 
+                                    </div>
+                                  </div>
 
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="form-group">
-                                  <select class="form-control" name="country" formControlName="country" id="countryId" (change)="getStates()">
-                                    <option value="" disabled>Select Country</option>
-                                    <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
-                                  </select>
                                 </div>
-                                <div class="form-group">
-                                  <input class="form-control" placeholder="City" name="city" formControlName="city">
+
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group">
+                                        <select name="state" class="form-control">
+                                          <option value="" disabled>State</option>
+                                          <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1">Please Select State</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <!-- /.col-lg-6 (nested) -->
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group">
+                                        <input class="form-control" placeholder="City" name="city" formControlName="city">
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1">Please Enter City</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+
+                                </div>
+
+                                <div class="col-lg-6">
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-lg-6">
+                                        <div class="row">
+                                          <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Zip1" name="zip1" formControlName="zip1">
+                                          </div>
+                                          <div class="col-lg-1">
+                                            <div class="tooltip1">
+                                              <span class="tooltipbadge">?</span>
+                                              <span class="tooltiptext1">Please Enter Zip1</span>
+                                            </div>
+
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="row">
+                                          <div class="col-lg-10">
+                                            <input class="form-control" placeholder="Zip2" name="zip2" formControlName="zip2">
+                                          </div>
+                                          <div class="col-lg-1">
+                                            <div class="tooltip1">
+                                              <span class="tooltipbadge">?</span>
+                                              <span class="tooltiptext1">Please Enter Zip2</span>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <!-- /.col-lg-6 (nested) -->
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="row">
+                                    <div class="col-lg-11" id="addressInputField1">
+                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['address1'].invalid && user_Form.controls['address1'].touched}">
+                                        <div class="left-inner-addon ">
+                                          <i class="icon-user"></i>
+                                          <input class="form-control" placeholder="Address1" name="address1" [formControl]="user_Form.controls['address1']">
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                      <div class="col-lg-1" id="addressSpantooltip1">
+                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['address1'].invalid && user_Form.controls['address1'].touched && user_Form.controls['address1'].hasError('required')}">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['address1'].touched && !user_Form.controls['address1'].dirty
+                                        && user_Form.controls['address1'].invalid }">Please Enter Address1</span>
+                                        <div *ngIf="user_Form.controls['address1'].hasError('required') && user_Form.controls['address1'].touched && user_Form.controls['address1'].invalid" class="tooltiptext1">Address1 is mandatory</div>
+                                        <div *ngIf="user_Form.controls['address1'].hasError('required') && user_Form.controls['address1'].touched && user_Form.controls['address1'].invalid
+                                                  && user_Form.controls['address1'].dirty" class="tooltiptext1">Address1 is invalid</div>
+                                      </div>
+                                    </div>
+                                  </div>
+
                                 </div>
                               </div>
-
-                              <div class="col-lg-6">
-                                <div class="form-group">
-                                  <select name="state" class="form-control">
-                                    <option value="" disabled>Select State</option>
-                                    <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
-                                  </select>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row" style="padding-top: 0%;">
-                                    <div class="col-lg-6">
-                                      <input class="form-control" placeholder="Zip1" name="zip" formControlName="zip">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="row">
+                                    <div class="col-lg-11" id="addressInputField2">
+                                      <div class="form-group">
+                                        <input class="form-control" placeholder="Address2" name="address2" formControlName="address2">
+                                      </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                      <input class="form-control" placeholder="Zip2" name="zip1" formControlName="zip1">
+                                    <div class="col-lg-1" id="addressSpantooltip2">
+                                      <div class="tooltip1">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1">Please Enter Address2</span>
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group">
+                                        <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" required>
+                                          <option label="Id Proof Type" disabled selected="selected" value=""></option>
+                                          <option *ngFor="let idProof of idProofs" value="{{idProof.key}}">{{idProof.value}}</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1" >
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1" >Please Select Id Proof Type</span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched}">
+                                        <div class="left-inner-addon ">
+                                          <i class="icon-user"></i>
+                                          <input class="form-control" placeholder="Id Proof No." name="idProofNo" [formControl]="user_Form.controls['idProofNo']" formControlName="idProofNo">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].hasError('required')}">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['idProofNo'].valid && user_Form.controls['idProofNo'].touched}">Please Enter Id Proof No.</span>
+                                        <div *ngIf="user_Form.controls['idProofNo'].hasError('required') && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].invalid" class="tooltiptext1">Id Proof Number is mandatory</div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <!-- /.col-lg-6 (nested) -->
-                              <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <div class="form-group">
-                              <input class="form-control" placeholder="Address Line 1" name="addressLine1" formControlName="addressLine1">
-                            </div>
-                            <div class="form-group">
-                              <input class="form-control" placeholder="Address Line 2" name="addressLine2" formControlName="addressLine2">
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="form-group">
+                              <div class="center">
+                                <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                </file-drop>
 
-                                  <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType">
-                                    <option label="Id Proof Type" disabled selected="selected" value=""></option>
-                                    <option *ngFor="let idProof of idProofs" value="{{idProof.key}}">{{idProof.value}}</option>
-                                  </select>
+                                <!--<div class="upload-table">
+                                  <table class="table">
+                                    <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="upload-name-style">
+                                    <tr *ngFor="let item of files; let i=index">
+                                      <td><strong>{{ item.relativePath }}</strong></td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>-->
+                              </div>
+
+                              <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group">
+                                        <select class="form-control" name="addressProof" formControlName="addressProof">
+                                          <option label="Address Proof Type" disabled selected="selected" value=""></option>
+                                          <option *ngFor="let addressProof of addressProofs" value="{{addressProof.key}}">{{addressProof.value}}</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1" >
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1" >Please Select Address Proof Type</span>
+                                      </div>
+                                    </div>
+                                  </div>
+
                                 </div>
                               </div>
-                              <div class="col-lg-6">
-                                <div class="form-group">
+                              <div class="center">
+                                <file-drop headertext="Address Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
 
-                                  <input class="form-control" placeholder="Id Proof No" name="idProofNo" formControlName="idProofNo">
-                                </div>
+                                </file-drop>
+
+                                <!--<div class="upload-table">
+                                  <table class="table">
+                                    <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="upload-name-style">
+                                    <tr *ngFor="let item of files; let i=index">
+                                      <td><strong>{{ item.relativePath }}</strong></td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>-->
                               </div>
-                            </div>
-                            <div class="center">
-                              <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-
-                              </file-drop>
-
-                              <!--<div class="upload-table">
-                                <table class="table">
-                                  <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody class="upload-name-style">
-                                  <tr *ngFor="let item of files; let i=index">
-                                    <td><strong>{{ item.relativePath }}</strong></td>
-                                  </tr>
-                                  </tbody>
-                                </table>
+                             <!-- <div class="form-group">
+                                <label class="control-label">Address Proof</label>
+                                <input id="input-2" type="file" class="file" placeholder="Address Proof " name="addressProof" formControlName="addressProof">
                               </div>-->
-                            </div>
-                            <!--<div class="form-group">
-                              <label class="control-label">ID Proof</label>
-                              <input id="input-1" type="file" class="file" placeholder="Select File"  name="idProof" ngModel>
-                            </div>-->
-                            <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
-                              <div class="col-lg-6">
-                                <select class="form-control" placeholder="Address Proof" name="addressProof" formControlName="addressProof">
-                                  <option label="Address Proof Type" disabled selected="selected" value=""></option>
-                                  <option *ngFor="let addressProof of addressProofs" value="{{addressProof.key}}">{{addressProof.value}}</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="center">
-                              <file-drop headertext="Address Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                              <div class="row" style="padding-top: 2%; padding-bottom: 0%;">
+                                <div class="col-lg-6">
+                                  <div class="row">
+                                    <div class="col-lg-11">
+                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched}">
+                                        <div class="left-inner-addon ">
+                                          <i class="icon-user" *ngIf="user_Form.controls['userName'].hasError('required') && !user_Form.controls['userName'].touched">*</i>
+                                          <input class="form-control" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['userName'].invalid && user_Form.controls['idProofNo'].touched && user_Form.controls['userName'].hasError('required')}">
+                                        <span class="tooltipbadge">?</span>
+                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['userName'].valid && user_Form.controls['userName'].touched}">Please Enter User Name</span>
+                                        <div *ngIf="user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is mandatory</div>
+                                        <div *ngIf="!user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is invalid</div>
+                                      </div>
+                                    </div>
+                                  </div>
 
-                              </file-drop>
 
-                              <!--<div class="upload-table">
-                                <table class="table">
-                                  <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody class="upload-name-style">
-                                  <tr *ngFor="let item of files; let i=index">
-                                    <td><strong>{{ item.relativePath }}</strong></td>
-                                  </tr>
-                                  </tbody>
-                                </table>
-                              </div>-->
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label">Address Proof</label>
-                              <input id="input-2" type="file" class="file" placeholder="Address Proof " name="addressProof" formControlName="addressProof">
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="form-group">
-
-                                  <input class="form-control" placeholder="User Name" name="userName" formControlName="userName">
                                 </div>
                               </div>
                             </div>
+
                             <!-- /.col-lg-6 (nested) -->
 
                           </div>

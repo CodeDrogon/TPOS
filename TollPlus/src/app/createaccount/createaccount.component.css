@@ -321,3 +321,23 @@ ul.breadcrumb li a:hover {
   padding: 4px 7px 4px 7px !important;
   background-color: #015db1
 }
+
+.icon-user{
+  color: darkred;
+}
+
+#addressInputField1  {
+  width: 95.666667% !important;
+}
+
+#addressSpantooltip1 {
+  width: 4.333333% !important;
+}
+
+#addressInputField2  {
+  width: 95.666667% !important;
+}
+
+#addressSpantooltip2 {
+  width: 4.333333% !important;
+}
