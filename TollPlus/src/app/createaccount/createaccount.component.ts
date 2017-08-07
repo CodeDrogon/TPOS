@@ -67,9 +67,9 @@ export class CreateaccountComponent implements OnInit {
       middle_Name: new FormControl(""),
       gender: new FormControl(""),
       date_Of_Birth: new FormControl(""),
-      primary_Email: new FormControl("", Validators.compose([Validators.required,Validators.pattern(emailPattern)])),
+      primary_Email: new FormControl("", Validators.compose([Validators.required,Validators.pattern("[^ @]*@[^ @]*")])),
       secondary_Email: new FormControl(""),
-      day_Phone_Number: new FormControl(""),
+      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10),Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
       mobile_Phone_Number: new FormControl(""),
       eveningPhone: new FormControl(""),
       workPhone: new FormControl(""),
@@ -77,14 +77,14 @@ export class CreateaccountComponent implements OnInit {
       ext: new FormControl(""),
       country: new FormControl(""),
       city: new FormControl(""),
-      zip: new FormControl(""),
       zip1: new FormControl(""),
-      addressLine1: new FormControl(""),
-      addressLine2: new FormControl(""),
+      zip2: new FormControl(""),
+      address1: new FormControl("",Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern("/[a-zA-Z0-9]/")])),
+      address2: new FormControl(""),
       idProofType: new FormControl(""),
       idProofNo: new FormControl(""),
       addressProof: new FormControl(""),
-      userName: new FormControl("")
+      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z0-9]")]))
     });
 
     /*this.userForm.get('businessCustomerType').valueChanges.subscribe(
