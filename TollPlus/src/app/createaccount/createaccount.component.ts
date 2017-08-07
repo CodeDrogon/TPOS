@@ -52,28 +52,28 @@ export class CreateaccountComponent implements OnInit {
   idProofBusinesses=[];
   ngOnInit() {
 
-    let emailPattern:string = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
+    let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
+    let emailPattern1 = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)";
+
     this.user_Form=new FormGroup({
-      first_Name:new FormControl("",Validators.compose([Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('[\\w\\-\\w\\/]+')])),
+      first_Name:new FormControl("", Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
       last_Name: new FormControl("",Validators.required),
-      businessCustomerType: new FormControl(""),
+      businessCustomerType: new FormControl("", Validators.required),
       title: new FormControl(""),
-      businessName: new FormControl(""),
+      businessName: new FormControl("", Validators.required),
       suffix: new FormControl(""),
       middle_Name: new FormControl(""),
       gender: new FormControl(""),
       date_Of_Birth: new FormControl(""),
-      primary_Email: new FormControl("", Validators.compose([Validators.required,Validators.pattern("[^ @]*@[^ @]*")])),
+      primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
       secondary_Email: new FormControl(""),
-      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10),Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
-      mobile_Phone_Number: new FormControl(""),
+      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
+      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
       eveningPhone: new FormControl(""),
       workPhone: new FormControl(""),
       fax:new FormControl(""),
       ext: new FormControl(""),
-      country: new FormControl(""),
+      country: new FormControl("", Validators.required),
       city: new FormControl(""),
       zip1: new FormControl(""),
       zip2: new FormControl(""),
@@ -82,7 +82,7 @@ export class CreateaccountComponent implements OnInit {
       idProofType: new FormControl(""),
       idProofNo: new FormControl(""),
       addressProof: new FormControl(""),
-      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z0-9]")]))
+      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")]))
     });
 
     /*this.userForm.get('businessCustomerType').valueChanges.subscribe(
@@ -506,6 +506,37 @@ console.log(this.countryObject);
     })
 
   }
+
+  static emailValidator(control) {
+    // RFC 2822 compliant regex
+    if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+      return null;
+    } else {
+      return { 'invalidEmailAddress': true };
+    }
+  }
+
+  static validatePhoneNumber(control) {
+
+   /* if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+      return null;
+    } else {
+      return { 'invalidEmailAddress': true };
+    }*/
+  //validate phone numbers of format "1234567890"
+  if (control.value.matches("\\d{10}")){return true;}
+  //validating phone number with -, . or spaces
+  else if(control.value.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")){return true;}
+  //validating phone number with extension length from 3 to 5
+  else if(control.value.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {return true;}
+  //validating phone number where area code is in braces ()
+  else if(control.value.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) {return true;}
+  //return false if nothing matches the input
+  else {
+    return {'invalidPhoneNumber': true};
+  }
+
+}
 
   /*
    form;
