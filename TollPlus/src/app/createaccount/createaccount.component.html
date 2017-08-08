@@ -4,7 +4,7 @@
 <div id="exTab1" class="container" style="background-color: white">
   <ul class="nav nav-tabs nav-pills nav-wizard " style="background-color: white" >
     <li class="active">
-      <a href="#1a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
+        <a href="#1a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
     </li>
     <li><a href="#2a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
     </li>
@@ -31,6 +31,13 @@
               <!--<div class="panel panel-default">-->
 
               <div class="panel-group" id="accordion">
+                <div class="row">
+                  <div class="col-lg-9" >
+                  </div>
+                  <div class="col-lg-3" align="right">
+                    <i class="left-inner-addon" >*</i> Indicates Required Field(s)
+                  </div>
+                </div>
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
@@ -67,7 +74,6 @@
                               <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['businessCustomerType'].touched}">
                                 <span class="tooltipbadge">?</span>
                                 <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['businessCustomerType'].hasError('required') && user_Form.controls['businessCustomerType'].touched}">Please Select Business Customer</span>
-                                <div *ngIf="user_Form.controls['businessCustomerType'].hasError('required') && user_Form.controls['businessCustomerType'].touched" class="tooltiptext1">Business Customer Is Not Selected</div>
                               </div>
                             </div>
 
@@ -170,7 +176,7 @@
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['first_Name'].invalid && user_Form.controls['first_Name'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user" *ngIf="user_Form.controls['first_Name'].hasError('required') && !user_Form.controls['first_Name'].touched">*</i>
-                                  <input class="form-control" placeholder="First Name" name="first_Name" [formControl]="user_Form.controls['first_Name']">
+                                  <input class="form-control" placeholder="First Name" name="first_Name" [formControl]="user_Form.controls['first_Name']" formControlName="first_Name">
                                 </div>
                               </div>
                             </div>
@@ -193,10 +199,10 @@
 
                           <div class="row">
                             <div class="col-lg-11">
-                              <div class="form-group" [ngClass]="{'has-error': user_Form.controls['middle_Name'].invalid && user_Form.controls['middle_Name'].touched}">
+                              <div class="form-group" >
                                 <div class="left-inner-addon ">
                                   <i class="icon-user"></i>
-                                  <input class="form-control" placeholder="Middle Name" name="middle_Name" [formControl]="user_Form.controls['middle_Name']">
+                                  <input class="form-control" placeholder="Middle Name" name="middle_Name" formControlName="middle_Name">
                                 </div>
                               </div>
                             </div>
@@ -443,7 +449,7 @@
                                 <div class="col-lg-8">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user">*</i>
+                                      <i class="icon-user" >*</i>
                                       <input class="form-control" placeholder="Mobile Phone Number" name="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']">
                                     </div>
                                   </div>
@@ -496,18 +502,17 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['fax'].invalid && user_Form.controls['fax'].touched}">
+                                  <div class="form-group" >
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
-                                      <input class="form-control" placeholder="Fax" name="fax" [formControl]="user_Form.controls['fax']">
+                                      <input class="form-control" placeholder="Fax" name="fax" [formControl]="user_Form.controls['fax']" formControlName="fax">
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['fax'].invalid && user_Form.controls['fax'].touched}">
+                                  <div class="tooltip1" >
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['fax'].valid && user_Form.controls['fax'].touched}">please enter valid Fax number</span>
-                                    <div *ngIf="user_Form.controls['fax'].hasError('required') && user_Form.controls['fax'].touched && user_Form.controls['fax'].invalid" class="tooltiptext1">Fax number is mandatory</div>
+                                    <span class="tooltiptext1" >Please Enter Fax number</span>
                                   </div>
                                 </div>
                               </div>
@@ -575,19 +580,19 @@
                                 <div class="col-lg-6">
                                   <div class="row">
                                     <div class="col-lg-11">
-                                      <div class="form-group">
+                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['city_Name'].invalid && user_Form.controls['city_Name'].touched}">
                                         <div class="left-inner-addon ">
-                                          <i class="icon-user">*</i>
-                                        <input class="form-control" placeholder="City" name="city" formControlName="city">
+                                          <i class="icon-user" *ngIf="user_Form.controls['city_Name'].hasError('required') && !user_Form.controls['city_Name'].touched">*</i>
+                                          <input class="form-control" placeholder="City" name="city_Name" [formControl]="user_Form.controls['city_Name']">
                                         </div>
                                       </div>
                                     </div>
                                     <div class="col-lg-1">
-                                      <div class="tooltip1">
+                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['city_Name'].invalid && user_Form.controls['city_Name'].touched && user_Form.controls['city_Name'].hasError('required')}">
                                         <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1">Please Enter City</span>
+                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['city_Name'].valid && user_Form.controls['city_Name'].touched}">Please Enter City</span>
+                                        <div *ngIf="user_Form.controls['city_Name'].hasError('required') && user_Form.controls['city_Name'].touched && user_Form.controls['city_Name'].invalid" class="tooltiptext1">City Is Mandatory</div>
                                       </div>
-
                                     </div>
                                   </div>
 
@@ -600,15 +605,16 @@
                                       <div class="col-lg-6">
                                         <div class="row">
                                           <div class="col-lg-10">
-                                            <div class="left-inner-addon ">
-                                              <i class="icon-user">*</i>
-                                            <input class="form-control" placeholder="Zip1" name="zip1" formControlName="zip1">
+                                            <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip1'].invalid && user_Form.controls['zip1'].touched}">
+                                              <i class="icon-user" *ngIf="user_Form.controls['zip1'].hasError('required') && !user_Form.controls['zip1'].touched">*</i>
+                                            <input class="form-control" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
-                                            <div class="tooltip1">
+                                            <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['zip1'].invalid && user_Form.controls['zip1'].touched && user_Form.controls['zip1'].hasError('required')}">
                                               <span class="tooltipbadge">?</span>
-                                              <span class="tooltiptext1">Please Enter Zip1</span>
+                                              <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['zip1'].valid && user_Form.controls['zip1'].touched}">Please Enter Zip1</span>
+                                              <div *ngIf="user_Form.controls['zip1'].hasError('required') && user_Form.controls['zip1'].touched && user_Form.controls['zip1'].invalid" class="tooltiptext1">Zip1 Is Mandatory</div>
                                             </div>
 
                                           </div>
@@ -618,15 +624,16 @@
                                       <div class="col-lg-6">
                                         <div class="row">
                                           <div class="col-lg-10">
-                                            <div class="left-inner-addon ">
-                                              <i class="icon-user">*</i>
-                                            <input class="form-control" placeholder="Zip2" name="zip2" formControlName="zip2">
+                                            <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip2'].invalid && user_Form.controls['zip2'].touched}">
+                                              <i class="icon-user" *ngIf="user_Form.controls['zip2'].hasError('required') && !user_Form.controls['zip2'].touched">*</i>
+                                              <input class="form-control" placeholder="Zip2" name="zip2" formControlName="zip2" [formControl]="user_Form.controls['zip2']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
-                                            <div class="tooltip1">
+                                            <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['zip2'].invalid && user_Form.controls['zip2'].touched && user_Form.controls['zip2'].hasError('required')}">
                                               <span class="tooltipbadge">?</span>
-                                              <span class="tooltiptext1">Please Enter Zip2</span>
+                                              <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['zip2'].valid && user_Form.controls['zip2'].touched}">Please Enter Zip1</span>
+                                              <div *ngIf="user_Form.controls['zip2'].hasError('required') && user_Form.controls['zip2'].touched && user_Form.controls['zip2'].invalid" class="tooltiptext1">Zip1 Is Mandatory</div>
                                             </div>
 
                                           </div>
@@ -819,6 +826,9 @@
                                       </div>
                                     </div>
                                   </div>
+                                  <div >
+                                    <input type="checkbox" formControlName="agreeTermsAndConditions"> <i class="left-inner-addon" >*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
+                                  </div>
 
 
                                 </div>
@@ -829,6 +839,10 @@
 
                           </div>
                           <!-- /.row (nested) -->
+
+
+                           <!-- <input type="checkbox" formControlName="agreeTermsAndConditions"> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>-->
+
                         </div>
 
 
@@ -864,9 +878,16 @@
 
     <div class="tab-pane" id="2a">
       <div id="page-wrapper">
-
-        <form role="form" #userForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(userForm.value)'>
+        <form role="form" [formGroup]="vehicleForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)' novalidate>
+       <!-- <form role="form" #vehicleForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)'>-->
           <div class="panel-group" id="VehicleInformation">
+            <div class="row">
+              <div class="col-lg-9" >
+              </div>
+              <div class="col-lg-3" align="right">
+                <i class="left-inner-addon" >*</i> Indicates Required Field(s)
+              </div>
+            </div>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
@@ -881,76 +902,256 @@
                 <div class="panel-collapse collapse in">
                   <div class="row">
                     <div class="col-lg-6">
-                      <div class="form-group">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['plateNumber'].invalid && vehicleForm.controls['plateNumber'].touched}">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user" *ngIf="vehicleForm.controls['plateNumber'].hasError('required') && !vehicleForm.controls['plateNumber'].touched">*</i>
+                              <input class="form-control" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleForm.controls['plateNumber']" formControlName="plateNumber">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['plateNumber'].invalid && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].hasError('required')}">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleForm.controls['plateNumber'].valid && vehicleForm.controls['plateNumber'].touched}">Please Enter Plate Number</span>
+                            <div *ngIf="vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is mandatory</div>
+                            <div *ngIf="!vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is invalid</div>
+                          </div>
+                        </div>
+                      </div>
+                     <!-- <div class="form-group">
                         <input class="form-control" placeholder="Plate Number" name="plateNumber" ngModel>
-                      </div>
+                      </div>-->
                     </div>
                     <div class="col-lg-6">
-                      <div class="form-group">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user">*</i>
+                              <select class="form-control" placeholder="Class" name="vehicle_Class_dropdown" id='vehicle_Class_dropdown'  >
+                                <option label="Class" disabled selected="selected" value=""></option>
+                                <option   *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleClassDropdown.value}}</option>
+                              </select>
+                            </div>
+                            <!--<div *ngIf="businessCustomerType.errors && ( businessCustomerType.touched)"
+                                 class="alert alert-danger">
+                              <div [hidden]="!businessCustomerType.errors.required">
+                                Business Customer is required
+                              </div>
+                            </div>-->
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleForm.controls['vehicle_Class_dropdown'].hasError('required') && vehicleForm.controls['vehicle_Class_dropdown'].touched}">Please Select Class</span>
+                            <div *ngIf="vehicleForm.controls['vehicle_Class_dropdown'].hasError('required') && vehicleForm.controls['vehicle_Class_dropdown'].touched" class="tooltiptext1">Class Is Not Selected</div>
+                          </div>
+                        </div>
+
+                      </div>
+                     <!-- <div class="form-group">
                         <input class="form-control" placeholder="Class" name="class" ngModel>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
-                      <div class="form-group">
-                        <select class="form-control" placeholder="Year" name="year" ngModel>
-                          <option label="Year" disabled selected="selected" value=""></option>
-                          <option>2017</option>
-                          <option>2016</option>
-                          <option>2015</option>
-                          <option>2014</option>
-                          <option>2013</option>
-                        </select>
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Year" name="vehicle_Year" id='vehicle_Year'  >
+                              <option label="Year" disabled selected="selected" value=""></option>
+                              <option   *ngFor="let vehicle_year of vehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
+                            </select>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" >
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" >Please Select Year</span>
+                          </div>
+                        </div>
+
                       </div>
+
                     </div>
                     <div class="col-lg-6">
-                      <div class="form-group">
-                        <select class="form-control" placeholder="Color" name="color" ngModel>
-                          <option label="Color" disabled selected="selected" value=""></option>
-                          <option>Blue</option>
-                          <option>Gray</option>
-                          <option>White</option>
-                        </select>
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Make" name="vehicle_Make" id='vehicle_Make'  >
+                              <option label="Make" disabled selected="selected" value=""></option>
+                              <option   *ngFor="let vehicle_make of vehicleMake" value="{{vehicle_make.key}}"> {{vehicle_make.value}}</option>
+                            </select>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" >
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" >Please Select Make</span>
+                          </div>
+                        </div>
+
                       </div>
+
+
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-6">
-                      <div class="form-group">
-                        <select class="form-control" placeholder="Model" name="model" ngModel>
-                          <option label="Model" disabled selected="selected" value=""></option>
-                          <option>Model1</option>
-                          <option>Model2</option>
-                          <option>Model3</option>
-                        </select>
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Model" name="vehicle_Model" id='vehicle_Model'  >
+                              <option label="Model" disabled selected="selected" value=""></option>
+                              <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.key}}"> {{vehicle_model.value}}</option>
+                            </select>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" >
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" >Please Select Model</span>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <div class="form-group">
-                        <select class="form-control" placeholder="Registered State" name="gender" ngModel>
-                          <option label="Registered State" disabled selected="selected" value=""></option>
-                          <option>State1</option>
-                          <option>State2</option>
-                        </select>
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Color" name="vehicle_Color" id='vehicle_Color'  >
+                              <option label="Color" disabled selected="selected" value=""></option>
+                              <option   *ngFor="let vehicle_color of vehicleColors" value="{{vehicle_color.key}}"> {{vehicle_color.value}}</option>
+                            </select>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" >
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" >Please Select Color</span>
+                          </div>
+                        </div>
+
                       </div>
+
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <div class="left-inner-addon">
+                              <i class="icon-user"></i>
+                              <select class="form-control" name="registered_Country" formControlName="registered_Country" id="registered_Country" (change)="getStates()">
+                                <option value="" disabled>Registered Country</option>
+                                <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
+                              </select>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1">Please Select Registered Country</span>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user">*</i>
+                              <select name="state" class="form-control">
+                                <option value="" disabled>Registered State</option>
+                                <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1">Please Select Registered State</span>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- /.col-lg-6 (nested) -->
+                    <!-- /.col-lg-6 (nested) -->
+                  </div>
+                  <!--<div class="row">
+                    <div class="col-lg-6">
                       <div class="form-group">
-                        <select class="form-control" name="country" ngModel id="countryId" (change)="getStates()">
+                        <select class="form-control" name="country"  id="countryId" (change)="getStates()">
                           <option value="" disabled>Select Country</option>
                           <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-lg-6">
+                      <div class="form-group">
+                        <select class="form-control" placeholder="Registered State" name="gender" >
+                          <option label="Registered State" disabled selected="selected" value=""></option>
+                          <option>State1</option>
+                          <option>State2</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>-->
+                  <div class="row">
+                    <div class="col-lg-6">
                       <div class="row">
-
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
+                          <div class="form-group">
+                            <input type='text' class="form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date" />
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" />
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" />
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="form-group">
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" >
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" >Please Select Start Date & Time</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-5">
                           <div class="form-group">
                             <input type='text' class=" form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date" />
                           </div>
@@ -970,35 +1171,15 @@
                             <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
                           </div>
                         </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1" >
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1" >Please Select End Date & Time</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                        <!--<date-picker  placeholder="Start Date & Time"  name="startDate&Time" [showClearButton]="false" ngModel></date-picker>-->
-
-
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <input type='text' class="form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date" />
-                      </div>
-                    </div>
-                    <div class="col-lg-1">
-                      <div class="form-group">
-                        <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" />
-                      </div>
-                    </div>
-                    <div class="col-lg-1">
-                      <div class="form-group">
-                        <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" />
-                      </div>
-                    </div>
-                    <div class="col-lg-1">
-                      <div class="form-group">
-                        <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
-                      </div>
-                    </div>
 
                     <!--<date-picker  placeholder="Start Date & Time"  name="startDate&Time" [showClearButton]="false" ngModel></date-picker>-->
 
@@ -1008,10 +1189,35 @@
 
                   <div class="row">
                     <div class="col-lg-6">
-                      <input type="checkbox" class="form-control" name="isTemporaryLicencePlateNumber" />Is temporary licence plate number?
+                      <div class="form-group">
+                        <input type="checkbox" formControlName="isTemporaryLicencePlateNumber" style="{color: #999999 !important;}">  Is temporary licence plate number?
+                      </div>
+
                     </div>
+
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+
+                  </div>
+                  <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}">
+                    </div>
+                    <div class="col-lg-5">
+                      <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
+                    </div>
+                    <div class="col-lg-1" >
+                      <input class="btn btn-primary" type="button" name="reset" value="Save" >
+                    </div>
+                  </div>
+                  </div>
+
+                </div>
+
               </div>
 
 
@@ -1061,10 +1267,10 @@
                             <td>South Africa</td>
                             <td>12 July 2017:11:06Am</td>
                             <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
                             <td>
-                              <p class="glyphicon glyphicon-remove"></p>
+                              <p class="glyphicon glyphicon-trash"></p>
                             </td>
                           </tr>
                           <tr>
@@ -1076,10 +1282,10 @@
                             <td>South Africa</td>
                             <td>12 July 2017:11:06Am</td>
                             <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
                             <td>
-                              <p class="glyphicon glyphicon-remove"></p>
+                              <p class="glyphicon glyphicon-trash"></p>
                             </td>
                           </tr>
                           <tr>
@@ -1091,10 +1297,10 @@
                             <td>South Africa</td>
                             <td>12 July 2017:11:06Am</td>
                             <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
                             <td>
-                              <p class="glyphicon glyphicon-remove"></p>
+                              <p class="glyphicon glyphicon-trash"></p>
                             </td>
                           </tr>
                           <tr>
@@ -1106,10 +1312,10 @@
                             <td>South Africa</td>
                             <td>12 July 2017:11:06Am</td>
                             <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-edit" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
                             <td>
-                              <p class="glyphicon glyphicon-remove"></p>
+                              <p class="glyphicon glyphicon-trash" ></p>
                             </td>
                           </tr>
                         </tbody>
@@ -1118,13 +1324,14 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-lg-6">
 
                   </div>
                   <div class="col-lg-6">
                     <div class="col-lg-3">
-                      <select class="form-control" placeholder="Records" name="records" ngModel>
+                      <select class="form-control" placeholder="Records" name="records" >
                         <option label="Records" disabled selected="selected" value=""></option>
                         <option>5</option>
                         <option>10</option>
@@ -1166,15 +1373,23 @@
     </div>
     <div class="tab-pane" id="3a">
       <div id="page-wrapper">
-        <form role="form" #userForm="ngForm" class="bgColor" (ngSubmit)='saveAdditionalInformation(userForm.value)'>
+        <form role="form" [formGroup]="addtnl_Info_Form" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)' novalidate>
+        <!--<form role="form" #addtnl_Info_Form="ngForm" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)'>-->
           <div class="row">
             <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-9" >
+                </div>
+                <div class="col-lg-3" align="right">
+                  <i class="left-inner-addon" >*</i> Indicates Required Field(s)
+                </div>
+              </div>
               <div class="panel panel-default" id="AdditionalInformation">
                 <div class="panel-heading">
                   <h4 class="panel-title">
 
                     <a data-toggle="collapse" data-parent="#AdditionalInformation" href="#AdditionalInfo"  class="collase-icon glyphicon glyphicon-chevron-down">
-                      Additional Information</a>
+                      Other Details</a>
                   </h4>
                 </div>
 
@@ -1184,50 +1399,109 @@
                   <div class="row">
 
                     <div class="col-lg-6">
-                      <div class="form-group">
-                        <input class="form-control" placeholder="Friendship Reward Account No." name="friendshipRewardAccountNo" ngModel>
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group" >
+                            <div class="left-inner-addon ">
+                              <i class="icon-user"></i>
+                              <input class="form-control" placeholder="Friendship Reward Account No." name="friendshipRewardAccountNo" formControlName="friendshipRewardAccountNo">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1">Please Enter Reward Account Number</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <select class="form-control" placeholder="Statement Delivery Option" name="statementDeliveryOption" ngModel>
-                          <option label="Statement Delivery Option" disabled selected="selected" value=""></option>
-                          <option>Post</option>
-                          <option>Email</option>
-                          <option>Courier</option>
-                        </select>
-                      </div>
+
+
                     </div>
                     <!-- /.col-lg-6 (nested) -->
                     <div class="col-lg-6">
-                      <div class="form-group">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <div class="left-inner-addon">
+                              <i class="icon-user"></i>
+                              <select class="form-control" placeholder="How did you hear about us?" name="howDidYouHearUs" formControlName="howDidYouHearUs">
+                                <option label="How did you hear about us?" disabled selected="selected" value=""></option>
+                                <option *ngFor="let howDidYouHearUsOption of howDidYouHearUsOptions" value="{{howDidYouHearUsOption.key}}"> {{howDidYouHearUsOption.value}}</option>
 
-                        <select class="form-control" placeholder="How did you hear about us?" name="howDidYouHearUs" ngModel>
-                          <option label="How did you hear about us?" disabled selected="selected" value=""></option>
-                          <option>SureIt</option>
-                          <option>Facebook</option>
-                          <option>Twitter</option>
-                          <option>Other Website</option>
-                        </select>
+                              </select>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1">Please Select An Option</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <select class="form-control" placeholder="Account Category" name="accountCategory" ngModel>
-                          <option label="Account Category" disabled selected="selected" value=""></option>
-                          <option>Savings</option>
-                          <option>Current</option>
-                          <option>Demat</option>
-                        </select>
-                      </div>
+
                     </div>
                     <!-- /.col-lg-6 (nested) -->
 
                   </div>
                   <div class="row">
-                    <div class="col-md-9" align="right">
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <div class="left-inner-addon">
+                              <i class="icon-user">*</i>
+                              <select class="form-control" placeholder="Statement Delivery Option" name="statement_Delivery_Options" formControlName="statement_Delivery_Options">
+                                <option label="Statement Delivery Option" disabled selected="selected" value=""></option>
+                                <option *ngFor="let statementDeliveryOption of statementDeliveryOptions" value="{{statementDeliveryOption.key}}"> {{statementDeliveryOption.value}}</option>
+
+                              </select>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1">Please Select An Option</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-11">
+                          <div class="form-group">
+                            <div class="left-inner-addon">
+                              <i class="icon-user"></i>
+                              <select class="form-control" placeholder="Account Category" name="account_Category" formControlName="account_Category">
+                                <option label="Account Category" disabled selected="selected" value=""></option>
+                                <option *ngFor="let accountCategory of accountCategories" value="{{accountCategory.key}}"> {{accountCategory.value}}</option>
+
+                              </select>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="col-lg-1">
+                          <div class="tooltip1">
+                            <span class="tooltipbadge">?</span>
+                            <span class="tooltiptext1">Please Select Account Category</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><br><br><br><br><br><br><br><br>
+                  <div class="row">
+                    <div class="col-lg-10" align="left">
                       <a class="btn btn-primary btnPrevious">Vehicle Information</a>
                     </div>
-                    <div class="col-md-1" align="left">
+                    <div class="col-lg-2" align="right">
                       <a class="btn btn-primary btnNext">Payment Information</a>
                     </div>
-                  </div>
+                  </div><br><br><br><br>
                   <!-- /.row (nested) -->
                 </div>
                 <!-- /.panel-body -->
