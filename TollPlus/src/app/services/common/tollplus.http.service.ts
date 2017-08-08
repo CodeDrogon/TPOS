@@ -15,7 +15,6 @@ export class TollPlusHttpService {
 
   getHttpMethodWithoutParams(relativePath){
     console.log("country service ")
-    debugger;
     return this.http.get(this.url+relativePath)
   }
   postMethodWithParams(relativePath,inputObject){

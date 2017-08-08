@@ -14,9 +14,10 @@ declare var businessCustomerTooltip:any;
 export class CreateaccountComponent implements OnInit {
 
 
-  businessCustomerTooltip = 'Please Select Business Type';
 
   user_Form:FormGroup;
+  vehicleForm:FormGroup;
+  addtnl_Info_Form: FormGroup;
   form1;
   text:FormControl;
   constructor(private  myApp:AppComponent,private utilityService:UtilityService, private formBuilder:FormBuilder) {
@@ -26,7 +27,7 @@ export class CreateaccountComponent implements OnInit {
 
 
   form:FormGroup;
-  editVehicleForrm:FormGroup;
+  editVehicleForm:FormGroup;
   isLogin:boolean;
   Selections = [];
   TagDetails = [];
@@ -50,6 +51,19 @@ export class CreateaccountComponent implements OnInit {
   addressProofBusinesses=[];
   idProofs=[];
   idProofBusinesses=[];
+
+  //vehicle dropdowns
+  vehicleClassDropdowns=[];
+  vehicleYear=[];
+  vehicleColors=[];
+  vehicleMake=[];
+  vehicleModels=[];
+
+  //additional information dropdowns
+  howDidYouHearUsOptions=[];
+  statementDeliveryOptions=[];
+  accountCategories=[];
+
   ngOnInit() {
 
     let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
@@ -74,15 +88,34 @@ export class CreateaccountComponent implements OnInit {
       fax:new FormControl(""),
       ext: new FormControl(""),
       country: new FormControl("", Validators.required),
-      city: new FormControl(""),
-      zip1: new FormControl(""),
-      zip2: new FormControl(""),
+      city_Name:new FormControl("", Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
+      zip1: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(5)])),
+      zip2: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(5)])),
       address1: new FormControl("",Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern("/[a-zA-Z0-9]/")])),
       address2: new FormControl(""),
       idProofType: new FormControl(""),
       idProofNo: new FormControl(""),
       addressProof: new FormControl(""),
-      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")]))
+      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
+      agreeTermsAndConditions: new FormControl("")
+    });
+
+    this.vehicleForm = new FormGroup({
+      plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
+      vehicle_Class_dropdown: new FormControl("", Validators.required),
+      vehicle_Year: new FormControl(""),
+      vehicle_Model: new FormControl(""),
+      vehicle_Color: new FormControl(""),
+      registered_Country:new FormControl(""),
+      registeredState:new FormControl(""),
+      isTemporaryLicencePlateNumber: new FormControl("")
+    });
+
+    this.addtnl_Info_Form = new FormGroup({
+      friendshipRewardAccountNo: new FormControl(""),
+      howDidYouHearUs: new FormControl(""),
+      statement_Delivery_Options: new FormControl(""),
+      account_Category: new FormControl("")
     });
 
     /*this.userForm.get('businessCustomerType').valueChanges.subscribe(
@@ -537,6 +570,42 @@ console.log(this.countryObject);
   }
 
 }
+
+//vehicle dropdown functions starts here
+  getVehicleClassDropdown=function () {
+
+  }
+
+  getVehicleYearDropdown=function () {
+
+  }
+
+  getVehicleColorDropdown=function () {
+
+  }
+
+  getVehicleMakeDropdown=function () {
+
+  }
+
+  getVehicleModelsDropdown=function () {
+
+  }
+
+//vehicle dropdown functions ends here
+
+  //additional information functions starts here
+  getHowDidYouHearDropdown=function () {
+
+  }
+  getStatementDeliveryOptionsDropdown=function () {
+
+  }
+  getAccountCategories=function () {
+
+  }
+
+  //additional information functions starts here
 
   /*
    form;
