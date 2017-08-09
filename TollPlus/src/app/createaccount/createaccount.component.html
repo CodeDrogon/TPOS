@@ -48,6 +48,48 @@
                   </div>-->
                   <div class="panel-body" id="personalDetails1">
                     <div class="panel-collapse collapse in">
+                      <div class="row" id="userNameAlreadyExistMessage" style="display:none;">
+                        <div class="col-lg-6">
+                          <div class="alert alert-info" >
+                            <strong>Info!</strong> {{userNameValidationResult}}.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6">
+
+                          <div class="row">
+                            <div class="col-lg-11">
+                              <div class="form-group" [ngClass]="{'has-error': user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched}">
+                                <div class="left-inner-addon ">
+                                  <i class="icon-user" *ngIf="user_Form.controls['userName'].hasError('required') && !user_Form.controls['userName'].touched">*</i>
+                                  <input class="form-control" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName" id="userName" (keyup)="validateUserName()">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-1">
+                              <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched && user_Form.controls['userName'].hasError('required')}">
+                                <span class="tooltipbadge">?</span>
+                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['userName'].valid && user_Form.controls['userName'].touched}">Please Enter User Name</span>
+                                <div *ngIf="user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is mandatory</div>
+                                <div *ngIf="!user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is invalid</div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+
+
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <input class="form-control" placeholder="Password" name="passWord"  formControlName="passWord" [formControl]="user_Form.controls['passWord']">
+                          </div>
+                        </div>
+
+                      </div>
                       <div class="row">
 
                         <div class="col-lg-6">
@@ -56,8 +98,8 @@
                               <div class="form-group" [ngClass]="{'has-error':user_Form.controls['businessCustomerType'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user">*</i>
-                                  <select class="form-control" placeholder="Business Customer" name="businessCustomerType" id='businessCustomerType'>
-                                    <option label="Business Customer" disabled selected="selected" value=""></option>
+                                  <select class="form-control" placeholder="Account Type" name="businessCustomerType" id='businessCustomerType' [formControl]="user_Form.controls['businessCustomerType']" (change)="changeIdProofAndAddressProofDropDown()">
+                                    <option label="Account Type"  selected="selected" value=""></option>
                                     <option   *ngFor="let businessCustomer of businessCustomers" value="{{businessCustomer.key}}"> {{businessCustomer.value}}</option>
                                   </select>
                                 </div>
@@ -114,7 +156,7 @@
                             <div class="col-lg-11">
                               <div class="form-group">
 
-                                <select class="form-control" placeholder="Title" name="title">
+                                <select class="form-control" placeholder="Title" name="title" [formControl]="user_Form.controls['title']">
                                   <option label="Title" disabled selected="selected" value=""></option>
                                   <option *ngFor="let title of titles" value="{{title.key}}"> {{title.value}}</option>
 
@@ -156,7 +198,16 @@
                               </div>
                             </div>
                           </div>
-
+                          <div class="row" id="suffix_other_row" style="display:none;">
+                            <div class="col-lg-11">
+                              <div class="form-group">
+                                <div class="left-inner-addon ">
+                                  <i class="icon-user"></i>
+                                  <input class="form-control" placeholder="Suffix Other" name="suffix_other" >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
 
                           <!--</div>-->
@@ -260,7 +311,7 @@
                                     <div class="form-group">
                                       <div class="left-inner-addon ">
                                         <i class="icon-user"></i>
-                                        <select class="form-control" placeholder="Gender" name="gender">
+                                        <select class="form-control" placeholder="Gender" name="gender" [formControl]="user_Form.controls['gender']">
                                           <option label="Gender" disabled selected value=""></option>
                                           <option *ngFor="let gender of genders" value="{{gender.key}}"> {{gender.value}}</option>
                                         </select>
@@ -279,7 +330,7 @@
                                 <div class="row">
                                   <div class="col-lg-10">
                                     <div class="form-group" [ngClass]="{'has-error': user_Form.controls['date_Of_Birth'].invalid && user_Form.controls['date_Of_Birth'].touched}">
-                                      <input type='text' data-language='en' class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Date Of Birth(dd/MM/yyyy)" name="date_Of_Birth" />
+                                      <input type='text' data-language='en' class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Date Of Birth(dd/MM/yyyy)" name="date_Of_Birth" id="date_Of_Birth" [formControl]="user_Form.controls['date_Of_Birth']"/>
                                     </div>
                                   </div>
                                   <div class="col-lg-1">
@@ -351,7 +402,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred">Is Preferred?
+                                    <input type="radio" name="primaryEmailIsPreferred" value="true" formControlName="primaryEmailIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -374,7 +425,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="secondaryEmailIsPreferred" value="secondaryEmailIsPreferred">Is Preferred?
+                                    <input type="radio" name="secondaryEmailIsPreferred" value="true" formControlName="secondaryEmailIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -404,7 +455,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="dayPhoneIsPreferred" value="dayPhoneIsPreferred">Is Preferred?
+                                    <input type="radio" name="dayPhoneIsPreferred" value="true" formControlName="dayPhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -433,7 +484,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="eveningPhoneIsPreferred" value="eveningPhoneIsPreferred">Is Preferred?
+                                    <input type="radio" name="eveningPhoneIsPreferred" value="true" formControlName="eveningPhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -459,7 +510,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="mobilePhoneIsPreferred" value="mobilePhoneIsPreferred">Is Preferred?
+                                    <input type="radio" name="mobilePhoneIsPreferred" value="true" formControlName="mobilePhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -488,7 +539,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred">Is Preferred?
+                                    <input type="radio" name="workPhoneIsPreferred" value="true" formControlName="workPhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -527,7 +578,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                          <select class="form-control" name="country" formControlName="country" id="countryId" (change)="getStates()">
+                                          <select class="form-control" name="country" formControlName="country" id="countryId" (change)="getStates()" [formControl]="user_Form.controls['country']">
                                             <option value="" disabled>Country</option>
                                             <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                                           </select>
@@ -552,10 +603,10 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                          <select name="state" class="form-control">
-                                          <option value="" disabled>State</option>
-                                          <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
-                                        </select>
+                                          <select name="selectedstate" class="form-control" formControlName="selectedstate" [formControl]="user_Form.controls['selectedstate']">
+                                            <option value="" disabled>State</option>
+                                            <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                                          </select>
                                         </div>
                                       </div>
                                     </div>
@@ -690,163 +741,144 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <div class="col-lg-6">
-                                  <div class="row">
-                                    <div class="col-lg-11">
-                                      <div class="form-group">
-                                        <div class="left-inner-addon ">
-                                          <i class="icon-user">*</i>
-                                          <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" required>
-                                          <option label="Id Proof Type" disabled selected="selected" value=""></option>
-                                          <option *ngFor="let idProof of idProofs" value="{{idProof.key}}">{{idProof.value}}</option>
-                                        </select>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                      <div class="tooltip1">
-                                        <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1">Please Select Id Proof Type</span>
-                                      </div>
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    <div class="left-inner-addon ">
+                                      <i class="icon-user">*</i>
+                                      <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" (change)="idProofOther()" [formControl]="user_Form.controls['idProofType']">
+                                        <option label="Id Proof Type" disabled selected="selected" value=""></option>
+                                        <option *ngFor="let idProof of idProofs" value="{{idProof.key}}">{{idProof.value}}</option>
+                                      </select>
                                     </div>
                                   </div>
-
                                 </div>
-                                <div class="col-lg-6">
-                                  <div class="row">
-                                    <div class="col-lg-11">
-                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched}">
-                                        <div class="left-inner-addon ">
-                                          <i class="icon-user">*</i>
-                                          <input class="form-control" placeholder="Id Proof No." name="idProofNo" [formControl]="user_Form.controls['idProofNo']" formControlName="idProofNo">
-                                        </div>
-                                      </div>
+                                <div class="col-lg-1">
+                                  <div class="tooltip1">
+                                    <span class="tooltipbadge">?</span>
+                                    <span class="tooltiptext1">Please Select Id Proof Type</span>
+                                  </div>
+                                </div>
+                                <div class="col-lg-5">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched}">
+                                    <div class="left-inner-addon ">
+                                      <i class="icon-user">*</i>
+                                      <input class="form-control" placeholder="Id Proof No." name="idProofNo" [formControl]="user_Form.controls['idProofNo']" formControlName="idProofNo">
                                     </div>
-                                    <div class="col-lg-1">
-                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].hasError('required')}">
-                                        <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['idProofNo'].valid && user_Form.controls['idProofNo'].touched}">Please Enter Id Proof No.</span>
-                                        <div *ngIf="user_Form.controls['idProofNo'].hasError('required') && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].invalid" class="tooltiptext1">Id Proof Number is mandatory</div>
-                                      </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].hasError('required')}">
+                                    <span class="tooltipbadge">?</span>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['idProofNo'].valid && user_Form.controls['idProofNo'].touched}">Please Enter Id Proof No.</span>
+                                    <div *ngIf="user_Form.controls['idProofNo'].hasError('required') && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].invalid" class="tooltiptext1">Id Proof Number is mandatory</div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                              <div class="row" id="idProof_other_row" style="display:none;">
+                                <div class="col-lg-6">
+                                  <div class="form-group">
+                                    <div class="left-inner-addon ">
+                                      <i class="icon-user"></i>
+                                      <input class="form-control" placeholder="IdProof Other" id="idProof_other" name="idProof_other"  [formControl]="user_Form.controls['idProof_other']" formControlName="idProof_other">
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="center">
-                                <div class="left-inner-addon " style="{align: center !important}">
-                                  <i class="icon-user">*</i>
-                                  <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="col-lg-6">
+
+                                  </div>
+                                </div>
+                                <div class="center">
+                                  <div class="left-inner-addon " style="{align: center !important}">
+                                    <i class="icon-user">*</i>
+                                    <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="IdProofDropped($event)" (onFileOver)="IdProofFileOver($event)" (onFileLeave)="IdProofFileLeave($event)">
+                                    </file-drop>
+                                  </div>
+
+                                </div>
+
+                                <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
+                                  <div class="col-lg-6">
+                                    <div class="row">
+                                      <div class="col-lg-11">
+                                        <div class="form-group">
+                                          <div class="left-inner-addon ">
+                                            <i class="icon-user">*</i>
+                                            <select class="form-control" name="addressProof" formControlName="addressProof" (change)="addressProofOther()" [formControl]="user_Form.controls['addressProof']">
+                                              <option label="Address Proof Type" disabled selected="selected" value=""></option>
+                                              <option *ngFor="let addressProof of addressProofs" value="{{addressProof.key}}">{{addressProof.value}}</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-1">
+                                        <div class="tooltip1">
+                                          <span class="tooltipbadge">?</span>
+                                          <span class="tooltiptext1">Please Select Address Proof Type</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row" id="addressProof_other_row" style="display:none;">
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <div class="left-inner-addon ">
+                                            <i class="icon-user"></i>
+                                            <input class="form-control" placeholder="AddressProof Other" id="addressProof_other" name="addressProof_other" [formControl]="user_Form.controls['addressProof_other']" formControlName="addressProof_other">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                                <div class="center">
+                                  <file-drop headertext="Address Proof File Drop here to upload, or" (onFileDrop)="AddressProofDropped($event)" (onFileOver)="AddressProofFileOver($event)" (onFileLeave)="AddressProofFileLeave($event)">
+
                                   </file-drop>
+
+
                                 </div>
-                                <!--<div class="upload-table">
-                                  <table class="table">
-                                    <thead>
-                                    <tr>
-                                      <th>Name</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="upload-name-style">
-                                    <tr *ngFor="let item of files; let i=index">
-                                      <td><strong>{{ item.relativePath }}</strong></td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
+                                <!-- <div class="form-group">
+                                  <label class="control-label">Address Proof</label>
+                                  <input id="input-2" type="file" class="file" placeholder="Address Proof " name="addressProof" formControlName="addressProof">
                                 </div>-->
-                              </div>
+                                <div class="row" style="padding-top: 2%; padding-bottom: 0%;">
+                                  <div class="col-lg-6">
+                                    <div>
+                                      <input type="checkbox" formControlName="agreeTermsAndConditions"> <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
+                                    </div>
 
-                              <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
-                                <div class="col-lg-6">
-                                  <div class="row">
-                                    <div class="col-lg-11">
-                                      <div class="form-group">
-                                        <div class="left-inner-addon ">
-                                          <i class="icon-user">*</i>
-                                          <select class="form-control" name="addressProof" formControlName="addressProof">
-                                          <option label="Address Proof Type" disabled selected="selected" value=""></option>
-                                          <option *ngFor="let addressProof of addressProofs" value="{{addressProof.key}}">{{addressProof.value}}</option>
-                                        </select>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                      <div class="tooltip1">
-                                        <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1">Please Select Address Proof Type</span>
-                                      </div>
-                                    </div>
+
                                   </div>
-
                                 </div>
                               </div>
-                              <div class="center">
-                                <file-drop headertext="Address Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
 
-                                </file-drop>
+                              <!-- /.col-lg-6 (nested) -->
 
-                                <!--<div class="upload-table">
-                                  <table class="table">
-                                    <thead>
-                                    <tr>
-                                      <th>Name</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="upload-name-style">
-                                    <tr *ngFor="let item of files; let i=index">
-                                      <td><strong>{{ item.relativePath }}</strong></td>
-                                    </tr>
-                                    </tbody>
-                                  </table>
-                                </div>-->
-                              </div>
-                              <!-- <div class="form-group">
-                                <label class="control-label">Address Proof</label>
-                                <input id="input-2" type="file" class="file" placeholder="Address Proof " name="addressProof" formControlName="addressProof">
-                              </div>-->
-                              <div class="row" style="padding-top: 2%; padding-bottom: 0%;">
-                                <div class="col-lg-6">
-                                  <div class="row">
-                                    <div class="col-lg-11">
-                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched}">
-                                        <div class="left-inner-addon ">
-                                          <i class="icon-user" *ngIf="user_Form.controls['userName'].hasError('required') && !user_Form.controls['userName'].touched">*</i>
-                                          <input class="form-control" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName">
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched && user_Form.controls['userName'].hasError('required')}">
-                                        <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['userName'].valid && user_Form.controls['userName'].touched}">Please Enter User Name</span>
-                                        <div *ngIf="user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is mandatory</div>
-                                        <div *ngIf="!user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is invalid</div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <input type="checkbox" formControlName="agreeTermsAndConditions"> <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
-                                  </div>
-
-
-                                </div>
-                              </div>
                             </div>
+                            <!-- /.row (nested) -->
 
-                            <!-- /.col-lg-6 (nested) -->
+
+                            <!-- <input type="checkbox" formControlName="agreeTermsAndConditions"> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>-->
 
                           </div>
-                          <!-- /.row (nested) -->
 
-
-                          <!-- <input type="checkbox" formControlName="agreeTermsAndConditions"> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>-->
 
                         </div>
-
-
                       </div>
                     </div>
+
                   </div>
                   <div class="row">
                     <div class="col-md-9">
+                    </div>
+                    <div class="col-md-5">
+                      <input class="btn btn-primary " type="submit" value="Save">
                     </div>
                     <!--div class="col-md-1">
                       <input type="submit" class="btn btn-primary" value="Submit" />
@@ -857,12 +889,11 @@
                   </div>
                 </div>
 
+                <!-- /.panel -->
+
               </div>
-
-              <!-- /.panel -->
-
+              <!-- /.col-lg-12 -->
             </div>
-            <!-- /.col-lg-12 -->
           </div>
         </form>
         <!-- /.row -->
@@ -889,7 +920,7 @@
                 <h4 class="panel-title">
 
                   <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehicleInformationRef"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline"></a>
-                    Vehicle Information
+                  Vehicle Information
                 </h4>
               </div>
               <!--<div id="collapse1" class="panel-collapse collapse in">
@@ -1240,80 +1271,80 @@
                     <div class="bgColor">
                       <table class="table table-bordered ">
                         <thead>
-                          <tr>
-                            <th>Plate No.</th>
-                            <th>Class</th>
-                            <th>Color</th>
-                            <th>Description</th>
-                            <th>State</th>
-                            <th>Country</th>
-                            <th>Start Date & Time</th>
-                            <th>End Date & Time</th>
-                            <th></th>
-                            <th></th>
-                          </tr>
+                        <tr>
+                          <th>Plate No.</th>
+                          <th>Class</th>
+                          <th>Color</th>
+                          <th>Description</th>
+                          <th>State</th>
+                          <th>Country</th>
+                          <th>Start Date & Time</th>
+                          <th>End Date & Time</th>
+                          <th></th>
+                          <th></th>
+                        </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Apz1252z</td>
-                            <td>Bus-ts</td>
-                            <td>Red</td>
-                            <td>Ac Bus</td>
-                            <td>TN</td>
-                            <td>South Africa</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                            <td>
-                              <p class="glyphicon glyphicon-trash"></p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Apz1252z</td>
-                            <td>Bus-ts</td>
-                            <td>Red</td>
-                            <td>Ac Bus</td>
-                            <td>TN</td>
-                            <td>South Africa</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                            <td>
-                              <p class="glyphicon glyphicon-trash"></p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Apz1252z</td>
-                            <td>Bus-ts</td>
-                            <td>Red</td>
-                            <td>Ac Bus</td>
-                            <td>TN</td>
-                            <td>South Africa</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                            <td>
-                              <p class="glyphicon glyphicon-trash"></p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Apz1252z</td>
-                            <td>Bus-ts</td>
-                            <td>Red</td>
-                            <td>Ac Bus</td>
-                            <td>TN</td>
-                            <td>South Africa</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td>12 July 2017:11:06Am</td>
-                            <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                            <td>
-                              <p class="glyphicon glyphicon-trash"></p>
-                            </td>
-                          </tr>
+                        <tr>
+                          <td>Apz1252z</td>
+                          <td>Bus-ts</td>
+                          <td>Red</td>
+                          <td>Ac Bus</td>
+                          <td>TN</td>
+                          <td>South Africa</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
+                          <td>
+                            <p class="glyphicon glyphicon-trash"></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Apz1252z</td>
+                          <td>Bus-ts</td>
+                          <td>Red</td>
+                          <td>Ac Bus</td>
+                          <td>TN</td>
+                          <td>South Africa</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
+                          <td>
+                            <p class="glyphicon glyphicon-trash"></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Apz1252z</td>
+                          <td>Bus-ts</td>
+                          <td>Red</td>
+                          <td>Ac Bus</td>
+                          <td>TN</td>
+                          <td>South Africa</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
+                          <td>
+                            <p class="glyphicon glyphicon-trash"></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Apz1252z</td>
+                          <td>Bus-ts</td>
+                          <td>Red</td>
+                          <td>Ac Bus</td>
+                          <td>TN</td>
+                          <td>South Africa</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td>12 July 2017:11:06Am</td>
+                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
+                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
+                          <td>
+                            <p class="glyphicon glyphicon-trash"></p>
+                          </td>
+                        </tr>
                         </tbody>
                       </table>
 

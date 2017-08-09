@@ -99,9 +99,9 @@ export class CreateaccountComponent implements OnInit {
   howDidYouHearUsOptions=[];
   statementDeliveryOptions=[];
   accountCategories=[];
-  
+
   ngOnInit() {
-  
+
 let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
     let emailPattern1 = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)";
 
@@ -133,8 +133,7 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       idProofNo: new FormControl(""),
       addressProof: new FormControl(""),
       userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
-      agreeTermsAndConditions: new FormControl("")
-    });
+      agreeTermsAndConditions: new FormControl(""),
       passWord: new FormControl(""),
       selectedstate:new FormControl(""),
       idProof_other: new FormControl(""),
@@ -158,7 +157,7 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       account_Category: new FormControl("")
     });
 
-    
+
 
     /*this.userForm.get('businessCustomerType').valueChanges.subscribe(
       (businessCustomerType)=>{
@@ -177,7 +176,7 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       $('<link>').appendTo('head').attr({type: 'text/css',rel: 'stylesheet',href: "./../../assets/datepicker/datepicker.min.css"});
       $.getScript( "./../../assets/notification.js" );
       $.getScript( "./../../assets/datepicker/datepicker.min.js" );
-      
+
 
 
       $('.collapse').on('shown.bs.collapse', function(){
@@ -449,14 +448,14 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 
     this.account.accountId=0;
     this.account.sourcePkId=0;
-    this.account.accountStatus="NA";
+    this.account.accountStatus="9";
     this.account.revenueCategory='Revenue';
-    this.account.customerStatus='C';
-    this.account.sourceOfEntry="Online";
+    this.account.customerStatus='0';
+    this.account.sourceOfEntry="0";
     this.account.accountType="";
     this.account.isNotificationsEnabled=false;
     this.account.retypePassword=customerInfo.passWord;
-    this.account.addressType="Primary";
+    this.account.addressType="6";
     this.account.line1="";
     this.account.line2="";
     this.account.line3="";
@@ -475,7 +474,7 @@ var OrganizationName="";
     }
     this.account.organizationName=OrganizationName;
     this.account.webType="";
-    this.account.subSystem="CSC";
+    this.account.subSystem="1";
     this.account.isSplitCustomer=false;
     this.account.BoolActivityRequired=true;
     this.account.ConvertToCustomer=false;
@@ -505,7 +504,7 @@ var OrganizationName="";
     this.account.password=customerInfo.passWord;
     this.account.firstName=customerInfo.first_Name;
     this.account.lastName=customerInfo.last_Name;
-    this.account.dOB=$("#date_Of_Birth").val();
+    this.account.dOB=this.getCurrentDate();//$("#date_Of_Birth").val();
     this.account.gender=customerInfo.gender;
     this.account.suffix=customerInfo.suffix;
     this.account.title=customerInfo.title;
@@ -513,43 +512,46 @@ var OrganizationName="";
     //this.account.country=customerInfo.country;
     this.account.zip1=customerInfo.zip1;
     this.account.zip2=customerInfo.zip2;
-    this.account.activitySource="Internal";
+    this.account.activitySource="0";
     this.account.contactId=0;
     this.account.initiatedBy="SureIT";
     this.account.middleName=customerInfo.middle_Name;
-    this.account.nameType="Primary";
+    this.account.nameType="6";
     this.account.parentId=0;
     this.account.planDescription="";
     this.account.userId=12345;
     this.account.loginId=12345;
-    this.account.userType=customerInfo.businessCustomerType;
+    this.account.userType="7";
     this.account.email={};
     //Email List
 
     var primaryEmail=this.getEmailObject();
     primaryEmail.emailAddress=customerInfo.primary_Email;
+    primaryEmail.isPreferred=true;
     primaryEmail.type='PrimaryEmail';
     var secondaryEmail=this.getEmailObject();
     secondaryEmail.emailAddress=customerInfo.secondary_Email;
+    secondaryEmail.isPreferred=false;
     secondaryEmail.type='SecondaryEmail';
     var emailAddressArray:Email[]=[];
     emailAddressArray[0]=primaryEmail;
-    emailAddressArray[1]=secondaryEmail;
+    //emailAddressArray[1]=secondaryEmail;
     this.account.emailList=emailAddressArray;
 
 
     //Address List
     var addressObject:Address=this.getAddressObject();
-    addressObject.line1=customerInfo.addressLine1;
-    addressObject.line2=customerInfo.addressLine2;
-    addressObject.line3=customerInfo.addressLine2;
-    addressObject.city=customerInfo.city;
+    addressObject.line1=customerInfo.address1;
+    addressObject.line2=customerInfo.address2;
+    addressObject.line3=customerInfo.address2;
+    addressObject.city=customerInfo.city_Name;
     addressObject.country=customerInfo.country;
     addressObject.state=customerInfo.selectedstate;
     addressObject.zip1=customerInfo.zip1;
     addressObject.zip2=customerInfo.zip2;
     addressObject.state=customerInfo.selectedstate;
     var addressArray:Address[]=[];
+    console.log(" addressObject "+addressObject);
     addressArray[0]=addressObject;
     this.account.addressList=addressArray;
 
@@ -562,7 +564,7 @@ var OrganizationName="";
       kYCDocumentIdProof.documentCategory = "IDProofBusiness";
       kYCDocumentIdProof.documentCategoryDesc= "IDProofBusiness";
     }else{
-      kYCDocumentIdProof.documentCategory = "Individual";
+      kYCDocumentIdProof.documentCategory = "IDProof";
       kYCDocumentIdProof.documentCategoryDesc= "Individual";
     }
     var kYCDocumentAddressProof:KYCDocument=this.getKYCDocumentObject();
@@ -589,72 +591,42 @@ var OrganizationName="";
     var dayPhone:Phone=this.getPhoneObject();
     dayPhone.phoneNumber=customerInfo.day_Phone_Number;
     dayPhone.type="DayPhone";
-    var eveningPhone:Phone=this.getPhoneObject();
+    dayPhone.isCommunication=true;
+    /*var eveningPhone:Phone=this.getPhoneObject();
     eveningPhone.phoneNumber=customerInfo.eveningPhone;
+    eveningPhone.isCommunication=false;
     eveningPhone.type="EveningPhone";
     var mobile_Phone_Number:Phone=this.getPhoneObject();
     mobile_Phone_Number.phoneNumber=customerInfo.mobile_Phone_Number;
+    mobile_Phone_Number.isCommunication=false;
     mobile_Phone_Number.type="MobileNo";
     var workPhone:Phone=this.getPhoneObject();
     workPhone.phoneNumber=customerInfo.workPhone;
+    workPhone.isCommunication=false;
     workPhone.type="MobileNo";
     var phoneFax:Phone=this.getPhoneObject();
     phoneFax.phoneNumber=customerInfo.fax;
-    phoneFax.type="Fax";
+    phoneFax.isCommunication=false;
+    phoneFax.type="Fax";*/
     var phoneArray:Phone[]=[];
     phoneArray[0]=dayPhone;
-    phoneArray[1]=eveningPhone;
+    /*phoneArray[1]=eveningPhone;
     phoneArray[2]=mobile_Phone_Number;
     phoneArray[3]=workPhone;
-    phoneArray[4]=phoneFax;
+    phoneArray[4]=phoneFax;*/
     this.account.phoneList=phoneArray;
 
 
-var inputData=
-  {"AccountId":0,"SourcePkId":0,"AccountStatus":9,"RevenueCategory":"Revenue","CustomerStatus":0,"SourceOfEntry":0,"AccountType":"",
-    "IsNotificationsEnabled":false,"RetypePassword":"password","AddressType":6,"Line1":"","Line2":"","Line3":"","City":"","State":"",
-    "Country":"","IsCommunication":false,"Pin":"","CurrentPasswordExpiryDate":"\/Date(1245398693390)\/","Request Address":null,"OrganizationName":"Individual",
-    "WebType":"","SubSystem":1,"IsSplitCustomer":false,"boolActivityRequired":true,"convertToCustomer":false,"ActionCode":"","FeaturesCode":"",
-    "KeyValue":"","User":"123456","LoginId":"1234","ActivityTypeDescription":"","CheckBlockList":true,"KYCStatus":"Received","KYCDate":"\/Date(1245398693390)\/",
-    "KYCRequired":true,"LoginStatus":"","UnPaidAmount":0,"PlanCode":"","PlanDescription":"","ParentPlanId":0,"ParentPlanCode":"","ParentPlanDescription":"",
-    "EnrollmentNumber":"","IsRegistered":false,"PreloadedAccountId":0,"IsCreateAccount":true,"IsPrimary":false,"UserName":"bhanu1256","Password":"password",
-    "FirstName":"firstname","LastName":"lastname","DOB":"\/Date(1245398693390)\/","Gender":"Female","Suffix":"Sr","Title":"Ms","Zip1":"","Zip2":"zip2","ActivitySource":0,
-    "ContactId":0,"InitiatedBy":"123456","MiddleName":"mi","NameType":6,"ParentId":0,"UserId":"13234","UserType":7,"Request Email":{},
-    "Request Email List":[
-      {"EmailId":0,"CustomerId":0,"IsPreferred":true,"UserName":"123456","IsActive":true,"Paging":{},"SubSystem":1,"ActivitySource":0,
-        "IsActivityRequired":true,"UserId":0,"LoginId":0,"CheckBlockList":false,"IsValid":true,"EmailAddress":"testb123456@bhanu.com","Type":"PrimaryEmail"},
-      {"EmailId":0,"CustomerId":0,"IsPreferred":false,"UserName":"123456","IsActive":true,"Paging":{},"SubSystem":1,"ActivitySource":0,"IsActivityRequired":true,
-        "UserId":0,"LoginId":0,"CheckBlockList":false,"IsValid":true,"EmailAddress":"test123678@bhanu.com","Type":"SecondaryEmail"}
-    ],"Request Address List":[{"AddressId":0,
-    "CustomerId":0,"Type":"Primary","IsPreferred":true,"FullAddress":"","UserName":"123456","IsActive":true,"Paging":{},"SubSystem":1,"ActivitySource":0,
-    "IsActivityRequired":true,"UserId":0,"LoginId":0,"CountryName":"","StateName":"","CheckBlockList":false,"IsInvalidAddress":true,"ReasonCode":"",
-    "IsShipmentupdateAddress":false,"Line1":"address1","Line2":"address2","Line3":"address2","City":"CITY","Country":"IND","State":"JK","Zip1":"234344","Zip2":""}]
-    ,"KYC Document List":[{"CustomerId":0,"DocumentTypeId":0,"DocumentTypeName":"","DocumentStatusID":0,"DocumentStatus":"Received","IsVerified":true,
-    "UploadedBy":"123456","CreatedUser":"123456","UpdatedUser":"123456","UserId":1232131,"LoginId":1232131,"User":"123456","ActivitySource":0,"SubSystem":1,
-    "DocumentId":0,"DocumentPreviousStatus":false,"ModuleName":"","IsDocumentProofChanged":true,"DocumentStatusDate":"\/Date(1245398693390)\/",
-    "ReceivedDate":"\/Date(1245398693390)\/","UploadedDate":"\/Date(1245398693390)\/","VerifiedDate":"\/Date(1245398693390)\/","IsUploaded":true,
-    "IsReceived":true,"DocumentNumber":"idproof number","DocumentType":"Individual","Description":"Individual","DocumentCategory":"IDProof",
-    "DocumentCategoryDesc":"Individual","DocumentPath":"/343433242.jfif"},{"CustomerId":0,"DocumentTypeId":0,"DocumentTypeName":"","DocumentStatusID":0,
-    "DocumentStatus":"Received","IsVerified":true,"UploadedBy":"123456","CreatedUser":"123456","UpdatedUser":"123456","UserId":1232131,"LoginId":1232131,
-    "User":"123456","ActivitySource":0,"SubSystem":1,"DocumentId":0,"DocumentPreviousStatus":false,"ModuleName":"","IsDocumentProofChanged":true,
-    "DocumentStatusDate":"\/Date(1245398693390)\/","ReceivedDate":"\/Date(1245398693390)\/","UploadedDate":"\/Date(1245398693390)\/","VerifiedDate":
-      "\/Date(1245398693390)\/","IsUploaded":true,"IsReceived":true,"DocumentType":"Individual","Description":"Individual","DocumentNumber":"UB",
-    "DocumentCategory":"AddressProof","DocumentCategoryDesc":"AddressProof","DocumentPath":"/CreateUserAccountServices_modified.docx"}],
-    "Request Phone List":[{"PhoneId":0,"CustomerId":0,"Extension":"","UserName":"123456","Paging":{},"SubSystem":1,"ActivitySource":0,
-      "IsActive":true,"IsActivityRequired":true,"UserId":0,"LoginId":0,"CheckBlockList":false,"IsPhoneNumberChanged":false,"IsCreateAccount":true,
-      "PhoneNumber":"(369) 468-5464","Type":"DayPhone"},{"PhoneId":0,"CustomerId":0,"Extension":"","UserName":"123456","Paging":{},"SubSystem":1,
-      "ActivitySource":0,"IsActive":true,"IsActivityRequired":true,"UserId":0,"LoginId":0,"CheckBlockList":false,"IsPhoneNumberChanged":false,
-      "IsCreateAccount":true,"PhoneNumber":"(856) 558-5685","Type":"EveningPhone"},{"PhoneId":0,"CustomerId":0,"Extension":"","UserName":"123456",
-      "Paging":{},"SubSystem":1,"ActivitySource":0,"IsActive":true,"IsActivityRequired":true,"UserId":0,"LoginId":0,"CheckBlockList":false,
-      "IsPhoneNumberChanged":false,"IsCreateAccount":true,"PhoneNumber":"(343) 498-5745","Type":"MobileNo","IsCommunication":true},
-      {"PhoneId":0,"CustomerId":0,"Extension":"","UserName":"123456","Paging":{},"SubSystem":1,"ActivitySource":0,"IsActive":true,
-        "IsActivityRequired":true,"UserId":0,"LoginId":0,"CheckBlockList":false,"IsPhoneNumberChanged":false,"IsCreateAccount":true,
-        "PhoneNumber":"(444) 444-4444","Type":"Fax"}]
-  };
 
-    console.log(JSON.stringify(this.account));
 
-    this.utilityService.saveCustomer("PostCreateCustomer",inputData).subscribe(res=>{
+
+var tempInputObj=JSON.stringify(this.account);
+    tempInputObj=tempInputObj.replace("EmailList","Request Email List");
+    tempInputObj=tempInputObj.replace("PhoneList","Request Phone List");
+    tempInputObj=tempInputObj.replace("AddressList","Request Address List");
+    tempInputObj=tempInputObj.replace("AddKYCDocument","KYC Document List");
+    console.log(tempInputObj);
+    this.utilityService.saveCustomer("PostCreateCustomer",tempInputObj).subscribe(res=>{
 
       var resObj=JSON.parse(res._body);
       console.log(resObj.ResultValue);
@@ -752,7 +724,7 @@ console.log(this.countryObject);
     })
 
   }
-  
+
 
   getAddressProof=function () {
     this.utilityService.getDropDownValues("GetLookups/?Type=AddressProof").subscribe(res=>{
@@ -861,12 +833,11 @@ this.getIdProofBusiness();
     let  email=new Email();
     email.emailId=0;
     email.customerId=0;
-    email.isPreferred=true;
     email.userName='SureIT';
     email.isActive=true;
     email.paging={};
-    email.subSystem='CSC';
-    email.activitySource='Internal';
+    email.subSystem='1';
+    email.activitySource='0';
     email.isActivityRequired =true;
     email.userId=0;
     email.loginId=0;
@@ -884,8 +855,8 @@ this.getIdProofBusiness();
     addrObj.userName="SureIT";
     addrObj.isActive=true;
     addrObj.paging={};
-    addrObj.subSystem="CSC";
-    addrObj.activitySource ="Internal";
+    addrObj.subSystem="1";
+    addrObj.activitySource ="0";
     addrObj.isActivityRequired=true;
     addrObj.userId=0;
     addrObj.loginId=0;
@@ -937,8 +908,8 @@ this.getIdProofBusiness();
     phone.extension="";
     phone.userName="SureIT";
     phone.paging={};
-    phone.subSystem=0;
-    phone.activitySource="Internal";
+    phone.subSystem="1";
+    phone.activitySource="0";
     phone.isActive=true;
     phone.isActivityRequired=true;
     phone.userId=0;
@@ -951,7 +922,7 @@ return phone;
   }
 
   getCurrentDate=function () {
-    return "2009-01-16T00:00:00Z";
+    return "\/Date(1245398693390)\/";
 
   }
   validateUserName=function () {
@@ -980,9 +951,9 @@ if(userName.length>3) {
 }
   }
 
- 
- 
- 
+
+
+
  static emailValidator(control) {
     // RFC 2822 compliant regex
     if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
@@ -1047,10 +1018,10 @@ if(userName.length>3) {
   getAccountCategories=function () {
 
   }
- 
- 
- 
- 
+
+
+
+
   /*
    form;
    ngOnInit() {
