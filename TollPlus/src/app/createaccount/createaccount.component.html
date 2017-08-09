@@ -2,9 +2,9 @@
 <a routerLink="/signup" class="btn btn-block btn-primary">Sign Up</a>-->
 
 <div id="exTab1" class="container" style="background-color: white">
-  <ul class="nav nav-tabs nav-pills nav-wizard " style="background-color: white" >
+  <ul class="nav nav-tabs nav-pills nav-wizard " style="background-color: white">
     <li class="active">
-        <a href="#1a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
+      <a href="#1a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
     </li>
     <li><a href="#2a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
     </li>
@@ -16,7 +16,7 @@
 
   <div class="tab-content">
 
-    <div class="tab-pane active" id="1a" >
+    <div class="tab-pane active" id="1a">
       <div id="page-wrapper">
         <div class="row">
           <!--<div class="col-lg-12">
@@ -32,17 +32,16 @@
 
               <div class="panel-group" id="accordion">
                 <div class="row">
-                  <div class="col-lg-9" >
+                  <div class="col-lg-9">
                   </div>
                   <div class="col-lg-3" align="right">
-                    <i class="left-inner-addon" >*</i> Indicates Required Field(s)
+                    <i class="left-inner-addon">*</i> Indicates Required Field(s)
                   </div>
                 </div>
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#personalDetails1"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline">
-                        Personal Details</a>
+                      <a data-toggle="collapse" data-parent="#accordion" href="#personalDetails1"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline"></a>Personal Details
                     </h4>
                   </div>
                   <!--<div id="collapse1" class="panel-collapse collapse in">
@@ -57,7 +56,7 @@
                               <div class="form-group" [ngClass]="{'has-error':user_Form.controls['businessCustomerType'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user">*</i>
-                                  <select class="form-control" placeholder="Business Customer" name="businessCustomerType" id='businessCustomerType'  >
+                                  <select class="form-control" placeholder="Business Customer" name="businessCustomerType" id='businessCustomerType'>
                                     <option label="Business Customer" disabled selected="selected" value=""></option>
                                     <option   *ngFor="let businessCustomer of businessCustomers" value="{{businessCustomer.key}}"> {{businessCustomer.value}}</option>
                                   </select>
@@ -199,7 +198,7 @@
 
                           <div class="row">
                             <div class="col-lg-11">
-                              <div class="form-group" >
+                              <div class="form-group">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user"></i>
                                   <input class="form-control" placeholder="Middle Name" name="middle_Name" formControlName="middle_Name">
@@ -321,9 +320,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-
-                      <a data-toggle="collapse" data-parent="#accordion" href="#contactDetails1"  class="collase-icon glyphicon glyphicon-chevron-down  anchor-no-underline">
-                        Contact Details</a>
+                      <a data-toggle="collapse" data-parent="#accordion" href="#contactDetails1"  class="collase-icon glyphicon glyphicon-chevron-down  anchor-no-underline"></a>Contact Details
                     </h4>
                   </div>
                   <!--<div id="collapse1" class="panel-collapse collapse in">
@@ -339,8 +336,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['primary_Email'].hasError('required') && !user_Form.controls['primary_Email'].touched">*</i>
-                                      <input class="form-control"  placeholder="Primary Email"  name="primary_Email" required="primary_Email"
-                                             [formControl]="user_Form.controls['primary_Email']" >
+                                      <input class="form-control" placeholder="Primary Email" name="primary_Email" required="primary_Email" [formControl]="user_Form.controls['primary_Email']">
                                     </div>
                                   </div>
                                 </div>
@@ -355,7 +351,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred" >Is Preferred?
+                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -363,7 +359,7 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" >
+                                  <div class="form-group">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
                                       <input class="form-control" placeholder="Secondary Email" name="secondary_Email" [formControl]="user_Form.controls['secondary_Email']">
@@ -378,7 +374,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="secondaryEmailIsPreferred" value="secondaryEmailIsPreferred" >Is Preferred?
+                                    <input type="radio" name="secondaryEmailIsPreferred" value="secondaryEmailIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -408,7 +404,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="dayPhoneIsPreferred" value="dayPhoneIsPreferred" >Is Preferred?
+                                    <input type="radio" name="dayPhoneIsPreferred" value="dayPhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -437,7 +433,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="eveningPhoneIsPreferred" value="eveningPhoneIsPreferred" >Is Preferred?
+                                    <input type="radio" name="eveningPhoneIsPreferred" value="eveningPhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -449,7 +445,7 @@
                                 <div class="col-lg-8">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user" >*</i>
+                                      <i class="icon-user">*</i>
                                       <input class="form-control" placeholder="Mobile Phone Number" name="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']">
                                     </div>
                                   </div>
@@ -463,7 +459,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="mobilePhoneIsPreferred" value="mobilePhoneIsPreferred" >Is Preferred?
+                                    <input type="radio" name="mobilePhoneIsPreferred" value="mobilePhoneIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -492,7 +488,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred" >Is Preferred?
+                                    <input type="radio" name="primaryEmailIsPreferred" value="primaryEmailIsPreferred">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -502,7 +498,7 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" >
+                                  <div class="form-group">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user"></i>
                                       <input class="form-control" placeholder="Fax" name="fax" [formControl]="user_Form.controls['fax']" formControlName="fax">
@@ -510,9 +506,9 @@
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" >
+                                  <div class="tooltip1">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" >Please Enter Fax number</span>
+                                    <span class="tooltiptext1">Please Enter Fax number</span>
                                   </div>
                                 </div>
                               </div>
@@ -556,7 +552,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                        <select name="state" class="form-control">
+                                          <select name="state" class="form-control">
                                           <option value="" disabled>State</option>
                                           <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
                                         </select>
@@ -607,7 +603,7 @@
                                           <div class="col-lg-10">
                                             <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip1'].invalid && user_Form.controls['zip1'].touched}">
                                               <i class="icon-user" *ngIf="user_Form.controls['zip1'].hasError('required') && !user_Form.controls['zip1'].touched">*</i>
-                                            <input class="form-control" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
+                                              <input class="form-control" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
@@ -657,7 +653,7 @@
                                       </div>
 
                                     </div>
-                                      <div class="col-lg-1" id="addressSpantooltip1">
+                                    <div class="col-lg-1" id="addressSpantooltip1">
                                       <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['address1'].invalid && user_Form.controls['address1'].touched && user_Form.controls['address1'].hasError('required')}">
                                         <span class="tooltipbadge">?</span>
                                         <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['address1'].touched && !user_Form.controls['address1'].dirty
@@ -678,7 +674,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user"></i>
-                                        <input class="form-control" placeholder="Address2" name="address2" formControlName="address2">
+                                          <input class="form-control" placeholder="Address2" name="address2" formControlName="address2">
                                         </div>
                                       </div>
                                     </div>
@@ -700,7 +696,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                        <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" required>
+                                          <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" required>
                                           <option label="Id Proof Type" disabled selected="selected" value=""></option>
                                           <option *ngFor="let idProof of idProofs" value="{{idProof.key}}">{{idProof.value}}</option>
                                         </select>
@@ -708,9 +704,9 @@
                                       </div>
                                     </div>
                                     <div class="col-lg-1">
-                                      <div class="tooltip1" >
+                                      <div class="tooltip1">
                                         <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1" >Please Select Id Proof Type</span>
+                                        <span class="tooltiptext1">Please Select Id Proof Type</span>
                                       </div>
                                     </div>
                                   </div>
@@ -739,8 +735,8 @@
                               <div class="center">
                                 <div class="left-inner-addon " style="{align: center !important}">
                                   <i class="icon-user">*</i>
-                                <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                                </file-drop>
+                                  <file-drop headertext="ID Proof File Drop here to upload, or" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                  </file-drop>
                                 </div>
                                 <!--<div class="upload-table">
                                   <table class="table">
@@ -765,7 +761,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                        <select class="form-control" name="addressProof" formControlName="addressProof">
+                                          <select class="form-control" name="addressProof" formControlName="addressProof">
                                           <option label="Address Proof Type" disabled selected="selected" value=""></option>
                                           <option *ngFor="let addressProof of addressProofs" value="{{addressProof.key}}">{{addressProof.value}}</option>
                                         </select>
@@ -773,9 +769,9 @@
                                       </div>
                                     </div>
                                     <div class="col-lg-1">
-                                      <div class="tooltip1" >
+                                      <div class="tooltip1">
                                         <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1" >Please Select Address Proof Type</span>
+                                        <span class="tooltiptext1">Please Select Address Proof Type</span>
                                       </div>
                                     </div>
                                   </div>
@@ -802,7 +798,7 @@
                                   </table>
                                 </div>-->
                               </div>
-                             <!-- <div class="form-group">
+                              <!-- <div class="form-group">
                                 <label class="control-label">Address Proof</label>
                                 <input id="input-2" type="file" class="file" placeholder="Address Proof " name="addressProof" formControlName="addressProof">
                               </div>-->
@@ -826,8 +822,8 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div >
-                                    <input type="checkbox" formControlName="agreeTermsAndConditions"> <i class="left-inner-addon" >*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
+                                  <div>
+                                    <input type="checkbox" formControlName="agreeTermsAndConditions"> <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
                                   </div>
 
 
@@ -841,7 +837,7 @@
                           <!-- /.row (nested) -->
 
 
-                           <!-- <input type="checkbox" formControlName="agreeTermsAndConditions"> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>-->
+                          <!-- <input type="checkbox" formControlName="agreeTermsAndConditions"> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>-->
 
                         </div>
 
@@ -879,21 +875,21 @@
     <div class="tab-pane" id="2a">
       <div id="page-wrapper">
         <form role="form" [formGroup]="vehicleForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)' novalidate>
-       <!-- <form role="form" #vehicleForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)'>-->
+          <!-- <form role="form" #vehicleForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)'>-->
           <div class="panel-group" id="VehicleInformation">
             <div class="row">
-              <div class="col-lg-9" >
+              <div class="col-lg-9">
               </div>
               <div class="col-lg-3" align="right">
-                <i class="left-inner-addon" >*</i> Indicates Required Field(s)
+                <i class="left-inner-addon">*</i> Indicates Required Field(s)
               </div>
             </div>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
 
-                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehicleInformationRef"  class="collase-icon glyphicon glyphicon-chevron-down">
-                    Vehicle Information</a>
+                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehicleInformationRef"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline"></a>
+                    Vehicle Information
                 </h4>
               </div>
               <!--<div id="collapse1" class="panel-collapse collapse in">
@@ -920,7 +916,7 @@
                           </div>
                         </div>
                       </div>
-                     <!-- <div class="form-group">
+                      <!-- <div class="form-group">
                         <input class="form-control" placeholder="Plate Number" name="plateNumber" ngModel>
                       </div>-->
                     </div>
@@ -930,7 +926,7 @@
                           <div class="form-group" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}">
                             <div class="left-inner-addon ">
                               <i class="icon-user">*</i>
-                              <select class="form-control" placeholder="Class" name="vehicle_Class_dropdown" id='vehicle_Class_dropdown'  >
+                              <select class="form-control" placeholder="Class" name="vehicle_Class_dropdown" id='vehicle_Class_dropdown'>
                                 <option label="Class" disabled selected="selected" value=""></option>
                                 <option   *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleClassDropdown.value}}</option>
                               </select>
@@ -952,7 +948,7 @@
                         </div>
 
                       </div>
-                     <!-- <div class="form-group">
+                      <!-- <div class="form-group">
                         <input class="form-control" placeholder="Class" name="class" ngModel>
                       </div>-->
                     </div>
@@ -962,7 +958,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Year" name="vehicle_Year" id='vehicle_Year'  >
+                            <select class="form-control" placeholder="Year" name="vehicle_Year" id='vehicle_Year'>
                               <option label="Year" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_year of vehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
                             </select>
@@ -970,9 +966,9 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" >
+                          <div class="tooltip1">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" >Please Select Year</span>
+                            <span class="tooltiptext1">Please Select Year</span>
                           </div>
                         </div>
 
@@ -983,7 +979,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Make" name="vehicle_Make" id='vehicle_Make'  >
+                            <select class="form-control" placeholder="Make" name="vehicle_Make" id='vehicle_Make'>
                               <option label="Make" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_make of vehicleMake" value="{{vehicle_make.key}}"> {{vehicle_make.value}}</option>
                             </select>
@@ -991,9 +987,9 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" >
+                          <div class="tooltip1">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" >Please Select Make</span>
+                            <span class="tooltiptext1">Please Select Make</span>
                           </div>
                         </div>
 
@@ -1008,7 +1004,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Model" name="vehicle_Model" id='vehicle_Model'  >
+                            <select class="form-control" placeholder="Model" name="vehicle_Model" id='vehicle_Model'>
                               <option label="Model" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.key}}"> {{vehicle_model.value}}</option>
                             </select>
@@ -1016,9 +1012,9 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" >
+                          <div class="tooltip1">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" >Please Select Model</span>
+                            <span class="tooltiptext1">Please Select Model</span>
                           </div>
                         </div>
 
@@ -1028,7 +1024,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Color" name="vehicle_Color" id='vehicle_Color'  >
+                            <select class="form-control" placeholder="Color" name="vehicle_Color" id='vehicle_Color'>
                               <option label="Color" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_color of vehicleColors" value="{{vehicle_color.key}}"> {{vehicle_color.value}}</option>
                             </select>
@@ -1036,9 +1032,9 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" >
+                          <div class="tooltip1">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" >Please Select Color</span>
+                            <span class="tooltiptext1">Please Select Color</span>
                           </div>
                         </div>
 
@@ -1142,9 +1138,9 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" >
+                          <div class="tooltip1">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" >Please Select Start Date & Time</span>
+                            <span class="tooltiptext1">Please Select Start Date & Time</span>
                           </div>
                         </div>
                       </div>
@@ -1172,9 +1168,9 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" >
+                          <div class="tooltip1">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" >Please Select End Date & Time</span>
+                            <span class="tooltiptext1">Please Select End Date & Time</span>
                           </div>
                         </div>
                       </div>
@@ -1190,7 +1186,7 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <input type="checkbox" formControlName="isTemporaryLicencePlateNumber" style="{color: #999999 !important;}">  Is temporary licence plate number?
+                        <input type="checkbox" formControlName="isTemporaryLicencePlateNumber" style="{color: #999999 !important;}"> Is temporary licence plate number?
                       </div>
 
                     </div>
@@ -1203,17 +1199,17 @@
 
                   </div>
                   <div class="col-lg-6">
-                  <div class="row">
-                    <div class="col-lg-2">
-                      <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}">
+                    <div class="row">
+                      <div class="col-lg-2">
+                        <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}">
+                      </div>
+                      <div class="col-lg-5">
+                        <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
+                      </div>
+                      <div class="col-lg-1">
+                        <input class="btn btn-primary" type="button" name="reset" value="Save">
+                      </div>
                     </div>
-                    <div class="col-lg-5">
-                      <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
-                    </div>
-                    <div class="col-lg-1" >
-                      <input class="btn btn-primary" type="button" name="reset" value="Save" >
-                    </div>
-                  </div>
                   </div>
 
                 </div>
@@ -1231,8 +1227,8 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
 
-                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down">
-                    Vehicles</a>
+                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline"></a>
+                  Vehicles
                 </h4>
               </div>
 
@@ -1315,7 +1311,7 @@
                             <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
                             <td>
-                              <p class="glyphicon glyphicon-trash" ></p>
+                              <p class="glyphicon glyphicon-trash"></p>
                             </td>
                           </tr>
                         </tbody>
@@ -1331,7 +1327,7 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="col-lg-3">
-                      <select class="form-control" placeholder="Records" name="records" >
+                      <select class="form-control" placeholder="Records" name="records">
                         <option label="Records" disabled selected="selected" value=""></option>
                         <option>5</option>
                         <option>10</option>
@@ -1374,22 +1370,22 @@
     <div class="tab-pane" id="3a">
       <div id="page-wrapper">
         <form role="form" [formGroup]="addtnl_Info_Form" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)' novalidate>
-        <!--<form role="form" #addtnl_Info_Form="ngForm" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)'>-->
+          <!--<form role="form" #addtnl_Info_Form="ngForm" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)'>-->
           <div class="row">
             <div class="col-lg-12">
               <div class="row">
-                <div class="col-lg-9" >
+                <div class="col-lg-9">
                 </div>
                 <div class="col-lg-3" align="right">
-                  <i class="left-inner-addon" >*</i> Indicates Required Field(s)
+                  <i class="left-inner-addon">*</i> Indicates Required Field(s)
                 </div>
               </div>
               <div class="panel panel-default" id="AdditionalInformation">
                 <div class="panel-heading">
                   <h4 class="panel-title">
 
-                    <a data-toggle="collapse" data-parent="#AdditionalInformation" href="#AdditionalInfo"  class="collase-icon glyphicon glyphicon-chevron-down">
-                      Other Details</a>
+                    <a data-toggle="collapse" data-parent="#AdditionalInformation" href="#AdditionalInfo"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline"></a>
+                    Other Details
                   </h4>
                 </div>
 
@@ -1401,7 +1397,7 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group" >
+                          <div class="form-group">
                             <div class="left-inner-addon ">
                               <i class="icon-user"></i>
                               <input class="form-control" placeholder="Friendship Reward Account No." name="friendshipRewardAccountNo" formControlName="friendshipRewardAccountNo">
@@ -1531,7 +1527,7 @@
                         <div class="panel-heading">
                           <h4 class="panel-title">
 
-                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1"  class="collase-icon glyphicon glyphicon-chevron-down">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline">
                             </a>Toll Type
                           </h4>
                         </div>

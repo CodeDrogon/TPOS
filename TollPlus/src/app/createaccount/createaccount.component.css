@@ -312,10 +312,6 @@ ul.breadcrumb li a:hover {
   border-radius: 6px;
   background-color: #438dcc
 }
-.panel-title{
-  word-spacing: -12px !important;
-}
-
 .anchor-no-underline{
   text-decoration: none !important
 }
@@ -347,6 +343,3 @@ ul.breadcrumb li a:hover {
 .glyphicon-trash{
    color: #085db0 !important;
 }
-
-
-
