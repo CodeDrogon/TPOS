@@ -62,6 +62,10 @@ export class CreateaccountComponent implements OnInit {
    addressProofFullPath;
    userNameValidationResult;
 
+  hearAboutUs=[];
+  statementDelivOption=[];
+  revenueCategory=[];
+
   public IdProofDropped(event) {
     this.files = event.files;
     this.idProofFullPath=event.files[0].fileEntry.fullPath
@@ -101,7 +105,9 @@ export class CreateaccountComponent implements OnInit {
   accountCategories=[];
 
   ngOnInit() {
-
+    this.getHearAboutUs();
+    this.getStatementDelivOption();
+    this.getRevenueCategory();
 let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
     let emailPattern1 = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)";
 
@@ -1028,7 +1034,29 @@ if(userName.length>3) {
   }
 
 
+  getHearAboutUs=function(){
 
+    this.utilityService.getHearAboutUs("GetLookups/?Type=SourceOfChannel").subscribe(res=>
+    {
+      var resObj=JSON.parse(res._body);
+      this.hearAboutUs = resObj.ResultValue;
+    });
+
+}
+  getStatementDelivOption=function(){
+    this.utilityService.getStatementDelivOption("GetLookups/?Type=StatementDelivery").subscribe(res=>
+    {
+      var resObj=JSON.parse(res._body);
+      this.statementDelivOption = resObj.ResultValue;
+    });
+  }
+  getRevenueCategory=function(){
+    this.utilityService.getRevenueCategory("GetLookups/?Type=RevenueCategory").subscribe(res=>
+    {
+      var resObj=JSON.parse(res._body);
+      this.revenueCategory = resObj.ResultValue;
+    });
+  }
 
   /*
    form;
