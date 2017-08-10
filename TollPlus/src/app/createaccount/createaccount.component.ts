@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import {AppComponent} from './../app.component';
+import {AppComponent} from '../app.component';
 import * as $ from 'jquery';
 import {UtilityService} from "../services/common/utility.service";
 import {Account} from "../pojo/account";
@@ -32,8 +32,8 @@ export class CreateaccountComponent implements OnInit {
 
 
 
-  form:FormGroup;
-  editVehicleForm:FormGroup;
+  vehicleFormEdit:FormGroup;
+
   isLogin:boolean;
   Selections = [];
   TagDetails = [];
@@ -93,6 +93,8 @@ export class CreateaccountComponent implements OnInit {
 
   public AddressProofFileLeave(event){
   }
+
+  //vehicle dropdowns
   vehicleClassDropdowns=[];
   vehicleYear=[];
   vehicleColors=[];
@@ -395,19 +397,19 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       }
     ];
 
-    this.form=new FormGroup({
-      firstName:new FormControl("",Validators.compose([Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('[\\w\\-\\w\\/]+')])),
-      platNo: new FormControl(""),
-      class: new FormControl(""),
-      state: new FormControl(""),
-      description: new FormControl(""),
-      color: new FormControl(""),
-      country: new FormControl(""),
+    this.vehicleFormEdit=new FormGroup({
+      plateNumber:new FormControl(""),
+      vehicle_Class_dropdown:new FormControl(""),
+      vehicle_Year: new FormControl(""),
+      vehicle_Make: new FormControl(""),
+      vehicle_Model:new FormControl(""),
+      state:new FormControl(""),
+      description:new FormControl(""),
+      vehicle_Color:new FormControl(""),
+      registered_Country:new FormControl(""),
       startEffectiveDate: new FormControl(""),
-      endEffectiveDate: new FormControl(""),
-
+      endEffectiveDate:new FormControl(""),
+      isTemporaryLicencePlateNumber: new FormControl(""),
       language: new FormControl("Java")
     });
     console.log("model driven result "+this.isLogin);
@@ -439,14 +441,16 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
   editRecord=function(item) {
     console.log(" "+item.currentTarget.getAttribute("data-Plat-No"));
 
-    this.form=new FormGroup({
-      firstName:new FormControl(item.currentTarget.getAttribute("data-Plat-No")),
-      platNo:new FormControl(item.currentTarget.getAttribute("data-Plat-No")),
-      class:new FormControl(item.currentTarget.getAttribute("data-Class")),
+    this.vehicleFormEdit=new FormGroup({
+      plateNumber:new FormControl(item.currentTarget.getAttribute("data-Plat-No")),
+      vehicle_Class_dropdown:new FormControl(item.currentTarget.getAttribute("data-Class")),
+      vehicle_Year: new FormControl(""),
+      vehicle_Make: new FormControl(""),
+      vehicle_Model: new FormControl(""),
       state:new FormControl(item.currentTarget.getAttribute("data-State")),
       description:new FormControl(item.currentTarget.getAttribute("data-Description")),
-      color:new FormControl(item.currentTarget.getAttribute("data-Color")),
-      country:new FormControl(item.currentTarget.getAttribute("data-Country")),
+      vehicle_Color:new FormControl(item.currentTarget.getAttribute("data-Color")),
+      registered_Country:new FormControl(item.currentTarget.getAttribute("data-Country")),
       endEffectiveDate:new FormControl(item.currentTarget.getAttribute("data-End-Date"))
 
     });
