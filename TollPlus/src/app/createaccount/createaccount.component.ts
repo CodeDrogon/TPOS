@@ -138,6 +138,13 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       selectedstate:new FormControl(""),
       idProof_other: new FormControl(""),
       addressProof_other: new FormControl(""),
+
+      primaryEmailIsPreferred:new FormControl(""),
+      dayPhoneIsPreferred: new FormControl(""),
+      secondaryEmailIsPreferred: new FormControl(""),
+      eveningPhoneIsPreferred: new FormControl(""),
+      mobilePhoneIsPreferred: new FormControl(""),
+      workPhoneIsPreferred: new FormControl(""),
     });
     this.vehicleForm = new FormGroup({
       plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
@@ -147,7 +154,8 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       vehicle_Color: new FormControl(""),
       registered_Country:new FormControl(""),
       registeredState:new FormControl(""),
-      isTemporaryLicencePlateNumber: new FormControl("")
+      isTemporaryLicencePlateNumber: new FormControl(""),
+
     });
 
     this.addtnl_Info_Form = new FormGroup({
@@ -535,7 +543,7 @@ var OrganizationName="";
     secondaryEmail.type='SecondaryEmail';
     var emailAddressArray:Email[]=[];
     emailAddressArray[0]=primaryEmail;
-    //emailAddressArray[1]=secondaryEmail;
+    emailAddressArray[1]=secondaryEmail;
     this.account.emailList=emailAddressArray;
 
 
@@ -592,7 +600,7 @@ var OrganizationName="";
     dayPhone.phoneNumber=customerInfo.day_Phone_Number;
     dayPhone.type="DayPhone";
     dayPhone.isCommunication=true;
-    /*var eveningPhone:Phone=this.getPhoneObject();
+    var eveningPhone:Phone=this.getPhoneObject();
     eveningPhone.phoneNumber=customerInfo.eveningPhone;
     eveningPhone.isCommunication=false;
     eveningPhone.type="EveningPhone";
@@ -603,17 +611,17 @@ var OrganizationName="";
     var workPhone:Phone=this.getPhoneObject();
     workPhone.phoneNumber=customerInfo.workPhone;
     workPhone.isCommunication=false;
-    workPhone.type="MobileNo";
+    workPhone.type="WorkPhone";
     var phoneFax:Phone=this.getPhoneObject();
     phoneFax.phoneNumber=customerInfo.fax;
     phoneFax.isCommunication=false;
-    phoneFax.type="Fax";*/
+    phoneFax.type="Fax";
     var phoneArray:Phone[]=[];
     phoneArray[0]=dayPhone;
-    /*phoneArray[1]=eveningPhone;
+    phoneArray[1]=eveningPhone;
     phoneArray[2]=mobile_Phone_Number;
     phoneArray[3]=workPhone;
-    phoneArray[4]=phoneFax;*/
+    phoneArray[4]=phoneFax;
     this.account.phoneList=phoneArray;
 
 
@@ -738,7 +746,7 @@ console.log(this.countryObject);
   getAddressProofBusiness=function () {
     this.utilityService.getDropDownValues("GetLookups/?Type=AddressProofBusiness").subscribe(res=>{
       var resObj=JSON.parse(res._body);
-      this.addressProofBusinesses = resObj.ResultValue;
+      this.addressProofs= resObj.ResultValue;
 
 
     })
@@ -756,7 +764,7 @@ console.log(this.countryObject);
   getIdProofBusiness=function () {
     this.utilityService.getDropDownValues("GetLookups/?Type=IDProofBusiness").subscribe(res=>{
       var resObj=JSON.parse(res._body);
-      this.idProofBusinesses = resObj.ResultValue;
+      this.idProofs = resObj.ResultValue;
 
 
     })
