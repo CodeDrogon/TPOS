@@ -12,12 +12,19 @@ export class UtilityService {
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
 
-  getStates=function (getStateRelativePath,CountryObject) {
-    return this.httpService.postMethodWithParams(getStateRelativePath,CountryObject);
+  getStates=function (getStateRelativePath,countryObject) {
+    return this.httpService.postMethodWithParams(getStateRelativePath,countryObject);
   }
 
   getDropDownValues(realtivePathWithQueryParam){
     return this.httpService.getHttpMethodWithoutParams(realtivePathWithQueryParam);
 
+  }
+
+  saveCustomer(saveCustomerRelativePath,customer){
+    return this.httpService.postMethodWithParams(saveCustomerRelativePath,customer);
+  }
+  valiateUserName(relativePath,inputObject){
+    return this.httpService.postMethodWithParams(relativePath,inputObject);
   }
 }

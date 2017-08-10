@@ -8,12 +8,21 @@ import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
 
 import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
+import {Pagination} from "./pagination";
+import {PaginationtestComponent} from "./paginationtest/paginationtest.component";
 const routes: Routes = [
   {
     path: "",
     component: RootComponent,
     children: [
-
+      {
+        path: 'pagination',
+        component:PaginationtestComponent,
+        data: {
+          breadcrumb: "Pagination",
+          main:"true"
+        }
+      },
       {
         path: 'login',
         component:LoginComponent,

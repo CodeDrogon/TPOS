@@ -28,7 +28,7 @@ export class TollPlusHttpService {
       {
         headers: customHeaders
       });
-    return this.http.post('http://192.168.50.41:85/WSCustomerService.svc/PostGetStatesByCountryCode',inputObject,
+    return this.http.post('http://192.168.50.41:85/WSCustomerService.svc/'+relativePath,inputObject,
       {headers: customHeaders});
 
 /*    let headers = new Headers({ 'Content-Type': 'application/json' });

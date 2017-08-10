@@ -19,6 +19,13 @@ import {TollPlusHttpService} from "app/services/common/tollplus.http.service";
 /* Need To Delete after demo */
 import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
+import { PaginationtestComponent } from './paginationtest/paginationtest.component';
+import {Pagination} from "./pagination";
+import {Account} from "./pojo/account";
+import {Address} from "./pojo/address";
+import {Phone} from "./pojo/phone";
+import {Email} from "./pojo/email";
+import {KYCDocument} from "./pojo/kycdocument";
 /* End*/
 
 @NgModule({
@@ -34,7 +41,9 @@ import { SignupComponent } from "./signup/signup.component";
 
     CreateaccountComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    PaginationtestComponent
+
 
 
   ],
@@ -47,7 +56,7 @@ import { SignupComponent } from "./signup/signup.component";
     ReactiveFormsModule,
     RouterModule
   ],
-  providers: [LoginService,CreateaccountService,UtilityService,TollPlusHttpService],
+  providers: [LoginService,CreateaccountService,UtilityService,TollPlusHttpService,Pagination,Account,Address,Phone,Email,KYCDocument],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
