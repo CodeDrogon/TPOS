@@ -184,7 +184,7 @@
                               <div class="form-group">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user"></i>
-                                  <select class="form-control" placeholder="Suffix" name="suffix">
+                                  <select class="form-control" placeholder="Suffix" name="suffix" id="suffix" (change)="suffixOther();">
                                     <option disabled selected="selected" value="">Select Suffix</option>
                                     <option *ngFor="let suffix of suffixs" value="{{suffix.key}}">{{suffix.value}}</option>
                                   </select>
@@ -747,7 +747,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                          <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" (change)="idProofOther()" [formControl]="user_Form.controls['idProofType']">
+                                          <select class="form-control" placeholder="Id Proof Type" name="idProofType" formControlName="idProofType" id="idProof_other" (change)="idProofOther();" [formControl]="user_Form.controls['idProofType']">
                                             <option label="Id Proof Type" disabled selected="selected" value=""></option>
                                             <option *ngFor="let idProof of idProofs" value="{{idProof.key}}">{{idProof.value}}</option>
                                           </select>
@@ -831,7 +831,7 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user">*</i>
-                                          <select class="form-control" name="addressProof" formControlName="addressProof" (change)="addressProofOther()" [formControl]="user_Form.controls['addressProof']">
+                                          <select class="form-control" name="addressProof" formControlName="addressProof" id="addressProof_other" (change)="addressProofOther()" [formControl]="user_Form.controls['addressProof']">
                                             <option label="Address Proof Type" disabled selected="selected" value=""></option>
                                             <option *ngFor="let addressProof of addressProofs" value="{{addressProof.key}}">{{addressProof.value}}</option>
                                           </select>
@@ -850,11 +850,12 @@
                                       <div class="form-group">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user"></i>
-                                          <input class="form-control" placeholder="AddressProof Other" id="addressProof_other" name="addressProof_other" [formControl]="user_Form.controls['addressProof_other']" formControlName="addressProof_other">
+                                          <input class="form-control" placeholder="AddressProof Other"  name="addressProof_other" [formControl]="user_Form.controls['addressProof_other']" formControlName="addressProof_other">
                                         </div>
                                       </div>
                                     </div>
                                   </div>
+
                                 </div>
                               </div>
                               <div class="center">

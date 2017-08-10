@@ -650,9 +650,12 @@ var tempInputObj=JSON.stringify(this.account);
       console.log(resObj.ResultValue);
       if(resObj.Result==false){
         this.userNameValidationResult=resObj.ResultValue;
-        $("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(2000, function(){
-          $("#userNameAlreadyExistMessage").hide();
-        });
+        alert(resObj.ResultValue);
+        /*$("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(2000, function(){
+         $("#userNameAlreadyExistMessage").hide();
+         });*/
+      }else{
+        alert(" Customer  Successfully Registered ");
       }
       /*this.states = resObj.ResultValue;*/
       /*for(var i=0;i<resObj.ResultValue.length;i++){
