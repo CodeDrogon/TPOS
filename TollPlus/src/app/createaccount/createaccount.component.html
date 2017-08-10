@@ -1454,7 +1454,7 @@
                               <i class="icon-user"></i>
                               <select class="form-control" placeholder="How did you hear about us?" name="howDidYouHearUs" formControlName="howDidYouHearUs">
                                 <option label="How did you hear about us?" disabled selected="selected" value=""></option>
-                                <option *ngFor="let howDidYouHearUsOption of howDidYouHearUsOptions" value="{{howDidYouHearUsOption.key}}"> {{howDidYouHearUsOption.value}}</option>
+                                <option *ngFor="let howDidYouHearUsOption of hearAboutUs" value="{{howDidYouHearUsOption.key}}"> {{howDidYouHearUsOption.value}}</option>
 
                               </select>
                             </div>
@@ -1482,7 +1482,7 @@
                               <i class="icon-user">*</i>
                               <select class="form-control" placeholder="Statement Delivery Option" name="statement_Delivery_Options" formControlName="statement_Delivery_Options">
                                 <option label="Statement Delivery Option" disabled selected="selected" value=""></option>
-                                <option *ngFor="let statementDeliveryOption of statementDeliveryOptions" value="{{statementDeliveryOption.key}}"> {{statementDeliveryOption.value}}</option>
+                                <option *ngFor="let statementDeliveryOption of statementDelivOption" value="{{statementDeliveryOption.key}}"> {{statementDeliveryOption.value}}</option>
 
                               </select>
                             </div>
@@ -1503,9 +1503,9 @@
                           <div class="form-group">
                             <div class="left-inner-addon">
                               <i class="icon-user"></i>
-                              <select class="form-control" placeholder="Account Category" name="account_Category" formControlName="account_Category">
-                                <option label="Account Category" disabled selected="selected" value=""></option>
-                                <option *ngFor="let accountCategory of accountCategories" value="{{accountCategory.key}}"> {{accountCategory.value}}</option>
+                              <select class="form-control" placeholder="Revenue Category" name="account_Category" formControlName="account_Category">
+                                <option label="Revenue Category" disabled selected="selected" value=""></option>
+                                <option *ngFor="let accountCategory of revenueCategory" value="{{accountCategory.key}}"> {{accountCategory.value}}</option>
 
                               </select>
                             </div>

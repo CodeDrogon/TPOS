@@ -27,4 +27,15 @@ export class UtilityService {
   valiateUserName(relativePath,inputObject){
     return this.httpService.postMethodWithParams(relativePath,inputObject);
   }
+
+
+  getHearAboutUs=function (hearAboutUs) {
+    return this.httpService.getHttpMethodWithoutParams(hearAboutUs);
+  }
+  getStatementDelivOption=function (statementDelivOption) {
+    return this.httpService.getHttpMethodWithoutParams(statementDelivOption);
+  }
+  getRevenueCategory=function (revenueCategory) {
+    return this.httpService.getHttpMethodWithoutParams(revenueCategory);
+  }
 }
