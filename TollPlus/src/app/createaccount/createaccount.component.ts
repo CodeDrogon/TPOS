@@ -124,21 +124,22 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       gender: new FormControl(""),
       date_Of_Birth: new FormControl(""),
       primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
-      secondary_Email: new FormControl(""),
+      secondary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
       day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
       mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
       eveningPhone: new FormControl(""),
       workPhone: new FormControl(""),
-      fax:new FormControl(""),
+      fax:new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
       ext: new FormControl(""),
       country: new FormControl("", Validators.required),
       city_Name:new FormControl("", Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
-      zip1: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(5)])),
-      zip2: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(5)])),
+      zip1: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(6), CreateaccountComponent.validateNumber])),
+      zip2: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(4), CreateaccountComponent.validateNumber])),
       address1: new FormControl("",Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern("/[a-zA-Z0-9]/")])),
       address2: new FormControl(""),
       idProofType: new FormControl(""),
-      idProofNo: new FormControl(""),
+      idProofNo: new FormControl("", Validators.required),
+      idProofFileDrop: new FormControl("", Validators.required),
       addressProof: new FormControl(""),
       userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
       agreeTermsAndConditions: new FormControl(""),
@@ -146,7 +147,7 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       selectedstate:new FormControl(""),
       idProof_other: new FormControl(""),
       addressProof_other: new FormControl(""),
-
+      addressProofFileDrop: new FormControl("", Validators.required),
       primaryEmailIsPreferred:new FormControl(""),
       dayPhoneIsPreferred: new FormControl(""),
       secondaryEmailIsPreferred: new FormControl(""),
@@ -1013,6 +1014,13 @@ if(userName.length>5) {
     }
   }
 
+  static validateNumber(control){
+    if(control.value.match("^[0-9]*$")){
+      return null;
+    }else {
+      return {'invalidNumber': true};
+    }
+  }
   static validatePhoneNumber(control) {
 
    /* if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
