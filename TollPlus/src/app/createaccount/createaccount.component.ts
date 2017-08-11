@@ -120,7 +120,7 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       title: new FormControl(""),
       businessName: new FormControl("", Validators.required),
       suffix: new FormControl(""),
-      middle_Name: new FormControl(""),
+      middle_Name: new FormControl("", Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*"),Validators.maxLength(2)])),
       gender: new FormControl(""),
       date_Of_Birth: new FormControl(""),
       primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
@@ -190,8 +190,8 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 
 
       $('<link>').appendTo('head').attr({type: 'text/css',rel: 'stylesheet',href: "./../../assets/datepicker/datepicker.min.css"});
-      $.getScript( "./../../assets/notification.js" );
       $.getScript( "./../../assets/datepicker/datepicker.min.js" );
+      $.getScript( "./../../assets/datepicker/datepicker.en.js" );
 
 
 
@@ -463,6 +463,43 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
   }
 
   savePersonal=function(customerInfo){
+var primaryEmailIsPrefd=false;
+var secondaryEmailisPrfd=false;
+if(customerInfo.primaryEmailIsPreferred=="Primary Email"){
+  primaryEmailIsPrefd=true;
+  secondaryEmailisPrfd=false;
+}else{
+  primaryEmailIsPrefd=false;
+  secondaryEmailisPrfd=true;
+}
+var dayPhoneIsPrfd=false;
+var eveningPhoneIsPrfd=false;
+var workPhoneIsPrfd=false;
+var mobilePhoneIsPrfd=false;
+    if(customerInfo.dayPhoneIsPreferred=="Day Phone"){
+       dayPhoneIsPrfd=true;
+       eveningPhoneIsPrfd=false;
+       workPhoneIsPrfd=false;
+       mobilePhoneIsPrfd=false;
+    }
+    if(customerInfo.dayPhoneIsPreferred=="Evening Phone"){
+      dayPhoneIsPrfd=false;
+      eveningPhoneIsPrfd=true;
+      workPhoneIsPrfd=false;
+      mobilePhoneIsPrfd=false;
+    }
+    if(customerInfo.dayPhoneIsPreferred=="Work Phone"){
+      dayPhoneIsPrfd=false;
+      eveningPhoneIsPrfd=false;
+      workPhoneIsPrfd=true;
+      mobilePhoneIsPrfd=false;
+    }
+    if(customerInfo.dayPhoneIsPreferred=="Mobile Phone"){
+      dayPhoneIsPrfd=false;
+      eveningPhoneIsPrfd=false;
+      workPhoneIsPrfd=false;
+      mobilePhoneIsPrfd=true;
+    }
 
     this.account.accountId=0;
     this.account.sourcePkId=0;
@@ -542,14 +579,13 @@ var OrganizationName="";
     this.account.userType="7";
     this.account.email={};
     //Email List
-
     var primaryEmail=this.getEmailObject();
     primaryEmail.emailAddress=customerInfo.primary_Email;
-    primaryEmail.isPreferred=true;
+    primaryEmail.isPreferred=primaryEmailIsPrefd;
     primaryEmail.type='PrimaryEmail';
     var secondaryEmail=this.getEmailObject();
     secondaryEmail.emailAddress=customerInfo.secondary_Email;
-    secondaryEmail.isPreferred=false;
+    secondaryEmail.isPreferred=secondaryEmailisPrfd;
     secondaryEmail.type='SecondaryEmail';
     var emailAddressArray:Email[]=[];
     emailAddressArray[0]=primaryEmail;
@@ -605,22 +641,21 @@ var OrganizationName="";
 
 
     //Phone List
-
     var dayPhone:Phone=this.getPhoneObject();
     dayPhone.phoneNumber=customerInfo.day_Phone_Number;
     dayPhone.type="DayPhone";
-    dayPhone.isCommunication=true;
+    dayPhone.isCommunication=dayPhoneIsPrfd;
     var eveningPhone:Phone=this.getPhoneObject();
     eveningPhone.phoneNumber=customerInfo.eveningPhone;
-    eveningPhone.isCommunication=false;
+    eveningPhone.isCommunication=eveningPhoneIsPrfd;
     eveningPhone.type="EveningPhone";
     var mobile_Phone_Number:Phone=this.getPhoneObject();
     mobile_Phone_Number.phoneNumber=customerInfo.mobile_Phone_Number;
-    mobile_Phone_Number.isCommunication=false;
+    mobile_Phone_Number.isCommunication=mobilePhoneIsPrfd;
     mobile_Phone_Number.type="MobileNo";
     var workPhone:Phone=this.getPhoneObject();
     workPhone.phoneNumber=customerInfo.workPhone;
-    workPhone.isCommunication=false;
+    workPhone.isCommunication=workPhoneIsPrfd;
     workPhone.type="WorkPhone";
     var phoneFax:Phone=this.getPhoneObject();
     phoneFax.phoneNumber=customerInfo.fax;
@@ -651,16 +686,10 @@ var tempInputObj=JSON.stringify(this.account);
       if(resObj.Result==false){
         this.userNameValidationResult=resObj.ResultValue;
         alert(resObj.ResultValue);
-        /*$("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(2000, function(){
-         $("#userNameAlreadyExistMessage").hide();
-         });*/
+
       }else{
         alert(" Customer  Successfully Registered ");
       }
-      /*this.states = resObj.ResultValue;*/
-      /*for(var i=0;i<resObj.ResultValue.length;i++){
-       console.log(resObj.ResultValue[i].StateCode);
-       }*/
 
 
     })
@@ -949,7 +978,7 @@ return phone;
   validateUserName=function () {
     var userName=$("#userName").val();
 
-if(userName.length>3) {
+if(userName.length>5) {
   var inputObj = {
     "strUsername": userName
   };
