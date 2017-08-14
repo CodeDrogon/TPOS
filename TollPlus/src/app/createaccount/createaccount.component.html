@@ -84,8 +84,23 @@
 
                         </div>
                         <div class="col-lg-6">
-                          <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" name="passWord"  formControlName="passWord" [formControl]="user_Form.controls['passWord']">
+                          <div class="row">
+                            <div class="col-lg-11">
+                              <div class="form-group" [ngClass]="{'has-error': user_Form.controls['passWord'].invalid && user_Form.controls['passWord'].touched}">
+                                <div class="left-inner-addon ">
+                                  <i class="icon-user" *ngIf="user_Form.controls['passWord'].hasError('required') && !user_Form.controls['passWord'].touched">*</i>
+                                  <input class="form-control" placeholder="Password" name="passWord" [formControl]="user_Form.controls['passWord']" formControlName="passWord" id="passWord" (keyup)="validatepassWord()">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-1">
+                              <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['passWord'].invalid && user_Form.controls['passWord'].touched && user_Form.controls['passWord'].hasError('required')}">
+                                <span class="tooltipbadge">?</span>
+                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['passWord'].valid && user_Form.controls['passWord'].touched}">Please Enter Password</span>
+                                <div *ngIf="user_Form.controls['passWord'].hasError('required') && user_Form.controls['passWord'].touched && user_Form.controls['passWord'].invalid" class="tooltiptext1">Password is mandatory</div>
+                                <div *ngIf="!user_Form.controls['passWord'].hasError('required') && user_Form.controls['passWord'].touched && user_Form.controls['passWord'].invalid" class="tooltiptext1">Password is invalid</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
 
@@ -417,7 +432,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="primaryEmailIsPreferred" value="Primary Email" formControlName="primaryEmailIsPreferred" checked='checked' >Is Preferred?
+                                    <input type="radio" name="preferredEmail" value="Primary Email" formControlName="preferredEmail" checked='checked' >Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -440,7 +455,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="primaryEmailIsPreferred" value="Secondary Email" formControlName="primaryEmailIsPreferred" autocomplete="off">Is Preferred?
+                                    <input type="radio" name="preferredEmail" value="Secondary Email" formControlName="preferredEmail" autocomplete="off">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -456,7 +471,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && !user_Form.controls['day_Phone_Number'].touched">*</i>
-                                      <input class="form-control" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']">
+                                      <input class="form-control" placeholder="Day Phone Number" [(ngModel)]="day_Phone_Number" name="day_Phone_Number" id="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" (change)="convertNumbertoUSFormat('day_Phone_Number')" >
                                     </div>
                                   </div>
                                 </div>
@@ -470,7 +485,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="dayPhoneIsPreferred" value="Day Phone" formControlName="dayPhoneIsPreferred" checked='checked'>Is Preferred?
+                                    <input type="radio" name="preferredPhone" value="Day Phone" formControlName="preferredPhone" checked='checked'>Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -487,7 +502,7 @@
                               <div class="row">
                                 <div class="col-lg-8">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty}">
-                                    <input class="form-control" placeholder="Evening Phone Number" name="eveningPhone" [formControl]="user_Form.controls['eveningPhone']">
+                                    <input class="form-control" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')">
 
                                   </div>
                                 </div>
@@ -500,7 +515,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="eveningPhoneIsPreferred" ng-value="Evening Phone" formControlName="eveningPhoneIsPreferred" >Is Preferred?
+                                    <input type="radio" name="preferredPhone" ng-value="Evening Phone" formControlName="preferredPhone" >Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -513,7 +528,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && !user_Form.controls['mobile_Phone_Number'].touched">*</i>
-                                      <input class="form-control" placeholder="Mobile Phone Number" name="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']">
+                                      <input class="form-control" placeholder="Mobile Phone Number" [(ngModel)]="mobile_Phone_Number" name="mobile_Phone_Number" id="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']" formControlName="mobile_Phone_Number" (change)="convertNumbertoUSFormat('mobile_Phone_Number')">
                                     </div>
                                   </div>
                                 </div>
@@ -527,7 +542,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="dayPhoneIsPreferred" value="Mobile Phone" formControlName="dayPhoneIsPreferred">Is Preferred?
+                                    <input type="radio" name="preferredPhone" value="Mobile Phone" formControlName="preferredPhone">Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -536,7 +551,7 @@
                               <div class="row">
                                 <div class="col-lg-5">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty}">
-                                    <input class="form-control" placeholder="Work Phone Number" name="workPhone" [formControl]="user_Form.controls['workPhone']">
+                                    <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone"  name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')">
 
                                   </div>
                                 </div>
@@ -559,31 +574,11 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="workPhoneIsPreferred" value="Work Phone" formControlName="workPhoneIsPreferred" >Is Preferred?
+                                    <input type="radio" name="preferredPhone" value="Work Phone" formControlName="preferredPhone" >Is Preferred?
                                   </div>
                                 </div>
                               </div>
-                              <!--<div class="row">
-                                <div class="col-lg-5">
-                                  <input class="form-control" placeholder="Work Phone Number" name="workPhone" formControlName="workPhone">
-                                </div>
-                                <div class="col-lg-1">
-                                  <div class="tooltip1">
-                                    <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1">Please Enter Work Phone Number</span>
-                                  </div>
 
-                                </div>
-                                <div class="col-lg-2">
-                                  <input class="form-control" placeholder="Ext" name="ext" formControlName="ext">
-                                </div>
-
-                                <div class="col-lg-3">
-                                  <div class="form-group">
-                                    <input type="radio" name="dayPhoneIsPreferred" value="Work Phone" formControlName="dayPhoneIsPreferred">Is Preferred?
-                                  </div>
-                                </div>
-                              </div>-->
                             </div>
                           </div>
                           <div class="row">
@@ -593,7 +588,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['fax'].invalid && user_Form.controls['fax'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['fax'].hasError('required') && !user_Form.controls['fax'].touched">*</i>
-                                      <input class="form-control" placeholder="Fax" name="fax" [formControl]="user_Form.controls['fax']" formControlName="fax">
+                                      <input class="form-control" placeholder="Fax" name="fax" [(ngModel)]="fax" [formControl]="user_Form.controls['fax']" formControlName="fax" id="fax" (change)="convertNumbertoUSFormat('fax')">
                                     </div>
                                   </div>
                                 </div>

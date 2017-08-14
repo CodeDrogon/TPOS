@@ -131,7 +131,7 @@ export class CreateaccountComponent implements OnInit {
       date_Of_Birth: new FormControl(""),
       primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
       secondary_Email: new FormControl("", Validators.compose([CreateaccountComponent.emailValidator])),
-      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
+      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
       eveningPhone: new FormControl("",Validators.compose([CreateaccountComponent.validatePhoneNumber])),
       mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required,CreateaccountComponent.validatePhoneNumber])),
       workPhone: new FormControl("", Validators.compose([CreateaccountComponent.validatePhoneNumber])),
@@ -149,17 +149,14 @@ export class CreateaccountComponent implements OnInit {
       addressProof: new FormControl("", Validators.required),
       userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
       agreeTermsAndConditions: new FormControl("", Validators.required),
-      passWord: new FormControl(""),
+      passWord: new FormControl("",Validators.required),
       selectedstate:new FormControl("", Validators.required),
       idProof_other: new FormControl(""),
       addressProof_other: new FormControl(""),
       addressProofFileDrop: new FormControl(""),
-      primaryEmailIsPreferred:new FormControl(""),
-      dayPhoneIsPreferred: new FormControl(""),
-      secondaryEmailIsPreferred: new FormControl(""),
-      eveningPhoneIsPreferred: new FormControl(""),
-      mobilePhoneIsPreferred: new FormControl(""),
-      workPhoneIsPreferred: new FormControl(""),
+      preferredEmail:new FormControl("Primary Email"),
+      preferredPhone: new FormControl("Day Phone"),
+
 
     });
     this.vehicleForm = new FormGroup({
@@ -473,7 +470,7 @@ export class CreateaccountComponent implements OnInit {
   savePersonal=function(customerInfo){
     var primaryEmailIsPrefd=false;
     var secondaryEmailisPrfd=false;
-    if(customerInfo.primaryEmailIsPreferred=="Primary Email"){
+    if(customerInfo.preferredEmail=="Primary Email"){
       primaryEmailIsPrefd=true;
       secondaryEmailisPrfd=false;
     }else{
@@ -484,25 +481,25 @@ export class CreateaccountComponent implements OnInit {
     var eveningPhoneIsPrfd=false;
     var workPhoneIsPrfd=false;
     var mobilePhoneIsPrfd=false;
-    if(customerInfo.dayPhoneIsPreferred=="Day Phone"){
+    if(customerInfo.preferredPhone=="Day Phone"){
       dayPhoneIsPrfd=true;
       eveningPhoneIsPrfd=false;
       workPhoneIsPrfd=false;
       mobilePhoneIsPrfd=false;
     }
-    if(customerInfo.dayPhoneIsPreferred=="Evening Phone"){
+    if(customerInfo.preferredPhone=="Evening Phone"){
       dayPhoneIsPrfd=false;
       eveningPhoneIsPrfd=true;
       workPhoneIsPrfd=false;
       mobilePhoneIsPrfd=false;
     }
-    if(customerInfo.dayPhoneIsPreferred=="Work Phone"){
+    if(customerInfo.preferredPhone=="Work Phone"){
       dayPhoneIsPrfd=false;
       eveningPhoneIsPrfd=false;
       workPhoneIsPrfd=true;
       mobilePhoneIsPrfd=false;
     }
-    if(customerInfo.dayPhoneIsPreferred=="Mobile Phone"){
+    if(customerInfo.preferredPhone=="Mobile Phone"){
       dayPhoneIsPrfd=false;
       eveningPhoneIsPrfd=false;
       workPhoneIsPrfd=false;
@@ -650,23 +647,23 @@ export class CreateaccountComponent implements OnInit {
 
     //Phone List
     var dayPhone:Phone=this.getPhoneObject();
-    dayPhone.phoneNumber=customerInfo.day_Phone_Number;
+    dayPhone.phoneNumber=$("#day_Phone_Number").val();
     dayPhone.type="DayPhone";
     dayPhone.isCommunication=dayPhoneIsPrfd;
     var eveningPhone:Phone=this.getPhoneObject();
-    eveningPhone.phoneNumber=customerInfo.eveningPhone;
+    eveningPhone.phoneNumber=$("#eveningPhone").val();
     eveningPhone.isCommunication=eveningPhoneIsPrfd;
     eveningPhone.type="EveningPhone";
     var mobile_Phone_Number:Phone=this.getPhoneObject();
-    mobile_Phone_Number.phoneNumber=customerInfo.mobile_Phone_Number;
+    mobile_Phone_Number.phoneNumber=$("#mobile_Phone_Number").val();
     mobile_Phone_Number.isCommunication=mobilePhoneIsPrfd;
     mobile_Phone_Number.type="MobileNo";
     var workPhone:Phone=this.getPhoneObject();
-    workPhone.phoneNumber=customerInfo.workPhone;
+    workPhone.phoneNumber=$("#workPhone").val();
     workPhone.isCommunication=workPhoneIsPrfd;
     workPhone.type="WorkPhone";
     var phoneFax:Phone=this.getPhoneObject();
-    phoneFax.phoneNumber=customerInfo.fax;
+    phoneFax.phoneNumber=$("#fax").val();
     phoneFax.isCommunication=false;
     phoneFax.type="Fax";
     var phoneArray:Phone[]=[];
@@ -1014,7 +1011,6 @@ export class CreateaccountComponent implements OnInit {
 
   static emailValidator(control) {
     // RFC 2822 compliant regex
-    debugger;
     ///[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     if (control.value.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
       return null;
@@ -1039,7 +1035,6 @@ export class CreateaccountComponent implements OnInit {
      return { 'invalidEmailAddress': true };
      }*/
     //validate phone numbers of format "1234567890"
-    debugger;
     if (control.value.match("\\d{10}")){return null;}
     //validating phone number with -, . or spaces
     else if(control.value.match("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")){return null;}
@@ -1122,6 +1117,40 @@ export class CreateaccountComponent implements OnInit {
       alert('Required Fields are not Entered/Selected. Please verify');
       return {'Mandatory Fields are not Entered/Selected. ':true};
     }
+  }
+
+  convertNumbertoUSFormat=function (idVal) {
+    debugger;
+    var tempPhone="";
+    if($("#"+idVal+"").val().length==10){
+       tempPhone="(";
+      tempPhone=tempPhone+$("#"+idVal+"").val().substring(0,3)+") "+$("#"+idVal+"").val().substring(3,6)+"-"+$("#"+idVal+"").val().substring(6,11);
+
+
+      if(idVal=="day_Phone_Number"){
+        this.user_Form.value.day_Phone_Number = tempPhone;
+        this.user_Form.controls.day_Phone_Number.setValue = tempPhone;
+      }
+      if(idVal=="eveningPhone"){
+        this.user_Form.value.eveningPhone = tempPhone;
+      }
+      if(idVal=="workPhone"){
+        this.user_Form.value.workPhone = tempPhone;
+      }
+      if(idVal=="mobile_Phone_Number"){
+        this.user_Form.value.mobile_Phone_Number = tempPhone;
+      }
+      if(idVal=="fax"){
+        this.user_Form.value.fax = tempPhone;
+      }
+      $("#"+idVal+"").val(tempPhone);
+
+    }else{
+      tempPhone=$("#"+idVal+"").val();
+      $("#"+idVal+"").val(tempPhone);
+    }
+
+
   }
 
 
