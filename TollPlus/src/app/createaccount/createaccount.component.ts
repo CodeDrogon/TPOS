@@ -27,7 +27,8 @@ export class CreateaccountComponent implements OnInit {
   form1;
   text:FormControl;
   constructor(private  myApp:AppComponent,private utilityService:UtilityService, private formBuilder:FormBuilder) {
-
+    this.idProofFullPath='/pom.xml';
+    this.addressProofFullPath='/pom.xml';
   }
 
 
@@ -57,24 +58,27 @@ export class CreateaccountComponent implements OnInit {
   addressProofBusinesses=[];
   idProofs=[];
   idProofBusinesses=[];
-   files = [];
-   idProofFullPath;
-   addressProofFullPath;
-   userNameValidationResult;
+  files = [];
+  idProofFullPath;
+  addressProofFullPath;
+  userNameValidationResult;
 
   hearAboutUs=[];
   statementDelivOption=[];
   revenueCategory=[];
 
+
   public IdProofDropped(event) {
     this.files = event.files;
-    this.idProofFullPath=event.files[0].fileEntry.fullPath
+    //this.idProofFullPath=event.files[0].fileEntry.fullPath;
+    this.idProofFullPath='/pom.xml';
+
     console.log(event.files[0].fileEntry.fullPath);
     /*for (file of event.files) {
-      file.fileEntry.file(info => {
-        console.log(info);
-      });
-    }*/
+     file.fileEntry.file(info => {
+     console.log(info);
+     });
+     }*/
   }
 
   public IdProofFileOver(event){
@@ -85,8 +89,10 @@ export class CreateaccountComponent implements OnInit {
   public AddressProofDropped(event) {
     this.files = event.files;
     this.addressProofFullPath=event.files[0].fileEntry.fullPath;
+    this.idProofFullPath='/pom.xml';
     console.log(this.addressProofFullPath);
   }
+
 
   public AddressProofFileOver(event){
   }
@@ -110,12 +116,12 @@ export class CreateaccountComponent implements OnInit {
     this.getHearAboutUs();
     this.getStatementDelivOption();
     this.getRevenueCategory();
-let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
+    let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
     let emailPattern1 = "/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)";
 
     this.user_Form=new FormGroup({
       first_Name:new FormControl("", Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
-      last_Name: new FormControl("",Validators.required),
+      last_Name: new FormControl("",Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
       businessCustomerType: new FormControl("", Validators.required),
       title: new FormControl(""),
       businessName: new FormControl("", Validators.required),
@@ -124,36 +130,34 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
       gender: new FormControl(""),
       date_Of_Birth: new FormControl(""),
       primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
-      secondary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
-      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
-      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
-      eveningPhone: new FormControl(""),
-      workPhone: new FormControl(""),
-      fax:new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
+      secondary_Email: new FormControl("", Validators.compose([CreateaccountComponent.emailValidator])),
+      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
+      eveningPhone: new FormControl("",Validators.compose([CreateaccountComponent.validatePhoneNumber])),
+      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required,CreateaccountComponent.validatePhoneNumber])),
+      workPhone: new FormControl("", Validators.compose([CreateaccountComponent.validatePhoneNumber])),
+      fax:new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
       ext: new FormControl(""),
       country: new FormControl("", Validators.required),
       city_Name:new FormControl("", Validators.compose([Validators.required,  Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
-      zip1: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(6), CreateaccountComponent.validateNumber])),
-      zip2: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(4), CreateaccountComponent.validateNumber])),
-      address1: new FormControl("",Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(50), Validators.pattern("/[a-zA-Z0-9]/")])),
+      zip1: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(6)])),
+      zip2: new FormControl("", Validators.compose([Validators.required, Validators.maxLength(4)])),
+      address1: new FormControl("",Validators.required),
       address2: new FormControl(""),
-      idProofType: new FormControl(""),
-      idProofNo: new FormControl("", Validators.required),
-      idProofFileDrop: new FormControl("", Validators.required),
-      addressProof: new FormControl(""),
-      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
-      agreeTermsAndConditions: new FormControl(""),
-      passWord: new FormControl(""),
-      selectedstate:new FormControl(""),
+      idProofType: new FormControl("", Validators.required),
+      idProofNo: new FormControl("", Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
+      idProofFileDrop: new FormControl(""),
+      addressProof: new FormControl("", Validators.required),
+      userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
+      agreeTermsAndConditions: new FormControl("", Validators.required),
+      passWord: new FormControl("",Validators.required),
+      selectedstate:new FormControl("", Validators.required),
       idProof_other: new FormControl(""),
       addressProof_other: new FormControl(""),
-      addressProofFileDrop: new FormControl("", Validators.required),
-      primaryEmailIsPreferred:new FormControl(""),
-      dayPhoneIsPreferred: new FormControl(""),
-      secondaryEmailIsPreferred: new FormControl(""),
-      eveningPhoneIsPreferred: new FormControl(""),
-      mobilePhoneIsPreferred: new FormControl(""),
-      workPhoneIsPreferred: new FormControl(""),
+      addressProofFileDrop: new FormControl(""),
+      preferredEmail:new FormControl("Primary Email"),
+      preferredPhone: new FormControl("Day Phone"),
+
+
     });
     this.vehicleForm = new FormGroup({
       plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
@@ -177,15 +181,15 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 
 
     /*this.userForm.get('businessCustomerType').valueChanges.subscribe(
-      (businessCustomerType)=>{
-        if(businessCustomerType == '1'){
-          this.userForm.get('businessCustomerType').setValidators([Validators.required]);
-          this.businessCustomerTooltip = 'Select correct customer type';
-        }
-        this.userForm.get('businessCustomerType').updateValueAndValidity();
+     (businessCustomerType)=>{
+     if(businessCustomerType == '1'){
+     this.userForm.get('businessCustomerType').setValidators([Validators.required]);
+     this.businessCustomerTooltip = 'Select correct customer type';
+     }
+     this.userForm.get('businessCustomerType').updateValueAndValidity();
 
-      }
-    )*/
+     }
+     )*/
 
     $(document).ready(function() {
 
@@ -230,9 +234,9 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
        });*/
 
       /*populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
-      populateCountries("country2");
-      populateCountries("country2");
-      */
+       populateCountries("country2");
+       populateCountries("country2");
+       */
 
     });
 
@@ -420,9 +424,9 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
     this.getTitle();
     this.getGender();
     /*this.getAddressProof();
-    this.getAddressProofBusiness();
-    this.getIdProof();
-    this.getIdProofBusiness();*/
+     this.getAddressProofBusiness();
+     this.getIdProof();
+     this.getIdProofBusiness();*/
     this.getBusiness();
     this.getBusinessCustomer();
   }
@@ -464,38 +468,38 @@ let emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
   }
 
   savePersonal=function(customerInfo){
-var primaryEmailIsPrefd=false;
-var secondaryEmailisPrfd=false;
-if(customerInfo.primaryEmailIsPreferred=="Primary Email"){
-  primaryEmailIsPrefd=true;
-  secondaryEmailisPrfd=false;
-}else{
-  primaryEmailIsPrefd=false;
-  secondaryEmailisPrfd=true;
-}
-var dayPhoneIsPrfd=false;
-var eveningPhoneIsPrfd=false;
-var workPhoneIsPrfd=false;
-var mobilePhoneIsPrfd=false;
-    if(customerInfo.dayPhoneIsPreferred=="Day Phone"){
-       dayPhoneIsPrfd=true;
-       eveningPhoneIsPrfd=false;
-       workPhoneIsPrfd=false;
-       mobilePhoneIsPrfd=false;
+    var primaryEmailIsPrefd=false;
+    var secondaryEmailisPrfd=false;
+    if(customerInfo.preferredEmail=="Primary Email"){
+      primaryEmailIsPrefd=true;
+      secondaryEmailisPrfd=false;
+    }else{
+      primaryEmailIsPrefd=false;
+      secondaryEmailisPrfd=true;
     }
-    if(customerInfo.dayPhoneIsPreferred=="Evening Phone"){
+    var dayPhoneIsPrfd=false;
+    var eveningPhoneIsPrfd=false;
+    var workPhoneIsPrfd=false;
+    var mobilePhoneIsPrfd=false;
+    if(customerInfo.preferredPhone=="Day Phone"){
+      dayPhoneIsPrfd=true;
+      eveningPhoneIsPrfd=false;
+      workPhoneIsPrfd=false;
+      mobilePhoneIsPrfd=false;
+    }
+    if(customerInfo.preferredPhone=="Evening Phone"){
       dayPhoneIsPrfd=false;
       eveningPhoneIsPrfd=true;
       workPhoneIsPrfd=false;
       mobilePhoneIsPrfd=false;
     }
-    if(customerInfo.dayPhoneIsPreferred=="Work Phone"){
+    if(customerInfo.preferredPhone=="Work Phone"){
       dayPhoneIsPrfd=false;
       eveningPhoneIsPrfd=false;
       workPhoneIsPrfd=true;
       mobilePhoneIsPrfd=false;
     }
-    if(customerInfo.dayPhoneIsPreferred=="Mobile Phone"){
+    if(customerInfo.preferredPhone=="Mobile Phone"){
       dayPhoneIsPrfd=false;
       eveningPhoneIsPrfd=false;
       workPhoneIsPrfd=false;
@@ -522,7 +526,7 @@ var mobilePhoneIsPrfd=false;
     this.account.pin="";
     this.account.currentPasswordExpiryDate=this.getCurrentDate();
     this.account.address=null;
-var OrganizationName="";
+    var OrganizationName="";
     if(customerInfo.businessCustomerType=="Business") {
       OrganizationName = "Business";
     }else{
@@ -643,23 +647,23 @@ var OrganizationName="";
 
     //Phone List
     var dayPhone:Phone=this.getPhoneObject();
-    dayPhone.phoneNumber=customerInfo.day_Phone_Number;
+    dayPhone.phoneNumber=$("#day_Phone_Number").val();
     dayPhone.type="DayPhone";
     dayPhone.isCommunication=dayPhoneIsPrfd;
     var eveningPhone:Phone=this.getPhoneObject();
-    eveningPhone.phoneNumber=customerInfo.eveningPhone;
+    eveningPhone.phoneNumber=$("#eveningPhone").val();
     eveningPhone.isCommunication=eveningPhoneIsPrfd;
     eveningPhone.type="EveningPhone";
     var mobile_Phone_Number:Phone=this.getPhoneObject();
-    mobile_Phone_Number.phoneNumber=customerInfo.mobile_Phone_Number;
+    mobile_Phone_Number.phoneNumber=$("#mobile_Phone_Number").val();
     mobile_Phone_Number.isCommunication=mobilePhoneIsPrfd;
     mobile_Phone_Number.type="MobileNo";
     var workPhone:Phone=this.getPhoneObject();
-    workPhone.phoneNumber=customerInfo.workPhone;
+    workPhone.phoneNumber=$("#workPhone").val();
     workPhone.isCommunication=workPhoneIsPrfd;
     workPhone.type="WorkPhone";
     var phoneFax:Phone=this.getPhoneObject();
-    phoneFax.phoneNumber=customerInfo.fax;
+    phoneFax.phoneNumber=$("#fax").val();
     phoneFax.isCommunication=false;
     phoneFax.type="Fax";
     var phoneArray:Phone[]=[];
@@ -674,7 +678,7 @@ var OrganizationName="";
 
 
 
-var tempInputObj=JSON.stringify(this.account);
+    var tempInputObj=JSON.stringify(this.account);
     tempInputObj=tempInputObj.replace("EmailList","Request Email List");
     tempInputObj=tempInputObj.replace("PhoneList","Request Phone List");
     tempInputObj=tempInputObj.replace("AddressList","Request Address List");
@@ -696,11 +700,11 @@ var tempInputObj=JSON.stringify(this.account);
     })
 
     /*this.newService.savePersonal(customerPersonal).subscribe(res=>
-    {
-      var resObj=JSON.parse(res._body);
-      console.log("response "+resObj);
+     {
+     var resObj=JSON.parse(res._body);
+     console.log("response "+resObj);
 
-    });*/
+     });*/
   }
   saveAddress=function(customerPersonal){
     //console.log(userInfo);
@@ -727,18 +731,18 @@ var tempInputObj=JSON.stringify(this.account);
   };
 
   getStates=function(){
-this.countryObject={
-  "LookUpTypeCode" : "TollSchedulePriorities",
-  "CountryCode" :$("#countryId").val()};
-console.log(this.countryObject);
+    this.countryObject={
+      "LookUpTypeCode" : "TollSchedulePriorities",
+      "CountryCode" :$("#countryId").val()};
+    console.log(this.countryObject);
     this.utilityService.getStates("PostGetStatesByCountryCode",JSON.stringify(this.countryObject)).subscribe(res=>{
 
       var resObj=JSON.parse(res._body);
       console.log(resObj.StateCode);
       this.states = resObj.ResultValue;
       /*for(var i=0;i<resObj.ResultValue.length;i++){
-        console.log(resObj.ResultValue[i].StateCode);
-      }*/
+       console.log(resObj.ResultValue[i].StateCode);
+       }*/
       //var resObj=JSON.parse(res._body);
       //console.log(typeof  resObj)
       //this.states = res._body.ResultValue;
@@ -865,13 +869,13 @@ console.log(this.countryObject);
 
 
 
-changeIdProofAndAddressProofDropDown=function () {
+  changeIdProofAndAddressProofDropDown=function () {
 
     //alert($("#businessCustomerType").val());
     var accType=$("#businessCustomerType").val();
     if(accType=='Business'){
-this.getAddressProofBusiness();
-this.getIdProofBusiness();
+      this.getAddressProofBusiness();
+      this.getIdProofBusiness();
     }else{
       this.getIdProof();
       this.getAddressProof();
@@ -969,7 +973,7 @@ this.getIdProofBusiness();
     phone.isPhoneNumberChanged=false;
     phone.checkBlockList=false;
     phone.isCreateAccount=true;
-return phone;
+    return phone;
   }
 
   getCurrentDate=function () {
@@ -979,35 +983,36 @@ return phone;
   validateUserName=function () {
     var userName=$("#userName").val();
 
-if(userName.length>5) {
-  var inputObj = {
-    "strUsername": userName
-  };
-  this.utilityService.valiateUserName("PostIsExist/?enumActivityType=Username",inputObj).subscribe(res=>
-   {
-   var resObj=JSON.parse(res._body);
-   console.log("response "+resObj.Result);
-   if(resObj.Result==false){
-   this.userNameValidationResult=resObj.ResultValue;
-   $("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(2000, function(){
-   $("#userNameAlreadyExistMessage").hide();
-   });
-   }
-   /*$("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(500, function(){
-   $("#userNameAlreadyExistMessage").hide();
-   });*/
+    if(userName.length>5) {
+      var inputObj = {
+        "strUsername": userName
+      };
+      this.utilityService.valiateUserName("PostIsExist/?enumActivityType=Username",inputObj).subscribe(res=>
+      {
+        var resObj=JSON.parse(res._body);
+        console.log("response "+resObj.Result);
+        if(resObj.Result==false){
+          this.userNameValidationResult=resObj.ResultValue;
+          $("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(2000, function(){
+            $("#userNameAlreadyExistMessage").hide();
+          });
+        }
+        /*$("#userNameAlreadyExistMessage").fadeTo(1000, 500).slideUp(500, function(){
+         $("#userNameAlreadyExistMessage").hide();
+         });*/
 
 
-   });
-}
+      });
+    }
   }
 
 
 
 
- static emailValidator(control) {
+  static emailValidator(control) {
     // RFC 2822 compliant regex
-    if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+    ///[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    if (control.value.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
       return null;
     } else {
       return { 'invalidEmailAddress': true };
@@ -1021,27 +1026,28 @@ if(userName.length>5) {
       return {'invalidNumber': true};
     }
   }
+
   static validatePhoneNumber(control) {
 
-   /* if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
-      return null;
-    } else {
-      return { 'invalidEmailAddress': true };
-    }*/
-  //validate phone numbers of format "1234567890"
-  if (control.value.matches("\\d{10}")){return true;}
-  //validating phone number with -, . or spaces
-  else if(control.value.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")){return true;}
-  //validating phone number with extension length from 3 to 5
-  else if(control.value.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {return true;}
-  //validating phone number where area code is in braces ()
-  else if(control.value.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) {return true;}
-  //return false if nothing matches the input
-  else {
-    return {'invalidPhoneNumber': true};
-  }
+    /* if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+     return null;
+     } else {
+     return { 'invalidEmailAddress': true };
+     }*/
+    //validate phone numbers of format "1234567890"
+    if (control.value.match("\\d{10}")){return null;}
+    //validating phone number with -, . or spaces
+    else if(control.value.match("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")){return null;}
+    //validating phone number with extension length from 3 to 5
+    else if(control.value.match("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {return null;}
+    //validating phone number where area code is in braces ()
+    else if(control.value.match("\\(\\d{3}\\) \\d{3}-\\d{4}")) {return null;}
+    //return false if nothing matches the input
+    else {
+      return {'invalidPhoneNumber': true};
+    }
 
-}
+  }
 
 //vehicle dropdown functions starts here
   getVehicleClassDropdown=function () {
@@ -1086,7 +1092,7 @@ if(userName.length>5) {
       this.hearAboutUs = resObj.ResultValue;
     });
 
-}
+  }
   getStatementDelivOption=function(){
     this.utilityService.getStatementDelivOption("GetLookups/?Type=StatementDelivery").subscribe(res=>
     {
@@ -1102,28 +1108,51 @@ if(userName.length>5) {
     });
   }
 
-  /*
-   form;
-   ngOnInit() {
-   this.form=new FormGroup({
-   decimal:new FormControl(""),
-   binary: new FormControl(""),
-   octal: new FormControl(""),
-   hexa: new FormControl(""),
-   });
-   }
+  validateAllFields=function (control) {
+    debugger;
+    //this.user_Form.controls['idProofFileDrop'].
+    if(this.user_Form.valid){
+      return null;
+    }else {
+      alert('Required Fields are not Entered/Selected. Please verify');
+      return {'Mandatory Fields are not Entered/Selected. ':true};
+    }
+  }
 
-   decimalChanged=function(oldValue,newValue){
-   if(newValue!=""){
-   this.form.patchValue({binary: parseInt(newValue,10).toString(2)});
-   this.form.patchValue({octal: parseInt(newValue,10).toString(8)});
-   this.form.patchValue({hexa: parseInt(newValue,10).toString(16)});
-   }else{
-   this.form.patchValue({binary: ""});
-   this.form.patchValue({octal: ""});
-   this.form.patchValue({hexa: ""});
-   }
-   }*/
+  convertNumbertoUSFormat=function (idVal) {
+    debugger;
+    var tempPhone="";
+    if($("#"+idVal+"").val().length==10){
+       tempPhone="(";
+      tempPhone=tempPhone+$("#"+idVal+"").val().substring(0,3)+") "+$("#"+idVal+"").val().substring(3,6)+"-"+$("#"+idVal+"").val().substring(6,11);
+
+
+      if(idVal=="day_Phone_Number"){
+        this.user_Form.value.day_Phone_Number = tempPhone;
+        this.user_Form.controls.day_Phone_Number.setValue = tempPhone;
+      }
+      if(idVal=="eveningPhone"){
+        this.user_Form.value.eveningPhone = tempPhone;
+      }
+      if(idVal=="workPhone"){
+        this.user_Form.value.workPhone = tempPhone;
+      }
+      if(idVal=="mobile_Phone_Number"){
+        this.user_Form.value.mobile_Phone_Number = tempPhone;
+      }
+      if(idVal=="fax"){
+        this.user_Form.value.fax = tempPhone;
+      }
+      $("#"+idVal+"").val(tempPhone);
+
+    }else{
+      tempPhone=$("#"+idVal+"").val();
+      $("#"+idVal+"").val(tempPhone);
+    }
+
+
+  }
+
 
 
 
