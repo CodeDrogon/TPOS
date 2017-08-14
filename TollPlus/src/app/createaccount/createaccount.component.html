@@ -343,14 +343,15 @@
                               <div class="col-lg-6">
                                 <div class="row">
                                   <div class="col-lg-10">
-                                    <div class="form-group" [ngClass]="{'has-error': user_Form.controls['date_Of_Birth'].invalid && user_Form.controls['date_Of_Birth'].touched}">
-                                      <input type='text' data-language='en' class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Date Of Birth(dd/MM/yyyy)" name="date_Of_Birth" id="date_Of_Birth" [formControl]="user_Form.controls['date_Of_Birth']"/>
+                                    <div class="form-group" [ngClass]="{'has-error': user_Form.controls['date_Of_Birth'].invalid && user_Form.controls['date_Of_Birth'].dirty }">
+                                      <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Date Of Birth(dd/MM/yyyy)" name="date_Of_Birth" id="date_Of_Birth" [formControl]="user_Form.controls['date_Of_Birth']"/>
                                     </div>
                                   </div>
                                   <div class="col-lg-1">
-                                    <div class="tooltip1">
+                                    <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['date_Of_Birth'].invalid && !user_Form.controls['date_Of_Birth'].dirty}">
                                       <span class="tooltipbadge">?</span>
-                                      <span class="tooltiptext1">Please Select Date Of Birth</span>
+                                      <span class="tooltiptext1" [ngClass]="{'has-error': user_Form.controls['date_Of_Birth'].valid && !user_Form.controls['date_Of_Birth'].dirty}">Please Select Date Of Birth</span>
+                                      <div *ngIf="user_Form.controls['date_Of_Birth'].invalid && user_Form.controls['date_Of_Birth'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                                     </div>
                                   </div>
                                 </div>
@@ -851,8 +852,8 @@
                               <div class="center">
                                 <div class="left-inner-addon " style="{align: center !important}">
                                   <i class="icon-user" ></i>
-                                 <!-- <file-drop headertext="ID Proof File Drop here to upload, or"  name="idProofFileDrop" (onFileDrop)="IdProofDropped($event)" (onFileOver)="IdProofFileOver($event)" (onFileLeave)="IdProofFileLeave($event)">
-                                  </file-drop>-->
+                                  <file-drop headertext="ID Proof File Drop here to upload, or"  name="idProofFileDrop" (onFileDrop)="IdProofDropped($event)" (onFileOver)="IdProofFileOver($event)" (onFileLeave)="IdProofFileLeave($event)">
+                                  </file-drop>
                                 </div>
 
                               </div>
@@ -896,8 +897,8 @@
                               <div class="center">
                                 <div class="left-inner-addon " style="{align: center !important}">
                                   <i class="icon-user" ></i>
-                                <!--  <file-drop headertext="Address Proof File Drop here to upload, or" name="addressProofFileDrop" (onFileDrop)="AddressProofDropped($event)" (onFileOver)="AddressProofFileOver($event)" (onFileLeave)="AddressProofFileLeave($event)">
-                                  </file-drop>-->
+                                 <file-drop headertext="Address Proof File Drop here to upload, or" name="addressProofFileDrop" (onFileDrop)="AddressProofDropped($event)" (onFileOver)="AddressProofFileOver($event)" (onFileLeave)="AddressProofFileLeave($event)">
+                                  </file-drop>
                                 </div>
 
                                 <!--<div class="upload-table">
@@ -949,7 +950,7 @@
                 </div>
                 <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
                   <div class="col-lg-9" align="left">
-                    <button type="submit" class="btn btn-primary btnNext" [disabled]="!user_Form.valid">Save</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!user_Form.valid">Save</button>
                     <!--<input class="btn btn-primary " type="submit" value="Save">-->
                   </div>
                   <!--div class="col-md-1">

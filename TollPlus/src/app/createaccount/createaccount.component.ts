@@ -27,7 +27,8 @@ export class CreateaccountComponent implements OnInit {
   form1;
   text:FormControl;
   constructor(private  myApp:AppComponent,private utilityService:UtilityService, private formBuilder:FormBuilder) {
-
+    this.idProofFullPath='/pom.xml';
+    this.addressProofFullPath='/pom.xml';
   }
 
 
@@ -69,7 +70,8 @@ export class CreateaccountComponent implements OnInit {
 
   public IdProofDropped(event) {
     this.files = event.files;
-    this.idProofFullPath=event.files[0].fileEntry.fullPath;
+    //this.idProofFullPath=event.files[0].fileEntry.fullPath;
+    this.idProofFullPath='/pom.xml';
 
     console.log(event.files[0].fileEntry.fullPath);
     /*for (file of event.files) {
@@ -87,8 +89,10 @@ export class CreateaccountComponent implements OnInit {
   public AddressProofDropped(event) {
     this.files = event.files;
     this.addressProofFullPath=event.files[0].fileEntry.fullPath;
+    this.idProofFullPath='/pom.xml';
     console.log(this.addressProofFullPath);
   }
+
 
   public AddressProofFileOver(event){
   }
@@ -127,10 +131,10 @@ export class CreateaccountComponent implements OnInit {
       date_Of_Birth: new FormControl(""),
       primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
       secondary_Email: new FormControl("", Validators.compose([CreateaccountComponent.emailValidator])),
-      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
-      eveningPhone: new FormControl("",Validators.compose([Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
-      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required,Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
-      workPhone: new FormControl("", Validators.compose([Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
+      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
+      eveningPhone: new FormControl("",Validators.compose([CreateaccountComponent.validatePhoneNumber])),
+      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required,CreateaccountComponent.validatePhoneNumber])),
+      workPhone: new FormControl("", Validators.compose([CreateaccountComponent.validatePhoneNumber])),
       fax:new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
       ext: new FormControl(""),
       country: new FormControl("", Validators.required),
@@ -141,15 +145,15 @@ export class CreateaccountComponent implements OnInit {
       address2: new FormControl(""),
       idProofType: new FormControl("", Validators.required),
       idProofNo: new FormControl("", Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
-      /*idProofFileDrop: new FormControl("", Validators.required),*/
+      idProofFileDrop: new FormControl(""),
       addressProof: new FormControl("", Validators.required),
       userName: new FormControl("", Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern("[a-zA-z]+([ '-][a-zA-Z]+)*")])),
-      agreeTermsAndConditions: new FormControl(""),
+      agreeTermsAndConditions: new FormControl("", Validators.required),
       passWord: new FormControl(""),
       selectedstate:new FormControl("", Validators.required),
       idProof_other: new FormControl(""),
       addressProof_other: new FormControl(""),
-      /*addressProofFileDrop: new FormControl("", Validators.required),*/
+      addressProofFileDrop: new FormControl(""),
       primaryEmailIsPreferred:new FormControl(""),
       dayPhoneIsPreferred: new FormControl(""),
       secondaryEmailIsPreferred: new FormControl(""),
@@ -1119,28 +1123,7 @@ export class CreateaccountComponent implements OnInit {
       return {'Mandatory Fields are not Entered/Selected. ':true};
     }
   }
-  /*
-   form;
-   ngOnInit() {
-   this.form=new FormGroup({
-   decimal:new FormControl(""),
-   binary: new FormControl(""),
-   octal: new FormControl(""),
-   hexa: new FormControl(""),
-   });
-   }
 
-   decimalChanged=function(oldValue,newValue){
-   if(newValue!=""){
-   this.form.patchValue({binary: parseInt(newValue,10).toString(2)});
-   this.form.patchValue({octal: parseInt(newValue,10).toString(8)});
-   this.form.patchValue({hexa: parseInt(newValue,10).toString(16)});
-   }else{
-   this.form.patchValue({binary: ""});
-   this.form.patchValue({octal: ""});
-   this.form.patchValue({hexa: ""});
-   }
-   }*/
 
 
 
