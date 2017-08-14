@@ -89,7 +89,7 @@
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['passWord'].invalid && user_Form.controls['passWord'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user" *ngIf="user_Form.controls['passWord'].hasError('required') && !user_Form.controls['passWord'].touched">*</i>
-                                  <input class="form-control" placeholder="Password" name="passWord" [formControl]="user_Form.controls['passWord']" formControlName="passWord" id="passWord" (keyup)="validatepassWord()">
+                                  <input class="form-control" placeholder="Password" name="passWord" [formControl]="user_Form.controls['passWord']" formControlName="passWord" id="passWord" >
                                 </div>
                               </div>
                             </div>
