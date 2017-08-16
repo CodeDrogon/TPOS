@@ -89,7 +89,7 @@
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['passWord'].invalid && user_Form.controls['passWord'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user" *ngIf="user_Form.controls['passWord'].hasError('required') && !user_Form.controls['passWord'].touched">*</i>
-                                  <input class="form-control" placeholder="Password" name="passWord" [formControl]="user_Form.controls['passWord']" formControlName="passWord" id="passWord" >
+                                  <input class="form-control" type="password" placeholder="Password" name="passWord" [formControl]="user_Form.controls['passWord']" formControlName="passWord" id="passWord" >
                                 </div>
                               </div>
                             </div>
@@ -417,17 +417,16 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['primary_Email'].hasError('required') && !user_Form.controls['primary_Email'].touched">*</i>
-                                      <input class="form-control" placeholder="Primary Email" name="primary_Email"  [formControl]="user_Form.controls['primary_Email']" formControlName="primary_Email">
+                                      <input class="form-control" placeholder="Primary Email" name="primary_Email" [formControl]="user_Form.controls['primary_Email']" formControlName="primary_Email" id="primary_Email" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['primary_Email'].invalid &&
-									  user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].hasError('required')}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['primary_Email'].invalid && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].hasError('required')}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error': !user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && !user_Form.controls['primary_Email'].dirty}">Please Enter Email Address</span>
-                                    <div *ngIf="user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">Email is Mandatory.</div>
-                                    <div *ngIf="!user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid && !user_Form.controls['primary_Email'].pristine" class="tooltiptext1">Email is invalid</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['primary_Email'].valid && user_Form.controls['primary_Email'].touched}">Please Enter Primary Email</span>
+                                    <div *ngIf="user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">Primary Email is mandatory</div>
+                                    <div *ngIf="!user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">Primary Email is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -440,17 +439,18 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty && user_Form.controls['secondary_Email'].touched}">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty }">
                                     <div class="left-inner-addon ">
-                                      <input class="form-control" placeholder="Secondary Email" name="secondary_Email" [formControl]="user_Form.controls['secondary_Email']">
+                                      <i class="icon-user" ></i>
+                                      <input class="form-control" placeholder="Secondary Email" name="secondary_Email" [formControl]="user_Form.controls['secondary_Email']" formControlName="secondary_Email" id="secondary_Email" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty && user_Form.controls['secondary_Email'].touched}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['secondary_Email'].invalid}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error': user_Form.controls['secondary_Email'].valid && !user_Form.controls['secondary_Email'].touched && !user_Form.controls['secondary_Email'].dirty}">Please Enter Secondary Email</span>
-                                    <div *ngIf=" user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty" class="tooltiptext1">Email is Invalid</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['secondary_Email'].valid}">Please Enter Secondary Email</span>
+                                    <div *ngIf="user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty" class="tooltiptext1">Secondary Email is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -471,16 +471,17 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && !user_Form.controls['day_Phone_Number'].touched">*</i>
-                                      <input class="form-control" placeholder="Day Phone Number" [(ngModel)]="day_Phone_Number" name="day_Phone_Number" id="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" (change)="convertNumbertoUSFormat('day_Phone_Number')" >
+                                      <input class="form-control" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" id="day_Phone_Number"
+                                             (change)="convertNumbertoUSFormat('day_Phone_Number')">
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].dirty}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].hasError('required')}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['day_Phone_Number'].valid && user_Form.controls['day_Phone_Number'].touched}">Please Enter Day Phone Number</span>
-                                    <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched" class="tooltiptext1">Day Phone Number Is Mandatory</div>
-                                    <div *ngIf="!user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['day_Phone_Number'].valid && user_Form.controls['day_Phone_Number'].touched}">Please Enter Day Phone</span>
+                                    <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Day Phone is mandatory</div>
+                                    <div *ngIf="!user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Day Phone is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -501,16 +502,18 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty}">
-                                    <input class="form-control" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')">
-
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty }">
+                                    <div class="left-inner-addon ">
+                                      <i class="icon-user" ></i>
+                                      <input class="form-control" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')">
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty && user_Form.controls['eveningPhone'].touched}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['eveningPhone'].invalid}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['eveningPhone'].valid && !user_Form.controls['eveningPhone'].touched && !user_Form.controls['eveningPhone'].dirty}">Please Enter 10 Digit Day Phone Number</span>
-                                    <div *ngIf="user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].dirty" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['eveningPhone'].valid}">Please Enter Evening Phone</span>
+                                    <div *ngIf="user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty" class="tooltiptext1">Evening Phone is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -528,21 +531,21 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && !user_Form.controls['mobile_Phone_Number'].touched">*</i>
-                                      <input class="form-control" placeholder="Mobile Phone Number" [(ngModel)]="mobile_Phone_Number" name="mobile_Phone_Number" id="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']" formControlName="mobile_Phone_Number" (change)="convertNumbertoUSFormat('mobile_Phone_Number')">
+                                      <input class="form-control" placeholder="Mobile Phone Number" [(ngModel)]="mobile_Phone_Number" name="mobile_Phone_Number" id="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']" formControlName="mobile_Phone_Number" (change)="convertNumbertoUSFormat('mobile_Phone_Number')" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].hasError('required')}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['mobile_Phone_Number'].valid && user_Form.controls['mobile_Phone_Number'].touched}">please enter valid mobile number</span>
-                                    <div *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile number is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['mobile_Phone_Number'].valid && user_Form.controls['mobile_Phone_Number'].touched}">Please Enter Mobile Phone</span>
+                                    <div *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile Phone is mandatory</div>
+                                    <div *ngIf="!user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile Phone is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="preferredPhone" value="Mobile Phone" formControlName="preferredPhone">Is Preferred?
+                                    <input type="radio" name="preferredPhone" value="Mobile Phone" formControlName="preferredPhone" checked='checked'>Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -550,16 +553,18 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-5">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty}">
-                                    <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone"  name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')">
-
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty }">
+                                    <div class="left-inner-addon ">
+                                      <i class="icon-user" ></i>
+                                      <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')">
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty && user_Form.controls['workPhone'].touched}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['workPhone'].invalid}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['workPhone'].valid && !user_Form.controls['workPhone'].touched && !user_Form.controls['workPhone'].dirty}">Please Enter 10 Digit Work Phone Number</span>
-                                    <div *ngIf="user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].dirty" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['workPhone'].valid}">Please Enter 10 Digit Work Phone</span>
+                                    <div *ngIf="user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty" class="tooltiptext1">Work Phone is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -652,8 +657,8 @@
                                     <div class="col-lg-1">
                                       <div class="tooltip1" [ngClass]="{'has-error': user_Form.controls['selectedstate'].hasError('required') && user_Form.controls['selectedstate'].touched}">
                                         <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['selectedstate'].touched}">Please Enter Fax number</span>
-                                        <div *ngIf="user_Form.controls['selectedstate'].hasError('required') && user_Form.controls['selectedstate'].touched && user_Form.controls['selectedstate'].invalid" class="tooltiptext1">Country is mandatory</div>
+                                        <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['selectedstate'].touched}">Please Select State</span>
+                                        <div *ngIf="user_Form.controls['selectedstate'].hasError('required') && user_Form.controls['selectedstate'].touched && user_Form.controls['selectedstate'].invalid" class="tooltiptext1">State is mandatory</div>
 
                                       </div>
                                     </div>
