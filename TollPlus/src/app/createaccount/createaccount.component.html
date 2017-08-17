@@ -968,7 +968,7 @@
 
     <div class="tab-pane" id="2a">
       <div id="page-wrapper">
-        <form role="form" [formGroup]="vehicleForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)' novalidate name="vehicleForm">
+        <form role="form" [formGroup]="vehicleForm" class="bgColor" (ngSubmit)='saveVehicle(vehicleForm.value)' novalidate name="vehicleForm">
           <div class="panel-group" id="VehicleInformation" >
             <div class="row">
               <div class="col-lg-9">
@@ -1267,13 +1267,13 @@
                   <div class="col-lg-6">
                     <div class="row">
                       <div class="col-lg-2">
-                        <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}" (click)="resetVehicleEntry()">
+                        <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}" (click)="resetVehicleForm()">
                       </div>
                       <div class="col-lg-5">
                         <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
                       </div>
                       <div class="col-lg-1">
-                        <input class="btn btn-primary" type="button" name="reset" value="Save">
+                        <input class="btn btn-primary" type="button" name="reset" value="Save" >
                       </div>
                     </div>
                   </div>
@@ -1293,7 +1293,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
 
-                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline"></a>
+                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline" (click)="setVehicleArrayObject()"></a>
                   Vehicles
                 </h4>
               </div>
@@ -1320,37 +1320,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                          <td>Apz1252z</td>
-                          <td>Bus-ts</td>
-                          <td>Red</td>
-                          <td>Ac Bus</td>
-                          <td>TN</td>
-                          <td>South Africa</td>
-                          <td>12 July 2017 11:06Am</td>
-                          <td>12 July 2017 11:06Am</td>
-                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                 data-End-Date="12 July 2017 11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
+                        <tr *ngFor="let vehicle of vehicleArray; let i = index">
+                          <td>{{vehicle.plateNumber}}</td>
+                          <td>{{vehicle.vehicleClass}}</td>
+                          <td>{{vehicle.vehicle_Color}}</td>
+                          <td>{{vehicle.description}}</td>
+                          <td>{{vehicle.registeredState}}</td>
+                          <td>{{vehicle.registered_Country}}</td>
+                          <td>{{vehicle.startEffectiveDateAndTime}}</td>
+                          <td>{{vehicle.endEffectiveDateAndTime}}</td>
+                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal" (click)="editRecord(i)"></a> </td>
                           <td>
                             <p class="glyphicon glyphicon-trash"></p>
                           </td>
                         </tr>
-                        <tr>
-                          <td>Apz1252z</td>
-                          <td>Bus-ts</td>
-                          <td>Red</td>
-                          <td>Ac Bus</td>
-                          <td>TN</td>
-                          <td>South Africa</td>
-                          <td>12 July 2017:11:06Am</td>
-                          <td>12 July 2017:11:06Am</td>
-                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                          <td>
-                            <p class="glyphicon glyphicon-trash"></p>
-                          </td>
-                        </tr>
-                        <tr>
+                        <!--<tr>
                           <td>Apz1252z</td>
                           <td>Bus-ts</td>
                           <td>Red</td>
@@ -1364,8 +1348,8 @@
                           <td>
                             <p class="glyphicon glyphicon-trash"></p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>-->
+                        <!--<tr>
                           <td>Apz1252z</td>
                           <td>Bus-ts</td>
                           <td>Red</td>
@@ -1379,7 +1363,7 @@
                           <td>
                             <p class="glyphicon glyphicon-trash"></p>
                           </td>
-                        </tr>
+                        </tr>-->
                         </tbody>
                       </table>
 
@@ -2155,7 +2139,7 @@
         <h4 class="modal-title" style="color:#637283;">Manage Vehicles</h4>
       </div>
       <div class="modal-body">
-        <form [formGroup]="vehicleFormEdit" (ngSubmit)='updateUser(vehicleFormEdit.value)'>
+        <form [formGroup]="vehicleFormEdit" (ngSubmit)='updateUser(vehicleFormEdit.value)' onload="loadDropDown();">
           <div class="row">
             <div class="col-lg-12">
               <div class="panel panel-default">
@@ -2187,10 +2171,11 @@
                         <div class="col-lg-11">
                           <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['vehicleClass'].invalid && vehicleFormEdit.controls['vehicleClass'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user" *ngIf="!vehicleFormEdit.controls['vehicleClass'].touched">*</i>
-                              <select class="form-control" name="vehicleClass" formControlName="vehicleClass" [formControl]="vehicleFormEdit.controls['vehicleClass']" >
-                                <option label="Class" disabled value=""></option>
-                                <option *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleFormEdit.controls['vehicleClass'].value}}</option>
+                              <i class="icon-user" >*</i>
+                              <!--<input class="form-control" placeholder="Class" name="vehicleClass" [formControl]="vehicleFormEdit.controls['vehicleClass']" formControlName="vehicleClass">-->
+                              <select  class="form-control" name="vehicleClass"  formControlName="vehicleClass"  id="vehicleClass">
+                                <option label="Class" disabled ></option>
+                                <option *ngFor="let vehicleClassDropdown of vehicleClassDropdowns"  [selected]="vehicleClassDropdown.key==vehicleClass" value="{{vehicleClassDropdown.key}}"> {{vehicleClassDropdown.value}}</option>
                               </select>
                             </div>
                           </div>
@@ -2214,7 +2199,7 @@
                           <div class="form-group">
                             <select class="form-control" name="vehicle_Year"  formControlName="vehicle_Year" [formControl]="vehicleFormEdit.controls['vehicle_Year']" >
                               <option label="Year" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_year of vehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
+                              <option   *ngFor="let vehicle_year of vehicleYear" [selected]="vehicle_year.key==vehicle_Year" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
                             </select>
 
                           </div>
@@ -2235,7 +2220,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" [formControl]="vehicleFormEdit.controls['vehicle_Make']">
                               <option label="Make" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_make of vehicleMake" value="{{vehicle_make.key}}"> {{vehicle_make.value}}</option>
+                              <option   *ngFor="let vehicle_make of vehicleMake" [selected]="vehicle_make.key==vehicle_Make" value="{{vehicle_make.key}}"> {{vehicle_make.value}}</option>
                             </select>
 
                           </div>
@@ -2260,7 +2245,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Model" name="vehicle_Model" formControlName="vehicle_Model" [formControl]="vehicleFormEdit.controls['vehicle_Model']">
                               <option label="Model" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.key}}"> {{vehicle_model.value}}</option>
+                              <option   *ngFor="let vehicle_model of vehicleModels" [selected]="vehicle_model.key==vehicle_Model" value="{{vehicle_model.key}}"> {{vehicle_model.value}}</option>
                             </select>
 
                           </div>
@@ -2280,7 +2265,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Color" name="vehicle_Color" formControlName="vehicle_Color" [formControl]="vehicleFormEdit.controls['vehicle_Color']">
                               <option label="Color" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_color of vehicleColors" value="{{vehicle_color.key}}"> {{vehicle_color.value}}</option>
+                              <option   *ngFor="let vehicle_color of vehicleColors" [selected]="vehicle_color.key==vehicle_Color" value="{{vehicle_color.key}}"> {{vehicle_color.value}}</option>
                             </select>
 
                           </div>
@@ -2306,7 +2291,7 @@
                               <i class="icon-user"></i>
                               <select class="form-control" name="registered_Country" formControlName="registered_Country" [formControl]="vehicleFormEdit.controls['registered_Country']" (change)="getStates()">
                                 <option value="" disabled>Registered Country</option>
-                                <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
+                                <option *ngFor="let country of countries" [selected]="country.key==registered_Country" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                               </select>
                             </div>
 
@@ -2328,10 +2313,10 @@
                         <div class="col-lg-11">
                           <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['registeredState'].invalid && vehicleFormEdit.controls['registeredState'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user" *ngIf="!vehicleFormEdit.controls['registeredState'].touched">*</i>
+                              <i class="icon-user" >*</i>
                               <select name="registeredState" class="form-control" formControlName="registeredState" [formControl]="vehicleFormEdit.controls['registeredState']">
                                 <option value="" disabled>Registered State</option>
-                                <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                                <option *ngFor="let state of states" [selected]="state.key==registeredState" value="{{state.StateCode}}">{{state.StateName}}</option>
                               </select>
                             </div>
                           </div>
@@ -2444,7 +2429,7 @@
             <div class="col-lg-8">
             </div>
             <div class="col-lg-1">
-              <a class="btn btn-primary">Reset</a>
+              <a class="btn btn-primary" (click)="resetVehicleFormEdit()">Reset</a>
             </div>
             <div class="col-lg-1">
               <a class="btn btn-primary" data-dismiss="modal">Cancel</a>

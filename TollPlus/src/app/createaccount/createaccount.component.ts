@@ -8,6 +8,7 @@ import {Email} from "../pojo/email";
 import {Address} from "../pojo/address";
 import {KYCDocument} from "../pojo/kycdocument";
 import {Phone} from "../pojo/phone";
+import {Vehicle} from "../pojo/Vehicle";
 declare var populateCountries: any;
 declare var businessCustomerTooltip:any;
 @Component({
@@ -18,7 +19,8 @@ declare var businessCustomerTooltip:any;
 })
 export class CreateaccountComponent implements OnInit {
   account=new Account();
-
+  vehicle_Modal=new Vehicle();
+  vehicleArray:Vehicle[]=[];
   businessCustomerTooltip = 'Please Select Business Type';
 
   user_Form:FormGroup;
@@ -112,6 +114,9 @@ export class CreateaccountComponent implements OnInit {
   statementDeliveryOptions=[];
   accountCategories=[];
 
+  ngOnChanges(){
+
+  }
   ngOnInit() {
     this.getHearAboutUs();
     this.getStatementDelivOption();
@@ -131,10 +136,10 @@ export class CreateaccountComponent implements OnInit {
       date_Of_Birth: new FormControl(""),
       primary_Email: new FormControl("", Validators.compose([Validators.required,CreateaccountComponent.emailValidator])),
       secondary_Email: new FormControl("", Validators.compose([CreateaccountComponent.emailValidator])),
-      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
-      eveningPhone: new FormControl("",Validators.compose([Validators.maxLength(10),CreateaccountComponent.validatePhoneNumber])),
-      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required, Validators.maxLength(10), CreateaccountComponent.validatePhoneNumber])),
-      workPhone: new FormControl("", Validators.compose([Validators.maxLength(10),CreateaccountComponent.validatePhoneNumber])),
+      day_Phone_Number: new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
+      eveningPhone: new FormControl("",Validators.compose([CreateaccountComponent.validatePhoneNumber])),
+      mobile_Phone_Number: new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
+      workPhone: new FormControl("", Validators.compose([CreateaccountComponent.validatePhoneNumber])),
       fax:new FormControl("",Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
       ext: new FormControl(""),
       country: new FormControl("", Validators.required),
@@ -159,7 +164,6 @@ export class CreateaccountComponent implements OnInit {
 
 
     });
-    this.vehicleFormResetMethod();
 
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(""),
@@ -381,7 +385,23 @@ export class CreateaccountComponent implements OnInit {
       }
     ];
 
-    this.vehicleFormEditInitialValues();
+    this.vehicleClassDropdowns=[
+      {
+        key: 1,
+        value: "Class1"
+      },
+      {
+        key: 2,
+        value: "Class2"
+      },
+      {
+        key: 3,
+        value: "Class3"
+      }
+    ]
+
+    this.vehicleForm=this.vehicleFormInitialValues();
+    this.vehicleFormEdit=this.vehicleFormInitialValues();
 
     console.log("model driven result "+this.isLogin);
     this.getCountries();
@@ -410,40 +430,49 @@ export class CreateaccountComponent implements OnInit {
 
 
   editRecord=function(item) {
-    console.log(" "+item.currentTarget.getAttribute("data-Plat-No"));
+    debugger;
+    console.log(" "+this.vehicleArray[item]._plateNumber);
+
 
     this.vehicleFormEdit=new FormGroup({
-      plateNumber:new FormControl(item.currentTarget.getAttribute("data-Plat-No"),Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
-      vehicleClass:new FormControl(item.currentTarget.getAttribute("data-Class")),
-      vehicle_Make: new FormControl(""),
-      vehicle_Year: new FormControl(""),
-      vehicle_Model: new FormControl(""),
-      vehicle_Color: new FormControl(item.currentTarget.getAttribute("data-Color")),
-      registered_Country:new FormControl(item.currentTarget.getAttribute("data-Country")),
-      registeredState:new FormControl(item.currentTarget.getAttribute("data-State"), Validators.required),
-      startEffectiveDate: new FormControl(""),
-      startDateHours: new FormControl(""),
-      startDateMins: new FormControl(""),
-      startDateSecs: new FormControl(""),
-      endEffectiveDate: new FormControl(item.currentTarget.getAttribute("data-End-Date")),
-      endDateHours: new FormControl(""),
-      endDateMins: new FormControl(""),
-      endDateSecs: new FormControl(""),
-      description:new FormControl(item.currentTarget.getAttribute("data-Description")),
-      isTemporaryLicencePlateNumber: new FormControl(""),
+      plateNumber:new FormControl(this.vehicleArray[item]._plateNumber,Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
+      vehicleClass:new FormControl(this.vehicleArray[item]._vehicleClass, Validators.required),
+      vehicle_Make: new FormControl(this.vehicleArray[item]._vehicle_Make),
+      vehicle_Year: new FormControl(this.vehicleArray[item]._vehicle_Year),
+      vehicle_Model: new FormControl(this.vehicleArray[item]._vehicle_Model),
+      vehicle_Color: new FormControl(this.vehicleArray[item]._vehicle_Color),
+      registered_Country:new FormControl(this.vehicleArray[item]._registered_Country),
+      registeredState:new FormControl(this.vehicleArray[item]._registeredState, Validators.required),
+      startEffectiveDate: new FormControl(this.vehicleArray[item]._startEffectiveDate),
+      startDateHours: new FormControl(this.vehicleArray[item]._startDateHours),
+      startDateMins: new FormControl(this.vehicleArray[item]._startDateMins),
+      startDateSecs: new FormControl(this.vehicleArray[item]._startDateSecs),
+      endEffectiveDate: new FormControl(this.vehicleArray[item]._endEffectiveDate),
+      endDateHours: new FormControl(this.vehicleArray[item]._endDateHours),
+      endDateMins: new FormControl(this.vehicleArray[item]._endDateMins),
+      endDateSecs: new FormControl(this.vehicleArray[item]._endDateSecs),
+      description:new FormControl(this.vehicleArray[item]._description),
+      isTemporaryLicencePlateNumber: new FormControl(this.vehicleArray[item]._isTemporaryLicencePlateNumber),
       language: new FormControl("Java")
     });
     debugger;
-    alert(this.vehicleFormEdit.controls['vehicle_Color'].value);
 
-    var startDate=item.currentTarget.getAttribute("data-Start-Date");
+    var startDate=this.vehicleFormEdit.controls['startEffectiveDate'].value;
 
     $("#startEffectiveDate").val(startDate);
+    /*$("#vehicleClass").val(this.vehicleClassDropdowns[1].value);
 
+
+    this.vehicleClassSelection=this.vehicleClassDropdowns[1].value;
+    alert(this.vehicleClassSelection);*/
 
 
   }
+  loadDropDown=function () {
 
+    $("#vehicleClass").val("Class1");
+    alert($("#vehicleClass").val());
+  }
   savePersonal=function(customerInfo){
     var primaryEmailIsPrefd=false;
     var secondaryEmailisPrfd=false;
@@ -1012,6 +1041,7 @@ export class CreateaccountComponent implements OnInit {
      return { 'invalidEmailAddress': true };
      }*/
     //validate phone numbers of format "1234567890"
+    debugger;
     if (control.value.match("\\d{10}")){return null;}
     //validating phone number with -, . or spaces
     else if(control.value.match("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")){return null;}
@@ -1130,38 +1160,23 @@ export class CreateaccountComponent implements OnInit {
 
   }
 
-  resetVehicleEntry=function () {
+  resetVehicleForm=function () {
     /*this.vehicleForm.reset(this.vehicleForm);*/
-    this.vehicleFormResetMethod();
+    this.vehicleForm =  this.vehicleFormInitialValues();
 
   }
 
-  vehicleFormResetMethod=function(){
-    this.vehicleForm = new FormGroup({
-      plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
-      vehicleClass: new FormControl("", Validators.required),
-      vehicle_Make: new FormControl(""),
-      vehicle_Year: new FormControl(""),
-      vehicle_Model: new FormControl(""),
-      vehicle_Color: new FormControl(""),
-      registered_Country:new FormControl(""),
-      registeredState:new FormControl("", Validators.required),
-      startEffectiveDate: new FormControl(""),
-      startDateHours: new FormControl(""),
-      startDateMins: new FormControl(""),
-      startDateSecs: new FormControl(""),
-      endEffectiveDate: new FormControl(""),
-      endDateHours: new FormControl(""),
-      endDateMins: new FormControl(""),
-      endDateSecs: new FormControl(""),
-      isTemporaryLicencePlateNumber: new FormControl(""),
+  resetVehicleFormEdit=function () {
+    /*this.vehicleForm.reset(this.vehicleForm);*/
+    this.vehicleFormEdit =  this.vehicleFormInitialValues();
 
-    });
   }
 
-vehicleFormEditInitialValues=function () {
 
-    this.vehicleFormEdit = new FormGroup({
+
+vehicleFormInitialValues=function () {
+
+    return new FormGroup({
     plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
     vehicleClass: new FormControl("", Validators.required),
     vehicle_Make: new FormControl(""),
@@ -1184,6 +1199,28 @@ vehicleFormEditInitialValues=function () {
   });
 }
 
+  saveVehicle=function (vehicleInfo) {
+    this.vehicle_Modal.plateNumber=vehicleInfo.plateNumber;
+    console.log('vehicle information saved');
+
+    var tempInputObj=JSON.stringify(this.vehicle_Modal);
+  }
+
+  setVehicleArrayObject=function () {
+    debugger;
+    var tempVehicle= new Vehicle();
+    tempVehicle.plateNumber="Apz1252ASK";
+    tempVehicle.vehicleClass="1";
+    tempVehicle.vehicle_Color="Red";
+    tempVehicle.description="Ac Bus";
+    tempVehicle.registeredState="TN";
+    tempVehicle.registered_Country="India";
+    tempVehicle.startEffectiveDateAndTime="12 July 2017 11:06Am";
+    tempVehicle.endEffectiveDateAndTime="12 July 2017 11:06Am";
+    for(var i = 0; i<4; i++){
+      this.vehicleArray[i]=tempVehicle;
+    }
+  }
 
 
 }
