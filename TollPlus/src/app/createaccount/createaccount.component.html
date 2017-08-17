@@ -118,12 +118,7 @@
                                     <option   *ngFor="let businessCustomer of businessCustomers" value="{{businessCustomer.key}}"> {{businessCustomer.value}}</option>
                                   </select>
                                 </div>
-                                <!--<div *ngIf="businessCustomerType.errors && ( businessCustomerType.touched)"
-                                     class="alert alert-danger">
-                                  <div [hidden]="!businessCustomerType.errors.required">
-                                    Business Customer is required
-                                  </div>
-                                </div>-->
+
                               </div>
                             </div>
                             <div class="col-lg-1">
@@ -145,18 +140,12 @@
                             <div class="col-lg-11">
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['businessName'].invalid && user_Form.controls['businessName'].touched}">
                                 <div class="left-inner-addon ">
-                                  <i class="icon-user" *ngIf="!user_Form.controls['businessCustomerType'].touched">*</i>
+                                  <i class="icon-user" *ngIf="!user_Form.controls['businessName'].touched">*</i>
                                   <select class="form-control" placeholder="Business Name" name="businessName" [formControl]="user_Form.controls['businessName']" >
                                     <option label="Business Name" disabled selected="selected" value=""></option>
                                     <option *ngFor="let business of businesses" value="{{business.key}}"> {{business.value}}</option>
                                   </select>
                                 </div>
-                                <!--<div *ngIf="businessCustomerType.errors && ( businessCustomerType.touched)"
-                                     class="alert alert-danger">
-                                  <div [hidden]="!businessCustomerType.errors.required">
-                                    Business Customer is required
-                                  </div>
-                                </div>-->
                               </div>
                             </div>
                             <div class="col-lg-1">
@@ -821,22 +810,22 @@
                                 </div>
                                 <div class="col-lg-6">
                                   <div class="row">
-                                    <div class="col-lg-11">
-                                      <div class="form-group" [ngClass]="{'has-error': user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched}">
-                                        <div class="left-inner-addon ">
-                                          <i class="icon-user" *ngIf="user_Form.controls['idProofNo'].hasError('required') && !user_Form.controls['idProofNo'].touched">*</i>
-                                          <input class="form-control" placeholder="Id Proof No." name="idProofNo" [formControl]="user_Form.controls['idProofNo']" formControlName="idProofNo">
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                      <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].hasError('required')}">
-                                        <span class="tooltipbadge">?</span>
-                                        <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['idProofNo'].valid && user_Form.controls['idProofNo'].touched}">Please Enter Id Proof No.</span>
-                                        <div *ngIf="user_Form.controls['idProofNo'].hasError('required') && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].invalid" class="tooltiptext1">Id Proof Number is mandatory</div>
+                                  <div class="col-lg-11">
+                                    <div class="form-group" [ngClass]="{'has-error': user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched}">
+                                      <div class="left-inner-addon ">
+                                        <i class="icon-user" *ngIf="user_Form.controls['idProofNo'].hasError('required') && !user_Form.controls['idProofNo'].touched">*</i>
+                                        <input class="form-control" placeholder="Id Proof No." name="idProofNo" [formControl]="user_Form.controls['idProofNo']" formControlName="idProofNo">
                                       </div>
                                     </div>
                                   </div>
+                                  <div class="col-lg-1">
+                                    <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['idProofNo'].invalid && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].hasError('required')}">
+                                      <span class="tooltipbadge">?</span>
+                                      <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['idProofNo'].valid && user_Form.controls['idProofNo'].touched}">Please Enter Id Proof No.</span>
+                                      <div *ngIf="user_Form.controls['idProofNo'].hasError('required') && user_Form.controls['idProofNo'].touched && user_Form.controls['idProofNo'].invalid" class="tooltiptext1">Id Proof Number is mandatory</div>
+                                    </div>
+                                  </div>
+                                </div>
                                 </div>
                               </div>
                               <div class="row" id="idProof_other_row" style="display:none;">
@@ -979,8 +968,7 @@
 
     <div class="tab-pane" id="2a">
       <div id="page-wrapper">
-        <form role="form" [formGroup]="vehicleForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)' novalidate>
-          <!-- <form role="form" #vehicleForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)'>-->
+        <form role="form" [formGroup]="vehicleForm" class="bgColor" (ngSubmit)='savePersonal(vehicleForm.value)' novalidate name="vehicleForm">
           <div class="panel-group" id="VehicleInformation" >
             <div class="row">
               <div class="col-lg-9">
@@ -1021,41 +1009,30 @@
                           </div>
                         </div>
                       </div>
-                      <!-- <div class="form-group">
-                        <input class="form-control" placeholder="Plate Number" name="plateNumber" ngModel>
-                      </div>-->
                     </div>
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}" >
+                          <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['vehicleClass'].invalid && vehicleForm.controls['vehicleClass'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user">*</i>
-                              <select class="form-control" placeholder="Class" name="vehicle_Class_dropdown"  >
+                              <i class="icon-user" *ngIf="!vehicleForm.controls['vehicleClass'].touched">*</i>
+                              <select class="form-control" name="vehicleClass" formControlName="vehicleClass" [formControl]="vehicleForm.controls['vehicleClass']" >
                                 <option label="Class" disabled selected="selected" value=""></option>
-                                <option   *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleClassDropdown.value}}</option>
+                                <option *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleClassDropdown.value}}</option>
                               </select>
                             </div>
-                            <!--<div *ngIf="businessCustomerType.errors && ( businessCustomerType.touched)"
-                                 class="alert alert-danger">
-                              <div [hidden]="!businessCustomerType.errors.required">
-                                Business Customer is required
-                              </div>
-                            </div>-->
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}">
+                          <div class="tooltip1" [ngClass]="{'has-error': vehicleForm.controls['vehicleClass'].hasError('required') && vehicleForm.controls['vehicleClass'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleForm.controls['vehicle_Class_dropdown'].hasError('required') && vehicleForm.controls['vehicle_Class_dropdown'].touched}">Please Select Class</span>
-                            <div *ngIf="vehicleForm.controls['vehicle_Class_dropdown'].hasError('required') && vehicleForm.controls['vehicle_Class_dropdown'].touched" class="tooltiptext1">Class Is Not Selected</div>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':vehicleForm.controls['vehicleClass'].touched}">Please Select Class</span>
+                            <div *ngIf="vehicleForm.controls['vehicleClass'].hasError('required') && vehicleForm.controls['vehicleClass'].touched && vehicleForm.controls['vehicleClass'].invalid" class="tooltiptext1">Class is mandatory</div>
+
                           </div>
                         </div>
 
                       </div>
-                      <!-- <div class="form-group">
-                        <input class="form-control" placeholder="Class" name="class" ngModel>
-                      </div>-->
                     </div>
                   </div>
                   <div class="row">
@@ -1063,7 +1040,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Year" name="vehicle_Year" id='vehicle_Year'>
+                            <select class="form-control" name="vehicle_Year"  formControlName="vehicle_Year" [formControl]="vehicleForm.controls['vehicle_Year']" >
                               <option label="Year" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_year of vehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
                             </select>
@@ -1084,7 +1061,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Make" name="vehicle_Make" id='vehicle_Make'>
+                            <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" [formControl]="vehicleForm.controls['vehicle_Make']">
                               <option label="Make" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_make of vehicleMake" value="{{vehicle_make.key}}"> {{vehicle_make.value}}</option>
                             </select>
@@ -1109,7 +1086,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Model" name="vehicle_Model" id='vehicle_Model'>
+                            <select class="form-control" placeholder="Model" name="vehicle_Model" formControlName="vehicle_Model" [formControl]="vehicleForm.controls['vehicle_Model']">
                               <option label="Model" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.key}}"> {{vehicle_model.value}}</option>
                             </select>
@@ -1129,7 +1106,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Color" name="vehicle_Color" id='vehicle_Color'>
+                            <select class="form-control" placeholder="Color" name="vehicle_Color" formControlName="vehicle_Color" [formControl]="vehicleForm.controls['vehicle_Color']">
                               <option label="Color" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_color of vehicleColors" value="{{vehicle_color.key}}"> {{vehicle_color.value}}</option>
                             </select>
@@ -1155,7 +1132,7 @@
                           <div class="form-group">
                             <div class="left-inner-addon">
                               <i class="icon-user"></i>
-                              <select class="form-control" name="registered_Country" formControlName="registered_Country" id="registered_Country" (change)="getStates()">
+                              <select class="form-control" name="registered_Country" formControlName="registered_Country" [formControl]="vehicleForm.controls['registered_Country']" (change)="getStates()">
                                 <option value="" disabled>Registered Country</option>
                                 <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                               </select>
@@ -1177,10 +1154,10 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group">
+                          <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['registeredState'].invalid && vehicleForm.controls['registeredState'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user">*</i>
-                              <select name="state" class="form-control">
+                              <i class="icon-user" *ngIf="!vehicleForm.controls['registeredState'].touched">*</i>
+                              <select name="registeredState" class="form-control" formControlName="registeredState" [formControl]="vehicleForm.controls['registeredState']">
                                 <option value="" disabled>Registered State</option>
                                 <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
                               </select>
@@ -1188,11 +1165,12 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error': vehicleForm.controls['registeredState'].hasError('required') && vehicleForm.controls['registeredState'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select Registered State</span>
-                          </div>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':vehicleForm.controls['registeredState'].touched}">Please Select State</span>
+                            <div *ngIf="vehicleForm.controls['registeredState'].hasError('required') && vehicleForm.controls['registeredState'].touched && vehicleForm.controls['registeredState'].invalid" class="tooltiptext1">State is mandatory</div>
 
+                          </div>
                         </div>
                       </div>
 
@@ -1200,34 +1178,34 @@
                     <!-- /.col-lg-6 (nested) -->
                     <!-- /.col-lg-6 (nested) -->
                   </div>
-
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-5">
-                          <div class="form-group">
-                            <input type='text' class="form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date" />
+                          <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['startEffectiveDate'].invalid && vehicleForm.controls['startEffectiveDate'].dirty }">
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date (dd/MM/yyyy)" name="startEffectiveDate" id="startEffectiveDate" [formControl]="vehicleForm.controls['startEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" />
+                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="startDateHours" [formControl]="vehicleForm.controls['startDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="startDateMins" [formControl]="vehicleForm.controls['startDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="startDateSecs" [formControl]="vehicleForm.controls['startDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['startEffectiveDate'].invalid && !vehicleForm.controls['startEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select Start Date & Time</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleForm.controls['startEffectiveDate'].valid && !vehicleForm.controls['startEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <div *ngIf="vehicleForm.controls['startEffectiveDate'].invalid && vehicleForm.controls['startEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
                       </div>
@@ -1235,29 +1213,30 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-5">
-                          <div class="form-group">
-                            <input type='text' class=" form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date" />
+                          <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['endEffectiveDate'].invalid && vehicleForm.controls['endEffectiveDate'].dirty }">
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date (dd/MM/yyyy)" name="endEffectiveDate" id="endEffectiveDate" [formControl]="vehicleForm.controls['endEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" />
+                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="endDateHours" [formControl]="vehicleForm.controls['endDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="endDateMins" [formControl]="vehicleForm.controls['endDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="endDateSecs" [formControl]="vehicleForm.controls['endDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['endEffectiveDate'].invalid && !vehicleForm.controls['endEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select End Date & Time</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleForm.controls['endEffectiveDate'].valid && !vehicleForm.controls['endEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <div *ngIf="vehicleForm.controls['endEffectiveDate'].invalid && vehicleForm.controls['endEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
                       </div>
@@ -1288,7 +1267,7 @@
                   <div class="col-lg-6">
                     <div class="row">
                       <div class="col-lg-2">
-                        <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}">
+                        <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}" (click)="resetVehicleEntry()">
                       </div>
                       <div class="col-lg-5">
                         <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
@@ -2173,7 +2152,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Vehicle Information</h4>
+        <h4 class="modal-title" style="color:#637283;">Manage Vehicles</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="vehicleFormEdit" (ngSubmit)='updateUser(vehicleFormEdit.value)'>
@@ -2188,55 +2167,44 @@
                         <div class="col-lg-11">
                           <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['plateNumber'].invalid && vehicleFormEdit.controls['plateNumber'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user" *ngIf="vehicleFormEdit.controls['plateNumber'].hasError('required') && !vehicleForm.controls['plateNumber'].touched">*</i>
-                              <input class="form-control" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleForm.controls['plateNumber']" formControlName="plateNumber">
+                              <i class="icon-user" >*</i>
+                              <input class="form-control" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleFormEdit.controls['plateNumber']" formControlName="plateNumber">
                             </div>
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['plateNumber'].invalid && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].hasError('required')}">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleFormEdit.controls['plateNumber'].invalid && vehicleFormEdit.controls['plateNumber'].touched && vehicleFormEdit.controls['plateNumber'].hasError('required')}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleForm.controls['plateNumber'].valid && vehicleForm.controls['plateNumber'].touched}">Please Enter Plate Number</span>
-                            <div *ngIf="vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is mandatory</div>
-                            <div *ngIf="!vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is invalid</div>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleFormEdit.controls['plateNumber'].valid && vehicleFormEdit.controls['plateNumber'].touched}">Please Enter Plate Number</span>
+                            <div *ngIf="vehicleFormEdit.controls['plateNumber'].hasError('required') && vehicleFormEdit.controls['plateNumber'].touched && vehicleFormEdit.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is mandatory</div>
+                            <div *ngIf="!vehicleFormEdit.controls['plateNumber'].hasError('required') && vehicleFormEdit.controls['plateNumber'].touched && vehicleFormEdit.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is invalid</div>
                           </div>
                         </div>
                       </div>
-                      <!-- <div class="form-group">
-                        <input class="form-control" placeholder="Plate Number" name="plateNumber" ngModel>
-                      </div>-->
                     </div>
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}">
+                          <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['vehicleClass'].invalid && vehicleFormEdit.controls['vehicleClass'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user">*</i>
-                              <select class="form-control" placeholder="Class" name="vehicle_Class_dropdown"  formControlName="vehicle_Class_dropdown" ngDefaultControl>
-                                <option label="Class" selected="selected" ></option>
-                                <option   *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleClassDropdown.value}}</option>
+                              <i class="icon-user" *ngIf="!vehicleFormEdit.controls['vehicleClass'].touched">*</i>
+                              <select class="form-control" name="vehicleClass" formControlName="vehicleClass" [formControl]="vehicleFormEdit.controls['vehicleClass']" >
+                                <option label="Class" disabled value=""></option>
+                                <option *ngFor="let vehicleClassDropdown of vehicleClassDropdowns" value="{{vehicleClassDropdown.key}}"> {{vehicleFormEdit.controls['vehicleClass'].value}}</option>
                               </select>
                             </div>
-                            <!--<div *ngIf="businessCustomerType.errors && ( businessCustomerType.touched)"
-                                 class="alert alert-danger">
-                              <div [hidden]="!businessCustomerType.errors.required">
-                                Business Customer is required
-                              </div>
-                            </div>-->
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['vehicle_Class_dropdown'].touched}">
+                          <div class="tooltip1" [ngClass]="{'has-error': vehicleFormEdit.controls['vehicleClass'].hasError('required') && vehicleFormEdit.controls['vehicleClass'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleForm.controls['vehicle_Class_dropdown'].hasError('required') && vehicleForm.controls['vehicle_Class_dropdown'].touched}">Please Select Class</span>
-                            <div *ngIf="vehicleForm.controls['vehicle_Class_dropdown'].hasError('required') && vehicleForm.controls['vehicle_Class_dropdown'].touched" class="tooltiptext1">Class Is Not Selected</div>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':vehicleFormEdit.controls['vehicleClass'].touched}">Please Select Class</span>
+                            <div *ngIf="vehicleFormEdit.controls['vehicleClass'].hasError('required') && vehicleFormEdit.controls['vehicleClass'].touched && vehicleFormEdit.controls['vehicleClass'].invalid" class="tooltiptext1">Class is mandatory</div>
+
                           </div>
                         </div>
 
                       </div>
-                      <!-- <div class="form-group">
-                        <input class="form-control" placeholder="Class" name="class" ngModel>
-                      </div>-->
                     </div>
                   </div>
                   <div class="row">
@@ -2244,7 +2212,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Year" name="vehicle_Year" id='vehicle_Year' formControlName="vehicle_Year">
+                            <select class="form-control" name="vehicle_Year"  formControlName="vehicle_Year" [formControl]="vehicleFormEdit.controls['vehicle_Year']" >
                               <option label="Year" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_year of vehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
                             </select>
@@ -2265,7 +2233,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Make" name="vehicle_Make" id='vehicle_Make' formControlName="vehicle_Make">
+                            <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" [formControl]="vehicleFormEdit.controls['vehicle_Make']">
                               <option label="Make" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_make of vehicleMake" value="{{vehicle_make.key}}"> {{vehicle_make.value}}</option>
                             </select>
@@ -2290,7 +2258,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Model" name="vehicle_Model" id='vehicle_Model' formControlName="vehicle_Model">
+                            <select class="form-control" placeholder="Model" name="vehicle_Model" formControlName="vehicle_Model" [formControl]="vehicleFormEdit.controls['vehicle_Model']">
                               <option label="Model" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.key}}"> {{vehicle_model.value}}</option>
                             </select>
@@ -2310,7 +2278,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Color" name="vehicle_Color" id='vehicle_Color' formControlName="vehicle_Color">
+                            <select class="form-control" placeholder="Color" name="vehicle_Color" formControlName="vehicle_Color" [formControl]="vehicleFormEdit.controls['vehicle_Color']">
                               <option label="Color" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_color of vehicleColors" value="{{vehicle_color.key}}"> {{vehicle_color.value}}</option>
                             </select>
@@ -2336,7 +2304,7 @@
                           <div class="form-group">
                             <div class="left-inner-addon">
                               <i class="icon-user"></i>
-                              <select class="form-control" name="registered_Country" formControlName="registered_Country" id="registered_Country" (change)="getStates()">
+                              <select class="form-control" name="registered_Country" formControlName="registered_Country" [formControl]="vehicleFormEdit.controls['registered_Country']" (change)="getStates()">
                                 <option value="" disabled>Registered Country</option>
                                 <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                               </select>
@@ -2358,10 +2326,10 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group">
+                          <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['registeredState'].invalid && vehicleFormEdit.controls['registeredState'].touched}">
                             <div class="left-inner-addon ">
-                              <i class="icon-user">*</i>
-                              <select name="state" class="form-control" formControlName="state" id="state">
+                              <i class="icon-user" *ngIf="!vehicleFormEdit.controls['registeredState'].touched">*</i>
+                              <select name="registeredState" class="form-control" formControlName="registeredState" [formControl]="vehicleFormEdit.controls['registeredState']">
                                 <option value="" disabled>Registered State</option>
                                 <option *ngFor="let state of states" value="{{state.StateCode}}">{{state.StateName}}</option>
                               </select>
@@ -2369,11 +2337,12 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error': vehicleFormEdit.controls['registeredState'].hasError('required') && vehicleFormEdit.controls['registeredState'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select Registered State</span>
-                          </div>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':vehicleFormEdit.controls['registeredState'].touched}">Please Select State</span>
+                            <div *ngIf="vehicleFormEdit.controls['registeredState'].hasError('required') && vehicleFormEdit.controls['registeredState'].touched && vehicleFormEdit.controls['registeredState'].invalid" class="tooltiptext1">State is mandatory</div>
 
+                          </div>
                         </div>
                       </div>
 
@@ -2381,34 +2350,34 @@
                     <!-- /.col-lg-6 (nested) -->
                     <!-- /.col-lg-6 (nested) -->
                   </div>
-
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-5">
-                          <div class="form-group">
-                            <input type='text' class="form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date" formControlName="startEffectiveDate"/>
+                          <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['startEffectiveDate'].invalid && vehicleFormEdit.controls['startEffectiveDate'].dirty }">
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date (dd/MM/yyyy)" name="startEffectiveDate" id="startEffectiveDate" [formControl]="vehicleFormEdit.controls['startEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" />
+                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="startDateHours" [formControl]="vehicleFormEdit.controls['startDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="startDateMins" [formControl]="vehicleFormEdit.controls['startDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="startDateSecs" [formControl]="vehicleFormEdit.controls['startDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleFormEdit.controls['startEffectiveDate'].invalid && !vehicleFormEdit.controls['startEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select Start Date & Time</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleFormEdit.controls['startEffectiveDate'].valid && !vehicleFormEdit.controls['startEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <div *ngIf="vehicleFormEdit.controls['startEffectiveDate'].invalid && vehicleFormEdit.controls['startEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
                       </div>
@@ -2416,29 +2385,30 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-5">
-                          <div class="form-group">
-                            <input type='text' class=" form-control datepicker-here " data-language='en' data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date" formControlName="endEffectiveDate"/>
+                          <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['endEffectiveDate'].invalid && vehicleFormEdit.controls['endEffectiveDate'].dirty }">
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date (dd/MM/yyyy)" name="endEffectiveDate" id="endEffectiveDate" [formControl]="vehicleFormEdit.controls['endEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" />
+                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="endDateHours" [formControl]="vehicleFormEdit.controls['endDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="endDateMins" [formControl]="vehicleFormEdit.controls['endDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" />
+                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="endDateSecs" [formControl]="vehicleFormEdit.controls['endDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error':vehicleFormEdit.controls['endEffectiveDate'].invalid && !vehicleFormEdit.controls['endEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select End Date & Time</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleFormEdit.controls['endEffectiveDate'].valid && !vehicleFormEdit.controls['endEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <div *ngIf="vehicleFormEdit.controls['endEffectiveDate'].invalid && vehicleFormEdit.controls['endEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
                       </div>
@@ -2471,13 +2441,13 @@
             <!-- /.col-lg-12 -->
           </div>
           <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-8">
             </div>
             <div class="col-lg-1">
-              <a class="btn btn-primary btnPrevious">Reset</a>
+              <a class="btn btn-primary">Reset</a>
             </div>
             <div class="col-lg-1">
-              <a class="btn btn-primary btnPrevious">Cancel</a>
+              <a class="btn btn-primary" data-dismiss="modal">Cancel</a>
             </div>
             <div class="col-lg-1">
               <input type="submit" class="btn btn-primary" value="Update" />
@@ -2485,9 +2455,9 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <!--<div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      </div>-->
     </div>
   </div>
 </div>

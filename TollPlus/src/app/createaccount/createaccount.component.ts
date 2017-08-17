@@ -159,17 +159,7 @@ export class CreateaccountComponent implements OnInit {
 
 
     });
-    this.vehicleForm = new FormGroup({
-      plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("/[1-9]{1}[0-9]{9}$/")])),
-      vehicle_Class_dropdown: new FormControl("", Validators.required),
-      vehicle_Year: new FormControl(""),
-      vehicle_Model: new FormControl(""),
-      vehicle_Color: new FormControl(""),
-      registered_Country:new FormControl(""),
-      registeredState:new FormControl(""),
-      isTemporaryLicencePlateNumber: new FormControl(""),
-
-    });
+    this.vehicleFormResetMethod();
 
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(""),
@@ -179,17 +169,6 @@ export class CreateaccountComponent implements OnInit {
     });
 
 
-
-    /*this.userForm.get('businessCustomerType').valueChanges.subscribe(
-     (businessCustomerType)=>{
-     if(businessCustomerType == '1'){
-     this.userForm.get('businessCustomerType').setValidators([Validators.required]);
-     this.businessCustomerTooltip = 'Select correct customer type';
-     }
-     this.userForm.get('businessCustomerType').updateValueAndValidity();
-
-     }
-     )*/
 
     $(document).ready(function() {
 
@@ -402,21 +381,8 @@ export class CreateaccountComponent implements OnInit {
       }
     ];
 
-    this.vehicleFormEdit=new FormGroup({
-      plateNumber:new FormControl(""),
-      vehicle_Class_dropdown:new FormControl(""),
-      vehicle_Year: new FormControl(""),
-      vehicle_Make: new FormControl(""),
-      vehicle_Model:new FormControl(""),
-      state:new FormControl(""),
-      description:new FormControl(""),
-      vehicle_Color:new FormControl(""),
-      registered_Country:new FormControl(""),
-      startEffectiveDate: new FormControl(""),
-      endEffectiveDate:new FormControl(""),
-      isTemporaryLicencePlateNumber: new FormControl(""),
-      language: new FormControl("Java")
-    });
+    this.vehicleFormEditInitialValues();
+
     console.log("model driven result "+this.isLogin);
     this.getCountries();
     //this.getStates();
@@ -447,18 +413,29 @@ export class CreateaccountComponent implements OnInit {
     console.log(" "+item.currentTarget.getAttribute("data-Plat-No"));
 
     this.vehicleFormEdit=new FormGroup({
-      plateNumber:new FormControl(item.currentTarget.getAttribute("data-Plat-No")),
-      vehicle_Class_dropdown:new FormControl(item.currentTarget.getAttribute("data-Class")),
-      vehicle_Year: new FormControl(""),
+      plateNumber:new FormControl(item.currentTarget.getAttribute("data-Plat-No"),Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
+      vehicleClass:new FormControl(item.currentTarget.getAttribute("data-Class")),
       vehicle_Make: new FormControl(""),
+      vehicle_Year: new FormControl(""),
       vehicle_Model: new FormControl(""),
-      state:new FormControl(item.currentTarget.getAttribute("data-State")),
-      description:new FormControl(item.currentTarget.getAttribute("data-Description")),
-      vehicle_Color:new FormControl(item.currentTarget.getAttribute("data-Color")),
+      vehicle_Color: new FormControl(item.currentTarget.getAttribute("data-Color")),
       registered_Country:new FormControl(item.currentTarget.getAttribute("data-Country")),
-      endEffectiveDate:new FormControl(item.currentTarget.getAttribute("data-End-Date"))
-
+      registeredState:new FormControl(item.currentTarget.getAttribute("data-State"), Validators.required),
+      startEffectiveDate: new FormControl(""),
+      startDateHours: new FormControl(""),
+      startDateMins: new FormControl(""),
+      startDateSecs: new FormControl(""),
+      endEffectiveDate: new FormControl(item.currentTarget.getAttribute("data-End-Date")),
+      endDateHours: new FormControl(""),
+      endDateMins: new FormControl(""),
+      endDateSecs: new FormControl(""),
+      description:new FormControl(item.currentTarget.getAttribute("data-Description")),
+      isTemporaryLicencePlateNumber: new FormControl(""),
+      language: new FormControl("Java")
     });
+    debugger;
+    alert(this.vehicleFormEdit.controls['vehicle_Color'].value);
+
     var startDate=item.currentTarget.getAttribute("data-Start-Date");
 
     $("#startEffectiveDate").val(startDate);
@@ -1153,7 +1130,59 @@ export class CreateaccountComponent implements OnInit {
 
   }
 
+  resetVehicleEntry=function () {
+    /*this.vehicleForm.reset(this.vehicleForm);*/
+    this.vehicleFormResetMethod();
 
+  }
+
+  vehicleFormResetMethod=function(){
+    this.vehicleForm = new FormGroup({
+      plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
+      vehicleClass: new FormControl("", Validators.required),
+      vehicle_Make: new FormControl(""),
+      vehicle_Year: new FormControl(""),
+      vehicle_Model: new FormControl(""),
+      vehicle_Color: new FormControl(""),
+      registered_Country:new FormControl(""),
+      registeredState:new FormControl("", Validators.required),
+      startEffectiveDate: new FormControl(""),
+      startDateHours: new FormControl(""),
+      startDateMins: new FormControl(""),
+      startDateSecs: new FormControl(""),
+      endEffectiveDate: new FormControl(""),
+      endDateHours: new FormControl(""),
+      endDateMins: new FormControl(""),
+      endDateSecs: new FormControl(""),
+      isTemporaryLicencePlateNumber: new FormControl(""),
+
+    });
+  }
+
+vehicleFormEditInitialValues=function () {
+
+    this.vehicleFormEdit = new FormGroup({
+    plateNumber:new FormControl("",Validators.compose([Validators.required, Validators.pattern("[a-zA-z0-9]+([ '-][a-zA-Z0-9]+)*")])),
+    vehicleClass: new FormControl("", Validators.required),
+    vehicle_Make: new FormControl(""),
+    vehicle_Year: new FormControl(""),
+    vehicle_Model: new FormControl(""),
+    vehicle_Color: new FormControl(""),
+    registered_Country:new FormControl(""),
+    registeredState:new FormControl("", Validators.required),
+    startEffectiveDate: new FormControl(""),
+    startDateHours: new FormControl(""),
+    startDateMins: new FormControl(""),
+    startDateSecs: new FormControl(""),
+    endEffectiveDate: new FormControl(""),
+    endDateHours: new FormControl(""),
+    endDateMins: new FormControl(""),
+    endDateSecs: new FormControl(""),
+    isTemporaryLicencePlateNumber: new FormControl(""),
+    language: new FormControl("Java")
+
+  });
+}
 
 
 
