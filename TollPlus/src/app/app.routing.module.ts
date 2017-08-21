@@ -10,6 +10,8 @@ import { SignupComponent } from "./signup/signup.component";
 import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
 import {Pagination} from "./pagination";
 import {PaginationtestComponent} from "./paginationtest/paginationtest.component";
+import {CustomComponent} from "./custom/custom.component";
+import {CustomtestComponent} from "./customtest/customtest.component";
 const routes: Routes = [
   {
     path: "",
@@ -50,6 +52,20 @@ const routes: Routes = [
       {
         path: 'createaccount',
         component:CreateaccountComponent,
+        data: {
+          breadcrumb: "CSC > Create Account ",
+          main:"true"
+        }
+      },{
+        path: 'customcomponent',
+        component:CustomComponent,
+        data: {
+          breadcrumb: "CSC > Create Account ",
+          main:"true"
+        }
+      },{
+        path: 'testcustom',
+        component:CustomtestComponent,
         data: {
           breadcrumb: "CSC > Create Account ",
           main:"true"

@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map'
 import * as _ from 'underscore';
 
 import { Pagination } from '../pagination'
+import {Router} from "@angular/router";
+import {SessionService} from "../services/session-service.service";
 
 @Component({
   selector: 'app-paginationtest',
@@ -13,7 +15,8 @@ import { Pagination } from '../pagination'
   styleUrls: ['./paginationtest.component.css']
 })
 export class PaginationtestComponent implements OnInit {
-  constructor(private http: Http, private pagerService: Pagination) { }
+  color="blue";
+  constructor(private http: Http, private pagerService: Pagination,private router:Router,private sessionService:SessionService) { }
 
   // array of all items to be paged
   private allItems: any[];
@@ -25,6 +28,15 @@ export class PaginationtestComponent implements OnInit {
   pagedItems: any[];
 
   ngOnInit() {
+
+    this.sessionService.isLogged().then((result: boolean) => {
+      if(result) {
+        this.router.navigate(['/pagination']);
+      }
+    })
+
+
+
     this.allItems=[
       {
         "name": "Item 1"

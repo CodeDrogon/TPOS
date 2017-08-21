@@ -1,7 +1,7 @@
 <div>
   <div class="container">
     <div class="text-center">
-      <h1>Angular 2 - Pagination Example with logic like Google</h1>
+      <h1 myHighlight>Pagination</h1>
 
       <!-- items being paged -->
       <div *ngFor="let item of pagedItems">{{item.name}}</div>
@@ -24,6 +24,23 @@
           <a (click)="setPage(pager.totalPages)">Last</a>
         </li>
       </ul>
+      <h1>My First Attribute Directive</h1>
+
+      <h4>Pick a highlight color</h4>
+<!--
+      <p myHighlight highlightColor="{{color}}">Highlighted in yellow</p>
+      <p myHighlight [highlightColor]="color">Highlighted in yellow</p>-->
+
+      <!--<p  [myHighlight]="'yellow'">Highlighted in yellow</p>
+      <p  [myHighlight]="'orange'">Highlighted in orange</p>-->
+      <div>
+        <input type="radio" name="colors" (click)="color='lightgreen'">Green
+        <input type="radio" name="colors" (click)="color='yellow'">Yellow
+        <input type="radio" name="colors" (click)="color='cyan'">Cyan
+      </div>
+      <!--<p [myHighlight]="color">Highlight me!</p>-->
+      <p myHighlight [highlightColor]="color">Highlight me!</p>
+      <input type="text" [ngModel]="color"/>
     </div>
   </div>
 </div>
