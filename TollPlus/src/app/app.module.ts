@@ -26,6 +26,10 @@ import {Address} from "./pojo/address";
 import {Phone} from "./pojo/phone";
 import {Email} from "./pojo/email";
 import {KYCDocument} from "./pojo/kycdocument";
+import { CustDirective } from './custdir/cust.directive';
+import { CustomComponent } from './custom/custom.component';
+import { CustomtestComponent } from './customtest/customtest.component';
+import {SessionService} from "./services/session-service.service";
 /* End*/
 
 @NgModule({
@@ -42,7 +46,10 @@ import {KYCDocument} from "./pojo/kycdocument";
     CreateaccountComponent,
     SigninComponent,
     SignupComponent,
-    PaginationtestComponent
+    PaginationtestComponent,
+    CustDirective,
+    CustomComponent,
+    CustomtestComponent
 
 
 
@@ -56,7 +63,8 @@ import {KYCDocument} from "./pojo/kycdocument";
     ReactiveFormsModule,
     RouterModule
   ],
-  providers: [LoginService,CreateaccountService,UtilityService,TollPlusHttpService,Pagination,Account,Address,Phone,Email,KYCDocument],
+  providers: [LoginService,CreateaccountService,UtilityService,
+    TollPlusHttpService,Pagination,Account,Address,Phone,Email,KYCDocument,SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
