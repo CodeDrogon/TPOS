@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<testsuite name="PhantomJS 2.1.1 (Windows 8 0.0.0)" package="unit" timestamp="2017-07-31T13:31:32" id="0" hostname="Sureit-D1" tests="3" errors="0" failures="0" time="1.251">
+<testsuite name="PhantomJS 2.1.1 (Windows 8 0.0.0)" package="unit" timestamp="2017-08-21T10:51:05" id="0" hostname="Sureit-D1" tests="3" errors="0" failures="0" time="1.22">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1"/>
   </properties>
-  <testcase name="AppComponent should create the app" time="0.662" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).unit.AppComponent"/>
-  <testcase name="AppComponent should have as title 'app'" time="0.467" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).unit.AppComponent"/>
-  <testcase name="TollPlusHttpService Http Service check" time="0.122" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).unit.TollPlusHttpService"/>
+  <testcase name="AppComponent should create the app" time="0.614" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).unit.AppComponent"/>
+  <testcase name="AppComponent should have as title 'app'" time="0.469" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).unit.AppComponent"/>
+  <testcase name="TollPlusHttpService Http Service check" time="0.137" classname="PhantomJS_2_1_1_(Windows_8_0_0_0).unit.TollPlusHttpService"/>
   <system-out>
     <![CDATA[PhantomJS 2.1.1 (Windows 8 0.0.0) LOG: 'path GetCountries'
 ,PhantomJS 2.1.1 (Windows 8 0.0.0) LOG: 'country service '

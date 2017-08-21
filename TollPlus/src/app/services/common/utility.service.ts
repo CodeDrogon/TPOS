@@ -7,8 +7,9 @@ export class UtilityService {
   constructor(public httpService:TollPlusHttpService) { }
 
 
-  getCountries=function (getCountryRelativePath) {
-    console.log("country service ")
+  getCountries= function (getCountryRelativePath) {
+    debugger;
+    console.log('country service');
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
 

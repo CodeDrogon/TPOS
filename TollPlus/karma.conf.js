@@ -39,7 +39,8 @@ module.exports = function (config) {
     },
     junitReporter: {
       outputDir: './testReport', // results will be saved as $outputDir/$browserName.xml
-      outputFile: 'test_jasmine_js.xml', // if included, results will be saved as $outputDir/$browserName/$outputFile
+      type: 'html',
+      outputFile: 'test_jasmine_js.html', // if included, results will be saved as $outputDir/$browserName/$outputFile
       suite: 'unit', // suite will become the package name attribute in xml testsuite element
       useBrowserName: true, // add browser name to report and classes names
       nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
@@ -51,7 +52,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     singleRun: false
   });
 };

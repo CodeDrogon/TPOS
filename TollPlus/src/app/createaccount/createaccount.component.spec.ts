@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateaccountComponent } from './createaccount.component';
 
-describe('CreateaccountComponent', () => {
+/*describe('CreateaccountComponent', () => {
   let component: CreateaccountComponent;
   let fixture: ComponentFixture<CreateaccountComponent>;
 
@@ -20,8 +20,8 @@ describe('CreateaccountComponent', () => {
     fixture.detectChanges();
   });
 
-  /*it('should be created', () => {
+  /!*it('should be created', () => {
     debugger;
     expect('sagar').toBe('sagar');
-  });*/
-});
+  });*!/
+});*/

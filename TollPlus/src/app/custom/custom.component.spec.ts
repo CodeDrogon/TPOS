@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomComponent } from './custom.component';
 
-describe('CustomComponent', () => {
+/*describe('CustomComponent', () => {
   let component: CustomComponent;
   let fixture: ComponentFixture<CustomComponent>;
 
@@ -19,7 +19,7 @@ describe('CustomComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  /!*it('should be created', () => {
     expect(component).toBeTruthy();
-  });
-});
+  });*!/
+});*/
