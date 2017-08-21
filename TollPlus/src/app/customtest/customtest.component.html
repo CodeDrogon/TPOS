@@ -1,0 +1,12 @@
+
+<form role="form" [formGroup]="custom_Form" class="bgColor">
+<two-text-fields [fieldOneName]="fieldOneName" [fieldTwoName]="fieldTwoName" [color]="'red'"
+                [formName]="custom_Form" [fieldOneDefautMessage]="enterUserName" [firstFieldType]="firstFieldType"
+                [fieldOneInvalidMessage]="userNameInvalid" [fieldOneMmandaotryMessage]="userNameMandatoryMessage"
+                [fieldTwoDefautMessage]="enterPassword"  [secondFieldType]="secondeFieldType"
+                [fieldTwoInvalidMessage]="passwordIsInvalid" [fieldTwoMmandaotryMessage]="passwordIsMandatory"
+>
+
+</two-text-fields>
+<two-text-fields [fieldOneName]="fieldThreeName" [fieldTwoName]="fieldFourName" [formName]="custom_Form"></two-text-fields>
+</form>
