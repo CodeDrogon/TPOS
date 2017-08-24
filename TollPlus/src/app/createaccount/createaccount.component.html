@@ -2174,7 +2174,7 @@
                               <!--<input class="form-control" placeholder="Class" name="vehicleClass" [formControl]="vehicleFormEdit.controls['vehicleClass']" formControlName="vehicleClass">-->
                               <select  class="form-control" name="vehicleClass"  formControlName="vehicleClass"  id="vehicleClass">
                                 <option label="Class" disabled ></option>
-                                <option *ngFor="let vehicleClasses of vehicleClassDropdown"  [selected]="vehicleClasses.Code==editedVehicleClass_Key" value="{{vehicleClasses.Code}}"> {{vehicleClasses.Name}}</option>
+                                <option *ngFor="let vehicleClasses of vehicleClassDropdown"  [selected]="vehicleClasses.Code==vehicleClass" value="{{vehicleClasses.Code}}"> {{vehicleClasses.Name}}</option>
                               </select>
                             </div>
                           </div>
@@ -2198,7 +2198,7 @@
                           <div class="form-group">
                             <select class="form-control" name="vehicle_Year"  formControlName="vehicle_Year" [formControl]="vehicleFormEdit.controls['vehicle_Year']" >
                               <option label="Year" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_year of vehicleYear" [selected]="vehicle_year.key==editedVehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
+                              <option   *ngFor="let vehicle_year of vehicleYear" [selected]="vehicle_year.key==vehicle_Year" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
                             </select>
 
                           </div>
@@ -2219,7 +2219,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" [formControl]="vehicleFormEdit.controls['vehicle_Make']">
                               <option label="Make" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_make of vehicleModels" [selected]="vehicle_make.Make==editedVehicleMake_Key" value="{{vehicle_make.Make}}"> {{vehicle_make.Make}}</option>
+                              <option   *ngFor="let vehicle_make of vehicleModels" [selected]="vehicle_make.Make==vehicle_Make" value="{{vehicle_make.Make}}"> {{vehicle_make.Make}}</option>
                             </select>
 
                           </div>
@@ -2244,7 +2244,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Model" name="vehicle_Model" formControlName="vehicle_Model" [formControl]="vehicleFormEdit.controls['vehicle_Model']">
                               <option label="Model" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_model of vehicleModels" [selected]="vehicle_model.Model==editedVehicleModel_Key" value="{{vehicle_model.Model}}"> {{vehicle_model.Model}}</option>
+                              <option   *ngFor="let vehicle_model of vehicleModels" [selected]="vehicle_model.Model==vehicle_Model" value="{{vehicle_model.Model}}"> {{vehicle_model.Model}}</option>
                             </select>
 
                           </div>
@@ -2264,7 +2264,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Color" name="vehicle_Color" formControlName="vehicle_Color" [formControl]="vehicleFormEdit.controls['vehicle_Color']">
                               <option label="Color" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_color of vehicleColors" [selected]="vehicle_color.LookUpTypeCodeId==editedVehicleColor_Key" value="{{vehicle_color.LookUpTypeCodeId}}"> {{vehicle_color.LookUpTypeCodeDesc}}</option>
+                              <option   *ngFor="let vehicle_color of vehicleColors" [selected]="vehicle_color.LookUpTypeCodeId==vehicle_Color" value="{{vehicle_color.LookUpTypeCodeId}}"> {{vehicle_color.LookUpTypeCodeDesc}}</option>
                             </select>
 
                           </div>
@@ -2290,7 +2290,7 @@
                               <i class="icon-user"></i>
                               <select class="form-control" name="registered_Country" formControlName="registered_Country" [formControl]="vehicleFormEdit.controls['registered_Country']" id='dialogueRegisteredCountry' (change)="getStates('dialogueRegisteredCountry')">
                                 <option value="" disabled>Registered Country</option>
-                                <option *ngFor="let country of countries" [selected]="country.CountryCode==editedVehicleCountry_Key" value="{{country.CountryCode}}">{{country.CountryName}}</option>
+                                <option *ngFor="let country of countries" [selected]="country.CountryCode==registered_Country" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                               </select>
                             </div>
 
@@ -2315,7 +2315,7 @@
                               <i class="icon-user" >*</i>
                               <select name="registeredState" class="form-control" formControlName="registeredState" [formControl]="vehicleFormEdit.controls['registeredState']">
                                 <option value="" disabled>Registered State</option>
-                                <option *ngFor="let state of states" [selected]="state.StateCode==editedVehicleState_Key" value="{{state.StateCode}}">{{state.StateName}}</option>
+                                <option *ngFor="let state of states" [selected]="state.StateCode==registeredState" value="{{state.StateCode}}">{{state.StateName}}</option>
                               </select>
                             </div>
                           </div>
