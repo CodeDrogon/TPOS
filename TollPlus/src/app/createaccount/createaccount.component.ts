@@ -21,7 +21,8 @@ export class CreateaccountComponent implements OnInit {
   account= new Account();
   vehicle_Modal= new Vehicle();
   vehicleArray: Vehicle[]= [];
-  vehicleModelArrays=[];
+  vehicleModelArrays = [];
+
   businessCustomerTooltip = 'Please Select Business Type';
 
   user_Form: FormGroup;
@@ -70,6 +71,17 @@ export class CreateaccountComponent implements OnInit {
   statementDelivOption= [];
   revenueCategory= [];
 
+//vehicle dropdowns
+  vehicleClassDropdown= [];
+  vehicleYearDropdown= [];
+  vehicleColors= [];
+  vehicleMake= [];
+  vehicleModels= [];
+
+  //additional information dropdowns
+  howDidYouHearUsOptions= [];
+  statementDeliveryOptions= [];
+  accountCategories= [];
 
 
   public IdProofDropped(event) {
@@ -104,17 +116,7 @@ export class CreateaccountComponent implements OnInit {
   public AddressProofFileLeave(event){
   }
 
-  //vehicle dropdowns
-  vehicleClassDropdown= [];
-  vehicleYear= [];
-  vehicleColors= [];
-  vehicleMake= [];
-  vehicleModels= [];
 
-  //additional information dropdowns
-  howDidYouHearUsOptions= [];
-  statementDeliveryOptions= [];
-  accountCategories= [];
 
   ngOnInit() {
     this.getHearAboutUs();
@@ -417,7 +419,6 @@ export class CreateaccountComponent implements OnInit {
     this.getVehicleClassDropdown();
     this.getVehicleYearDropdown();
     this.getVehicleColorDropdown();
-    this.getVehicleMakeDropdown();
     this.getVehicleModelsDropdown();
   }
 
@@ -1072,29 +1073,27 @@ export class CreateaccountComponent implements OnInit {
   }
 
   getVehicleYearDropdown= function () {
+    const currentDate = (new Date()).getFullYear();
+    var count = 1900;
+    for (let i = 0; i <= currentDate; i++) {
+      this.vehicleYearDropdown[i] = count;
+      count++;
+      if (count > currentDate) {
+        break;
+      }
+    }
 
-    /* this.utilityService.vehicleYearDropdown('PostGetStatesByCountryCode', JSON.stringify(this.countryObject)).subscribe(res => {
-     const resObj = JSON.parse(res._body);
-     this.vehicleYear = resObj.ResultValue;
-     })*/
   }
 
   getVehicleColorDropdown= function () {
-
     const inputObj = {
       'LookUpTypeCode': 'VehicleColors'
     };
-
     this.utilityService.vehicleColorDropdown('PostGetLookUpByParentLookupTypeCode', JSON.stringify(inputObj)).subscribe(res => {
       const resObj = JSON.parse(res._body);
 
       this.vehicleColors = resObj.ResultValue;
     })
-  }
-
-  getVehicleMakeDropdown= function () {
-
-
   }
 
   getVehicleModelsDropdown= function () {
@@ -1144,9 +1143,7 @@ export class CreateaccountComponent implements OnInit {
   }
 
   validateAllFields= function (control) {
-    debugger;
-    //this.user_Form.controls['idProofFileDrop'].
-    if (this.user_Form.valid){
+    if (this.user_Form.valid) {
       return null;
     }else {
       alert('Required Fields are not Entered/Selected. Please verify');
@@ -1189,13 +1186,11 @@ export class CreateaccountComponent implements OnInit {
   }
 
   resetVehicleForm= function () {
-    /*this.vehicleForm.reset(this.vehicleForm);*/
     this.vehicleForm =  this.vehicleFormInitialValues();
 
   }
 
   resetVehicleFormEdit= function () {
-    /*this.vehicleForm.reset(this.vehicleForm);*/
     this.vehicleFormEdit =  this.vehicleFormInitialValues();
 
   }
@@ -1221,8 +1216,7 @@ export class CreateaccountComponent implements OnInit {
       endDateHours: new FormControl(''),
       endDateMins: new FormControl(''),
       endDateSecs: new FormControl(''),
-      isTemporaryLicencePlateNumber: new FormControl(''),
-      language: new FormControl('Java')
+      isTemporaryLicencePlateNumber: new FormControl('')
 
     });
   }
@@ -1235,7 +1229,6 @@ export class CreateaccountComponent implements OnInit {
   }
 
   setVehicleArrayObject= function () {
-    debugger;
     const tempVehicle = new Vehicle();
     tempVehicle.plateNumber = 'Apz1252ASK';
     tempVehicle.vehicleClass_Key = '7H';
@@ -1244,6 +1237,7 @@ export class CreateaccountComponent implements OnInit {
     tempVehicle.vehicle_Color_Value = 'Ame';
     tempVehicle.vehicle_Make_Key = 'BMW';
     tempVehicle.vehicle_Model_Key = '128';
+    tempVehicle.vehicle_Year = this.vehicleYearDropdown[0];
     tempVehicle.description = 'Ac Bus';
     tempVehicle.registeredState_Key = 'TS';
     tempVehicle.registeredState_Value = 'Telangana';
@@ -1251,7 +1245,6 @@ export class CreateaccountComponent implements OnInit {
     tempVehicle.registered_Country_Value = 'INDIA';
     tempVehicle.startEffectiveDateAndTime = '12 July 2017 11:06Am';
     tempVehicle.endEffectiveDateAndTime = '12 July 2017 11:06Am';
-    tempVehicle.vehicle_Year = '2017';
     for (let i = 0; i < 4; i++) {
       this.vehicleArray[i] = tempVehicle;
     }
@@ -1268,6 +1261,7 @@ export class CreateaccountComponent implements OnInit {
       }
     }
   }
+
 
 
 }
