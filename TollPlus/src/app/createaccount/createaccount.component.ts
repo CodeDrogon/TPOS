@@ -82,6 +82,7 @@ export class CreateaccountComponent implements OnInit {
   howDidYouHearUsOptions= [];
   statementDeliveryOptions= [];
   accountCategories= [];
+  lengthForVehiclePagination=0;
 
 
   public IdProofDropped(event) {
@@ -456,6 +457,7 @@ export class CreateaccountComponent implements OnInit {
       endDateSecs: new FormControl(this.vehicleArray[item]._endDateSecs),
       description: new FormControl(this.vehicleArray[item]._description),
       isTemporaryLicencePlateNumber: new FormControl(this.vehicleArray[item]._isTemporaryLicencePlateNumber),
+      indexNumber: new FormControl(this.vehicleArray[item].indexNumber),
       language: new FormControl('Java')
     });
 
@@ -725,7 +727,9 @@ export class CreateaccountComponent implements OnInit {
     });
   }
   updateUser= function(updatedUserInfo){
-    console.log(updatedUserInfo);
+    console.log("userinfor "+JSON.stringify(updatedUserInfo));
+    this.lengthForVehiclePagination=updatedUserInfo.indexNumber;
+    this.saveVehicle(updatedUserInfo);
 
   }
 
@@ -1223,9 +1227,31 @@ export class CreateaccountComponent implements OnInit {
 
   saveVehicle= function (vehicleInfo) {
     this.vehicle_Modal.plateNumber = vehicleInfo.plateNumber;
-    console.log('vehicle information saved');
+    console.log('vehicle information saved '+JSON.stringify(vehicleInfo));
 
-    const tempInputObj = JSON.stringify(this.vehicle_Modal);
+    const tempJsonObj = JSON.stringify(vehicleInfo);
+    const length=this.lengthForVehiclePagination;
+    const tempVehicle = new Vehicle();
+    tempVehicle.plateNumber = vehicleInfo.plateNumber;
+    tempVehicle.vehicleClass_Key = vehicleInfo.vehicleClass;
+    tempVehicle.vehicleClass_Value = vehicleInfo.vehicleClass;
+    tempVehicle.vehicle_Color_Key = vehicleInfo.vehicle_Color;
+    tempVehicle.vehicle_Color_Value = vehicleInfo.vehicle_Color;
+    tempVehicle.vehicle_Make_Key = vehicleInfo.vehicle_Make;
+    tempVehicle.vehicle_Model_Key = vehicleInfo.vehicle_Make;
+    tempVehicle.description = vehicleInfo.plateNumber;
+    tempVehicle.registeredState_Key = vehicleInfo.registeredState;
+    tempVehicle.registeredState_Value = vehicleInfo.registeredState;
+    tempVehicle.registered_Country_Key = vehicleInfo.registered_Country;
+    tempVehicle.registered_Country_Value = vehicleInfo.registered_Country;
+    tempVehicle.startEffectiveDateAndTime = vehicleInfo.startEffectiveDate;
+    tempVehicle.endEffectiveDateAndTime = vehicleInfo.endEffectiveDate;
+    tempVehicle.vehicle_Model_Key = vehicleInfo.vehicle_Model;
+    tempVehicle.vehicle_Year = vehicleInfo.vehicle_Year;
+    tempVehicle.indexNumber=length;
+
+    this.vehicleArray[length] = tempVehicle;
+    this.lengthForVehiclePagination++;
   }
 
   setVehicleArrayObject= function () {
@@ -1245,9 +1271,6 @@ export class CreateaccountComponent implements OnInit {
     tempVehicle.registered_Country_Value = 'INDIA';
     tempVehicle.startEffectiveDateAndTime = '12 July 2017 11:06Am';
     tempVehicle.endEffectiveDateAndTime = '12 July 2017 11:06Am';
-    for (let i = 0; i < 4; i++) {
-      this.vehicleArray[i] = tempVehicle;
-    }
   }
 
   getModels=function () {
