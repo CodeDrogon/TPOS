@@ -23,13 +23,6 @@ export class CreateaccountComponent implements OnInit {
   vehicleArray: Vehicle[]= [];
   vehicleModelArrays=[];
   businessCustomerTooltip = 'Please Select Business Type';
-  editedVehicleClass_Key;
-  editedVehicleYear;
-  editedVehicleColor_Key;
-  editedVehicleModel_Key;
-  editedVehicleMake_Key;
-  editedVehicleCountry_Key;
-  editedVehicleState_Key;
 
   user_Form: FormGroup;
   vehicleForm: FormGroup;
@@ -441,28 +434,17 @@ export class CreateaccountComponent implements OnInit {
 
 
   editRecord= function(item) {
-    debugger;
-    console.log(' ' + this.vehicleArray[item]._vehicle_Color);
-    this.editedVehicleClass_Key = this.vehicleArray[item]._vehicleClass_Key;
-    this.editedVehicleYear = this.vehicleArray[item]._vehicle_Year;
-    this.editedVehicleColor_Key = this.vehicleArray[item]._vehicle_Color_Key;
-    this.editedVehicleModel_Key = this.vehicleArray[item]._vehicle_Model_Key;
-    this.editedVehicleMake_Key = this.vehicleArray[item]._vehicle_Make_Key;
-    alert('country ' + this.vehicleArray[item]._registered_Country_Key);
-    this.editedVehicleCountry_Key = this.vehicleArray[item]._registered_Country_Key;
-    this.getStatesForDialogue(this.vehicleArray[item]._registered_Country_Key);
-    alert(this.vehicleArray[item]._registeredState_Key);
-    this.editedVehicleState_Key = this.vehicleArray[item]._registeredState_Key;
 
+    this.getStatesForDialogue(this.vehicleArray[item]._registered_Country_Key);
     this.vehicleFormEdit = new FormGroup({
       plateNumber: new FormControl(this.vehicleArray[item]._plateNumber, Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
-      vehicleClass: new FormControl(this.vehicleArray[item]._vehicleClass_Value, Validators.required),
-      vehicle_Make: new FormControl(this.vehicleArray[item]._vehicle_Make_Value),
+      vehicleClass: new FormControl(this.vehicleArray[item]._vehicleClass_Key, Validators.required),
+      vehicle_Make: new FormControl(this.vehicleArray[item]._vehicle_Make_Key),
       vehicle_Year: new FormControl(this.vehicleArray[item]._vehicle_Year),
-      vehicle_Model: new FormControl(this.vehicleArray[item]._vehicle_Model_Value),
-      vehicle_Color: new FormControl(this.vehicleArray[item]._vehicle_Color_Value),
-      registered_Country: new FormControl(this.vehicleArray[item]._registered_Country_Value),
-      registeredState: new FormControl(this.vehicleArray[item]._registeredState_Value, Validators.required),
+      vehicle_Model: new FormControl(this.vehicleArray[item]._vehicle_Model_Key),
+      vehicle_Color: new FormControl(this.vehicleArray[item]._vehicle_Color_Key),
+      registered_Country: new FormControl(this.vehicleArray[item]._registered_Country_Key),
+      registeredState: new FormControl(this.vehicleArray[item]._registeredState_Key, Validators.required),
       startEffectiveDate: new FormControl(this.vehicleArray[item]._startEffectiveDate),
       startDateHours: new FormControl(this.vehicleArray[item]._startDateHours),
       startDateMins: new FormControl(this.vehicleArray[item]._startDateMins),
@@ -475,7 +457,6 @@ export class CreateaccountComponent implements OnInit {
       isTemporaryLicencePlateNumber: new FormControl(this.vehicleArray[item]._isTemporaryLicencePlateNumber),
       language: new FormControl('Java')
     });
-    debugger;
 
     const startDate = this.vehicleFormEdit.controls['startEffectiveDate'].value;
 

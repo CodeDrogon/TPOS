@@ -2314,7 +2314,7 @@
                             <div class="left-inner-addon ">
                               <i class="icon-user" >*</i>
                               <select name="registeredState" class="form-control" formControlName="registeredState" [formControl]="vehicleFormEdit.controls['registeredState']">
-                                <option value="" >Registered State</option>
+                                <option value="" disabled>Registered State</option>
                                 <option *ngFor="let state of states" [selected]="state.StateCode==editedVehicleState_Key" value="{{state.StateCode}}">{{state.StateName}}</option>
                               </select>
                             </div>
