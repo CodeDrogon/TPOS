@@ -21,11 +21,15 @@ export class CreateaccountComponent implements OnInit {
   account= new Account();
   vehicle_Modal= new Vehicle();
   vehicleArray: Vehicle[]= [];
+  vehicleModelArrays=[];
   businessCustomerTooltip = 'Please Select Business Type';
-  editedVehicleColor;
-  editedVehicleClass;
-  editedVehicleModel;
-  editedVehicleMake;
+  editedVehicleClass_Key;
+  editedVehicleYear;
+  editedVehicleColor_Key;
+  editedVehicleModel_Key;
+  editedVehicleMake_Key;
+  editedVehicleCountry_Key;
+  editedVehicleState_Key;
 
   user_Form: FormGroup;
   vehicleForm: FormGroup;
@@ -388,19 +392,19 @@ export class CreateaccountComponent implements OnInit {
     ];
 
     /*this.vehicleClassDropdown = [
-      {
-        key: 1,
-        value: 'Class1'
-      },
-      {
-        key: 2,
-        value: 'Class2'
-      },
-      {
-        key: 3,
-        value: 'Class3'
-      }
-    ]*/
+     {
+     key: 1,
+     value: 'Class1'
+     },
+     {
+     key: 2,
+     value: 'Class2'
+     },
+     {
+     key: 3,
+     value: 'Class3'
+     }
+     ]*/
 
     this.vehicleForm = this.vehicleFormInitialValues();
     this.vehicleFormEdit = this.vehicleFormInitialValues();
@@ -439,17 +443,26 @@ export class CreateaccountComponent implements OnInit {
   editRecord= function(item) {
     debugger;
     console.log(' ' + this.vehicleArray[item]._vehicle_Color);
-    this.editedVehicleColor=this.vehicleArray[item]._vehicle_Color;
+    this.editedVehicleClass_Key = this.vehicleArray[item]._vehicleClass_Key;
+    this.editedVehicleYear = this.vehicleArray[item]._vehicle_Year;
+    this.editedVehicleColor_Key = this.vehicleArray[item]._vehicle_Color_Key;
+    this.editedVehicleModel_Key = this.vehicleArray[item]._vehicle_Model_Key;
+    this.editedVehicleMake_Key = this.vehicleArray[item]._vehicle_Make_Key;
+    alert('country ' + this.vehicleArray[item]._registered_Country_Key);
+    this.editedVehicleCountry_Key = this.vehicleArray[item]._registered_Country_Key;
+    this.getStatesForDialogue(this.vehicleArray[item]._registered_Country_Key);
+    alert(this.vehicleArray[item]._registeredState_Key);
+    this.editedVehicleState_Key = this.vehicleArray[item]._registeredState_Key;
 
     this.vehicleFormEdit = new FormGroup({
       plateNumber: new FormControl(this.vehicleArray[item]._plateNumber, Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
-      vehicleClass: new FormControl(this.vehicleArray[item]._vehicleClass, Validators.required),
-      vehicle_Make: new FormControl(this.vehicleArray[item]._vehicle_Make),
+      vehicleClass: new FormControl(this.vehicleArray[item]._vehicleClass_Value, Validators.required),
+      vehicle_Make: new FormControl(this.vehicleArray[item]._vehicle_Make_Value),
       vehicle_Year: new FormControl(this.vehicleArray[item]._vehicle_Year),
-      vehicle_Model: new FormControl(this.vehicleArray[item]._vehicle_Model),
-      vehicle_Color: new FormControl(this.vehicleArray[item]._vehicle_Color),
-      registered_Country: new FormControl(this.vehicleArray[item]._registered_Country),
-      registeredState: new FormControl(this.vehicleArray[item]._registeredState, Validators.required),
+      vehicle_Model: new FormControl(this.vehicleArray[item]._vehicle_Model_Value),
+      vehicle_Color: new FormControl(this.vehicleArray[item]._vehicle_Color_Value),
+      registered_Country: new FormControl(this.vehicleArray[item]._registered_Country_Value),
+      registeredState: new FormControl(this.vehicleArray[item]._registeredState_Value, Validators.required),
       startEffectiveDate: new FormControl(this.vehicleArray[item]._startEffectiveDate),
       startDateHours: new FormControl(this.vehicleArray[item]._startDateHours),
       startDateMins: new FormControl(this.vehicleArray[item]._startDateMins),
@@ -470,8 +483,8 @@ export class CreateaccountComponent implements OnInit {
     /*$("#vehicleClass").val(this.vehicleClassDropdowns[1].value);
 
 
-    this.vehicleClassSelection=this.vehicleClassDropdowns[1].value;
-    alert(this.vehicleClassSelection);*/
+     this.vehicleClassSelection=this.vehicleClassDropdowns[1].value;
+     alert(this.vehicleClassSelection);*/
 
 
   }
@@ -745,6 +758,7 @@ export class CreateaccountComponent implements OnInit {
   };
 
   getStates= function(id){
+    debugger;
     this.countryObject = {
       'LookUpTypeCode' : 'TollSchedulePriorities',
       'CountryCode' : $("#"+id+"").val()};
@@ -754,17 +768,21 @@ export class CreateaccountComponent implements OnInit {
       const resObj = JSON.parse(res._body);
       console.log(resObj.StateCode);
       this.states = resObj.ResultValue;
-      /*for(var i=0;i<resObj.ResultValue.length;i++){
-       console.log(resObj.ResultValue[i].StateCode);
-       }*/
-      //var resObj=JSON.parse(res._body);
-      //console.log(typeof  resObj)
-      //this.states = res._body.ResultValue;
-      //console.log("countrie List " + res._body);
-
     })
   };
+  getStatesForDialogue= function(countryCode){
+    debugger;
+    this.countryObject = {
+      'LookUpTypeCode' : 'TollSchedulePriorities',
+      'CountryCode' : countryCode};
+    console.log(this.countryObject);
+    this.utilityService.getStates('PostGetStatesByCountryCode', JSON.stringify(this.countryObject)).subscribe(res => {
 
+      const resObj = JSON.parse(res._body);
+      console.log(resObj.StateCode);
+      this.states = resObj.ResultValue;
+    })
+  };
 
   getSuffix= function () {
     this.utilityService.getDropDownValues('GetLookups/?Type=Suffix').subscribe(res => {
@@ -1074,10 +1092,10 @@ export class CreateaccountComponent implements OnInit {
 
   getVehicleYearDropdown= function () {
 
-   /* this.utilityService.vehicleYearDropdown('PostGetStatesByCountryCode', JSON.stringify(this.countryObject)).subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      this.vehicleYear = resObj.ResultValue;
-    })*/
+    /* this.utilityService.vehicleYearDropdown('PostGetStatesByCountryCode', JSON.stringify(this.countryObject)).subscribe(res => {
+     const resObj = JSON.parse(res._body);
+     this.vehicleYear = resObj.ResultValue;
+     })*/
   }
 
   getVehicleColorDropdown= function () {
@@ -1159,7 +1177,7 @@ export class CreateaccountComponent implements OnInit {
     debugger;
     let tempPhone = '';
     if ($('#' + idVal + '').val().length == 10){
-       tempPhone = '(';
+      tempPhone = '(';
       tempPhone = tempPhone + $('#' + idVal + '').val().substring(0, 3) + ') ' + $('#' + idVal + '').val().substring(3, 6) + '-' + $('#' + idVal + '').val().substring(6, 11);
 
 
@@ -1203,30 +1221,30 @@ export class CreateaccountComponent implements OnInit {
 
 
 
-vehicleFormInitialValues= function () {
+  vehicleFormInitialValues= function () {
 
     return new FormGroup({
-    plateNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
-    vehicleClass: new FormControl('', Validators.required),
-    vehicle_Make: new FormControl(''),
-    vehicle_Year: new FormControl(''),
-    vehicle_Model: new FormControl(''),
-    vehicle_Color: new FormControl(''),
-    registered_Country: new FormControl(''),
-    registeredState: new FormControl('', Validators.required),
-    startEffectiveDate: new FormControl(''),
-    startDateHours: new FormControl(''),
-    startDateMins: new FormControl(''),
-    startDateSecs: new FormControl(''),
-    endEffectiveDate: new FormControl(''),
-    endDateHours: new FormControl(''),
-    endDateMins: new FormControl(''),
-    endDateSecs: new FormControl(''),
-    isTemporaryLicencePlateNumber: new FormControl(''),
-    language: new FormControl('Java')
+      plateNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
+      vehicleClass: new FormControl('', Validators.required),
+      vehicle_Make: new FormControl(''),
+      vehicle_Year: new FormControl(''),
+      vehicle_Model: new FormControl(''),
+      vehicle_Color: new FormControl(''),
+      registered_Country: new FormControl(''),
+      registeredState: new FormControl('', Validators.required),
+      startEffectiveDate: new FormControl(''),
+      startDateHours: new FormControl(''),
+      startDateMins: new FormControl(''),
+      startDateSecs: new FormControl(''),
+      endEffectiveDate: new FormControl(''),
+      endDateHours: new FormControl(''),
+      endDateMins: new FormControl(''),
+      endDateSecs: new FormControl(''),
+      isTemporaryLicencePlateNumber: new FormControl(''),
+      language: new FormControl('Java')
 
-  });
-}
+    });
+  }
 
   saveVehicle= function (vehicleInfo) {
     this.vehicle_Modal.plateNumber = vehicleInfo.plateNumber;
@@ -1239,15 +1257,34 @@ vehicleFormInitialValues= function () {
     debugger;
     const tempVehicle = new Vehicle();
     tempVehicle.plateNumber = 'Apz1252ASK';
-    tempVehicle.vehicleClass = '7H';
-    tempVehicle.vehicle_Color = '306';
+    tempVehicle.vehicleClass_Key = '7H';
+    tempVehicle.vehicleClass_Value = 'Bus 2-axle';
+    tempVehicle.vehicle_Color_Key = '306';
+    tempVehicle.vehicle_Color_Value = 'Ame';
+    tempVehicle.vehicle_Make_Key = 'BMW';
+    tempVehicle.vehicle_Model_Key = '128';
     tempVehicle.description = 'Ac Bus';
-    tempVehicle.registeredState = 'TN';
-    tempVehicle.registered_Country = 'India';
+    tempVehicle.registeredState_Key = 'TS';
+    tempVehicle.registeredState_Value = 'Telangana';
+    tempVehicle.registered_Country_Key = 'IND';
+    tempVehicle.registered_Country_Value = 'INDIA';
     tempVehicle.startEffectiveDateAndTime = '12 July 2017 11:06Am';
     tempVehicle.endEffectiveDateAndTime = '12 July 2017 11:06Am';
-    for (let i = 0; i < 4; i++){
+    tempVehicle.vehicle_Year = '2017';
+    for (let i = 0; i < 4; i++) {
       this.vehicleArray[i] = tempVehicle;
+    }
+  }
+
+  getModels=function () {
+    let make=$("#vehicle_Make").val();
+    var vehicleModelCount=0;
+    for(var i=0;i<this.vehicleModels.length;i++){
+      if(this.vehicleModels[i].Make==make) {
+        console.log(this.vehicleModels[i].Modal);
+        this.vehicleModelArrays[vehicleModelCount] = this.vehicleModels[i].Model;
+        vehicleModelCount++;
+      }
     }
   }
 
