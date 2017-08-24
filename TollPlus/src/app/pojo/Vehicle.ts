@@ -3,13 +3,6 @@
  */
 export class Vehicle{
   private _plateNumber;
-  private _vehicleClass;
-  private _vehicle_Make
-  private _vehicle_Year;
-  private _vehicle_Model;
-  private _vehicle_Color;
-  private _registered_Country
-  private _registeredState;
   private _startEffectiveDate;
   private _startDateHours
   private _startDateMins;
@@ -22,6 +15,19 @@ export class Vehicle{
   private _isTemporaryLicencePlateNumber;
   private _startEffectiveDateAndTime;
   private _endEffectiveDateAndTime;
+  private _vehicleClass_Key;
+  private _vehicleClass_Value;
+  private _vehicle_Make_Key;
+  private _vehicle_Make_Value;
+  private _vehicle_Year;
+  private _vehicle_Model_Key;
+  private _vehicle_Model_Value;
+  private _vehicle_Color_Key;
+  private _vehicle_Color_Value;
+  private _registered_Country_Key;
+  private _registered_Country_Value;
+  private _registeredState_Key;
+  private _registeredState_Value;
 
 
   get plateNumber() {
@@ -30,62 +36,6 @@ export class Vehicle{
 
   set plateNumber(value) {
     this._plateNumber = value;
-  }
-
-  get vehicleClass() {
-    return this._vehicleClass;
-  }
-
-  set vehicleClass(value) {
-    this._vehicleClass = value;
-  }
-
-  get vehicle_Make() {
-    return this._vehicle_Make;
-  }
-
-  set vehicle_Make(value) {
-    this._vehicle_Make = value;
-  }
-
-  get vehicle_Year() {
-    return this._vehicle_Year;
-  }
-
-  set vehicle_Year(value) {
-    this._vehicle_Year = value;
-  }
-
-  get vehicle_Model() {
-    return this._vehicle_Model;
-  }
-
-  set vehicle_Model(value) {
-    this._vehicle_Model = value;
-  }
-
-  get vehicle_Color() {
-    return this._vehicle_Color;
-  }
-
-  set vehicle_Color(value) {
-    this._vehicle_Color = value;
-  }
-
-  get registered_Country() {
-    return this._registered_Country;
-  }
-
-  set registered_Country(value) {
-    this._registered_Country = value;
-  }
-
-  get registeredState() {
-    return this._registeredState;
-  }
-
-  set registeredState(value) {
-    this._registeredState = value;
   }
 
   get startEffectiveDate() {
@@ -168,7 +118,6 @@ export class Vehicle{
     this._isTemporaryLicencePlateNumber = value;
   }
 
-
   get startEffectiveDateAndTime() {
     return this._startEffectiveDateAndTime;
   }
@@ -183,5 +132,109 @@ export class Vehicle{
 
   set endEffectiveDateAndTime(value) {
     this._endEffectiveDateAndTime = value;
+  }
+
+  get vehicleClass_Key() {
+    return this._vehicleClass_Key;
+  }
+
+  set vehicleClass_Key(value) {
+    this._vehicleClass_Key = value;
+  }
+
+  get vehicleClass_Value() {
+    return this._vehicleClass_Value;
+  }
+
+  set vehicleClass_Value(value) {
+    this._vehicleClass_Value = value;
+  }
+
+  get vehicle_Make_Key() {
+    return this._vehicle_Make_Key;
+  }
+
+  set vehicle_Make_Key(value) {
+    this._vehicle_Make_Key = value;
+  }
+
+  get vehicle_Make_Value() {
+    return this._vehicle_Make_Value;
+  }
+
+  set vehicle_Make_Value(value) {
+    this._vehicle_Make_Value = value;
+  }
+
+  get vehicle_Year() {
+    return this._vehicle_Year;
+  }
+
+  set vehicle_Year(value) {
+    this._vehicle_Year = value;
+  }
+
+  get vehicle_Model_Key() {
+    return this._vehicle_Model_Key;
+  }
+
+  set vehicle_Model_Key(value) {
+    this._vehicle_Model_Key = value;
+  }
+
+  get vehicle_Model_Value() {
+    return this._vehicle_Model_Value;
+  }
+
+  set vehicle_Model_Value(value) {
+    this._vehicle_Model_Value = value;
+  }
+
+  get vehicle_Color_Key() {
+    return this._vehicle_Color_Key;
+  }
+
+  set vehicle_Color_Key(value) {
+    this._vehicle_Color_Key = value;
+  }
+
+  get vehicle_Color_Value() {
+    return this._vehicle_Color_Value;
+  }
+
+  set vehicle_Color_Value(value) {
+    this._vehicle_Color_Value = value;
+  }
+
+  get registered_Country_Key() {
+    return this._registered_Country_Key;
+  }
+
+  set registered_Country_Key(value) {
+    this._registered_Country_Key = value;
+  }
+
+  get registered_Country_Value() {
+    return this._registered_Country_Value;
+  }
+
+  set registered_Country_Value(value) {
+    this._registered_Country_Value = value;
+  }
+
+  get registeredState_Key() {
+    return this._registeredState_Key;
+  }
+
+  set registeredState_Key(value) {
+    this._registeredState_Key = value;
+  }
+
+  get registeredState_Value() {
+    return this._registeredState_Value;
+  }
+
+  set registeredState_Value(value) {
+    this._registeredState_Value = value;
   }
 }
