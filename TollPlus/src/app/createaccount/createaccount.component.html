@@ -1041,7 +1041,7 @@
                           <div class="form-group">
                             <select class="form-control" name="vehicle_Year"  formControlName="vehicle_Year" [formControl]="vehicleForm.controls['vehicle_Year']" >
                               <option label="Year" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_year of vehicleYear" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
+                              <option   *ngFor="let year of vehicleYearDropdown" value="{{year}}">{{year}}</option>
                             </select>
 
                           </div>
@@ -2198,7 +2198,7 @@
                           <div class="form-group">
                             <select class="form-control" name="vehicle_Year"  formControlName="vehicle_Year" [formControl]="vehicleFormEdit.controls['vehicle_Year']" >
                               <option label="Year" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_year of vehicleYear" [selected]="vehicle_year.key==vehicle_Year" value="{{vehicle_year.key}}"> {{vehicle_year.value}}</option>
+                              <option   *ngFor="let year of vehicleYearDropdown" [selected]="year==vehicle_Year" value="{{year}}"> {{year}}</option>
                             </select>
 
                           </div>
