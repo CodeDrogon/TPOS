@@ -38,4 +38,26 @@ export class UtilityService {
   getRevenueCategory=function (revenueCategory) {
     return this.httpService.getHttpMethodWithoutParams(revenueCategory);
   }
+
+  vehicleClassDropdown= function (vehicleClassRelativePath) {
+    console.log(vehicleClassRelativePath);
+    return this.httpService.postMethodWithoutParams(vehicleClassRelativePath);
+  }
+
+  vehicleYearDropdown= function (vehicleYear) {
+
+  }
+
+  vehicleColorDropdown= function (vehicleColorRelativePath, inputObject) {
+    debugger;
+    return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
+  }
+
+  vehicleMakeDropdown= function (vehicleMake) {
+
+  }
+
+  vehicleModelsDropdown= function (vehicleModel) {
+
+  }
 }

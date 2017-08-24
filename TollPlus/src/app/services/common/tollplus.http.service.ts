@@ -18,7 +18,6 @@ export class TollPlusHttpService {
     return this.http.get(this.url+relativePath)
   }
   postMethodWithParams(relativePath,inputObject){
-
     var customHeaders = new Headers({
       'content-type' : 'application/json',
       'Accept': 'application/json'
@@ -28,7 +27,7 @@ export class TollPlusHttpService {
       {
         headers: customHeaders
       });
-    return this.http.post('http://192.168.50.41:85/WSCustomerService.svc/'+relativePath,inputObject,
+    return this.http.post('http://192.168.50.41:85/WSCustomerService.svc/'+ relativePath, inputObject,
       {headers: customHeaders});
 
 /*    let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -96,6 +95,25 @@ opts.headers = header;
     xhr.setRequestHeader("content-type", "application/json");
     xhr.send(JSON.stringify(data));
 */
+
+  }
+
+  postMethodWithoutParams(relativePath) {
+    debugger;
+    var customHeaders = new Headers({
+      'content-type' : 'application/json',
+      'Accept': 'application/json'
+    });
+
+   /* var option = new RequestOptions(
+      {
+        headers: customHeaders
+      });*/
+   console.log(this.url + relativePath);
+    return this.http.post('http://192.168.50.41:85/WSCustomerService.svc/' + relativePath , {},
+      {headers: customHeaders});
+
+
 
   }
 }
