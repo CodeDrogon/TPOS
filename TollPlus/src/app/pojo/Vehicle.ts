@@ -28,7 +28,14 @@ export class Vehicle{
   private _registered_Country_Value;
   private _registeredState_Key;
   private _registeredState_Value;
+  private _indexNumber;
+  get indexNumber() {
+    return this._indexNumber;
+  }
 
+  set indexNumber(value) {
+    this._indexNumber = value;
+  }
 
   get plateNumber() {
     return this._plateNumber;

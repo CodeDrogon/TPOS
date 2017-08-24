@@ -1272,7 +1272,7 @@
                         <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
                       </div>
                       <div class="col-lg-1">
-                        <input class="btn btn-primary" type="button" name="reset" value="Save" >
+                        <input class="btn btn-primary" type="button" name="reset" value="Save" (click)="saveVehicle(vehicleForm.value)">
                       </div>
                     </div>
                   </div>
@@ -2395,6 +2395,7 @@
                             <div *ngIf="vehicleFormEdit.controls['endEffectiveDate'].invalid && vehicleFormEdit.controls['endEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
+                        <input type="hidden" name="indexNumber" formControlName="indexNumber"/>
                       </div>
                     </div>
 
