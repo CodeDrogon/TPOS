@@ -53,11 +53,8 @@ export class UtilityService {
     return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
   }
 
-  vehicleMakeDropdown= function (vehicleMake) {
 
-  }
-
-  vehicleModelsDropdown= function (vehicleModel) {
-
+  vehicleOperation=function (saveVehicleRelativePath,vehicleObj) {
+    return this.httpService.postMethodWithParams(saveVehicleRelativePath, vehicleObj);
   }
 }

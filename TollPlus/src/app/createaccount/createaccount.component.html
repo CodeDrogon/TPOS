@@ -1320,17 +1320,17 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let vehicle of vehicleArray; let i = index">
-                          <td>{{vehicle.plateNumber}}</td>
-                          <td>{{vehicle._vehicleClass_Value}}</td>
-                          <td>{{vehicle._vehicle_Color_Value}}</td>
-                          <td>{{vehicle.description}}</td>
-                          <td>{{vehicle._registeredState_Value}}</td>
-                          <td>{{vehicle._registered_Country_Value}}</td>
-                          <td>{{vehicle.startEffectiveDateAndTime}}</td>
-                          <td>{{vehicle.endEffectiveDateAndTime}}</td>
-                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal" (click)="editRecord(i)"></a> </td>
+                          <td>{{vehicle.VehicleNumber}}</td>
+                          <td>{{vehicle.VehicleClass}}</td>
+                          <td>{{vehicle.Color}}</td>
+                          <td>{{vehicle.VehicleClassDesc}}</td>
+                          <td>{{vehicle.State}}</td>
+                          <td>{{vehicle.Country}}</td>
+                          <td>{{vehicle.StartEffectiveDate}}</td>
+                          <td>{{vehicle.EndEffectiveDate}}</td>
+                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal" (click)="editVehicle(vehicle)"></a> </td>
                           <td>
-                            <p class="glyphicon glyphicon-trash"></p>
+                            <p class="glyphicon glyphicon-trash" (click)="deleteVehicle(vehicle)"></p>
                           </td>
                         </tr>
                         <!--<tr>
@@ -2138,7 +2138,7 @@
         <h4 class="modal-title" style="color:#637283;">Manage Vehicles</h4>
       </div>
       <div class="modal-body">
-        <form [formGroup]="vehicleFormEdit" (ngSubmit)='updateUser(vehicleFormEdit.value)' onload="loadDropDown();">
+        <form [formGroup]="vehicleFormEdit" (ngSubmit)='updateVehicle(vehicleFormEdit.value)' onload="loadDropDown();">
           <div class="row">
             <div class="col-lg-12">
               <div class="panel panel-default">
