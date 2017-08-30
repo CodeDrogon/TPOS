@@ -1060,7 +1060,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" id='vehicle_Make' [formControl]="vehicleForm.controls['vehicle_Make']" (change)="getModels()">
+                            <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" id='vehicle_Make' [formControl]="vehicleForm.controls['vehicle_Make']" (change)="getModels('vehicle_Make')">
                               <option label="Make" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.Make}}"> {{vehicle_model.Make}}</option>
                             </select>
@@ -2217,7 +2217,7 @@
                       <div class="row">
                         <div class="col-lg-11">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" [formControl]="vehicleFormEdit.controls['vehicle_Make']">
+                            <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" id="editable_vehicle_make" [formControl]="vehicleFormEdit.controls['vehicle_Make']"  (change)="getModels('editable_vehicle_make')">
                               <option label="Make" disabled selected="selected" value=""></option>
                               <option   *ngFor="let vehicle_make of vehicleModels" [selected]="vehicle_make.Make==vehicle_Make" value="{{vehicle_make.Make}}"> {{vehicle_make.Make}}</option>
                             </select>
@@ -2244,7 +2244,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Model" name="vehicle_Model" formControlName="vehicle_Model" [formControl]="vehicleFormEdit.controls['vehicle_Model']">
                               <option label="Model" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_model of vehicleModels" [selected]="vehicle_model.Model==vehicle_Model" value="{{vehicle_model.Model}}"> {{vehicle_model.Model}}</option>
+                              <option   *ngFor="let vehicle_model of vehicleModelArrays" [selected]="vehicle_model==vehicle_Model" value="{{vehicle_model}}"> {{vehicle_model}}</option>
                             </select>
 
                           </div>

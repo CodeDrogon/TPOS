@@ -1254,18 +1254,63 @@ export class CreateaccountComponent implements OnInit {
   }
   deleteVehicle=function (vehicleInfo) {
     let deleteObj=new Vehicle();
-    deleteObj=vehicleInfo;
-    deleteObj.accountId="10002862";
+    deleteObj.accountId=10002999;
     deleteObj.checkBlockList=true;
+    deleteObj.color=vehicleInfo.Color;
+    deleteObj.contractType=vehicleInfo.ContractType;
+    deleteObj.country=vehicleInfo.CountryCode;
     deleteObj.currentDateTime="\/Date(1245398693390)\/";
     deleteObj.deactivatedDate="\/Date(1245398693390)\/";
+    deleteObj.endEffectiveDate="\/Date(1245398693390)\/";
+    deleteObj.filePath=null;
+    deleteObj.futureClosureDate=null;
+    deleteObj.isExempted=false;
+    deleteObj.isProtected=false;
+    deleteObj.isTemporaryNumber=false;
+    deleteObj.loginId=610901;
+    deleteObj.make=vehicleInfo.Make;
+    deleteObj.model=vehicleInfo.Model;
+    deleteObj.oldTagType=null;
+    deleteObj.oldVehicleNumber=null;
+    deleteObj.pageNumber=0;
+    deleteObj.pageSize=0;
+    deleteObj.rCNumber=null;
+    deleteObj.searchVehicleActivityInd=false;
+    deleteObj.sortColumn=null;
+    deleteObj.sortDirection=false;
+    deleteObj.source=null;
+    deleteObj.startEffectiveDate="\/Date(1245398693390)\/";
+    deleteObj.state=vehicleInfo.State;
+    deleteObj.systemUserActivityInd=true;
+    deleteObj.tagSerialNum=null;
+    deleteObj.tagType=null;
+    deleteObj.userId=10000001;
+    deleteObj.userName="tpsuperuser";
+    deleteObj.vehicleClass=vehicleInfo.VehicleClass;
+    deleteObj.vehicleClassDesc=null;
+    deleteObj.vehicleHistoryActivity=false;
+    deleteObj.vehicleId=vehicleInfo.VehicleId;
+    deleteObj.vehicleLoadActivityInd=false;
+    deleteObj.vehicleNumber=vehicleInfo.VehicleNumber;
+    deleteObj.vehicleSearchActivityInd=vehicleInfo.VehicleSearchActivityInd;
+    deleteObj.vehicleStatus=vehicleInfo.VehicleStatus;
+    deleteObj.year=vehicleInfo.Year;
+
+
+
+
 
     var deleteVehicleObj=JSON.stringify(deleteObj);
+    debugger;
     console.log("deleteVehicleObj "+deleteVehicleObj);
-    /*this.utilityService.vehicleOperation('PostDelete/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId=10002999', deleteVehicleObj).subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      alert(resObj.ResultValue);
-    })*/
+    this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId=10002999', deleteVehicleObj)
+      .subscribe(res => {
+    const resObj = JSON.parse(res._body);
+    if(resObj.ResultValue==true){
+      this.getVehicles();
+      alert("Vehicle Deleted Successfully...");
+    }
+  });
 
   }
   getVehicles=function () {
@@ -1318,8 +1363,8 @@ export class CreateaccountComponent implements OnInit {
     return tempVehicle;
   }
 
-  getModels=function () {
-    let make=$("#vehicle_Make").val();
+  getModels=function (vehicleMakeId) {
+    let make=$("#"+vehicleMakeId+"").val();
     var vehicleModelCount=0;
     for(var i=0;i<this.vehicleModels.length;i++){
       if(this.vehicleModels[i].Make==make) {
