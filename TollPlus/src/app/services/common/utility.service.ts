@@ -44,10 +44,6 @@ export class UtilityService {
     return this.httpService.postMethodWithoutParams(vehicleClassRelativePath);
   }
 
-  vehicleYearDropdown= function (vehicleYear) {
-
-  }
-
   vehicleColorDropdown= function (vehicleColorRelativePath, inputObject) {
     debugger;
     return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
@@ -56,5 +52,10 @@ export class UtilityService {
 
   vehicleOperation=function (saveVehicleRelativePath,vehicleObj) {
     return this.httpService.postMethodWithParams(saveVehicleRelativePath, vehicleObj);
+  }
+
+  additionalInformationOperation(additionalInformationObj,relativePath){
+    return this.httpService.postMethodWithParams(additionalInformationObj, relativePath);
+
   }
 }

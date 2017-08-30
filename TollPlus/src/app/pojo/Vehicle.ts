@@ -12,6 +12,9 @@ export class Vehicle{
   private CurrentDateTime;
   private DeactivatedDate;
   private EndEffectiveDate;
+  private EndDateHours;
+  private EndDateMins;
+  private EndDateSecs;
   private FilePath;
   private FutureClosureDate;
   private IsExempted;
@@ -30,6 +33,9 @@ export class Vehicle{
   private SortDirection;
   private Source;
   private StartEffectiveDate;
+  private StartDateHours;
+  private StartDateMins;
+  private StartDateSecs;
   private State;
   private Subsystem;
   private SystemUserActivityInd;
@@ -390,5 +396,53 @@ export class Vehicle{
     this.Year = value;
   }
 
+
+  get endDateHours() {
+    return this.EndDateHours;
+  }
+
+  set endDateHours(value) {
+    this.EndDateHours = value;
+  }
+
+  get endDateMins() {
+    return this.EndDateMins;
+  }
+
+  set endDateMins(value) {
+    this.EndDateMins = value;
+  }
+
+  get endDateSecs() {
+    return this.EndDateSecs;
+  }
+
+  set endDateSecs(value) {
+    this.EndDateSecs = value;
+  }
+
+  get startDateHours() {
+    return this.StartDateHours;
+  }
+
+  set startDateHours(value) {
+    this.StartDateHours = value;
+  }
+
+  get startDateMins() {
+    return this.StartDateMins;
+  }
+
+  set startDateMins(value) {
+    this.StartDateMins = value;
+  }
+
+  get startDateSecs() {
+    return this.StartDateSecs;
+  }
+
+  set startDateSecs(value) {
+    this.StartDateSecs = value;
+  }
 }
 
