@@ -9,6 +9,7 @@ import {Address} from '../pojo/address';
 import {KYCDocument} from '../pojo/kycdocument';
 import {Phone} from '../pojo/phone';
 import {Vehicle} from '../pojo/Vehicle';
+import {AdditionalInformation} from "../pojo/AdditionalInformation";
 declare var populateCountries: any;
 declare var businessCustomerTooltip: any;
 @Component({
@@ -20,7 +21,7 @@ declare var businessCustomerTooltip: any;
 export class CreateaccountComponent implements OnInit {
   account= new Account();
   vehicle_Modal= new Vehicle();
-  vehicleArray: Vehicle[]= [];
+  vehicleArray= [];
   vehicleModelArrays = [];
 
   businessCustomerTooltip = 'Please Select Business Type';
@@ -82,7 +83,6 @@ export class CreateaccountComponent implements OnInit {
   howDidYouHearUsOptions= [];
   statementDeliveryOptions= [];
   accountCategories= [];
-  lengthForVehiclePagination=0;
 
 
   public IdProofDropped(event) {
@@ -123,6 +123,7 @@ export class CreateaccountComponent implements OnInit {
     this.getHearAboutUs();
     this.getStatementDelivOption();
     this.getRevenueCategory();
+    this.getVehicles();
     const emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
     const emailPattern1 = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)';
 
@@ -435,30 +436,30 @@ export class CreateaccountComponent implements OnInit {
   }
 
 
-  editRecord= function(item) {
-
-    this.getStatesForDialogue(this.vehicleArray[item]._registered_Country_Key);
+  editVehicle= function(editableVehicleObj) {
+    debugger;
+    this.getStatesForDialogue(editableVehicleObj.Country);
     this.vehicleFormEdit = new FormGroup({
-      plateNumber: new FormControl(this.vehicleArray[item]._plateNumber, Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
-      vehicleClass: new FormControl(this.vehicleArray[item]._vehicleClass_Key, Validators.required),
-      vehicle_Make: new FormControl(this.vehicleArray[item]._vehicle_Make_Key),
-      vehicle_Year: new FormControl(this.vehicleArray[item]._vehicle_Year),
-      vehicle_Model: new FormControl(this.vehicleArray[item]._vehicle_Model_Key),
-      vehicle_Color: new FormControl(this.vehicleArray[item]._vehicle_Color_Key),
-      registered_Country: new FormControl(this.vehicleArray[item]._registered_Country_Key),
-      registeredState: new FormControl(this.vehicleArray[item]._registeredState_Key, Validators.required),
-      startEffectiveDate: new FormControl(this.vehicleArray[item]._startEffectiveDate),
-      startDateHours: new FormControl(this.vehicleArray[item]._startDateHours),
-      startDateMins: new FormControl(this.vehicleArray[item]._startDateMins),
-      startDateSecs: new FormControl(this.vehicleArray[item]._startDateSecs),
-      endEffectiveDate: new FormControl(this.vehicleArray[item]._endEffectiveDate),
-      endDateHours: new FormControl(this.vehicleArray[item]._endDateHours),
-      endDateMins: new FormControl(this.vehicleArray[item]._endDateMins),
-      endDateSecs: new FormControl(this.vehicleArray[item]._endDateSecs),
-      description: new FormControl(this.vehicleArray[item]._description),
-      isTemporaryLicencePlateNumber: new FormControl(this.vehicleArray[item]._isTemporaryLicencePlateNumber),
-      indexNumber: new FormControl(this.vehicleArray[item].indexNumber),
-      language: new FormControl('Java')
+      plateNumber: new FormControl(editableVehicleObj.VehicleNumber, Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
+      vehicleClass: new FormControl(editableVehicleObj.VehicleClass, Validators.required),
+      vehicle_Make: new FormControl(editableVehicleObj.Make),
+      vehicle_Year: new FormControl(editableVehicleObj.Year),
+      vehicle_Model: new FormControl(editableVehicleObj.Model),
+      vehicle_Color: new FormControl(editableVehicleObj.Color),
+      registered_Country: new FormControl(editableVehicleObj.Country),
+      vehicleId: new FormControl(editableVehicleObj.VehicleId),
+      ContractType: new FormControl(editableVehicleObj.ContractType),
+      registeredState: new FormControl(editableVehicleObj.State, Validators.required),
+      startEffectiveDate: new FormControl(editableVehicleObj._startEffectiveDate),
+      startDateHours: new FormControl(editableVehicleObj._startDateHours),
+      startDateMins: new FormControl(editableVehicleObj._startDateMins),
+      startDateSecs: new FormControl(editableVehicleObj._startDateSecs),
+      endEffectiveDate: new FormControl(editableVehicleObj._endEffectiveDate),
+      endDateHours: new FormControl(editableVehicleObj._endDateHours),
+      endDateMins: new FormControl(editableVehicleObj._endDateMins),
+      endDateSecs: new FormControl(editableVehicleObj._endDateSecs),
+      description: new FormControl(editableVehicleObj._description),
+      isTemporaryLicencePlateNumber: new FormControl(editableVehicleObj._isTemporaryLicencePlateNumber),
     });
 
     const startDate = this.vehicleFormEdit.controls['startEffectiveDate'].value;
@@ -726,12 +727,6 @@ export class CreateaccountComponent implements OnInit {
 
     });
   }
-  updateUser= function(updatedUserInfo){
-    console.log("userinfor "+JSON.stringify(updatedUserInfo));
-    this.lengthForVehiclePagination=updatedUserInfo.indexNumber;
-    this.saveVehicle(updatedUserInfo);
-
-  }
 
 
   getCountries= function () {
@@ -744,7 +739,6 @@ export class CreateaccountComponent implements OnInit {
   };
 
   getStates= function(id){
-    debugger;
     this.countryObject = {
       'LookUpTypeCode' : 'TollSchedulePriorities',
       'CountryCode' : $("#"+id+"").val()};
@@ -757,7 +751,6 @@ export class CreateaccountComponent implements OnInit {
     })
   };
   getStatesForDialogue= function(countryCode){
-    debugger;
     this.countryObject = {
       'LookUpTypeCode' : 'TollSchedulePriorities',
       'CountryCode' : countryCode};
@@ -996,7 +989,6 @@ export class CreateaccountComponent implements OnInit {
 
   getCurrentDate= function () {
     return '\/Date(1245398693390)\/';
-
   }
   validateUserName= function () {
     const userName = $('#userName').val();
@@ -1156,7 +1148,6 @@ export class CreateaccountComponent implements OnInit {
   }
 
   convertNumbertoUSFormat= function (idVal) {
-    debugger;
     let tempPhone = '';
     if ($('#' + idVal + '').val().length == 10){
       tempPhone = '(';
@@ -1226,55 +1217,154 @@ export class CreateaccountComponent implements OnInit {
   }
 
   saveVehicle= function (vehicleInfo) {
-    this.vehicle_Modal.plateNumber = vehicleInfo.plateNumber;
-    console.log('vehicle information saved '+JSON.stringify(vehicleInfo));
+    console.log('vehicle information  '+JSON.stringify(vehicleInfo));
+    const tempJsonObj = JSON.stringify(vehicleInfo);
+    let tempVehicleObj = this.setVehicleArrayObject();
+    tempVehicleObj=this.setVehicleObjectWithDynamicValues(tempVehicleObj,vehicleInfo);
+    tempVehicleObj.accountId="10002999";
+    tempVehicleObj.contractType="Leased";
+    tempVehicleObj.vehicleId="0";
+    tempVehicleObj.FutureClosureDate=null;
+    console.log('actual Obj '+JSON.stringify(tempVehicleObj));
+    this.utilityService.vehicleOperation('PostCreate/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if(resObj.ResultValue==true){
+        this.getVehicles();
+        alert("Vehicle Added Successfully..");
+      }
+    })
+    //this.vehicleArray[length] = tempVehicle;
+
+  }
+  updateVehicle=function (vehicleInfo) {
 
     const tempJsonObj = JSON.stringify(vehicleInfo);
-    const length=this.lengthForVehiclePagination;
-    const tempVehicle = new Vehicle();
-    tempVehicle.plateNumber = vehicleInfo.plateNumber;
-    tempVehicle.vehicleClass_Key = vehicleInfo.vehicleClass;
-    tempVehicle.vehicleClass_Value = vehicleInfo.vehicleClass;
-    tempVehicle.vehicle_Color_Key = vehicleInfo.vehicle_Color;
-    tempVehicle.vehicle_Color_Value = vehicleInfo.vehicle_Color;
-    tempVehicle.vehicle_Make_Key = vehicleInfo.vehicle_Make;
-    tempVehicle.vehicle_Model_Key = vehicleInfo.vehicle_Make;
-    tempVehicle.description = vehicleInfo.plateNumber;
-    tempVehicle.registeredState_Key = vehicleInfo.registeredState;
-    tempVehicle.registeredState_Value = vehicleInfo.registeredState;
-    tempVehicle.registered_Country_Key = vehicleInfo.registered_Country;
-    tempVehicle.registered_Country_Value = vehicleInfo.registered_Country;
-    tempVehicle.startEffectiveDateAndTime = vehicleInfo.startEffectiveDate;
-    tempVehicle.endEffectiveDateAndTime = vehicleInfo.endEffectiveDate;
-    tempVehicle.vehicle_Model_Key = vehicleInfo.vehicle_Model;
-    tempVehicle.vehicle_Year = vehicleInfo.vehicle_Year;
-    tempVehicle.indexNumber=length;
-
-    this.vehicleArray[length] = tempVehicle;
-    this.lengthForVehiclePagination++;
+    let tempVehicleObj = this.setVehicleArrayObject();
+    tempVehicleObj=this.setVehicleObjectWithDynamicValues(tempVehicleObj,vehicleInfo);
+    tempVehicleObj.accountId="10002999";
+      tempVehicleObj.vehicleId=this.vehicleFormEdit.value.vehicleId;
+      tempVehicleObj.contractType=this.vehicleFormEdit.value.ContractType;
+    this.utilityService.vehicleOperation('PostUpdateVehicle/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if(resObj.ResultValue==true){
+        this.getVehicles();
+        alert("Vehicle Updated Successfully...");
+      }
+    })
   }
+  deleteVehicle=function (vehicleInfo) {
+    let deleteObj=new Vehicle();
+    deleteObj.accountId=10002999;
+    deleteObj.checkBlockList=true;
+    deleteObj.color=vehicleInfo.Color;
+    deleteObj.contractType=vehicleInfo.ContractType;
+    deleteObj.country=vehicleInfo.CountryCode;
+    deleteObj.currentDateTime="\/Date(1245398693390)\/";
+    deleteObj.deactivatedDate="\/Date(1245398693390)\/";
+    deleteObj.endEffectiveDate="\/Date(1245398693390)\/";
+    deleteObj.filePath=null;
+    deleteObj.futureClosureDate=null;
+    deleteObj.isExempted=false;
+    deleteObj.isProtected=false;
+    deleteObj.isTemporaryNumber=false;
+    deleteObj.loginId=610901;
+    deleteObj.make=vehicleInfo.Make;
+    deleteObj.model=vehicleInfo.Model;
+    deleteObj.oldTagType=null;
+    deleteObj.oldVehicleNumber=null;
+    deleteObj.pageNumber=0;
+    deleteObj.pageSize=0;
+    deleteObj.rCNumber=null;
+    deleteObj.searchVehicleActivityInd=false;
+    deleteObj.sortColumn=null;
+    deleteObj.sortDirection=false;
+    deleteObj.source=null;
+    deleteObj.startEffectiveDate="\/Date(1245398693390)\/";
+    deleteObj.state=vehicleInfo.State;
+    deleteObj.systemUserActivityInd=true;
+    deleteObj.tagSerialNum=null;
+    deleteObj.tagType=null;
+    deleteObj.userId=10000001;
+    deleteObj.userName="tpsuperuser";
+    deleteObj.vehicleClass=vehicleInfo.VehicleClass;
+    deleteObj.vehicleClassDesc=null;
+    deleteObj.vehicleHistoryActivity=false;
+    deleteObj.vehicleId=vehicleInfo.VehicleId;
+    deleteObj.vehicleLoadActivityInd=false;
+    deleteObj.vehicleNumber=vehicleInfo.VehicleNumber;
+    deleteObj.vehicleSearchActivityInd=vehicleInfo.VehicleSearchActivityInd;
+    deleteObj.vehicleStatus=vehicleInfo.VehicleStatus;
+    deleteObj.year=vehicleInfo.Year;
 
+
+
+
+
+    var deleteVehicleObj=JSON.stringify(deleteObj);
+    debugger;
+    console.log("deleteVehicleObj "+deleteVehicleObj);
+    this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId=10002999', deleteVehicleObj)
+      .subscribe(res => {
+    const resObj = JSON.parse(res._body);
+    if(resObj.ResultValue==true){
+      this.getVehicles();
+      alert("Vehicle Deleted Successfully...");
+    }
+  });
+
+  }
+  getVehicles=function () {
+      let tempVehicleObj = this.setVehicleArrayObject();
+    tempVehicleObj.accountId="10002999";
+    tempVehicleObj.contractType="";
+    tempVehicleObj.vehicleId="0";
+    tempVehicleObj.pageNumber=1;
+    tempVehicleObj.pageSize=10;
+    tempVehicleObj.sortColumn= "VEHICLENUMBER";
+    console.log('actual Obj '+JSON.stringify(tempVehicleObj));
+    this.utilityService.vehicleOperation('PostGet/?enumModuleType=Customer&enumActivityType=ActiveVehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      //alert(resObj.ResultValue[0].VehicleId);
+      //alert(resObj.ResultValue[0].VehicleNumber);
+      this.vehicleArray=resObj.ResultValue;
+    })
+  }
   setVehicleArrayObject= function () {
     const tempVehicle = new Vehicle();
-    tempVehicle.plateNumber = 'Apz1252ASK';
-    tempVehicle.vehicleClass_Key = '7H';
-    tempVehicle.vehicleClass_Value = 'Bus 2-axle';
-    tempVehicle.vehicle_Color_Key = '306';
-    tempVehicle.vehicle_Color_Value = 'Ame';
-    tempVehicle.vehicle_Make_Key = 'BMW';
-    tempVehicle.vehicle_Model_Key = '128';
-    tempVehicle.vehicle_Year = this.vehicleYearDropdown[0];
-    tempVehicle.description = 'Ac Bus';
-    tempVehicle.registeredState_Key = 'TS';
-    tempVehicle.registeredState_Value = 'Telangana';
-    tempVehicle.registered_Country_Key = 'IND';
-    tempVehicle.registered_Country_Value = 'INDIA';
-    tempVehicle.startEffectiveDateAndTime = '12 July 2017 11:06Am';
-    tempVehicle.endEffectiveDateAndTime = '12 July 2017 11:06Am';
+    tempVehicle.checkBlockList="true";
+    tempVehicle.currentDateTime=this.getCurrentDate();
+    tempVehicle.deactivatedDate=this.getCurrentDate();
+    tempVehicle.endEffectiveDate=this.getCurrentDate();
+    tempVehicle.filePath="null";
+    tempVehicle.isExempted="false";
+    tempVehicle.isProtected="false";
+    tempVehicle.isTemporaryNumber="false";
+    tempVehicle.loginId="610901";
+    tempVehicle.oldTagType="null";
+    tempVehicle.oldVehicleNumber="null";
+    tempVehicle.pageNumber="0";
+    tempVehicle.pageSize="0";
+    tempVehicle.rCNumber="null";
+    tempVehicle.searchVehicleActivityInd="false";
+    tempVehicle.sortColumn="null";
+    tempVehicle.sortDirection="false";
+    tempVehicle.source="null";
+    tempVehicle.startEffectiveDate=this.getCurrentDate();
+    tempVehicle.systemUserActivityInd="true";
+    tempVehicle.tagSerialNum="null";
+    tempVehicle.tagType="null";
+    tempVehicle.userId="10000001";
+    tempVehicle.userName="tpsuperuser";
+    tempVehicle.vehicleClassDesc="null";
+    tempVehicle.vehicleHistoryActivity="false";
+    tempVehicle.vehicleLoadActivityInd="false";
+    tempVehicle.vehicleSearchActivityInd="false";
+    tempVehicle.vehicleStatus="Active";
+    return tempVehicle;
   }
 
-  getModels=function () {
-    let make=$("#vehicle_Make").val();
+  getModels=function (vehicleMakeId) {
+    let make=$("#"+vehicleMakeId+"").val();
     var vehicleModelCount=0;
     for(var i=0;i<this.vehicleModels.length;i++){
       if(this.vehicleModels[i].Make==make) {
@@ -1285,6 +1375,89 @@ export class CreateaccountComponent implements OnInit {
     }
   }
 
+  setVehicleObjectWithDynamicValues=function (vehicleWholeObject,vehicleFormObj) {
+    vehicleWholeObject.color=vehicleFormObj.vehicle_Color;
+    vehicleWholeObject.country=vehicleFormObj.registered_Country;
+    vehicleWholeObject.make=vehicleFormObj.vehicle_Make;
+    vehicleWholeObject.model=vehicleFormObj.vehicle_Model;
+    vehicleWholeObject.state=vehicleFormObj.registeredState;
+    vehicleWholeObject.vehicleClass=vehicleFormObj.vehicleClass;
+    vehicleWholeObject.vehicleNumber=vehicleFormObj.plateNumber;
+    vehicleWholeObject.year=vehicleFormObj.vehicle_Year;
+    return vehicleWholeObject;
+  }
 
+
+
+  saveAdditionalInformation = function(additionalInformationObj){
+    const  additionalInfoObj = new  AdditionalInformation();
+    additionalInfoObj.AccountAdjustments=null;
+    additionalInfoObj.AccountId=10257609;
+    additionalInfoObj.AccountType=null;
+    additionalInfoObj.ActionCode=null;
+    additionalInfoObj.ActivitySource="Internal";
+    additionalInfoObj.ActivityTypeDescription=null;
+    additionalInfoObj.AutoReplenishmentType=null;
+    additionalInfoObj.AutoReplenishmentTypeDesc=null;
+    additionalInfoObj.CalculatedReBillAmount=0;
+    additionalInfoObj.CheckBlockList=true;
+    additionalInfoObj.CustomerStatus="C";
+    additionalInfoObj.CycleUpdatedDate="\/Date(1245398693390)\/";
+    additionalInfoObj.DriverLicenceApprovedState=null;
+    additionalInfoObj.DriverLicenceExpirationDate="\/Date(1245398693390)\/";
+    additionalInfoObj.DriverLicenceNumber=null;
+    additionalInfoObj.EnrollmentNumber=null;
+    additionalInfoObj.FeaturesCode=null;
+    additionalInfoObj.InvoiceAmount=0;
+    additionalInfoObj.InvoiceAmt=null;
+    additionalInfoObj.InvoiceDay="0";
+    additionalInfoObj.InvoiceIntervalID=4;
+    additionalInfoObj.IsCreateAccountUserActivity=true;
+    additionalInfoObj.ISFrequentCaller=false;
+    additionalInfoObj.IsHearingImpirement=false;
+    additionalInfoObj.IsManualHold=false;
+    additionalInfoObj.IsNotificationsEnabled=false;
+    additionalInfoObj.IsPostPaidCustomer=false;
+    additionalInfoObj.IsSplitCustomer=false;
+    additionalInfoObj.IsSupervisor=false;
+    additionalInfoObj.IsTagInStatusFile=false;
+    additionalInfoObj.IsTagRequired=false;
+    additionalInfoObj.KeyValue=null;
+    additionalInfoObj.LoginId=610908;
+    additionalInfoObj.MembershipType="Prepaid";
+    additionalInfoObj.NextRunDate="\/Date(1245398693390)\/";
+    additionalInfoObj.OrganizationName=null;
+    additionalInfoObj.ParentId=0;
+    additionalInfoObj.ParentPaln="POSTPAID";
+    additionalInfoObj.PerformBy=null;
+    additionalInfoObj.Pin="KTjHdPPlm4XJg/LNVxKRwg==";
+    additionalInfoObj.PlanDescription=null;
+    additionalInfoObj.PlanId=0;
+    additionalInfoObj.PreferedLanguange="English";
+    additionalInfoObj.PreferredShipment="ShippedFull";
+    additionalInfoObj.PreviousRunDate="\/Date(1245398693390)\/";
+    additionalInfoObj.Rebill_Hold_EndEffectiveDate="\/Date(1245398693390)\/";
+    additionalInfoObj.Rebill_Hold_StartEffectiveDate="\/Date(1245398693390)\/";
+    additionalInfoObj.ReferalBalance=0;
+    additionalInfoObj.ReferralCustomerId=0;
+    additionalInfoObj.RefIndicator=0;
+    additionalInfoObj.RefPkId=0;
+    additionalInfoObj.RequestDate="\/Date(1245398693390)\/";
+    additionalInfoObj.RequestStatus="Pending";
+    additionalInfoObj.RevenueCategory="Revenue";
+    additionalInfoObj.SecurityQuestionsAndAnswers=null;
+    additionalInfoObj.SourceOfChannel="T";
+    additionalInfoObj.StatementCycle=null;
+    additionalInfoObj.StatementDelivery="Email";
+    additionalInfoObj.SubSystem="CSC";
+    additionalInfoObj.TemplateType=null;
+    additionalInfoObj.ThresholdAmount=0;
+    additionalInfoObj.TranponderPurchasemethod=null;
+    additionalInfoObj.UpdatedUser="tpsuperuser";
+    additionalInfoObj.User=null;
+    additionalInfoObj.UserId=10000001;
+    additionalInfoObj.UserType="NonCustomer";
+  }
 
 }
+

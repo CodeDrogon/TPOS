@@ -2,246 +2,393 @@
  * Created by Suseel on 17-08-2017.
  */
 export class Vehicle{
-  private _plateNumber;
-  private _startEffectiveDate;
-  private _startDateHours
-  private _startDateMins;
-  private _startDateSecs;
-  private _endEffectiveDate;
-  private _endDateHours;
-  private _endDateMins;
-  private _endDateSecs;
-  private _description;
-  private _isTemporaryLicencePlateNumber;
-  private _startEffectiveDateAndTime;
-  private _endEffectiveDateAndTime;
-  private _vehicleClass_Key;
-  private _vehicleClass_Value;
-  private _vehicle_Make_Key;
-  private _vehicle_Make_Value;
-  private _vehicle_Year;
-  private _vehicle_Model_Key;
-  private _vehicle_Model_Value;
-  private _vehicle_Color_Key;
-  private _vehicle_Color_Value;
-  private _registered_Country_Key;
-  private _registered_Country_Value;
-  private _registeredState_Key;
-  private _registeredState_Value;
-  private _indexNumber;
-  get indexNumber() {
-    return this._indexNumber;
+
+  private AccountId;
+  private ActivitySource;
+  private CheckBlockList;
+  private Color;
+  private ContractType;
+  private Country;
+  private CurrentDateTime;
+  private DeactivatedDate;
+  private EndEffectiveDate;
+  private FilePath;
+  private FutureClosureDate;
+  private IsExempted;
+  private IsProtected;
+  private IsTemporaryNumber;
+  private LoginId;
+  private Make;
+  private Model;
+  private OldTagType;
+  private OldVehicleNumber;
+  private PageNumber;
+  private PageSize;
+  private RCNumber;
+  private SearchVehicleActivityInd;
+  private SortColumn;
+  private SortDirection;
+  private Source;
+  private StartEffectiveDate;
+  private State;
+  private Subsystem;
+  private SystemUserActivityInd;
+  private TagSerialNum;
+  private TagType;
+  private UserId;
+  private UserName;
+  private VehicleClass;
+  private VehicleClassDesc;
+  private VehicleHistoryActivity;
+  private VehicleId;
+  private VehicleLoadActivityInd;
+  private VehicleNumber;
+  private VehicleSearchActivityInd;
+  private VehicleStatus;
+  private Year;
+  get accountId() {
+    return this.AccountId;
   }
 
-  set indexNumber(value) {
-    this._indexNumber = value;
+  set accountId(value) {
+    this.AccountId = value;
   }
 
-  get plateNumber() {
-    return this._plateNumber;
+  get activitySource() {
+    return this.ActivitySource;
   }
 
-  set plateNumber(value) {
-    this._plateNumber = value;
+  set activitySource(value) {
+    this.ActivitySource = value;
   }
 
-  get startEffectiveDate() {
-    return this._startEffectiveDate;
+  get checkBlockList() {
+    return this.CheckBlockList;
   }
 
-  set startEffectiveDate(value) {
-    this._startEffectiveDate = value;
+  set checkBlockList(value) {
+    this.CheckBlockList = value;
   }
 
-  get startDateHours() {
-    return this._startDateHours;
+  get color() {
+    return this.Color;
   }
 
-  set startDateHours(value) {
-    this._startDateHours = value;
+  set color(value) {
+    this.Color = value;
   }
 
-  get startDateMins() {
-    return this._startDateMins;
+  get contractType() {
+    return this.ContractType;
   }
 
-  set startDateMins(value) {
-    this._startDateMins = value;
+  set contractType(value) {
+    this.ContractType = value;
   }
 
-  get startDateSecs() {
-    return this._startDateSecs;
+  get country() {
+    return this.Country;
   }
 
-  set startDateSecs(value) {
-    this._startDateSecs = value;
+  set country(value) {
+    this.Country = value;
+  }
+
+  get currentDateTime() {
+    return this.CurrentDateTime;
+  }
+
+  set currentDateTime(value) {
+    this.CurrentDateTime = value;
+  }
+
+  get deactivatedDate() {
+    return this.DeactivatedDate;
+  }
+
+  set deactivatedDate(value) {
+    this.DeactivatedDate = value;
   }
 
   get endEffectiveDate() {
-    return this._endEffectiveDate;
+    return this.EndEffectiveDate;
   }
 
   set endEffectiveDate(value) {
-    this._endEffectiveDate = value;
+    this.EndEffectiveDate = value;
   }
 
-  get endDateHours() {
-    return this._endDateHours;
+  get filePath() {
+    return this.FilePath;
   }
 
-  set endDateHours(value) {
-    this._endDateHours = value;
+  set filePath(value) {
+    this.FilePath = value;
   }
 
-  get endDateMins() {
-    return this._endDateMins;
+  get futureClosureDate() {
+    return this.FutureClosureDate;
   }
 
-  set endDateMins(value) {
-    this._endDateMins = value;
+  set futureClosureDate(value) {
+    this.FutureClosureDate = value;
   }
 
-  get endDateSecs() {
-    return this._endDateSecs;
+  get isExempted() {
+    return this.IsExempted;
   }
 
-  set endDateSecs(value) {
-    this._endDateSecs = value;
+  set isExempted(value) {
+    this.IsExempted = value;
   }
 
-  get description() {
-    return this._description;
+  get isProtected() {
+    return this.IsProtected;
   }
 
-  set description(value) {
-    this._description = value;
+  set isProtected(value) {
+    this.IsProtected = value;
   }
 
-  get isTemporaryLicencePlateNumber() {
-    return this._isTemporaryLicencePlateNumber;
+  get isTemporaryNumber() {
+    return this.IsTemporaryNumber;
   }
 
-  set isTemporaryLicencePlateNumber(value) {
-    this._isTemporaryLicencePlateNumber = value;
+  set isTemporaryNumber(value) {
+    this.IsTemporaryNumber = value;
   }
 
-  get startEffectiveDateAndTime() {
-    return this._startEffectiveDateAndTime;
+  get loginId() {
+    return this.LoginId;
   }
 
-  set startEffectiveDateAndTime(value) {
-    this._startEffectiveDateAndTime = value;
+  set loginId(value) {
+    this.LoginId = value;
   }
 
-  get endEffectiveDateAndTime() {
-    return this._endEffectiveDateAndTime;
+  get make() {
+    return this.Make;
   }
 
-  set endEffectiveDateAndTime(value) {
-    this._endEffectiveDateAndTime = value;
+  set make(value) {
+    this.Make = value;
   }
 
-  get vehicleClass_Key() {
-    return this._vehicleClass_Key;
+  get model() {
+    return this.Model;
   }
 
-  set vehicleClass_Key(value) {
-    this._vehicleClass_Key = value;
+  set model(value) {
+    this.Model = value;
   }
 
-  get vehicleClass_Value() {
-    return this._vehicleClass_Value;
+  get oldTagType() {
+    return this.OldTagType;
   }
 
-  set vehicleClass_Value(value) {
-    this._vehicleClass_Value = value;
+  set oldTagType(value) {
+    this.OldTagType = value;
   }
 
-  get vehicle_Make_Key() {
-    return this._vehicle_Make_Key;
+  get oldVehicleNumber() {
+    return this.OldVehicleNumber;
   }
 
-  set vehicle_Make_Key(value) {
-    this._vehicle_Make_Key = value;
+  set oldVehicleNumber(value) {
+    this.OldVehicleNumber = value;
   }
 
-  get vehicle_Make_Value() {
-    return this._vehicle_Make_Value;
+  get pageNumber() {
+    return this.PageNumber;
   }
 
-  set vehicle_Make_Value(value) {
-    this._vehicle_Make_Value = value;
+  set pageNumber(value) {
+    this.PageNumber = value;
   }
 
-  get vehicle_Year() {
-    return this._vehicle_Year;
+  get pageSize() {
+    return this.PageSize;
   }
 
-  set vehicle_Year(value) {
-    this._vehicle_Year = value;
+  set pageSize(value) {
+    this.PageSize = value;
   }
 
-  get vehicle_Model_Key() {
-    return this._vehicle_Model_Key;
+  get rCNumber() {
+    return this.RCNumber;
   }
 
-  set vehicle_Model_Key(value) {
-    this._vehicle_Model_Key = value;
+  set rCNumber(value) {
+    this.RCNumber = value;
   }
 
-  get vehicle_Model_Value() {
-    return this._vehicle_Model_Value;
+  get searchVehicleActivityInd() {
+    return this.SearchVehicleActivityInd;
   }
 
-  set vehicle_Model_Value(value) {
-    this._vehicle_Model_Value = value;
+  set searchVehicleActivityInd(value) {
+    this.SearchVehicleActivityInd = value;
   }
 
-  get vehicle_Color_Key() {
-    return this._vehicle_Color_Key;
+  get sortColumn() {
+    return this.SortColumn;
   }
 
-  set vehicle_Color_Key(value) {
-    this._vehicle_Color_Key = value;
+  set sortColumn(value) {
+    this.SortColumn = value;
   }
 
-  get vehicle_Color_Value() {
-    return this._vehicle_Color_Value;
+  get sortDirection() {
+    return this.SortDirection;
   }
 
-  set vehicle_Color_Value(value) {
-    this._vehicle_Color_Value = value;
+  set sortDirection(value) {
+    this.SortDirection = value;
   }
 
-  get registered_Country_Key() {
-    return this._registered_Country_Key;
+  get source() {
+    return this.Source;
   }
 
-  set registered_Country_Key(value) {
-    this._registered_Country_Key = value;
+  set source(value) {
+    this.Source = value;
   }
 
-  get registered_Country_Value() {
-    return this._registered_Country_Value;
+  get startEffectiveDate() {
+    return this.StartEffectiveDate;
   }
 
-  set registered_Country_Value(value) {
-    this._registered_Country_Value = value;
+  set startEffectiveDate(value) {
+    this.StartEffectiveDate = value;
   }
 
-  get registeredState_Key() {
-    return this._registeredState_Key;
+  get state() {
+    return this.State;
   }
 
-  set registeredState_Key(value) {
-    this._registeredState_Key = value;
+  set state(value) {
+    this.State = value;
   }
 
-  get registeredState_Value() {
-    return this._registeredState_Value;
+  get subsystem() {
+    return this.Subsystem;
   }
 
-  set registeredState_Value(value) {
-    this._registeredState_Value = value;
+  set subsystem(value) {
+    this.Subsystem = value;
   }
+
+  get systemUserActivityInd() {
+    return this.SystemUserActivityInd;
+  }
+
+  set systemUserActivityInd(value) {
+    this.SystemUserActivityInd = value;
+  }
+
+  get tagSerialNum() {
+    return this.TagSerialNum;
+  }
+
+  set tagSerialNum(value) {
+    this.TagSerialNum = value;
+  }
+
+  get tagType() {
+    return this.TagType;
+  }
+
+  set tagType(value) {
+    this.TagType = value;
+  }
+
+  get userId() {
+    return this.UserId;
+  }
+
+  set userId(value) {
+    this.UserId = value;
+  }
+
+  get userName() {
+    return this.UserName;
+  }
+
+  set userName(value) {
+    this.UserName = value;
+  }
+
+  get vehicleClass() {
+    return this.VehicleClass;
+  }
+
+  set vehicleClass(value) {
+    this.VehicleClass = value;
+  }
+
+  get vehicleClassDesc() {
+    return this.VehicleClassDesc;
+  }
+
+  set vehicleClassDesc(value) {
+    this.VehicleClassDesc = value;
+  }
+
+  get vehicleHistoryActivity() {
+    return this.VehicleHistoryActivity;
+  }
+
+  set vehicleHistoryActivity(value) {
+    this.VehicleHistoryActivity = value;
+  }
+
+  get vehicleId() {
+    return this.VehicleId;
+  }
+
+  set vehicleId(value) {
+    this.VehicleId = value;
+  }
+
+  get vehicleLoadActivityInd() {
+    return this.VehicleLoadActivityInd;
+  }
+
+  set vehicleLoadActivityInd(value) {
+    this.VehicleLoadActivityInd = value;
+  }
+
+  get vehicleNumber() {
+    return this.VehicleNumber;
+  }
+
+  set vehicleNumber(value) {
+    this.VehicleNumber = value;
+  }
+
+  get vehicleSearchActivityInd() {
+    return this.VehicleSearchActivityInd;
+  }
+
+  set vehicleSearchActivityInd(value) {
+    this.VehicleSearchActivityInd = value;
+  }
+
+  get vehicleStatus() {
+    return this.VehicleStatus;
+  }
+
+  set vehicleStatus(value) {
+    this.VehicleStatus = value;
+  }
+
+  get year() {
+    return this.Year;
+  }
+
+  set year(value) {
+    this.Year = value;
+  }
+
 }
+
