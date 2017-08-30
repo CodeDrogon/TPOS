@@ -348,7 +348,7 @@
                                 <div class="row">
                                   <div class="col-lg-10">
                                     <div class="form-group" [ngClass]="{'has-error': user_Form.controls['date_Of_Birth'].invalid && user_Form.controls['date_Of_Birth'].dirty }">
-                                      <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Date Of Birth(dd/MM/yyyy)" name="date_Of_Birth" id="date_Of_Birth" [formControl]="user_Form.controls['date_Of_Birth']"/>
+                                      <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here" data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Date Of Birth(dd/mm/yyyy)" name="date_Of_Birth" id="date_Of_Birth" [formControl]="user_Form.controls['date_Of_Birth']" />
                                     </div>
                                   </div>
                                   <div class="col-lg-1">
@@ -461,7 +461,7 @@
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && !user_Form.controls['day_Phone_Number'].touched">*</i>
                                       <input class="form-control" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" id="day_Phone_Number"
-                                             (change)="convertNumbertoUSFormat('day_Phone_Number')">
+                                             [(ngModel)]="day_Phone_Number" (change)="convertNumbertoUSFormat('day_Phone_Number')">
                                     </div>
                                   </div>
                                 </div>
@@ -470,7 +470,7 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['day_Phone_Number'].valid && user_Form.controls['day_Phone_Number'].touched}">Please Enter Day Phone</span>
                                     <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Day Phone is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Day Phone is invalid</div>
+                                    <div *ngIf="!user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -529,7 +529,7 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['mobile_Phone_Number'].valid && user_Form.controls['mobile_Phone_Number'].touched}">Please Enter Mobile Phone</span>
                                     <div *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile Phone is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile Phone is invalid</div>
+                                    <div *ngIf="!user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -1182,7 +1182,7 @@
                       <div class="row">
                         <div class="col-lg-5">
                           <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['startEffectiveDate'].invalid && vehicleForm.controls['startEffectiveDate'].dirty }">
-                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date (dd/MM/yyyy)" name="startEffectiveDate" id="startEffectiveDate" [formControl]="vehicleForm.controls['startEffectiveDate']"/>
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date (dd/mm/yyyy)" name="startEffectiveDate" id="startEffectiveDate" [formControl]="vehicleForm.controls['startEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
@@ -1213,7 +1213,7 @@
                       <div class="row">
                         <div class="col-lg-5">
                           <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['endEffectiveDate'].invalid && vehicleForm.controls['endEffectiveDate'].dirty }">
-                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date (dd/MM/yyyy)" name="endEffectiveDate" id="endEffectiveDate" [formControl]="vehicleForm.controls['endEffectiveDate']"/>
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date (dd/mm/yyyy)" name="endEffectiveDate" id="endEffectiveDate" [formControl]="vehicleForm.controls['endEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
@@ -1269,10 +1269,10 @@
                         <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}" (click)="resetVehicleForm()">
                       </div>
                       <div class="col-lg-5">
-                        <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle">
+                        <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle" [disabled]="!false">
                       </div>
                       <div class="col-lg-1">
-                        <input class="btn btn-primary" type="button" name="reset" value="Save" (click)="saveVehicle(vehicleForm.value)">
+                        <input class="btn btn-primary" type="button" name="reset" value="Save" (click)="saveVehicle(vehicleForm.value)" [disabled]="!vehicleForm.valid">
                       </div>
                     </div>
                   </div>
@@ -1551,7 +1551,7 @@
                   <a class="btn btn-primary btnPrevious">Vehicle Information</a>
                 </div>
                 <div class="col-lg-3" align="right">
-                  <a class="btn btn-primary btnNext">Payment Information</a>
+                  <input type="submit" class="btn-primary btnNext" value="Payment Information">
                 </div>
               </div>
             </div>
@@ -2339,7 +2339,7 @@
                       <div class="row">
                         <div class="col-lg-5">
                           <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['startEffectiveDate'].invalid && vehicleFormEdit.controls['startEffectiveDate'].dirty }">
-                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date (dd/MM/yyyy)" name="startEffectiveDate" id="startEffectiveDate" [formControl]="vehicleFormEdit.controls['startEffectiveDate']"/>
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="Start Date (dd/mm/yyyy)" name="startEffectiveDate" id="start_Effective_Date" [formControl]="vehicleFormEdit.controls['startEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
@@ -2370,7 +2370,7 @@
                       <div class="row">
                         <div class="col-lg-5">
                           <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['endEffectiveDate'].invalid && vehicleFormEdit.controls['endEffectiveDate'].dirty }">
-                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date (dd/MM/yyyy)" name="endEffectiveDate" id="endEffectiveDate" [formControl]="vehicleFormEdit.controls['endEffectiveDate']"/>
+                            <input type='text' data-language='en' pattern="^[0-3]?[0-9].[0-3]?[0-9].?[0-9]{4}$" class="form-control datepicker-here " data-date-format="dd/mm/yyyy" data-position='top left' placeholder="End Date (dd/mm/yyyy)" name="endEffectiveDate" id="end_Effective_Date" [formControl]="vehicleFormEdit.controls['endEffectiveDate']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
@@ -2409,7 +2409,7 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <input type="checkbox" formControlName="isTemporaryLicencePlateNumber" style="{color: #999999 !important;}"> Is temporary licence plate number?
+                        <input type="checkbox" formControlName="isTemporaryLicencePlateNumber" [formControl]="vehicleFormEdit.controls['isTemporaryLicencePlateNumber']" style="{color: #999999 !important;}"> Is temporary licence plate number?
                       </div>
 
                     </div>
@@ -2435,7 +2435,7 @@
               <a class="btn btn-primary" data-dismiss="modal">Cancel</a>
             </div>
             <div class="col-lg-1">
-              <input type="submit" class="btn btn-primary" value="Update" />
+              <input type="submit" class="btn btn-primary" value="Update" [disabled]="!vehicleFormEdit.valid" />
             </div>
           </div>
         </form>

@@ -1,597 +1,595 @@
+/**
+ * Created by Suseel on 29-08-2017.
+ */
 export class AdditionalInformation {
-  private _AccountAdjustments;
-  private _AccountId;
-  private _AccountType;
-  private _ActionCode;
-  private _ActivitySource;
-  private _ActivityTypeDescription;
-  private _AutoReplenishmentType;
-  private _AutoReplenishmentTypeDesc;
-  private _CalculatedReBillAmount;
-  private _CheckBlockList;
-  private _CustomerStatus;
-  private _CycleUpdatedDate;
-  private _DriverLicenceApprovedState;
-  private _DriverLicenceExpirationDate;
-  private _DriverLicenceNumber;
-  private _EnrollmentNumber;
-  private _FeaturesCode;
-  private _InvoiceAmount;
-  private _InvoiceAmt;
-  private _InvoiceDay;
-  private _InvoiceIntervalID;
-  private _IsCreateAccountUserActivity;
-  private _ISFrequentCaller;
-  private _IsHearingImpirement;
-  private _IsManualHold;
-  private _IsNotificationsEnabled;
-  private _IsPostPaidCustomer;
-  private _IsSplitCustomer;
-  private _IsSupervisor;
-  private _IsTagInStatusFile;
-  private _IsTagRequired;
-  private _KeyValue;
-  private _LoginId;
-  private _MembershipType;
-  private _NextRunDate;
-  private _OrganizationName;
-  private _ParentId;
-  private _ParentPaln;
-  private _PerformBy;
-  private _Pin;
-  private _PlanDescription;
-  private _PlanId;
-  private _PreferedLanguange;
-  private _PreferredShipment;
-  private _PreviousRunDate;
-  private _Rebill_Hold_EndEffectiveDate;
-  private _Rebill_Hold_StartEffectiveDate;
-  private _ReferalBalance;
-  private _ReferralCustomerId;
-  private _RefIndicator;
-  private _RefPkId;
-  private _RequestDate;
-  private _RequestStatus;
-  private _RevenueCategory;
-  private _SecurityQuestionsAndAnswers;
-  private _SourceOfChannel;
-  private _StatementCycle;
-  private _StatementDelivery;
-  private _SubSystem;
-  private _TemplateType;
-  private _ThresholdAmount;
-  private _TranponderPurchasemethod;
-  private _UpdatedUser;
-  private _User;
-  private _UserId;
-  private _UserType;
 
+  private AccountAdjustments;
+  private AccountId;
+  private AccountType;
+  private ActionCode;
+  private ActivitySource;
+  private ActivityTypeDescription;
+  private AutoReplenishmentType;
+  private AutoReplenishmentTypeDesc;
+  private CalculatedReBillAmount;
+  private CheckBlockList;
+  private CustomerStatus;
+  private CycleUpdatedDate;
+  private DriverLicenceApprovedState;
+  private DriverLicenceExpirationDate;
+  private DriverLicenceNumber;
+  private EnrollmentNumber;
+  private FeaturesCode;
+  private InvoiceAmount;
+  private InvoiceAmt;
+  private InvoiceDay;
+  private InvoiceIntervalID;
+  private IsCreateAccountUserActivity;
+  private ISFrequentCaller;
+  private IsHearingImpirement;
+  private IsManualHold;
+  private IsNotificationsEnabled;
+  private IsPostPaidCustomer;
+  private IsSplitCustomer;
+  private IsSupervisor;
+  private IsTagInStatusFile;
+  private IsTagRequired;
+  private KeyValue;
+  private LoginId;
+  private MembershipType;
+  private NextRunDate;
+  private OrganizationName;
+  private ParentId;
+  private ParentPaln;
+  private PerformBy;
+  private Pin;
+  private PlanDescription;
+  private PlanId;
+  private PreferedLanguange;
+  private PreferredShipment;
+  private PreviousRunDate;
+  private Rebill_Hold_EndEffectiveDate;
+  private Rebill_Hold_StartEffectiveDate;
+  private ReferalBalance;
+  private ReferralCustomerId;
+  private RefIndicator;
+  private RefPkId;
+  private RequestDate;
+  private RequestStatus;
+  private RevenueCategory;
+  private SecurityQuestionsAndAnswers;
+  private SourceOfChannel;
+  private StatementCycle;
+  private StatementDelivery;
+  private SubSystem;
+  private TemplateType;
+  private ThresholdAmount;
+  private TranponderPurchasemethod;
+  private UpdatedUser;
+  private User;
+  private UserId;
+  private UserType;
 
-  get AccountAdjustments() {
-    return this._AccountAdjustments;
+  get accountAdjustments() {
+    return this.AccountAdjustments;
   }
 
-  set AccountAdjustments(value) {
-    this._AccountAdjustments = value;
+  set accountAdjustments(value) {
+    this.AccountAdjustments = value;
   }
 
-  get AccountId() {
-    return this._AccountId;
+  get accountId() {
+    return this.AccountId;
   }
 
-  set AccountId(value) {
-    this._AccountId = value;
+  set accountId(value) {
+    this.AccountId = value;
   }
 
-  get AccountType() {
-    return this._AccountType;
+  get accountType() {
+    return this.AccountType;
   }
 
-  set AccountType(value) {
-    this._AccountType = value;
+  set accountType(value) {
+    this.AccountType = value;
   }
 
-  get ActionCode() {
-    return this._ActionCode;
+  get actionCode() {
+    return this.ActionCode;
   }
 
-  set ActionCode(value) {
-    this._ActionCode = value;
+  set actionCode(value) {
+    this.ActionCode = value;
   }
 
-  get ActivitySource() {
-    return this._ActivitySource;
+  get activitySource() {
+    return this.ActivitySource;
   }
 
-  set ActivitySource(value) {
-    this._ActivitySource = value;
+  set activitySource(value) {
+    this.ActivitySource = value;
   }
 
-  get ActivityTypeDescription() {
-    return this._ActivityTypeDescription;
+  get activityTypeDescription() {
+    return this.ActivityTypeDescription;
   }
 
-  set ActivityTypeDescription(value) {
-    this._ActivityTypeDescription = value;
+  set activityTypeDescription(value) {
+    this.ActivityTypeDescription = value;
   }
 
-  get AutoReplenishmentType() {
-    return this._AutoReplenishmentType;
+  get autoReplenishmentType() {
+    return this.AutoReplenishmentType;
   }
 
-  set AutoReplenishmentType(value) {
-    this._AutoReplenishmentType = value;
+  set autoReplenishmentType(value) {
+    this.AutoReplenishmentType = value;
   }
 
-  get AutoReplenishmentTypeDesc() {
-    return this._AutoReplenishmentTypeDesc;
+  get autoReplenishmentTypeDesc() {
+    return this.AutoReplenishmentTypeDesc;
   }
 
-  set AutoReplenishmentTypeDesc(value) {
-    this._AutoReplenishmentTypeDesc = value;
+  set autoReplenishmentTypeDesc(value) {
+    this.AutoReplenishmentTypeDesc = value;
   }
 
-  get CalculatedReBillAmount() {
-    return this._CalculatedReBillAmount;
+  get calculatedReBillAmount() {
+    return this.CalculatedReBillAmount;
   }
 
-  set CalculatedReBillAmount(value) {
-    this._CalculatedReBillAmount = value;
+  set calculatedReBillAmount(value) {
+    this.CalculatedReBillAmount = value;
   }
 
-  get CheckBlockList() {
-    return this._CheckBlockList;
+  get checkBlockList() {
+    return this.CheckBlockList;
   }
 
-  set CheckBlockList(value) {
-    this._CheckBlockList = value;
+  set checkBlockList(value) {
+    this.CheckBlockList = value;
   }
 
-  get CustomerStatus() {
-    return this._CustomerStatus;
+  get customerStatus() {
+    return this.CustomerStatus;
   }
 
-  set CustomerStatus(value) {
-    this._CustomerStatus = value;
+  set customerStatus(value) {
+    this.CustomerStatus = value;
   }
 
-  get CycleUpdatedDate() {
-    return this._CycleUpdatedDate;
+  get cycleUpdatedDate() {
+    return this.CycleUpdatedDate;
   }
 
-  set CycleUpdatedDate(value) {
-    this._CycleUpdatedDate = value;
+  set cycleUpdatedDate(value) {
+    this.CycleUpdatedDate = value;
   }
 
-  get DriverLicenceApprovedState() {
-    return this._DriverLicenceApprovedState;
+  get driverLicenceApprovedState() {
+    return this.DriverLicenceApprovedState;
   }
 
-  set DriverLicenceApprovedState(value) {
-    this._DriverLicenceApprovedState = value;
+  set driverLicenceApprovedState(value) {
+    this.DriverLicenceApprovedState = value;
   }
 
-  get DriverLicenceExpirationDate() {
-    return this._DriverLicenceExpirationDate;
+  get driverLicenceExpirationDate() {
+    return this.DriverLicenceExpirationDate;
   }
 
-  set DriverLicenceExpirationDate(value) {
-    this._DriverLicenceExpirationDate = value;
+  set driverLicenceExpirationDate(value) {
+    this.DriverLicenceExpirationDate = value;
   }
 
-  get DriverLicenceNumber() {
-    return this._DriverLicenceNumber;
+  get driverLicenceNumber() {
+    return this.DriverLicenceNumber;
   }
 
-  set DriverLicenceNumber(value) {
-    this._DriverLicenceNumber = value;
+  set driverLicenceNumber(value) {
+    this.DriverLicenceNumber = value;
   }
 
-  get EnrollmentNumber() {
-    return this._EnrollmentNumber;
+  get enrollmentNumber() {
+    return this.EnrollmentNumber;
   }
 
-  set EnrollmentNumber(value) {
-    this._EnrollmentNumber = value;
+  set enrollmentNumber(value) {
+    this.EnrollmentNumber = value;
   }
 
-  get FeaturesCode() {
-    return this._FeaturesCode;
+  get featuresCode() {
+    return this.FeaturesCode;
   }
 
-  set FeaturesCode(value) {
-    this._FeaturesCode = value;
+  set featuresCode(value) {
+    this.FeaturesCode = value;
   }
 
-  get InvoiceAmount() {
-    return this._InvoiceAmount;
+  get invoiceAmount() {
+    return this.InvoiceAmount;
   }
 
-  set InvoiceAmount(value) {
-    this._InvoiceAmount = value;
+  set invoiceAmount(value) {
+    this.InvoiceAmount = value;
   }
 
-  get InvoiceAmt() {
-    return this._InvoiceAmt;
+  get invoiceAmt() {
+    return this.InvoiceAmt;
   }
 
-  set InvoiceAmt(value) {
-    this._InvoiceAmt = value;
+  set invoiceAmt(value) {
+    this.InvoiceAmt = value;
   }
 
-  get InvoiceDay() {
-    return this._InvoiceDay;
+  get invoiceDay() {
+    return this.InvoiceDay;
   }
 
-  set InvoiceDay(value) {
-    this._InvoiceDay = value;
+  set invoiceDay(value) {
+    this.InvoiceDay = value;
   }
 
-  get InvoiceIntervalID() {
-    return this._InvoiceIntervalID;
+  get invoiceIntervalID() {
+    return this.InvoiceIntervalID;
   }
 
-  set InvoiceIntervalID(value) {
-    this._InvoiceIntervalID = value;
+  set invoiceIntervalID(value) {
+    this.InvoiceIntervalID = value;
   }
 
-  get IsCreateAccountUserActivity() {
-    return this._IsCreateAccountUserActivity;
+  get isCreateAccountUserActivity() {
+    return this.IsCreateAccountUserActivity;
   }
 
-  set IsCreateAccountUserActivity(value) {
-    this._IsCreateAccountUserActivity = value;
+  set isCreateAccountUserActivity(value) {
+    this.IsCreateAccountUserActivity = value;
   }
 
-  get ISFrequentCaller() {
-    return this._ISFrequentCaller;
+  get iSFrequentCaller() {
+    return this.ISFrequentCaller;
   }
 
-  set ISFrequentCaller(value) {
-    this._ISFrequentCaller = value;
+  set iSFrequentCaller(value) {
+    this.ISFrequentCaller = value;
   }
 
-  get IsHearingImpirement() {
-    return this._IsHearingImpirement;
+  get isHearingImpirement() {
+    return this.IsHearingImpirement;
   }
 
-  set IsHearingImpirement(value) {
-    this._IsHearingImpirement = value;
+  set isHearingImpirement(value) {
+    this.IsHearingImpirement = value;
   }
 
-  get IsManualHold() {
-    return this._IsManualHold;
+  get isManualHold() {
+    return this.IsManualHold;
   }
 
-  set IsManualHold(value) {
-    this._IsManualHold = value;
+  set isManualHold(value) {
+    this.IsManualHold = value;
   }
 
-  get IsNotificationsEnabled() {
-    return this._IsNotificationsEnabled;
+  get isNotificationsEnabled() {
+    return this.IsNotificationsEnabled;
   }
 
-  set IsNotificationsEnabled(value) {
-    this._IsNotificationsEnabled = value;
+  set isNotificationsEnabled(value) {
+    this.IsNotificationsEnabled = value;
   }
 
-  get IsPostPaidCustomer() {
-    return this._IsPostPaidCustomer;
+  get isPostPaidCustomer() {
+    return this.IsPostPaidCustomer;
   }
 
-  set IsPostPaidCustomer(value) {
-    this._IsPostPaidCustomer = value;
+  set isPostPaidCustomer(value) {
+    this.IsPostPaidCustomer = value;
   }
 
-  get IsSplitCustomer() {
-    return this._IsSplitCustomer;
+  get isSplitCustomer() {
+    return this.IsSplitCustomer;
   }
 
-  set IsSplitCustomer(value) {
-    this._IsSplitCustomer = value;
+  set isSplitCustomer(value) {
+    this.IsSplitCustomer = value;
   }
 
-  get IsSupervisor() {
-    return this._IsSupervisor;
+  get isSupervisor() {
+    return this.IsSupervisor;
   }
 
-  set IsSupervisor(value) {
-    this._IsSupervisor = value;
+  set isSupervisor(value) {
+    this.IsSupervisor = value;
   }
 
-  get IsTagInStatusFile() {
-    return this._IsTagInStatusFile;
+  get isTagInStatusFile() {
+    return this.IsTagInStatusFile;
   }
 
-  set IsTagInStatusFile(value) {
-    this._IsTagInStatusFile = value;
+  set isTagInStatusFile(value) {
+    this.IsTagInStatusFile = value;
   }
 
-  get IsTagRequired() {
-    return this._IsTagRequired;
+  get isTagRequired() {
+    return this.IsTagRequired;
   }
 
-  set IsTagRequired(value) {
-    this._IsTagRequired = value;
+  set isTagRequired(value) {
+    this.IsTagRequired = value;
   }
 
-  get KeyValue() {
-    return this._KeyValue;
+  get keyValue() {
+    return this.KeyValue;
   }
 
-  set KeyValue(value) {
-    this._KeyValue = value;
+  set keyValue(value) {
+    this.KeyValue = value;
   }
 
-  get LoginId() {
-    return this._LoginId;
+  get loginId() {
+    return this.LoginId;
   }
 
-  set LoginId(value) {
-    this._LoginId = value;
+  set loginId(value) {
+    this.LoginId = value;
   }
 
-  get MembershipType() {
-    return this._MembershipType;
+  get membershipType() {
+    return this.MembershipType;
   }
 
-  set MembershipType(value) {
-    this._MembershipType = value;
+  set membershipType(value) {
+    this.MembershipType = value;
   }
 
-  get NextRunDate() {
-    return this._NextRunDate;
+  get nextRunDate() {
+    return this.NextRunDate;
   }
 
-  set NextRunDate(value) {
-    this._NextRunDate = value;
+  set nextRunDate(value) {
+    this.NextRunDate = value;
   }
 
-  get OrganizationName() {
-    return this._OrganizationName;
+  get organizationName() {
+    return this.OrganizationName;
   }
 
-  set OrganizationName(value) {
-    this._OrganizationName = value;
+  set organizationName(value) {
+    this.OrganizationName = value;
   }
 
-  get ParentId() {
-    return this._ParentId;
+  get parentId() {
+    return this.ParentId;
   }
 
-  set ParentId(value) {
-    this._ParentId = value;
+  set parentId(value) {
+    this.ParentId = value;
   }
 
-  get ParentPaln() {
-    return this._ParentPaln;
+  get parentPaln() {
+    return this.ParentPaln;
   }
 
-  set ParentPaln(value) {
-    this._ParentPaln = value;
+  set parentPaln(value) {
+    this.ParentPaln = value;
   }
 
-  get PerformBy() {
-    return this._PerformBy;
+  get performBy() {
+    return this.PerformBy;
   }
 
-  set PerformBy(value) {
-    this._PerformBy = value;
+  set performBy(value) {
+    this.PerformBy = value;
   }
 
-  get Pin() {
-    return this._Pin;
+  get pin() {
+    return this.Pin;
   }
 
-  set Pin(value) {
-    this._Pin = value;
+  set pin(value) {
+    this.Pin = value;
   }
 
-  get PlanDescription() {
-    return this._PlanDescription;
+  get planDescription() {
+    return this.PlanDescription;
   }
 
-  set PlanDescription(value) {
-    this._PlanDescription = value;
+  set planDescription(value) {
+    this.PlanDescription = value;
   }
 
-  get PlanId() {
-    return this._PlanId;
+  get planId() {
+    return this.PlanId;
   }
 
-  set PlanId(value) {
-    this._PlanId = value;
+  set planId(value) {
+    this.PlanId = value;
   }
 
-  get PreferedLanguange() {
-    return this._PreferedLanguange;
+  get preferedLanguange() {
+    return this.PreferedLanguange;
   }
 
-  set PreferedLanguange(value) {
-    this._PreferedLanguange = value;
+  set preferedLanguange(value) {
+    this.PreferedLanguange = value;
   }
 
-  get PreferredShipment() {
-    return this._PreferredShipment;
+  get preferredShipment() {
+    return this.PreferredShipment;
   }
 
-  set PreferredShipment(value) {
-    this._PreferredShipment = value;
+  set preferredShipment(value) {
+    this.PreferredShipment = value;
   }
 
-  get PreviousRunDate() {
-    return this._PreviousRunDate;
+  get previousRunDate() {
+    return this.PreviousRunDate;
   }
 
-  set PreviousRunDate(value) {
-    this._PreviousRunDate = value;
+  set previousRunDate(value) {
+    this.PreviousRunDate = value;
   }
 
-  get Rebill_Hold_EndEffectiveDate() {
-    return this._Rebill_Hold_EndEffectiveDate;
+  get rebill_Hold_EndEffectiveDate(){
+    return this.Rebill_Hold_EndEffectiveDate;
   }
-
-  set Rebill_Hold_EndEffectiveDate(value) {
-    this._Rebill_Hold_EndEffectiveDate = value;
+  set rebill_Hold_EndEffectiveDate(value){
+    this.Rebill_Hold_EndEffectiveDate=value;
   }
-
-  get Rebill_Hold_StartEffectiveDate() {
-    return this._Rebill_Hold_StartEffectiveDate;
+  get rebill_Hold_StartEffectiveDate(){
+    return this. Rebill_Hold_StartEffectiveDate;
   }
-
-  set Rebill_Hold_StartEffectiveDate(value) {
-    this._Rebill_Hold_StartEffectiveDate = value;
+  set rebill_Hold_StartEffectiveDate(value){
+    this.Rebill_Hold_StartEffectiveDate=value;
   }
-
-  get ReferalBalance() {
-    return this._ReferalBalance;
+  get referalBalance() {
+    return this.ReferalBalance;
   }
 
-  set ReferalBalance(value) {
-    this._ReferalBalance = value;
+  set referalBalance(value) {
+    this.ReferalBalance = value;
   }
 
-  get ReferralCustomerId() {
-    return this._ReferralCustomerId;
+  get referralCustomerId() {
+    return this.ReferralCustomerId;
   }
 
-  set ReferralCustomerId(value) {
-    this._ReferralCustomerId = value;
+  set referralCustomerId(value) {
+    this.ReferralCustomerId = value;
   }
 
-  get RefIndicator() {
-    return this._RefIndicator;
+  get refIndicator() {
+    return this.RefIndicator;
   }
 
-  set RefIndicator(value) {
-    this._RefIndicator = value;
+  set refIndicator(value) {
+    this.RefIndicator = value;
   }
 
-  get RefPkId() {
-    return this._RefPkId;
+  get refPkId() {
+    return this.RefPkId;
   }
 
-  set RefPkId(value) {
-    this._RefPkId = value;
+  set refPkId(value) {
+    this.RefPkId = value;
   }
 
-  get RequestDate() {
-    return this._RequestDate;
+  get requestDate() {
+    return this.RequestDate;
   }
 
-  set RequestDate(value) {
-    this._RequestDate = value;
+  set requestDate(value) {
+    this.RequestDate = value;
   }
 
-  get RequestStatus() {
-    return this._RequestStatus;
+  get requestStatus() {
+    return this.RequestStatus;
   }
 
-  set RequestStatus(value) {
-    this._RequestStatus = value;
+  set requestStatus(value) {
+    this.RequestStatus = value;
   }
 
-  get RevenueCategory() {
-    return this._RevenueCategory;
+  get revenueCategory() {
+    return this.RevenueCategory;
   }
 
-  set RevenueCategory(value) {
-    this._RevenueCategory = value;
+  set revenueCategory(value) {
+    this.RevenueCategory = value;
   }
 
-  get SecurityQuestionsAndAnswers() {
-    return this._SecurityQuestionsAndAnswers;
+  get securityQuestionsAndAnswers() {
+    return this.SecurityQuestionsAndAnswers;
   }
 
-  set SecurityQuestionsAndAnswers(value) {
-    this._SecurityQuestionsAndAnswers = value;
+  set securityQuestionsAndAnswers(value) {
+    this.SecurityQuestionsAndAnswers = value;
   }
 
-  get SourceOfChannel() {
-    return this._SourceOfChannel;
+  get sourceOfChannel() {
+    return this.SourceOfChannel;
   }
 
-  set SourceOfChannel(value) {
-    this._SourceOfChannel = value;
+  set sourceOfChannel(value) {
+    this.SourceOfChannel = value;
   }
 
-  get StatementCycle() {
-    return this._StatementCycle;
+  get statementCycle() {
+    return this.StatementCycle;
   }
 
-  set StatementCycle(value) {
-    this._StatementCycle = value;
+  set statementCycle(value) {
+    this.StatementCycle = value;
   }
 
-  get StatementDelivery() {
-    return this._StatementDelivery;
+  get statementDelivery() {
+    return this.StatementDelivery;
   }
 
-  set StatementDelivery(value) {
-    this._StatementDelivery = value;
+  set statementDelivery(value) {
+    this.StatementDelivery = value;
   }
 
-  get SubSystem() {
-    return this._SubSystem;
+  get subSystem() {
+    return this.SubSystem;
   }
 
-  set SubSystem(value) {
-    this._SubSystem = value;
+  set subSystem(value) {
+    this.SubSystem = value;
   }
 
-  get TemplateType() {
-    return this._TemplateType;
+  get templateType() {
+    return this.TemplateType;
   }
 
-  set TemplateType(value) {
-    this._TemplateType = value;
+  set templateType(value) {
+    this.TemplateType = value;
   }
 
-  get ThresholdAmount() {
-    return this._ThresholdAmount;
+  get thresholdAmount() {
+    return this.ThresholdAmount;
   }
 
-  set ThresholdAmount(value) {
-    this._ThresholdAmount = value;
+  set thresholdAmount(value) {
+    this.ThresholdAmount = value;
   }
 
-  get TranponderPurchasemethod() {
-    return this._TranponderPurchasemethod;
+  get tranponderPurchasemethod() {
+    return this.TranponderPurchasemethod;
   }
 
-  set TranponderPurchasemethod(value) {
-    this._TranponderPurchasemethod = value;
+  set tranponderPurchasemethod(value) {
+    this.TranponderPurchasemethod = value;
   }
 
-  get UpdatedUser() {
-    return this._UpdatedUser;
+  get updatedUser() {
+    return this.UpdatedUser;
   }
 
-  set UpdatedUser(value) {
-    this._UpdatedUser = value;
+  set updatedUser(value) {
+    this.UpdatedUser = value;
   }
 
-  get User() {
-    return this._User;
+  get user() {
+    return this.User;
   }
 
-  set User(value) {
-    this._User = value;
+  set user(value) {
+    this.User = value;
   }
 
-  get UserId() {
-    return this._UserId;
+  get userId() {
+    return this.UserId;
   }
 
-  set UserId(value) {
-    this._UserId = value;
+  set userId(value) {
+    this.UserId = value;
   }
 
-  get UserType() {
-    return this._UserType;
+  get userType(){
+    return this.UserType;
   }
-
-  set UserType(value) {
-    this._UserType = value;
+  set userType(value){
+    this.UserType=value;
   }
 }

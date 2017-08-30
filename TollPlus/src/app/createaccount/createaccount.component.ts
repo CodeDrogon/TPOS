@@ -9,6 +9,7 @@ import {Address} from '../pojo/address';
 import {KYCDocument} from '../pojo/kycdocument';
 import {Phone} from '../pojo/phone';
 import {Vehicle} from '../pojo/Vehicle';
+import {CustomValidator} from 'app/services/common/custom-validator';
 import {AdditionalInformation} from "../pojo/AdditionalInformation";
 declare var populateCountries: any;
 declare var businessCustomerTooltip: any;
@@ -139,11 +140,11 @@ export class CreateaccountComponent implements OnInit {
       date_Of_Birth: new FormControl(''),
       primary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
       secondary_Email: new FormControl('', Validators.compose([CreateaccountComponent.emailValidator])),
-      day_Phone_Number: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
-      eveningPhone: new FormControl('', Validators.compose([CreateaccountComponent.validatePhoneNumber])),
-      mobile_Phone_Number: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
-      workPhone: new FormControl('', Validators.compose([CreateaccountComponent.validatePhoneNumber])),
-      fax: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.validatePhoneNumber])),
+      day_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      eveningPhone: new FormControl('', Validators.compose([CustomValidator.validatePhoneNumber])),
+      mobile_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      workPhone: new FormControl('', Validators.compose([CustomValidator.validatePhoneNumber])),
+      fax: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       ext: new FormControl(''),
       country: new FormControl('', Validators.required),
       city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
@@ -439,6 +440,12 @@ export class CreateaccountComponent implements OnInit {
   editVehicle= function(editableVehicleObj) {
     debugger;
     this.getStatesForDialogue(editableVehicleObj.Country);
+    const editVehicleStartDate = new Date(editableVehicleObj.StartEffectiveDate);
+    /*alert('editableVehicleObj.StartEffectiveDate ' + editVehicleStartDate.toLocaleDateString());
+    alert('editableVehicleObj.StartEffectiveDate ' + editVehicleStartDate.getHours());*/
+    const editVehicleEndDate = new Date(editableVehicleObj.EndEffectiveDate);
+    /*alert('editableVehicleObj.StartEffectiveDate ' + editVehicleEndDate.toLocaleDateString());
+    alert('editableVehicleObj.StartEffectiveDate ' + editVehicleEndDate.getHours());*/
     this.vehicleFormEdit = new FormGroup({
       plateNumber: new FormControl(editableVehicleObj.VehicleNumber, Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       vehicleClass: new FormControl(editableVehicleObj.VehicleClass, Validators.required),
@@ -450,21 +457,21 @@ export class CreateaccountComponent implements OnInit {
       vehicleId: new FormControl(editableVehicleObj.VehicleId),
       ContractType: new FormControl(editableVehicleObj.ContractType),
       registeredState: new FormControl(editableVehicleObj.State, Validators.required),
-      startEffectiveDate: new FormControl(editableVehicleObj._startEffectiveDate),
-      startDateHours: new FormControl(editableVehicleObj._startDateHours),
-      startDateMins: new FormControl(editableVehicleObj._startDateMins),
-      startDateSecs: new FormControl(editableVehicleObj._startDateSecs),
-      endEffectiveDate: new FormControl(editableVehicleObj._endEffectiveDate),
-      endDateHours: new FormControl(editableVehicleObj._endDateHours),
-      endDateMins: new FormControl(editableVehicleObj._endDateMins),
-      endDateSecs: new FormControl(editableVehicleObj._endDateSecs),
-      description: new FormControl(editableVehicleObj._description),
+      startEffectiveDate: new FormControl(editVehicleStartDate.toLocaleDateString()),
+      startDateHours: new FormControl(editVehicleStartDate.getHours()),
+      startDateMins: new FormControl(editVehicleStartDate.getMinutes()),
+      startDateSecs: new FormControl(editVehicleStartDate.getSeconds()),
+      endEffectiveDate: new FormControl(editVehicleEndDate.toLocaleDateString()),
+      endDateHours: new FormControl(editVehicleEndDate.getHours()),
+      endDateMins: new FormControl(editVehicleEndDate.getMinutes()),
+      endDateSecs: new FormControl(editVehicleEndDate.getSeconds()),
+      description: new FormControl(editableVehicleObj.Description),
       isTemporaryLicencePlateNumber: new FormControl(editableVehicleObj._isTemporaryLicencePlateNumber),
     });
 
-    const startDate = this.vehicleFormEdit.controls['startEffectiveDate'].value;
+ /*   const startDate = this.vehicleFormEdit.controls['startEffectiveDate'].value;
 
-    $('#startEffectiveDate').val(startDate);
+    $('#startEffectiveDate').val(startDate);*/
     /*$("#vehicleClass").val(this.vehicleClassDropdowns[1].value);
 
 
@@ -476,7 +483,7 @@ export class CreateaccountComponent implements OnInit {
   loadDropDown= function () {
 
     $('#vehicleClass').val('Class1');
-    alert($('#vehicleClass').val());
+    /*alert($('#vehicleClass').val());*/
   }
   savePersonal= function(customerInfo){
     let primaryEmailIsPrefd = false;
@@ -551,31 +558,31 @@ export class CreateaccountComponent implements OnInit {
     this.account.ConvertToCustomer = false;
     this.account.actionCode = '';
     this.account.featuresCode = '';
-    this.account.keyValue = ''
+    this.account.keyValue = '';
     this.account.user = 'SureIT'; // Logged in user User Name
     this.account.loginId = 0;
-    this.account.activityTypeDescription = ''
-    this.account.checkBlockList = true
-    this.account.kYCStatus = 'Received'
-    this.account.kYCDate = this.getCurrentDate()
+    this.account.activityTypeDescription = '';
+    this.account.checkBlockList = true;
+    this.account.kYCStatus = 'Received';
+    this.account.kYCDate = this.getCurrentDate();
     this.account.kYCRequired = true // false : If it's optional
-    this.account.loginStatus = ''
-    this.account.unPaidAmount = 0
+    this.account.loginStatus = '';
+    this.account.unPaidAmount = 0;
     this.account.planCode = ''
-    this.account.planDescription = ''
-    this.account.parentPlanId = 0
-    this.account.parentPlanCode = ''
-    this.account.parentPlanDescription = ''
-    this.account.enrollmentNumber = ''
-    this.account.isRegistered = false
-    this.account.preloadedAccountId = 0
-    this.account.isCreateAccount = true
-    this.account.isPrimary = false
+    this.account.planDescription = '';
+    this.account.parentPlanId = 0;
+    this.account.parentPlanCode = '';
+    this.account.parentPlanDescription = '';
+    this.account.enrollmentNumber = '';
+    this.account.isRegistered = false;
+    this.account.preloadedAccountId = 0;
+    this.account.isCreateAccount = true;
+    this.account.isPrimary = false;
     this.account.userName = customerInfo.userName;
     this.account.password = customerInfo.passWord;
     this.account.firstName = customerInfo.first_Name;
     this.account.lastName = customerInfo.last_Name;
-    this.account.dOB = this.getCurrentDate(); //$("#date_Of_Birth").val();
+    this.account.dOB = this.convertStringDateToNumberString($('#date_Of_Birth').val(), 0, 0, 0); // $("#date_Of_Birth").val();
     this.account.gender = customerInfo.gender;
     this.account.suffix = customerInfo.suffix;
     this.account.title = customerInfo.title;
@@ -704,7 +711,7 @@ export class CreateaccountComponent implements OnInit {
         alert(resObj.ResultValue);
 
       }else{
-        sessionStorage.setItem("CustomerId",resObj.ResultValue);
+        sessionStorage.setItem('CustomerId', resObj.ResultValue);
         alert(' Customer  Successfully Registered ');
       }
 
@@ -726,6 +733,12 @@ export class CreateaccountComponent implements OnInit {
       console.log('response ' + resObj);
 
     });
+  }
+  updateUser= function(updatedUserInfo){
+    console.log('userinfor ' + JSON.stringify(updatedUserInfo));
+    this.lengthForVehiclePagination = updatedUserInfo.indexNumber;
+    this.saveVehicle(updatedUserInfo);
+
   }
 
 
@@ -988,7 +1001,9 @@ export class CreateaccountComponent implements OnInit {
   }
 
   getCurrentDate= function () {
-    return '\/Date(1245398693390)\/';
+    console.log('Date   ' + '\/Date(' + Date.now() + ')\/');
+    return '\/Date(' + Date.now() + ')\/';
+
   }
   validateUserName= function () {
     const userName = $('#userName').val();
@@ -1037,27 +1052,7 @@ export class CreateaccountComponent implements OnInit {
     }
   }
 
-  static validatePhoneNumber(control) {
 
-    /* if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
-     return null;
-     } else {
-     return { 'invalidEmailAddress': true };
-     }*/
-    //validate phone numbers of format "1234567890"
-    if (control.value.match('\\d{10}')){return null; }
-    //validating phone number with -, . or spaces
-    else if (control.value.match('\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}')){return null; }
-    //validating phone number with extension length from 3 to 5
-    else if (control.value.match('\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}')) {return null; }
-    //validating phone number where area code is in braces ()
-    else if (control.value.match('\\(\\d{3}\\) \\d{3}-\\d{4}')) {return null; }
-    //return false if nothing matches the input
-    else {
-      return {'invalidPhoneNumber': true};
-    }
-
-  }
 
 //vehicle dropdown functions starts here
   getVehicleClassDropdown= function () {
@@ -1069,12 +1064,12 @@ export class CreateaccountComponent implements OnInit {
   }
 
   getVehicleYearDropdown= function () {
-    const currentDate = (new Date()).getFullYear();
-    var count = 1900;
-    for (let i = 0; i <= currentDate; i++) {
+    const currentYear = (new Date()).getFullYear();
+    let count = 1900;
+    for (let i = 0; i <= currentYear; i++) {
       this.vehicleYearDropdown[i] = count;
       count++;
-      if (count > currentDate) {
+      if (count > currentYear) {
         break;
       }
     }
@@ -1217,9 +1212,10 @@ export class CreateaccountComponent implements OnInit {
   }
 
   saveVehicle= function (vehicleInfo) {
+    debugger
     console.log('vehicle information  '+JSON.stringify(vehicleInfo));
     const tempJsonObj = JSON.stringify(vehicleInfo);
-    let tempVehicleObj = this.setVehicleArrayObject();
+    let tempVehicleObj = this.setVehicleArrayObject(vehicleInfo);
     tempVehicleObj=this.setVehicleObjectWithDynamicValues(tempVehicleObj,vehicleInfo);
     tempVehicleObj.accountId="10002999";
     tempVehicleObj.contractType="Leased";
@@ -1240,7 +1236,7 @@ export class CreateaccountComponent implements OnInit {
 
     const tempJsonObj = JSON.stringify(vehicleInfo);
     let tempVehicleObj = this.setVehicleArrayObject();
-    tempVehicleObj=this.setVehicleObjectWithDynamicValues(tempVehicleObj,vehicleInfo);
+    tempVehicleObj=this.setVehicleObjectWithDynamicValuesForUpdateVehicle(tempVehicleObj,vehicleInfo);
     tempVehicleObj.accountId="10002999";
       tempVehicleObj.vehicleId=this.vehicleFormEdit.value.vehicleId;
       tempVehicleObj.contractType=this.vehicleFormEdit.value.ContractType;
@@ -1315,6 +1311,7 @@ export class CreateaccountComponent implements OnInit {
   }
   getVehicles=function () {
       let tempVehicleObj = this.setVehicleArrayObject();
+      debugger;
     tempVehicleObj.accountId="10002999";
     tempVehicleObj.contractType="";
     tempVehicleObj.vehicleId="0";
@@ -1324,17 +1321,31 @@ export class CreateaccountComponent implements OnInit {
     console.log('actual Obj '+JSON.stringify(tempVehicleObj));
     this.utilityService.vehicleOperation('PostGet/?enumModuleType=Customer&enumActivityType=ActiveVehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
-      //alert(resObj.ResultValue[0].VehicleId);
-      //alert(resObj.ResultValue[0].VehicleNumber);
-      this.vehicleArray=resObj.ResultValue;
+      // alert(resObj.ResultValue[0].VehicleId);
+      // alert(resObj.ResultValue[0].VehicleNumber);
+      this.vehicleArray = resObj.ResultValue;
+      for (let i = 0; i < this.vehicleArray.length; i++) {
+        if (this.vehicleArray[i].StartEffectiveDate != null){
+//          alert(this.vehicleArray[i].StartEffectiveDate);
+          this.vehicleArray[i].StartEffectiveDate = this.convertNumberOfMilliSecsToDate(this.vehicleArray[i].StartEffectiveDate.split('+')[0].replace('/Date(', ''));
+        }
+        if (this.vehicleArray[i].EndEffectiveDate != null) {
+         // alert(this.vehicleArray[i].EndEffectiveDate);
+          this.vehicleArray[i].EndEffectiveDate = this.convertNumberOfMilliSecsToDate(this.vehicleArray[i].EndEffectiveDate.split('+')[0].replace('/Date(', ''));
+         // alert(this.vehicleArray[i].EndEffectiveDate);
+        }
+      }
+      console.log("this.vehicleArray length " + this.vehicleArray.length)
     })
   }
+
+
+
+
   setVehicleArrayObject= function () {
     const tempVehicle = new Vehicle();
+    debugger;
     tempVehicle.checkBlockList="true";
-    tempVehicle.currentDateTime=this.getCurrentDate();
-    tempVehicle.deactivatedDate=this.getCurrentDate();
-    tempVehicle.endEffectiveDate=this.getCurrentDate();
     tempVehicle.filePath="null";
     tempVehicle.isExempted="false";
     tempVehicle.isProtected="false";
@@ -1349,7 +1360,7 @@ export class CreateaccountComponent implements OnInit {
     tempVehicle.sortColumn="null";
     tempVehicle.sortDirection="false";
     tempVehicle.source="null";
-    tempVehicle.startEffectiveDate=this.getCurrentDate();
+    // tempVehicle.startEffectiveDate=this.getCurrentDate();
     tempVehicle.systemUserActivityInd="true";
     tempVehicle.tagSerialNum="null";
     tempVehicle.tagType="null";
@@ -1375,89 +1386,260 @@ export class CreateaccountComponent implements OnInit {
     }
   }
 
-  setVehicleObjectWithDynamicValues=function (vehicleWholeObject,vehicleFormObj) {
-    vehicleWholeObject.color=vehicleFormObj.vehicle_Color;
-    vehicleWholeObject.country=vehicleFormObj.registered_Country;
-    vehicleWholeObject.make=vehicleFormObj.vehicle_Make;
-    vehicleWholeObject.model=vehicleFormObj.vehicle_Model;
-    vehicleWholeObject.state=vehicleFormObj.registeredState;
-    vehicleWholeObject.vehicleClass=vehicleFormObj.vehicleClass;
-    vehicleWholeObject.vehicleNumber=vehicleFormObj.plateNumber;
-    vehicleWholeObject.year=vehicleFormObj.vehicle_Year;
+  setVehicleObjectWithDynamicValues= function (vehicleWholeObject, vehicleFormObj) {
+    debugger;
+    vehicleWholeObject.color = vehicleFormObj.vehicle_Color;
+    vehicleWholeObject.country = vehicleFormObj.registered_Country;
+    vehicleWholeObject.make = vehicleFormObj.vehicle_Make;
+    vehicleWholeObject.model = vehicleFormObj.vehicle_Model;
+    vehicleWholeObject.state = vehicleFormObj.registeredState;
+    vehicleWholeObject.vehicleClass = vehicleFormObj.vehicleClass;
+    vehicleWholeObject.vehicleNumber = vehicleFormObj.plateNumber;
+    vehicleWholeObject.year = vehicleFormObj.vehicle_Year;
+    debugger;
+    console.log('start date value ' + $('#startEffectiveDate').val());
+    console.log('passing start date' + this.convertStringDateToNumberString($('#startEffectiveDate').val(),
+        vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
+    vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#startEffectiveDate').val(),
+      vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
+    // alert('dynamic start date ' + vehicleWholeObject.startEffectiveDate.toLocaleString());
+    console.log('passing start date' + this.convertStringDateToNumberString($('#endEffectiveDate').val(),
+        vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
+    vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#endEffectiveDate').val(),
+      vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
+    // alert('dynamic end date ' + vehicleWholeObject.endEffectiveDate.toLocaleString());
+    return vehicleWholeObject;
+  }
+
+  setVehicleObjectWithDynamicValuesForUpdateVehicle= function (vehicleWholeObject, vehicleFormObj) {
+    debugger;
+    vehicleWholeObject.color = vehicleFormObj.vehicle_Color;
+    vehicleWholeObject.country = vehicleFormObj.registered_Country;
+    vehicleWholeObject.make = vehicleFormObj.vehicle_Make;
+    vehicleWholeObject.model = vehicleFormObj.vehicle_Model;
+    vehicleWholeObject.state = vehicleFormObj.registeredState;
+    vehicleWholeObject.vehicleClass = vehicleFormObj.vehicleClass;
+    vehicleWholeObject.vehicleNumber = vehicleFormObj.plateNumber;
+    vehicleWholeObject.year = vehicleFormObj.vehicle_Year;
+    debugger;
+    console.log('start date value ' + $('#start_Effective_Date').val());
+    console.log('passing start date' + this.convertStringDateToNumberString($('#start_Effective_Date').val(),
+        vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
+    vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#start_Effective_Date').val(),
+      vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
+    console.log('passing start date' + this.convertStringDateToNumberString($('#end_Effective_Date').val(),
+        vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
+    vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#end_Effective_Date').val(),
+      vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
+
     return vehicleWholeObject;
   }
 
 
 
   saveAdditionalInformation = function(additionalInformationObj){
+    debugger;
     const  additionalInfoObj = new  AdditionalInformation();
-    additionalInfoObj.AccountAdjustments=null;
-    additionalInfoObj.AccountId=10257609;
-    additionalInfoObj.AccountType=null;
-    additionalInfoObj.ActionCode=null;
-    additionalInfoObj.ActivitySource="Internal";
-    additionalInfoObj.ActivityTypeDescription=null;
-    additionalInfoObj.AutoReplenishmentType=null;
-    additionalInfoObj.AutoReplenishmentTypeDesc=null;
-    additionalInfoObj.CalculatedReBillAmount=0;
-    additionalInfoObj.CheckBlockList=true;
-    additionalInfoObj.CustomerStatus="C";
-    additionalInfoObj.CycleUpdatedDate="\/Date(1245398693390)\/";
-    additionalInfoObj.DriverLicenceApprovedState=null;
-    additionalInfoObj.DriverLicenceExpirationDate="\/Date(1245398693390)\/";
-    additionalInfoObj.DriverLicenceNumber=null;
-    additionalInfoObj.EnrollmentNumber=null;
-    additionalInfoObj.FeaturesCode=null;
-    additionalInfoObj.InvoiceAmount=0;
-    additionalInfoObj.InvoiceAmt=null;
-    additionalInfoObj.InvoiceDay="0";
-    additionalInfoObj.InvoiceIntervalID=4;
-    additionalInfoObj.IsCreateAccountUserActivity=true;
-    additionalInfoObj.ISFrequentCaller=false;
-    additionalInfoObj.IsHearingImpirement=false;
-    additionalInfoObj.IsManualHold=false;
-    additionalInfoObj.IsNotificationsEnabled=false;
-    additionalInfoObj.IsPostPaidCustomer=false;
-    additionalInfoObj.IsSplitCustomer=false;
-    additionalInfoObj.IsSupervisor=false;
-    additionalInfoObj.IsTagInStatusFile=false;
-    additionalInfoObj.IsTagRequired=false;
-    additionalInfoObj.KeyValue=null;
-    additionalInfoObj.LoginId=610908;
-    additionalInfoObj.MembershipType="Prepaid";
-    additionalInfoObj.NextRunDate="\/Date(1245398693390)\/";
-    additionalInfoObj.OrganizationName=null;
-    additionalInfoObj.ParentId=0;
-    additionalInfoObj.ParentPaln="POSTPAID";
-    additionalInfoObj.PerformBy=null;
-    additionalInfoObj.Pin="KTjHdPPlm4XJg/LNVxKRwg==";
-    additionalInfoObj.PlanDescription=null;
-    additionalInfoObj.PlanId=0;
-    additionalInfoObj.PreferedLanguange="English";
-    additionalInfoObj.PreferredShipment="ShippedFull";
-    additionalInfoObj.PreviousRunDate="\/Date(1245398693390)\/";
-    additionalInfoObj.Rebill_Hold_EndEffectiveDate="\/Date(1245398693390)\/";
-    additionalInfoObj.Rebill_Hold_StartEffectiveDate="\/Date(1245398693390)\/";
-    additionalInfoObj.ReferalBalance=0;
-    additionalInfoObj.ReferralCustomerId=0;
-    additionalInfoObj.RefIndicator=0;
-    additionalInfoObj.RefPkId=0;
-    additionalInfoObj.RequestDate="\/Date(1245398693390)\/";
-    additionalInfoObj.RequestStatus="Pending";
-    additionalInfoObj.RevenueCategory="Revenue";
-    additionalInfoObj.SecurityQuestionsAndAnswers=null;
-    additionalInfoObj.SourceOfChannel="T";
-    additionalInfoObj.StatementCycle=null;
-    additionalInfoObj.StatementDelivery="Email";
-    additionalInfoObj.SubSystem="CSC";
-    additionalInfoObj.TemplateType=null;
-    additionalInfoObj.ThresholdAmount=0;
-    additionalInfoObj.TranponderPurchasemethod=null;
-    additionalInfoObj.UpdatedUser="tpsuperuser";
-    additionalInfoObj.User=null;
-    additionalInfoObj.UserId=10000001;
-    additionalInfoObj.UserType="NonCustomer";
+    additionalInfoObj.accountId=10002999; //additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.accountType= "null";
+    additionalInfoObj.actionCode= "null";
+    additionalInfoObj.activitySource = 710;
+    additionalInfoObj.activityTypeDescription= "null";
+    additionalInfoObj.autoReplenishmentType= "null";
+    additionalInfoObj.autoReplenishmentTypeDesc= "null";
+    additionalInfoObj.calculatedReBillAmount="0";
+    additionalInfoObj.customerStatus=13;
+    additionalInfoObj.checkBlockList="true";
+    additionalInfoObj.cycleUpdatedDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.driverLicenceApprovedState= "null";
+    additionalInfoObj.driverLicenceExpirationDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.driverLicenceNumber= "null";
+    additionalInfoObj.enrollmentNumber= "null";
+    additionalInfoObj.featuresCode= "null";
+    additionalInfoObj.invoiceAmount= "0";
+    additionalInfoObj.invoiceAmt= "null";
+    additionalInfoObj.invoiceDay= "0";
+    additionalInfoObj.invoiceIntervalID= "4";
+    additionalInfoObj.isCreateAccountUserActivity= "true";
+    additionalInfoObj.iSFrequentCaller= "false";
+    additionalInfoObj.isHearingImpirement= "false";
+    additionalInfoObj.isManualHold= "false";
+    additionalInfoObj.isNotificationsEnabled= "false";
+    additionalInfoObj.isPostPaidCustomer= "false";
+    additionalInfoObj.isSplitCustomer= "false";
+    additionalInfoObj.isSupervisor= "false";
+    additionalInfoObj.isTagInStatusFile= "false";
+    additionalInfoObj.isTagRequired= "false";
+    additionalInfoObj.keyValue= "null";
+    additionalInfoObj.loginId= "610908";
+    additionalInfoObj.membershipType= 82;
+    additionalInfoObj.nextRunDate="\/Date(1245398693390)\/";
+    additionalInfoObj.organizationName= "null";
+    additionalInfoObj.parentId= "0";
+    additionalInfoObj.performBy= "null";
+    additionalInfoObj.pin= "jK4EPin4aSyB+4+WlJWMvQ==";
+    additionalInfoObj.planDescription= "null";
+    additionalInfoObj.planId= "0";
+    additionalInfoObj.preferedLanguange= "English";
+    additionalInfoObj.preferredShipment= 339;
+    additionalInfoObj.previousRunDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.rebill_Hold_EndEffectiveDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.rebill_Hold_StartEffectiveDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.referalBalance= "0";
+    additionalInfoObj.referralCustomerId= additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.refIndicator= "0";
+    additionalInfoObj.refPkId= "0";
+    additionalInfoObj.requestDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.requestStatus= 208;
+    additionalInfoObj.revenueCategory= additionalInformationObj.account_Category;
+    additionalInfoObj.securityQuestionsAndAnswers= "null";
+    additionalInfoObj.sourceOfChannel= additionalInformationObj.howDidYouHearUs;
+    additionalInfoObj.statementCycle= "null";
+    additionalInfoObj.statementDelivery= additionalInformationObj.statement_Delivery_Options;
+    additionalInfoObj.subSystem=803;
+    additionalInfoObj.templateType= "null";
+    additionalInfoObj.thresholdAmount= "0";
+    additionalInfoObj.tranponderPurchasemethod= "null";
+    additionalInfoObj.updatedUser= "tpsuperuser";
+    additionalInfoObj.user= "null";
+    additionalInfoObj.userId= "10000001";
+    additionalInfoObj.userType = 11;
+    console.log('additionalInfoObj '+JSON.stringify(additionalInfoObj));
+    this.utilityService.additionalInformationOperation('PostAddInfo/?enumModuleType=Customer&enumActivityType=AdditionalInformation&longCustomerId=10002999', additionalInfoObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      alert(resObj.ResultValue);
+    })
   }
+
+
+  updateAdditionalInformation = function(additionalInformationObj){
+    debugger;
+    const  additionalInfoObj = new  AdditionalInformation();
+    additionalInfoObj.accountId=10002999; //additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.accountType= "null";
+    additionalInfoObj.actionCode= "null";
+    additionalInfoObj.activitySource = 710;
+    additionalInfoObj.activityTypeDescription= "null";
+    additionalInfoObj.autoReplenishmentType= "null";
+    additionalInfoObj.autoReplenishmentTypeDesc= "null";
+    additionalInfoObj.calculatedReBillAmount="0";
+    additionalInfoObj.customerStatus=13;
+    additionalInfoObj.checkBlockList="true";
+    additionalInfoObj.cycleUpdatedDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.driverLicenceApprovedState= "null";
+    additionalInfoObj.driverLicenceExpirationDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.driverLicenceNumber= "null";
+    additionalInfoObj.enrollmentNumber= "null";
+    additionalInfoObj.featuresCode= "null";
+    additionalInfoObj.invoiceAmount= "0";
+    additionalInfoObj.invoiceAmt= "null";
+    additionalInfoObj.invoiceDay= "0";
+    additionalInfoObj.invoiceIntervalID= "4";
+    additionalInfoObj.isCreateAccountUserActivity= "true";
+    additionalInfoObj.iSFrequentCaller= "false";
+    additionalInfoObj.isHearingImpirement= "false";
+    additionalInfoObj.isManualHold= "false";
+    additionalInfoObj.isNotificationsEnabled= "false";
+    additionalInfoObj.isPostPaidCustomer= "false";
+    additionalInfoObj.isSplitCustomer= "false";
+    additionalInfoObj.isSupervisor= "false";
+    additionalInfoObj.isTagInStatusFile= "false";
+    additionalInfoObj.isTagRequired= "false";
+    additionalInfoObj.keyValue= "null";
+    additionalInfoObj.loginId= "610908";
+    additionalInfoObj.membershipType= 82;
+    additionalInfoObj.nextRunDate="\/Date(1245398693390)\/";
+    additionalInfoObj.organizationName= "null";
+    additionalInfoObj.parentId= "0";
+    additionalInfoObj.performBy= "null";
+    additionalInfoObj.pin= "jK4EPin4aSyB+4+WlJWMvQ==";
+    additionalInfoObj.planDescription= "null";
+    additionalInfoObj.planId= "0";
+    additionalInfoObj.preferedLanguange= "English";
+    additionalInfoObj.preferredShipment= 339;
+    additionalInfoObj.previousRunDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.rebill_Hold_EndEffectiveDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.rebill_Hold_StartEffectiveDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.referalBalance= "0";
+    additionalInfoObj.referralCustomerId= "0";
+    additionalInfoObj.refIndicator= "0";
+    additionalInfoObj.refPkId= "0";
+    additionalInfoObj.requestDate= "\/Date(1245398693390)\/";
+    additionalInfoObj.requestStatus= 208;
+    additionalInfoObj.revenueCategory= additionalInformationObj.account_Category;
+    additionalInfoObj.securityQuestionsAndAnswers= "null";
+    additionalInfoObj.sourceOfChannel= additionalInformationObj.howDidYouHearUs;
+    additionalInfoObj.statementCycle= "null";
+    additionalInfoObj.statementDelivery= additionalInformationObj.statement_Delivery_Options;
+    additionalInfoObj.subSystem=803;
+    additionalInfoObj.templateType= "null";
+    additionalInfoObj.thresholdAmount= "0";
+    additionalInfoObj.tranponderPurchasemethod= "null";
+    additionalInfoObj.updatedUser= "tpsuperuser";
+    additionalInfoObj.user= "null";
+    additionalInfoObj.userId= "10000001";
+    additionalInfoObj.userType = 11;
+    console.log('additionalInfoObj '+JSON.stringify(additionalInfoObj));
+    this.utilityService.additionalInformationOperation('PostUpdateInfo/?enumModuleType=Customer&enumActivityType=UpdateAdditionalInformation&longCustomerId=10002999', additionalInfoObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if(resObj.ResultValue==true){
+        alert("Additional Information Updated Successfully...")
+      }
+
+    })
+  }
+
+clickDate= function(id){
+    debugger;
+    var parts = id.split('/');
+// please put attention to the month (parts[0]), Javascript counts months from 0:
+// January - 0, February - 1, etc
+    var mydate = new Date(parts[2],  parts[1] - 1, parts[0], 18, 54, 0);
+    console.log('parsed date  ' + mydate.getTime());
+    console.log('parsed date1  ' + new Date(mydate.getTime()));
+    console.log('Date now  ' + Date.now());
+    console.log('Date from get time ' + new Date(1504013077297).getDate() );
+    console.log('Date from get time1 ' + new Date(1504013077297).getHours() );
+    console.log('Date from get time2 ' + new Date(1504013077297).getMinutes() );
+    console.log('Date from get time3 ' + new Date(1504013077297).getSeconds() );
+  }
+
+  convertStringDateToNumberString= function(date, hours, mins, secs){
+    debugger;
+    var parts = date.split('/');
+// please put attention to the month (parts[0]), Javascript counts months from 0:
+// January - 0, February - 1, etc
+    console.log('converted string date : ' + new Date(parts[2],  parts[1] - 1, parts[0], hours, mins, secs).getTime());
+    return '\/Date(' + new Date(parts[2],  parts[1] - 1, parts[0], hours, mins, secs).getTime() + ')\/';
+
+  }
+
+  // returns the number of milli seconds as Locale Date. Ex: MM/dd/yyyy format
+  convertNumberOfMilliSecsToLocaleDateString= function (dateInMilliSecs) {
+    debugger;
+    console.log(new Date(dateInMilliSecs).toLocaleDateString());
+    return new Date(dateInMilliSecs).toLocaleDateString();
+  }
+
+  // returns the number of milli seconds as Date object. Ex: Tue Aug 29 2017 18:54:37 GMT+0530 (India Standard Time)
+  // this function can be used to convert
+  convertNumberOfMilliSecsToDate= function (dateInMilliSecs) {
+    debugger;
+    console.log('date in method ' +  parseInt(dateInMilliSecs));
+    console.log(new Date(Date.parse(dateInMilliSecs)));
+    return new Date(parseInt(dateInMilliSecs)).toLocaleString();
+  }
+
+  formatDate= function(date): string {
+    // const dat = (new Date());
+    debugger;
+    console.log('date.getTime() ' + '\/Date(' + date.getTime() + ')\/');
+    console.log('date.now() ' + '\/Date(' + Date.now() + ')\/');
+    return '\/Date(' + date.getTime() + ')\/';
+   /* return date.getMilliseconds();*/
+  }
+
+
 
 }
 
