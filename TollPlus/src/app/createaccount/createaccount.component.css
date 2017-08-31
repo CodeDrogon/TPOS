@@ -343,3 +343,16 @@ ul.breadcrumb li a:hover {
 .glyphicon-trash{
    color: #085db0 !important;
 }
+
+.idProofFileDropColor{
+  margin: auto;
+  height: 100px;
+  border: 2px dotted #0782d0;
+  border-radius: 30px;
+}
+.addressProofFileDropColor{
+  margin: auto;
+  height: 100px;
+  border: 2px dotted #0782d0;
+  border-radius: 30px;
+}

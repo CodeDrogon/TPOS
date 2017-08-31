@@ -88,9 +88,11 @@ export class CreateaccountComponent implements OnInit {
 
   public IdProofDropped(event) {
     this.files = event.files;
+
     //this.idProofFullPath=event.files[0].fileEntry.fullPath;
     this.idProofFullPath = '/pom.xml';
-
+    $(".idProofFileDropColor").css("border"," 2px dotted green");
+    $(".idProofFileDropColor").css("border-radius"," 30px");
     console.log(event.files[0].fileEntry.fullPath);
     /*for (file of event.files) {
      file.fileEntry.file(info => {
@@ -108,6 +110,8 @@ export class CreateaccountComponent implements OnInit {
     this.files = event.files;
     this.addressProofFullPath = event.files[0].fileEntry.fullPath;
     this.idProofFullPath = '/pom.xml';
+    $(".addressProofFileDropColor").css("border"," 2px dotted green");
+    $(".addressProofFileDropColor").css("border-radius"," 30px");
     console.log(this.addressProofFullPath);
   }
 
