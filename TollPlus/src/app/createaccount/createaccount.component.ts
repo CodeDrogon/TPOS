@@ -124,7 +124,7 @@ export class CreateaccountComponent implements OnInit {
     this.getHearAboutUs();
     this.getStatementDelivOption();
     this.getRevenueCategory();
-    this.getVehicles();
+
     const emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
     const emailPattern1 = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)';
 
@@ -135,28 +135,28 @@ export class CreateaccountComponent implements OnInit {
       title: new FormControl(''),
       businessName: new FormControl('', Validators.required),
       suffix: new FormControl(''),
-      middle_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*'), Validators.maxLength(2)])),
+      middle_Name: new FormControl('', Validators.compose([Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
       gender: new FormControl(''),
       date_Of_Birth: new FormControl(''),
       primary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
-      secondary_Email: new FormControl('', Validators.compose([CreateaccountComponent.emailValidator])),
+      secondary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
       day_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      eveningPhone: new FormControl('', Validators.compose([CustomValidator.validatePhoneNumber])),
+      eveningPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       mobile_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      workPhone: new FormControl('', Validators.compose([CustomValidator.validatePhoneNumber])),
+      workPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       fax: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       ext: new FormControl(''),
       country: new FormControl('', Validators.required),
       city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
       zip1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6)])),
-      zip2: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(4)])),
+      zip2: new FormControl(''),
       address1: new FormControl('', Validators.required),
       address2: new FormControl(''),
       idProofType: new FormControl('', Validators.required),
       idProofNo: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       idProofFileDrop: new FormControl(''),
       addressProof: new FormControl('', Validators.required),
-      userName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      userName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       agreeTermsAndConditions: new FormControl('', Validators.required),
       passWord: new FormControl('', Validators.required),
       selectedstate: new FormControl('', Validators.required),
@@ -172,14 +172,14 @@ export class CreateaccountComponent implements OnInit {
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(''),
       howDidYouHearUs: new FormControl(''),
-      statement_Delivery_Options: new FormControl(''),
+      statement_Delivery_Options: new FormControl('', Validators.required),
       account_Category: new FormControl('')
     });
 
 
 
     $(document).ready(function() {
-
+      $('.my-link').bind('click', false);
 
       $('<link>').appendTo('head').attr({type: 'text/css', rel: 'stylesheet', href: './../../assets/datepicker/datepicker.min.css'});
       $.getScript( './../../assets/datepicker/datepicker.min.js' );
@@ -195,21 +195,25 @@ export class CreateaccountComponent implements OnInit {
 
 
       $('.btnNext').click(function(){
+        $('.my-link').unbind('click', false);
         //alert("next "+$('.nav-tabs > .active').next('li').find('a').getAttribute("href"));
         $('.nav-tabs > .active').next('li').find('a').click(function() {
           // 'this' is not a jQuery object, so it will use
           // the default click() function
           this.click();
         }).click();
+        $('.my-link').bind('click', false);
       });
 
       $('.btnPrevious').click(function(){
+        $('.my-link').unbind('click', false);
         //alert("previous "+$('.nav-tabs > .active').prev('li').find('a'));
         $('.nav-tabs > .active').prev('li').find('a').click(function() {
           // 'this' is not a jQuery object, so it will use
           // the default click() function
           this.click();
         }).click();
+        $('.my-link').bind('click', false);
       });
       /*$('#modalDiag').click('on', function (item) {
        alert("click "+item.attributes['data-id'].value);
@@ -582,7 +586,14 @@ export class CreateaccountComponent implements OnInit {
     this.account.password = customerInfo.passWord;
     this.account.firstName = customerInfo.first_Name;
     this.account.lastName = customerInfo.last_Name;
-    this.account.dOB = this.convertStringDateToNumberString($('#date_Of_Birth').val(), 0, 0, 0); // $("#date_Of_Birth").val();
+    debugger;
+    alert('date of birth ' + $('#date_Of_Birth').val());
+    if ($('#date_Of_Birth').val().length != 0) {
+      this.account.dOB = this.convertStringDateToNumberString($('#date_Of_Birth').val(), 0, 0, 0);
+    } else {
+      this.account.dOB = this.getCurrentDate();
+    }
+     // $("#date_Of_Birth").val();
     this.account.gender = customerInfo.gender;
     this.account.suffix = customerInfo.suffix;
     this.account.title = customerInfo.title;
@@ -712,7 +723,15 @@ export class CreateaccountComponent implements OnInit {
 
       }else{
         sessionStorage.setItem('CustomerId', resObj.ResultValue);
-        alert(' Customer  Successfully Registered ');
+        alert(' Customer  Successfully Registered With ID: ' + resObj.ResultValue);
+        $('.my-link').unbind('click', false);
+        $('.nav-tabs > .active').next('li').find('a').click(function () {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+          this.click();
+        }).click();
+        $('.my-link').bind('click', false);
+        this.getVehicles();
       }
 
 
@@ -1037,10 +1056,12 @@ export class CreateaccountComponent implements OnInit {
   static emailValidator(control) {
     // RFC 2822 compliant regex
     ///[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    if(control.value){
     if (control.value.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
       return null;
     } else {
       return { 'invalidEmailAddress': true };
+    }
     }
   }
 
@@ -1134,6 +1155,7 @@ export class CreateaccountComponent implements OnInit {
   }
 
   validateAllFields= function (control) {
+    debugger;
     if (this.user_Form.valid) {
       return null;
     }else {
@@ -1196,7 +1218,7 @@ export class CreateaccountComponent implements OnInit {
       vehicle_Year: new FormControl(''),
       vehicle_Model: new FormControl(''),
       vehicle_Color: new FormControl(''),
-      registered_Country: new FormControl(''),
+      registered_Country: new FormControl('', Validators.required),
       registeredState: new FormControl('', Validators.required),
       startEffectiveDate: new FormControl(''),
       startDateHours: new FormControl(''),
@@ -1217,16 +1239,17 @@ export class CreateaccountComponent implements OnInit {
     const tempJsonObj = JSON.stringify(vehicleInfo);
     let tempVehicleObj = this.setVehicleArrayObject(vehicleInfo);
     tempVehicleObj=this.setVehicleObjectWithDynamicValues(tempVehicleObj,vehicleInfo);
-    tempVehicleObj.accountId="10002999";
+    tempVehicleObj.accountId=sessionStorage.getItem('CustomerId');
     tempVehicleObj.contractType="Leased";
     tempVehicleObj.vehicleId="0";
     tempVehicleObj.FutureClosureDate=null;
     console.log('actual Obj '+JSON.stringify(tempVehicleObj));
-    this.utilityService.vehicleOperation('PostCreate/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
+    this.utilityService.vehicleOperation('PostCreate/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=' + sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if(resObj.ResultValue==true){
         this.getVehicles();
         alert("Vehicle Added Successfully..");
+        this.resetVehicleForm();
       }
     })
     //this.vehicleArray[length] = tempVehicle;
@@ -1237,10 +1260,10 @@ export class CreateaccountComponent implements OnInit {
     const tempJsonObj = JSON.stringify(vehicleInfo);
     let tempVehicleObj = this.setVehicleArrayObject();
     tempVehicleObj=this.setVehicleObjectWithDynamicValuesForUpdateVehicle(tempVehicleObj,vehicleInfo);
-    tempVehicleObj.accountId="10002999";
+    tempVehicleObj.accountId=sessionStorage.getItem('CustomerId');
       tempVehicleObj.vehicleId=this.vehicleFormEdit.value.vehicleId;
       tempVehicleObj.contractType=this.vehicleFormEdit.value.ContractType;
-    this.utilityService.vehicleOperation('PostUpdateVehicle/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
+    this.utilityService.vehicleOperation('PostUpdateVehicle/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId='+sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if(resObj.ResultValue==true){
         this.getVehicles();
@@ -1250,7 +1273,7 @@ export class CreateaccountComponent implements OnInit {
   }
   deleteVehicle=function (vehicleInfo) {
     let deleteObj=new Vehicle();
-    deleteObj.accountId=10002999;
+    deleteObj.accountId=sessionStorage.getItem('CustomerId');
     deleteObj.checkBlockList=true;
     deleteObj.color=vehicleInfo.Color;
     deleteObj.contractType=vehicleInfo.ContractType;
@@ -1299,7 +1322,7 @@ export class CreateaccountComponent implements OnInit {
     var deleteVehicleObj=JSON.stringify(deleteObj);
     debugger;
     console.log("deleteVehicleObj "+deleteVehicleObj);
-    this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId=10002999', deleteVehicleObj)
+    this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId='+ sessionStorage.getItem('CustomerId'), deleteVehicleObj)
       .subscribe(res => {
     const resObj = JSON.parse(res._body);
     if(resObj.ResultValue==true){
@@ -1312,14 +1335,14 @@ export class CreateaccountComponent implements OnInit {
   getVehicles=function () {
       let tempVehicleObj = this.setVehicleArrayObject();
       debugger;
-    tempVehicleObj.accountId="10002999";
+    tempVehicleObj.accountId=sessionStorage.getItem('CustomerId');
     tempVehicleObj.contractType="";
     tempVehicleObj.vehicleId="0";
     tempVehicleObj.pageNumber=1;
     tempVehicleObj.pageSize=10;
     tempVehicleObj.sortColumn= "VEHICLENUMBER";
     console.log('actual Obj '+JSON.stringify(tempVehicleObj));
-    this.utilityService.vehicleOperation('PostGet/?enumModuleType=Customer&enumActivityType=ActiveVehicles&longCustomerId=10002999', tempVehicleObj).subscribe(res => {
+    this.utilityService.vehicleOperation('PostGet/?enumModuleType=Customer&enumActivityType=ActiveVehicles&longCustomerId=' + sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       // alert(resObj.ResultValue[0].VehicleId);
       // alert(resObj.ResultValue[0].VehicleNumber);
@@ -1400,14 +1423,20 @@ export class CreateaccountComponent implements OnInit {
     console.log('start date value ' + $('#startEffectiveDate').val());
     console.log('passing start date' + this.convertStringDateToNumberString($('#startEffectiveDate').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
-    vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#startEffectiveDate').val(),
-      vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
-    // alert('dynamic start date ' + vehicleWholeObject.startEffectiveDate.toLocaleString());
+    if($('#startEffectiveDate').val().length != 0) {
+      vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#startEffectiveDate').val(),
+        vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
+    }else {
+      vehicleWholeObject.startEffectiveDate = this.getCurrentDate();
+    }
     console.log('passing start date' + this.convertStringDateToNumberString($('#endEffectiveDate').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
-    vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#endEffectiveDate').val(),
-      vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
-    // alert('dynamic end date ' + vehicleWholeObject.endEffectiveDate.toLocaleString());
+    if($('#endEffectiveDate').val().length != 0) {
+      vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#endEffectiveDate').val(),
+        vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
+    } else {
+      vehicleWholeObject.endEffectiveDate = this.getCurrentDate();
+    }
     return vehicleWholeObject;
   }
 
@@ -1425,13 +1454,20 @@ export class CreateaccountComponent implements OnInit {
     console.log('start date value ' + $('#start_Effective_Date').val());
     console.log('passing start date' + this.convertStringDateToNumberString($('#start_Effective_Date').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
-    vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#start_Effective_Date').val(),
-      vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
+    if($('#start_Effective_Date').val().length != 0) {
+      vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#start_Effective_Date').val(),
+        vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
+    }else {
+      vehicleWholeObject.startEffectiveDate = this.getCurrentDate();
+    }
     console.log('passing start date' + this.convertStringDateToNumberString($('#end_Effective_Date').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
-    vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#end_Effective_Date').val(),
-      vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
-
+    if($('#end_Effective_Date').val().length != 0) {
+      vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#end_Effective_Date').val(),
+        vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
+    } else {
+      vehicleWholeObject.endEffectiveDate = this.getCurrentDate();
+    }
     return vehicleWholeObject;
   }
 
@@ -1440,7 +1476,7 @@ export class CreateaccountComponent implements OnInit {
   saveAdditionalInformation = function(additionalInformationObj){
     debugger;
     const  additionalInfoObj = new  AdditionalInformation();
-    additionalInfoObj.accountId=10002999; //additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.accountId=sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
     additionalInfoObj.accountType= "null";
     additionalInfoObj.actionCode= "null";
     additionalInfoObj.activitySource = 710;
@@ -1477,7 +1513,7 @@ export class CreateaccountComponent implements OnInit {
     additionalInfoObj.organizationName= "null";
     additionalInfoObj.parentId= "0";
     additionalInfoObj.performBy= "null";
-    additionalInfoObj.pin= "jK4EPin4aSyB+4+WlJWMvQ==";
+    additionalInfoObj.pin= "ceb6c970658f31504a901b89dcd3e461";
     additionalInfoObj.planDescription= "null";
     additionalInfoObj.planId= "0";
     additionalInfoObj.preferedLanguange= "English";
@@ -1505,9 +1541,18 @@ export class CreateaccountComponent implements OnInit {
     additionalInfoObj.userId= "10000001";
     additionalInfoObj.userType = 11;
     console.log('additionalInfoObj '+JSON.stringify(additionalInfoObj));
-    this.utilityService.additionalInformationOperation('PostAddInfo/?enumModuleType=Customer&enumActivityType=AdditionalInformation&longCustomerId=10002999', additionalInfoObj).subscribe(res => {
+    this.utilityService.additionalInformationOperation('PostAddInfo/?enumModuleType=Customer&enumActivityType=AdditionalInformation&longCustomerId=' + sessionStorage.getItem('CustomerId'), additionalInfoObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
-      alert(resObj.ResultValue);
+      if(resObj.Result==true) {
+        alert(resObj.ResultValue);
+        $('.nav-tabs > .active').next('li').find('a').click(function () {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+          this.click();
+        }).click();
+      }else{
+        alert(resObj.ResultValue);
+      }
     })
   }
 
@@ -1515,7 +1560,7 @@ export class CreateaccountComponent implements OnInit {
   updateAdditionalInformation = function(additionalInformationObj){
     debugger;
     const  additionalInfoObj = new  AdditionalInformation();
-    additionalInfoObj.accountId=10002999; //additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.accountId=sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
     additionalInfoObj.accountType= "null";
     additionalInfoObj.actionCode= "null";
     additionalInfoObj.activitySource = 710;
@@ -1580,7 +1625,7 @@ export class CreateaccountComponent implements OnInit {
     additionalInfoObj.userId= "10000001";
     additionalInfoObj.userType = 11;
     console.log('additionalInfoObj '+JSON.stringify(additionalInfoObj));
-    this.utilityService.additionalInformationOperation('PostUpdateInfo/?enumModuleType=Customer&enumActivityType=UpdateAdditionalInformation&longCustomerId=10002999', additionalInfoObj).subscribe(res => {
+    this.utilityService.additionalInformationOperation('PostUpdateInfo/?enumModuleType=Customer&enumActivityType=UpdateAdditionalInformation&longCustomerId=' + sessionStorage.getItem('CustomerId'), additionalInfoObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if(resObj.ResultValue==true){
         alert("Additional Information Updated Successfully...")

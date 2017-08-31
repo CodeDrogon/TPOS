@@ -4,13 +4,13 @@
 <div id="exTab1" class="container" style="background-color: white">
   <ul class="nav nav-tabs nav-pills nav-wizard " style="background-color: white">
     <li class="active">
-      <a href="#1a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
+      <a href="#1a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
     </li>
-    <li><a href="#2a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
+    <li><a href="#2a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
     </li>
-    <li><a href="#3a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
+    <li><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
     </li>
-    <li><a href="#4a" data-toggle="tab" class="arrow" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
+    <li><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
     </li>
   </ul>
 
@@ -264,20 +264,19 @@
 
                           <div class="row">
                             <div class="col-lg-11">
-                              <div class="form-group" [ngClass]="{'has-error': user_Form.controls['middle_Name'].invalid && user_Form.controls['middle_Name'].touched}">
+                              <div class="form-group" >
                                 <div class="left-inner-addon ">
-                                  <i class="icon-user" *ngIf="user_Form.controls['middle_Name'].hasError('required') && !user_Form.controls['middle_Name'].touched">*</i>
-                                  <input class="form-control" placeholder="Middle Name" name="middle_Name" [formControl]="user_Form.controls['middle_Name']" formControlName="middle_Name">
+                                  <i class="icon-user"></i>
+                                  <input class="form-control" maxlength="2" placeholder="Middle Name" name="middle_Name" [formControl]="user_Form.controls['middle_Name']" formControlName="middle_Name">
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-1">
-                              <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['middle_Name'].invalid && user_Form.controls['middle_Name'].touched && user_Form.controls['middle_Name'].hasError('required')}">
+                              <div class="tooltip1">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['middle_Name'].valid && user_Form.controls['middle_Name'].touched}">Please Enter Middle Name</span>
-                                <div *ngIf="user_Form.controls['middle_Name'].hasError('required') && user_Form.controls['middle_Name'].touched && user_Form.controls['middle_Name'].invalid" class="tooltiptext1">Middle Name Is Mandatory</div>
-                                <div *ngIf="!user_Form.controls['middle_Name'].hasError('required') && user_Form.controls['middle_Name'].touched && user_Form.controls['middle_Name'].invalid" class="tooltiptext1">Middle Name is invalid.</div>
+                                <span class="tooltiptext1">Please Enter Middle Name</span>
                               </div>
+
                             </div>
                           </div>
 
@@ -428,18 +427,19 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty }">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user" ></i>
+                                      <i class="icon-user" *ngIf="user_Form.controls['secondary_Email'].hasError('required') && !user_Form.controls['secondary_Email'].touched">*</i>
                                       <input class="form-control" placeholder="Secondary Email" name="secondary_Email" [formControl]="user_Form.controls['secondary_Email']" formControlName="secondary_Email" id="secondary_Email" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['secondary_Email'].invalid}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].hasError('required')}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['secondary_Email'].valid}">Please Enter Secondary Email</span>
-                                    <div *ngIf="user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid && user_Form.controls['secondary_Email'].dirty" class="tooltiptext1">Secondary Email is invalid</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['secondary_Email'].valid && user_Form.controls['secondary_Email'].touched}">Please Enter Secondary Email</span>
+                                    <div *ngIf="user_Form.controls['secondary_Email'].hasError('required') && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid" class="tooltiptext1">Secondary Email is mandatory</div>
+                                    <div *ngIf="!user_Form.controls['secondary_Email'].hasError('required') && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid" class="tooltiptext1">Secondary Email is invalid</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -461,7 +461,7 @@
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && !user_Form.controls['day_Phone_Number'].touched">*</i>
                                       <input class="form-control" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" id="day_Phone_Number"
-                                             [(ngModel)]="day_Phone_Number" (change)="convertNumbertoUSFormat('day_Phone_Number')">
+                                              (change)="convertNumbertoUSFormat('day_Phone_Number')">
                                     </div>
                                   </div>
                                 </div>
@@ -491,23 +491,24 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty }">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user" ></i>
-                                      <input class="form-control" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')">
+                                      <i class="icon-user" *ngIf="user_Form.controls['eveningPhone'].hasError('required') && !user_Form.controls['eveningPhone'].touched">*</i>
+                                      <input class="form-control" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['eveningPhone'].invalid}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].hasError('required')}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['eveningPhone'].valid}">Please Enter Evening Phone</span>
-                                    <div *ngIf="user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].dirty" class="tooltiptext1">Evening Phone is invalid</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['eveningPhone'].valid && user_Form.controls['eveningPhone'].touched}">Please Enter Evening Phone</span>
+                                    <div *ngIf="user_Form.controls['eveningPhone'].hasError('required') && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid" class="tooltiptext1">Evening Phone is mandatory</div>
+                                    <div *ngIf="!user_Form.controls['eveningPhone'].hasError('required') && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input type="radio" name="preferredPhone" ng-value="Evening Phone" formControlName="preferredPhone" >Is Preferred?
+                                    <input type="radio" name="preferredPhone" value="Evening Phone" formControlName="preferredPhone" checked='checked'>Is Preferred?
                                   </div>
                                 </div>
                               </div>
@@ -542,18 +543,19 @@
                             <div class="col-lg-6">
                               <div class="row">
                                 <div class="col-lg-5">
-                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty }">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user" ></i>
-                                      <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')">
+                                      <i class="icon-user" *ngIf="user_Form.controls['workPhone'].hasError('required') && !user_Form.controls['workPhone'].touched">*</i>
+                                      <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')" >
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['workPhone'].invalid}">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].hasError('required')}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['workPhone'].valid}">Please Enter 10 Digit Work Phone</span>
-                                    <div *ngIf="user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].dirty" class="tooltiptext1">Work Phone is invalid</div>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['workPhone'].valid && user_Form.controls['workPhone'].touched}">Please Enter Work Phone</span>
+                                    <div *ngIf="user_Form.controls['workPhone'].hasError('required') && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid" class="tooltiptext1">Work Phone is mandatory</div>
+                                    <div *ngIf="!user_Form.controls['workPhone'].hasError('required') && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
                                   </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -687,7 +689,7 @@
                                           <div class="col-lg-10">
                                             <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip1'].invalid && user_Form.controls['zip1'].touched}">
                                               <i class="icon-user" *ngIf="user_Form.controls['zip1'].hasError('required') && !user_Form.controls['zip1'].touched">*</i>
-                                              <input class="form-control" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
+                                              <input class="form-control" maxlength="6" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
@@ -705,17 +707,15 @@
                                       <div class="col-lg-6">
                                         <div class="row">
                                           <div class="col-lg-10">
-                                            <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip2'].invalid && user_Form.controls['zip2'].touched}">
-                                              <i class="icon-user" *ngIf="user_Form.controls['zip2'].hasError('required') && !user_Form.controls['zip2'].touched">*</i>
-                                              <input class="form-control" placeholder="Zip2" name="zip2" formControlName="zip2" [formControl]="user_Form.controls['zip2']">
+                                            <div class="left-inner-addon" >
+                                              <i class="icon-user"></i>
+                                              <input class="form-control" maxlength="4" placeholder="Zip2" name="zip2" formControlName="zip2" [formControl]="user_Form.controls['zip2']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
-                                            <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['zip2'].invalid && user_Form.controls['zip2'].touched && user_Form.controls['zip2'].hasError('required')}">
+                                            <div class="tooltip1">
                                               <span class="tooltipbadge">?</span>
-                                              <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['zip2'].valid && user_Form.controls['zip2'].touched}">Please Enter Zip2</span>
-                                              <div *ngIf="user_Form.controls['zip2'].hasError('required') && user_Form.controls['zip2'].touched && user_Form.controls['zip2'].invalid" class="tooltiptext1">Zip2 Is Mandatory</div>
-                                              <div *ngIf="!user_Form.controls['zip2'].hasError('required') && user_Form.controls['zip2'].touched && user_Form.controls['zip2'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                              <span class="tooltiptext1">Please Enter Zip2</span>
                                             </div>
 
                                           </div>
@@ -938,14 +938,14 @@
                 </div>
                 <div class="row" style="padding-top: 2%; padding-bottom: 2%;">
                   <div class="col-lg-9" align="left">
-                    <button type="submit" class="btn btn-primary" [disabled]="!user_Form.valid">Save</button>
+                    <!--<button type="submit" class="btn btn-primary" [disabled]="!user_Form.valid">Save</button>-->
                     <!--<input class="btn btn-primary " type="submit" value="Save">-->
                   </div>
                   <!--div class="col-md-1">
                     <input type="submit" class="btn btn-primary" value="Submit" />
                   </div -->
                   <div class="col-lg-3" align="right">
-                    <button type="submit" class="btn btn-primary btnNext" disabled [disabled]="!user_Form.valid">View Vehicle Information</button>
+                    <input type="submit" class="btn btn-primary" value="View Vehicle Information" disabled [disabled]="!user_Form.valid">
                     <!--<a class="btn btn-primary btnNext" [disabled]="!user_Form.valid">View Vehicle Information</a>-->
                   </div>
                 </div>
@@ -1128,10 +1128,10 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group">
-                            <div class="left-inner-addon">
-                              <i class="icon-user"></i>
-                              <select class="form-control" name="registered_Country" formControlName="registered_Country" id="registeredCountry" [formControl]="vehicleForm.controls['registered_Country']" (change)="getStates('registeredCountry')">
+                          <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['registered_Country'].invalid && vehicleForm.controls['registered_Country'].touched}">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user" *ngIf="!vehicleForm.controls['registered_Country'].touched">*</i>
+                              <select class="form-control" name="registered_Country" formControlName="registered_Country" id="registeredCountry" (change)="getStates('registeredCountry')" [formControl]="vehicleForm.controls['registered_Country']">
                                 <option value="" disabled>Registered Country</option>
                                 <option *ngFor="let country of countries" value="{{country.CountryCode}}">{{country.CountryName}}</option>
                               </select>
@@ -1140,9 +1140,11 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error': vehicleForm.controls['registered_Country'].hasError('required') && vehicleForm.controls['registered_Country'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select Registered Country</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':vehicleForm.controls['registered_Country'].touched}">Please Select Country</span>
+                            <div *ngIf="vehicleForm.controls['registered_Country'].hasError('required') && vehicleForm.controls['registered_Country'].touched && vehicleForm.controls['registered_Country'].invalid" class="tooltiptext1">Country is mandatory</div>
+
                           </div>
 
                         </div>
@@ -1268,9 +1270,9 @@
                       <div class="col-lg-2">
                         <input class="btn btn-primary" type="button" name="reset" value="Reset" style="{background-image: linear-gradient(to bottom, #bdc7d3, #e5eaee) !important;}" (click)="resetVehicleForm()">
                       </div>
-                      <div class="col-lg-5">
+                      <!--<div class="col-lg-5">
                         <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle" [disabled]="!false">
-                      </div>
+                      </div>-->
                       <div class="col-lg-1">
                         <input class="btn btn-primary" type="button" name="reset" value="Save" (click)="saveVehicle(vehicleForm.value)" [disabled]="!vehicleForm.valid">
                       </div>
@@ -1333,36 +1335,6 @@
                             <p class="glyphicon glyphicon-trash" (click)="deleteVehicle(vehicle)"></p>
                           </td>
                         </tr>
-                        <!--<tr>
-                          <td>Apz1252z</td>
-                          <td>Bus-ts</td>
-                          <td>Red</td>
-                          <td>Ac Bus</td>
-                          <td>TN</td>
-                          <td>South Africa</td>
-                          <td>12 July 2017:11:06Am</td>
-                          <td>12 July 2017:11:06Am</td>
-                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                          <td>
-                            <p class="glyphicon glyphicon-trash"></p>
-                          </td>
-                        </tr>-->
-                        <!--<tr>
-                          <td>Apz1252z</td>
-                          <td>Bus-ts</td>
-                          <td>Red</td>
-                          <td>Ac Bus</td>
-                          <td>TN</td>
-                          <td>South Africa</td>
-                          <td>12 July 2017:11:06Am</td>
-                          <td>12 July 2017:11:06Am</td>
-                          <td><a type="button" class="glyphicon glyphicon-pencil" data-toggle="modal" data-Plat-No="Apz1252z" data-Class="Bus-ts" data-Color="Red" data-Description="Ac Bus" data-State="TN" data-Country="South Africa" data-Start-Date="12 July 2017:11:06Am"
-                                 data-End-Date="12 July 2017:11:06Am" data-target="#myModal" (click)="editRecord($event)"></a> </td>
-                          <td>
-                            <p class="glyphicon glyphicon-trash"></p>
-                          </td>
-                        </tr>-->
                         </tbody>
                       </table>
 
@@ -1375,7 +1347,7 @@
 
                   </div>
                   <div class="col-lg-6">
-                    <div class="col-lg-3">
+                    <!--<div class="col-lg-3">
                       <select class="form-control" placeholder="Records" name="records">
                         <option label="Records" disabled selected="selected" value=""></option>
                         <option>5</option>
@@ -1384,8 +1356,8 @@
                         <option>20</option>
                         <option>25</option>
                       </select>
-                    </div>
-                    <div class="col-lg-3">Per Page</div>
+                    </div>-->
+                   <!-- <div class="col-lg-3">Per Page</div>-->
                   </div>
 
                 </div>
@@ -1418,7 +1390,8 @@
     </div>
     <div class="tab-pane" id="3a">
       <div id="page-wrapper">
-        <form role="form" [formGroup]="addtnl_Info_Form" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)' novalidate>
+        <form role="form" [formGroup]="addtnl_Info_Form" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)' novalidate name="addtnl_Info_Form">
+        <!--<form role="form" [formGroup]="addtnl_Info_Form" class="bgColor" novalidate>-->
           <!--<form role="form" #addtnl_Info_Form="ngForm" class="bgColor" (ngSubmit)='saveAdditionalInformation(addtnl_Info_Form.value)'>-->
           <div class="row">
             <div class="col-lg-12">
@@ -1498,7 +1471,7 @@
                           <div class="form-group">
                             <div class="left-inner-addon">
                               <i class="icon-user">*</i>
-                              <select class="form-control" placeholder="Statement Delivery Option" name="statement_Delivery_Options" formControlName="statement_Delivery_Options">
+                              <select class="form-control" placeholder="Statement Delivery Option" name="statement_Delivery_Options" formControlName="statement_Delivery_Options" [formControl]="addtnl_Info_Form.controls['statement_Delivery_Options']">
                                 <option label="Statement Delivery Option" disabled selected="selected" value=""></option>
                                 <option *ngFor="let statementDeliveryOption of statementDelivOption" value="{{statementDeliveryOption.key}}"> {{statementDeliveryOption.value}}</option>
 
@@ -1551,7 +1524,9 @@
                   <a class="btn btn-primary btnPrevious">Vehicle Information</a>
                 </div>
                 <div class="col-lg-3" align="right">
-                  <input type="submit" class="btn-primary btnNext" value="Payment Information">
+                 <!-- <input class="btn btn-primary" type="button" name="Payment Information" value="Payment Information" (click)="saveVehicle(vehicleForm.value)" [disabled]="!vehicleForm.valid">-->
+                 <!-- <a class="btn btn-primary"  >Payment Information</a>-->
+                  <input type="submit" class="btn btn-primary" value="Payment Information" disabled [disabled]="!addtnl_Info_Form.valid">
                 </div>
               </div>
             </div>
@@ -2285,9 +2260,9 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group">
-                            <div class="left-inner-addon">
-                              <i class="icon-user"></i>
+                          <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['registered_Country'].invalid && vehicleFormEdit.controls['registered_Country'].touched}">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user">*</i>
                               <select class="form-control" name="registered_Country" formControlName="registered_Country" [formControl]="vehicleFormEdit.controls['registered_Country']" id='dialogueRegisteredCountry' (change)="getStates('dialogueRegisteredCountry')">
                                 <option value="" disabled>Registered Country</option>
                                 <option *ngFor="let country of countries" [selected]="country.CountryCode==registered_Country" value="{{country.CountryCode}}">{{country.CountryName}}</option>
@@ -2297,9 +2272,11 @@
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error': vehicleFormEdit.controls['registered_Country'].hasError('required') && vehicleFormEdit.controls['registered_Country'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select Registered Country</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':vehicleFormEdit.controls['registered_Country'].touched}">Please Select Country</span>
+                            <div *ngIf="vehicleFormEdit.controls['registered_Country'].hasError('required') && vehicleFormEdit.controls['registered_Country'].touched && vehicleFormEdit.controls['registered_Country'].invalid" class="tooltiptext1">Country is mandatory</div>
+
                           </div>
 
                         </div>
@@ -2429,7 +2406,7 @@
             <div class="col-lg-8">
             </div>
             <div class="col-lg-1">
-              <a class="btn btn-primary" (click)="resetVehicleFormEdit()">Reset</a>
+              <!--<a class="btn btn-primary" (click)="resetVehicleFormEdit()">Reset</a>-->
             </div>
             <div class="col-lg-1">
               <a class="btn btn-primary" data-dismiss="modal">Cancel</a>
