@@ -27,6 +27,7 @@
     "jquery": "^3.2.1",
     "ngx-file-drop": "^1.0.10",
     "rxjs": "^5.1.0",
+    "toastr": "^2.1.2",
     "underscore": "^1.8.3",
     "zone.js": "^0.8.4"
   },
