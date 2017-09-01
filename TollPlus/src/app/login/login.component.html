@@ -11,12 +11,12 @@
             <fieldset>
               <div class="help-inline">
 								<span style="color:red" ng-show="myform.emailAddress.$touched && myform.emailAddress.$invalid">
-								<span ng-show="myform.emailAddress.$error.required">Emailid is required.</span>
-								<span ng-show="myform.emailAddress.$error.email">Invalid email address.</span>
+								<span ng-show="myform.emailAddress.$error.required">Email is required.</span>
+								<!--<span ng-error="myform.emailAddress.$error.invalid">Invalid email address.</span>-->
 								</span>
               </div>
               <div class="form-group">
-                <input class="form-control" type="email" placeholder="EmailAddress" name="emailAddress" ngModel />
+                <input class="form-control" type="email" placeholder="Email Address" name="emailAddress" ngModel />
               </div>
               <div class="checkbox">
                 <label>

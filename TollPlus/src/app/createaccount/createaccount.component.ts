@@ -1228,7 +1228,7 @@ export class CreateaccountComponent implements OnInit {
       if(resObj.ResultValue==true){
         this.getVehicles();
         // alert("Vehicle Added Successfully..");
-
+        $("#dynamiccollapsein").toggle();
         this.resetVehicleForm();
       } else {
         $(".nav-tabs > .active .badge").text('X');
