@@ -141,7 +141,7 @@
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['businessName'].invalid && user_Form.controls['businessName'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user" *ngIf="!user_Form.controls['businessName'].touched">*</i>
-                                  <input class="form-control" placeholder="Business Name" name="businessName" [formControl]="user_Form.controls['businessName']" formControlName="businessName" >
+                                  <input class="form-control"  placeholder="Business Name" id="businessName" name="businessName" [formControl]="user_Form.controls['businessName']" formControlName="businessName" >
                                  <!-- <select class="form-control" placeholder="Business Name" name="businessName" [formControl]="user_Form.controls['businessName']" >
                                     <option label="Business Name" disabled selected="selected" value=""></option>
                                     <option *ngFor="let business of businesses" value="{{business.key}}"> {{business.value}}</option>
@@ -547,7 +547,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" maxlength="10" *ngIf="user_Form.controls['workPhone'].hasError('required') && !user_Form.controls['workPhone'].touched">*</i>
-                                      <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')" >
+                                      <input class="form-control" maxlength="10" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')" >
                                     </div>
                                   </div>
                                 </div>
@@ -735,7 +735,7 @@
                                       <div class="form-group" [ngClass]="{'has-error': user_Form.controls['address1'].hasError('required') && user_Form.controls['address1'].touched}">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user" *ngIf="user_Form.controls['address1'].hasError('required') && !user_Form.controls['address1'].touched">*</i>
-                                          <input class="form-control" placeholder="Address1" name="address1" [formControl]="user_Form.controls['address1']">
+                                          <input class="form-control" maxlength="50" placeholder="Address1" name="address1" [formControl]="user_Form.controls['address1']">
                                         </div>
                                       </div>
 
@@ -841,7 +841,7 @@
                               <div class="center" ngClass="idProofFileDropColor">
                                 <div class="left-inner-addon " style="{align: center !important}">
                                   <i class="icon-user" ></i>
-                                  <file-drop headertext="ID Proof File Drop here to upload, or"  name="idProofFileDrop" (onFileDrop)="IdProofDropped($event)" (onFileOver)="IdProofFileOver($event)" (onFileLeave)="IdProofFileLeave($event)">
+                                  <file-drop headertext="ID Proof File Drop here to upload"  name="idProofFileDrop" (onFileDrop)="IdProofDropped($event)" (onFileOver)="IdProofFileOver($event)" (onFileLeave)="IdProofFileLeave($event)">
                                   </file-drop>
                                 </div>
 
@@ -886,7 +886,7 @@
                               <div class="center" ngClass="addressProofFileDropColor">
                                 <div class="left-inner-addon " style="{align: center !important}">
                                   <i class="icon-user" ></i>
-                                  <file-drop headertext="Address Proof File Drop here to upload, or" name="addressProofFileDrop" (onFileDrop)="AddressProofDropped($event)" (onFileOver)="AddressProofFileOver($event)" (onFileLeave)="AddressProofFileLeave($event)">
+                                  <file-drop headertext="Address Proof File Drop here to upload" name="addressProofFileDrop" (onFileDrop)="AddressProofDropped($event)" (onFileOver)="AddressProofFileOver($event)" (onFileLeave)="AddressProofFileLeave($event)">
                                   </file-drop>
                                 </div>
 
@@ -913,7 +913,7 @@
                                 <div class="col-lg-6">
 
                                   <div>
-                                    <input type="checkbox" formControlName="agreeTermsAndConditions" (change)="validateAllFields()" required > <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
+                                    <input type="checkbox" id="confirmCheckbox" formControlName="agreeTermsAndConditions" (change)="validateAllFields()" required > <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
                                   </div>
 
 
@@ -996,7 +996,7 @@
                           <div class="form-group" [ngClass]="{'has-error': vehicleForm.controls['plateNumber'].invalid && vehicleForm.controls['plateNumber'].touched}">
                             <div class="left-inner-addon ">
                               <i class="icon-user" *ngIf="vehicleForm.controls['plateNumber'].hasError('required') && !vehicleForm.controls['plateNumber'].touched">*</i>
-                              <input class="form-control" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleForm.controls['plateNumber']" formControlName="plateNumber">
+                              <input class="form-control" maxlength="10" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleForm.controls['plateNumber']" formControlName="plateNumber">
                             </div>
                           </div>
                         </div>
@@ -1295,7 +1295,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
 
-                  <a data-toggle="collapse" data-parent="#VehicleInformation" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline" (click)="setVehicleArrayObject()"></a>
+                  <a data-toggle="collapse" id="dyamicpopulate" data-parent="#VehicleInformation" href="#VehiclesDet"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline" (click)="setVehicleArrayObject()"></a>
                   Vehicles
                 </h4>
               </div>
@@ -2003,11 +2003,12 @@
               </div>
               <div class="row">
                 <div class="col-md-9">
-                  <a class="btn btn-primary btnPrevious">Additional Information</a>
+                  <input class="btn btn-primary" id="paymentAdditionalInfo" type="button" value="Additional Information" (click)="disableButton()">
                 </div>
 
                 <div class="col-md-1" align="right">
-                  <a class="btn btn-primary btnNext">Submit</a>
+                  <input class="btn btn-primary" id="paymentSubmit" type="button" value="Submit" (click)="disableButton()">
+
                 </div>
               </div>
             </div>
@@ -2128,7 +2129,7 @@
                           <div class="form-group" [ngClass]="{'has-error': vehicleFormEdit.controls['plateNumber'].invalid && vehicleFormEdit.controls['plateNumber'].touched}">
                             <div class="left-inner-addon ">
                               <i class="icon-user" >*</i>
-                              <input class="form-control" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleFormEdit.controls['plateNumber']" formControlName="plateNumber">
+                              <input class="form-control" maxlength="10" placeholder="Plate Number" name="plateNumber" [formControl]="vehicleFormEdit.controls['plateNumber']" formControlName="plateNumber">
                             </div>
                           </div>
                         </div>

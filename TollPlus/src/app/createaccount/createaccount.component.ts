@@ -11,6 +11,7 @@ import {Phone} from '../pojo/phone';
 import {Vehicle} from '../pojo/Vehicle';
 import {CustomValidator} from 'app/services/common/custom-validator';
 import {AdditionalInformation} from "../pojo/AdditionalInformation";
+import * as toastr from 'toastr';
 declare var populateCountries: any;
 declare var businessCustomerTooltip: any;
 @Component({
@@ -125,7 +126,24 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
-    /*sessionStorage.setItem("CustomerId","10002999");*/
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+    $("#businessName").prop("disabled",true);
     this.getHearAboutUs();
     this.getStatementDelivOption();
     this.getRevenueCategory();
@@ -185,6 +203,10 @@ export class CreateaccountComponent implements OnInit {
           this.click();
         }).click();
         $('.my-link').bind('click', false);
+      });
+
+      $("#dyamicpopulate").click("on",function(){
+        $("#dynamiccollapsein").toggle();
       });
       /*$('#modalDiag').click('on', function (item) {
        alert("click "+item.attributes['data-id'].value);
@@ -689,6 +711,7 @@ export class CreateaccountComponent implements OnInit {
       console.log(resObj.ResultValue);
       if (resObj.Result == false){
         this.userNameValidationResult = resObj.ResultValue;
+        toastr.error(resObj.ResultValue);
         $(".nav-tabs > .active .badge").text('X');
         $(".nav-tabs > .active .badge").css("color","white");
         $(".nav-tabs > .active .badge").css("background-color","crimson");
@@ -708,6 +731,7 @@ export class CreateaccountComponent implements OnInit {
           this.click();
         }).click();
         $('.my-link').bind('click', false);
+        toastr.success("Account Information Saved Successfully...");
         this.getVehicles();
       }
 
@@ -893,14 +917,18 @@ export class CreateaccountComponent implements OnInit {
 
   changeIdProofAndAddressProofDropDown= function () {
 
-    //alert($("#businessCustomerType").val());
+
     const accType = $('#businessCustomerType').val();
     if (accType == 'Business'){
       this.getAddressProofBusiness();
       this.getIdProofBusiness();
+      $("#businessName").prop("disabled",false);
     }else{
+      this.user_Form.controls['businessName']._status = 'valid';
       this.getIdProof();
       this.getAddressProof();
+      $("#businessName").text("");
+      $("#businessName").prop("disabled",true);
     }
 
   }
@@ -1135,7 +1163,6 @@ export class CreateaccountComponent implements OnInit {
   }
 
   validateAllFields= function (control) {
-    debugger;
     if (this.user_Form.valid) {
       return null;
     }else {
@@ -1231,10 +1258,12 @@ export class CreateaccountComponent implements OnInit {
         // alert("Vehicle Added Successfully..");
         $("#dynamiccollapsein").toggle();
         this.resetVehicleForm();
+        toastr.success( "Vehicle Information Saved Sucessfully...");
       } else {
         $(".nav-tabs > .active .badge").text('X');
         $(".nav-tabs > .active .badge").css("color","white");
         $(".nav-tabs > .active .badge").css("background-color","crimson");
+        toastr.error( resObj.ResultValue);
 
       }
     })
@@ -1253,7 +1282,9 @@ export class CreateaccountComponent implements OnInit {
       const resObj = JSON.parse(res._body);
       if(resObj.ResultValue==true){
         this.getVehicles();
-        alert("Vehicle Updated Successfully...");
+        toastr.success( "Vehicle Information Updated Successfully...");
+      } else {
+        toastr.error( resObj.ResultValue);
       }
     })
   }
@@ -1313,7 +1344,9 @@ export class CreateaccountComponent implements OnInit {
     const resObj = JSON.parse(res._body);
     if(resObj.ResultValue==true){
       this.getVehicles();
-      alert("Vehicle Deleted Successfully...");
+      toastr.success( "Vehicle Information Deleted Successfully...");
+    } else {
+      toastr.error(resObj.ResultValue);
     }
   });
 
@@ -1548,10 +1581,12 @@ export class CreateaccountComponent implements OnInit {
           this.click();
         }).click();
         $('.my-link').bind('click', false);
+        toastr.success( "Additional Information Saved Successfully...");
       }else{
         $(".nav-tabs > .active .badge").text('X');
         $(".nav-tabs > .active .badge").css("color","white");
         $(".nav-tabs > .active .badge").css("background-color","crimson");
+        toastr.error( resObj.ResultValue);
       }
     })
   }
@@ -1728,6 +1763,15 @@ clickDate= function(id){
     });
 
   }
+  disableButton=function () {
+    $(".nav-tabs > .active .badge").text('✔');
+    $(".nav-tabs > .active .badge").css("color","lightgreen");
+    $(".nav-tabs > .active .badge").css("background-color","forestgreen");
+    $("#paymentAdditionalInfo").prop("disabled",true);
+    $("#paymentSubmit").prop("disabled",true);
+    toastr.success( "Payment Information Submitted Successfully...");
+  }
+
 
 
 }
