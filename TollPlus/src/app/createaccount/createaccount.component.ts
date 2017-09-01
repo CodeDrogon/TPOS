@@ -125,6 +125,7 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
+    /*sessionStorage.setItem("CustomerId","10002999");*/
     this.getHearAboutUs();
     this.getStatementDelivOption();
     this.getRevenueCategory();
@@ -1510,11 +1511,10 @@ export class CreateaccountComponent implements OnInit {
     additionalInfoObj.rebill_Hold_EndEffectiveDate= "\/Date(1245398693390)\/";
     additionalInfoObj.rebill_Hold_StartEffectiveDate= "\/Date(1245398693390)\/";
     additionalInfoObj.referalBalance= "0";
-    if(additionalInformationObj.friendshipRewardAccountNo.length != 0) {
+    additionalInfoObj.referralCustomerId = '10002865';
+    /*if(additionalInformationObj.friendshipRewardAccountNo.length != 0) {
       additionalInfoObj.referralCustomerId = additionalInformationObj.friendshipRewardAccountNo;
-    } else {
-      additionalInfoObj.referralCustomerId = '10002865';
-    }
+    }*/
 
     additionalInfoObj.refIndicator= "0";
     additionalInfoObj.refPkId= "0";
@@ -1537,15 +1537,17 @@ export class CreateaccountComponent implements OnInit {
     this.utilityService.additionalInformationOperation('PostAddInfo/?enumModuleType=Customer&enumActivityType=AdditionalInformation&longCustomerId=' + sessionStorage.getItem('CustomerId'), additionalInfoObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if(resObj.Result==true) {
-        /*alert(resObj.ResultValue);*/
+//alert(resObj.ResultValue);
         $(".nav-tabs > .active .badge").text('✔');
         $(".nav-tabs > .active .badge").css("color","lightgreen");
         $(".nav-tabs > .active .badge").css("background-color","forestgreen");
+        $('.my-link').unbind('click', false);
         $('.nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
 // the default click() function
           this.click();
         }).click();
+        $('.my-link').bind('click', false);
       }else{
         $(".nav-tabs > .active .badge").text('X');
         $(".nav-tabs > .active .badge").css("color","white");
