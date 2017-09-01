@@ -10,8 +10,8 @@
     </li>
     <li><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
     </li>
-    <li><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
-    </li>
+   <!-- <li><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
+    </li>-->
   </ul>
 
   <div class="tab-content">
@@ -63,7 +63,7 @@
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user" *ngIf="user_Form.controls['userName'].hasError('required') && !user_Form.controls['userName'].touched">*</i>
-                                  <input class="form-control" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName" id="userName" (keyup)="validateUserName()">
+                                  <input class="form-control" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName" id="userName" ><!--(keyup)="validateUserName()"-->
                                 </div>
                               </div>
                             </div>
@@ -460,7 +460,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['day_Phone_Number'].invalid && user_Form.controls['day_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && !user_Form.controls['day_Phone_Number'].touched">*</i>
-                                      <input class="form-control" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" id="day_Phone_Number"
+                                      <input class="form-control" maxlength="10" placeholder="Day Phone Number" name="day_Phone_Number" [formControl]="user_Form.controls['day_Phone_Number']" formControlName="day_Phone_Number" id="day_Phone_Number"
                                               (change)="convertNumbertoUSFormat('day_Phone_Number')">
                                     </div>
                                   </div>
@@ -494,7 +494,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['eveningPhone'].invalid && user_Form.controls['eveningPhone'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['eveningPhone'].hasError('required') && !user_Form.controls['eveningPhone'].touched">*</i>
-                                      <input class="form-control" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')" >
+                                      <input class="form-control" maxlength="10" placeholder="Evening Phone Number" [(ngModel)]="eveningPhone" name="eveningPhone" id="eveningPhone" [formControl]="user_Form.controls['eveningPhone']" formControlName="eveningPhone" (change)="convertNumbertoUSFormat('eveningPhone')" >
                                     </div>
                                   </div>
                                 </div>
@@ -521,7 +521,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['mobile_Phone_Number'].invalid && user_Form.controls['mobile_Phone_Number'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && !user_Form.controls['mobile_Phone_Number'].touched">*</i>
-                                      <input class="form-control" placeholder="Mobile Phone Number" [(ngModel)]="mobile_Phone_Number" name="mobile_Phone_Number" id="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']" formControlName="mobile_Phone_Number" (change)="convertNumbertoUSFormat('mobile_Phone_Number')" >
+                                      <input class="form-control" maxlength="10" placeholder="Mobile Phone Number" [(ngModel)]="mobile_Phone_Number" name="mobile_Phone_Number" id="mobile_Phone_Number" [formControl]="user_Form.controls['mobile_Phone_Number']" formControlName="mobile_Phone_Number" (change)="convertNumbertoUSFormat('mobile_Phone_Number')" >
                                     </div>
                                   </div>
                                 </div>
@@ -545,7 +545,7 @@
                                 <div class="col-lg-5">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user" *ngIf="user_Form.controls['workPhone'].hasError('required') && !user_Form.controls['workPhone'].touched">*</i>
+                                      <i class="icon-user" maxlength="10" *ngIf="user_Form.controls['workPhone'].hasError('required') && !user_Form.controls['workPhone'].touched">*</i>
                                       <input class="form-control" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')" >
                                     </div>
                                   </div>
@@ -584,7 +584,7 @@
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['fax'].invalid && user_Form.controls['fax'].touched}">
                                     <div class="left-inner-addon ">
                                       <i class="icon-user" *ngIf="user_Form.controls['fax'].hasError('required') && !user_Form.controls['fax'].touched">*</i>
-                                      <input class="form-control" placeholder="Fax" name="fax" [(ngModel)]="fax" [formControl]="user_Form.controls['fax']" formControlName="fax" id="fax" (change)="convertNumbertoUSFormat('fax')">
+                                      <input class="form-control" maxlength="10" placeholder="Fax" name="fax" [(ngModel)]="fax" [formControl]="user_Form.controls['fax']" formControlName="fax" id="fax" (change)="convertNumbertoUSFormat('fax')">
                                     </div>
                                   </div>
                                 </div>
@@ -689,7 +689,7 @@
                                           <div class="col-lg-10">
                                             <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip1'].invalid && user_Form.controls['zip1'].touched}">
                                               <i class="icon-user" *ngIf="user_Form.controls['zip1'].hasError('required') && !user_Form.controls['zip1'].touched">*</i>
-                                              <input class="form-control" maxlength="6" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
+                                              <input class="form-control" pattern="[0-9]{6}" maxlength="6" placeholder="Zip1" name="zip1" formControlName="zip1" [formControl]="user_Form.controls['zip1']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
@@ -912,7 +912,7 @@
                                 <div class="col-lg-6">
 
                                   <div>
-                                    <input type="checkbox" formControlName="agreeTermsAndConditions" (change)="validateAllFields()"> <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
+                                    <input type="checkbox" formControlName="agreeTermsAndConditions" (change)="validateAllFields()" required > <i class="left-inner-addon">*</i> I agree to the <a href="http://www.sureitinc.com">terms & Conditions</a>
                                   </div>
 
 
@@ -1468,24 +1468,25 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-11">
-                          <div class="form-group">
-                            <div class="left-inner-addon">
-                              <i class="icon-user">*</i>
-                              <select class="form-control" placeholder="Statement Delivery Option" name="statement_Delivery_Options" formControlName="statement_Delivery_Options" [formControl]="addtnl_Info_Form.controls['statement_Delivery_Options']">
-                                <option label="Statement Delivery Option" disabled selected="selected" value=""></option>
+                          <div class="form-group" [ngClass]="{'has-error': addtnl_Info_Form.controls['statement_Delivery_Options'].invalid && addtnl_Info_Form.controls['statement_Delivery_Options'].touched}">
+                            <div class="left-inner-addon ">
+                              <i class="icon-user" *ngIf="!addtnl_Info_Form.controls['statement_Delivery_Options'].touched">*</i>
+                              <select class="form-control" name="statement_Delivery_Options" formControlName="statement_Delivery_Options" [formControl]="addtnl_Info_Form.controls['statement_Delivery_Options']" >
+                                <option label="Statement Deliver Option" disabled selected="selected" value=""></option>
                                 <option *ngFor="let statementDeliveryOption of statementDelivOption" value="{{statementDeliveryOption.key}}"> {{statementDeliveryOption.value}}</option>
-
                               </select>
                             </div>
-
                           </div>
                         </div>
                         <div class="col-lg-1">
-                          <div class="tooltip1">
+                          <div class="tooltip1" [ngClass]="{'has-error': addtnl_Info_Form.controls['statement_Delivery_Options'].hasError('required') && addtnl_Info_Form.controls['statement_Delivery_Options'].touched}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1">Please Select An Option</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error':addtnl_Info_Form.controls['statement_Delivery_Options'].touched}">Please Select Statement Option</span>
+                            <div *ngIf="addtnl_Info_Form.controls['statement_Delivery_Options'].hasError('required') && addtnl_Info_Form.controls['statement_Delivery_Options'].touched && addtnl_Info_Form.controls['statement_Delivery_Options'].invalid" class="tooltiptext1">Statement Delivery is mandatory</div>
+
                           </div>
                         </div>
+
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -2372,7 +2373,6 @@
                             <div *ngIf="vehicleFormEdit.controls['endEffectiveDate'].invalid && vehicleFormEdit.controls['endEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
-                        <input type="hidden" name="indexNumber" formControlName="indexNumber"/>
                       </div>
                     </div>
 

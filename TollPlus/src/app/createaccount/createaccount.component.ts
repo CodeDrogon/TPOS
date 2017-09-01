@@ -591,7 +591,6 @@ export class CreateaccountComponent implements OnInit {
     this.account.firstName = customerInfo.first_Name;
     this.account.lastName = customerInfo.last_Name;
     debugger;
-    alert('date of birth ' + $('#date_Of_Birth').val());
     if ($('#date_Of_Birth').val().length != 0) {
       this.account.dOB = this.convertStringDateToNumberString($('#date_Of_Birth').val(), 0, 0, 0);
     } else {
@@ -867,20 +866,22 @@ export class CreateaccountComponent implements OnInit {
 
 
   getBusiness= function () {
-    this.utilityService.getDropDownValues('GetLookups/?Type=Business').subscribe(res => {
+   /* this.utilityService.getDropDownValues('GetLookups/?Type=Business').subscribe(res => {
       const resObj = JSON.parse(res._body);
       this.businesses = resObj.ResultValue;
 
-    })
-
+    })*/
+    this.businesses=[{"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Individual","value":"Individual Customer"},
+      {"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Business","value":"Business Customer"}];
   }
   getBusinessCustomer= function () {
-    this.utilityService.getDropDownValues('GetLookups/?Type=Business&Customer').subscribe(res => {
+  /*  this.utilityService.getDropDownValues('GetLookups/?Type=Business&Customer').subscribe(res => {
       const resObj = JSON.parse(res._body);
       this.businessCustomers = resObj.ResultValue;
 
-    })
-
+    })*/
+    this.businessCustomers=[{"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Individual","value":"Individual Customer"},
+      {"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Business","value":"Business Customer"}];
   }
 
   suffixOther= function () {
@@ -1081,6 +1082,7 @@ export class CreateaccountComponent implements OnInit {
 
 //vehicle dropdown functions starts here
   getVehicleClassDropdown= function () {
+    debugger;
     this.utilityService.vehicleClassDropdown('PostGet/?enumModuleType=Customer&enumActivityType=VehicleClasses&longCustomerId=0').subscribe(res => {
       const resObj = JSON.parse(res._body);
 
@@ -1526,7 +1528,12 @@ export class CreateaccountComponent implements OnInit {
     additionalInfoObj.rebill_Hold_EndEffectiveDate= "\/Date(1245398693390)\/";
     additionalInfoObj.rebill_Hold_StartEffectiveDate= "\/Date(1245398693390)\/";
     additionalInfoObj.referalBalance= "0";
-    additionalInfoObj.referralCustomerId= additionalInformationObj.friendshipRewardAccountNo;
+    if(additionalInformationObj.friendshipRewardAccountNo.length != 0) {
+      additionalInfoObj.referralCustomerId = additionalInformationObj.friendshipRewardAccountNo;
+    } else {
+      additionalInfoObj.referralCustomerId = '10002865';
+    }
+
     additionalInfoObj.refIndicator= "0";
     additionalInfoObj.refPkId= "0";
     additionalInfoObj.requestDate= "\/Date(1245398693390)\/";
