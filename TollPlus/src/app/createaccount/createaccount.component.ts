@@ -24,7 +24,7 @@ export class CreateaccountComponent implements OnInit {
   vehicle_Modal= new Vehicle();
   vehicleArray= [];
   vehicleModelArrays = [];
-
+  isVehicleExists= false;
   businessCustomerTooltip = 'Please Select Business Type';
 
   user_Form: FormGroup;
@@ -132,46 +132,7 @@ export class CreateaccountComponent implements OnInit {
     const emailPattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
     const emailPattern1 = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)';
 
-    this.user_Form = new FormGroup({
-      first_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
-      last_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
-      businessCustomerType: new FormControl('', Validators.required),
-      title: new FormControl(''),
-      businessName: new FormControl('', Validators.required),
-      suffix: new FormControl(''),
-      middle_Name: new FormControl('', Validators.compose([Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
-      gender: new FormControl(''),
-      date_Of_Birth: new FormControl(''),
-      primary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
-      secondary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
-      day_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      eveningPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      mobile_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      workPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      fax: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      ext: new FormControl(''),
-      country: new FormControl('', Validators.required),
-      city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
-      zip1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6)])),
-      zip2: new FormControl(''),
-      address1: new FormControl('', Validators.required),
-      address2: new FormControl(''),
-      idProofType: new FormControl('', Validators.required),
-      idProofNo: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
-      idProofFileDrop: new FormControl(''),
-      addressProof: new FormControl('', Validators.required),
-      userName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
-      agreeTermsAndConditions: new FormControl('', Validators.required),
-      passWord: new FormControl('', Validators.required),
-      selectedstate: new FormControl('', Validators.required),
-      idProof_other: new FormControl(''),
-      addressProof_other: new FormControl(''),
-      addressProofFileDrop: new FormControl(''),
-      preferredEmail: new FormControl('Primary Email'),
-      preferredPhone: new FormControl('Day Phone'),
-
-
-    });
+    this.userFormInitialValue();
 
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(''),
@@ -199,13 +160,18 @@ export class CreateaccountComponent implements OnInit {
 
 
       $('.btnNext').click(function(){
+
         $('.my-link').unbind('click', false);
+        $(".nav-tabs > .active .badge").text('✔');
+        $(".nav-tabs > .active .badge").css("color","lightgreen");
+        $(".nav-tabs > .active .badge").css("background-color","forestgreen");
         //alert("next "+$('.nav-tabs > .active').next('li').find('a').getAttribute("href"));
         $('.nav-tabs > .active').next('li').find('a').click(function() {
           // 'this' is not a jQuery object, so it will use
           // the default click() function
           this.click();
         }).click();
+
         $('.my-link').bind('click', false);
       });
 
@@ -722,11 +688,18 @@ export class CreateaccountComponent implements OnInit {
       console.log(resObj.ResultValue);
       if (resObj.Result == false){
         this.userNameValidationResult = resObj.ResultValue;
-        alert(resObj.ResultValue);
+        $(".nav-tabs > .active .badge").text('X');
+        $(".nav-tabs > .active .badge").css("color","white");
+        $(".nav-tabs > .active .badge").css("background-color","crimson");
+        /*alert(resObj.ResultValue);*/
 
       }else{
         sessionStorage.setItem('CustomerId', resObj.ResultValue);
-        alert(' Customer  Successfully Registered With ID: ' + resObj.ResultValue);
+        $(".nav-tabs > .active .badge").text('✔');
+        $(".nav-tabs > .active .badge").css("color","lightgreen");
+        $(".nav-tabs > .active .badge").css("background-color","forestgreen");
+        this.userFormInitialValue();
+        /*alert(' Customer  Successfully Registered With ID: ' + resObj.ResultValue);*/
         $('.my-link').unbind('click', false);
         $('.nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
@@ -1254,8 +1227,14 @@ export class CreateaccountComponent implements OnInit {
       const resObj = JSON.parse(res._body);
       if(resObj.ResultValue==true){
         this.getVehicles();
-        alert("Vehicle Added Successfully..");
+        // alert("Vehicle Added Successfully..");
+
         this.resetVehicleForm();
+      } else {
+        $(".nav-tabs > .active .badge").text('X');
+        $(".nav-tabs > .active .badge").css("color","white");
+        $(".nav-tabs > .active .badge").css("background-color","crimson");
+
       }
     })
     //this.vehicleArray[length] = tempVehicle;
@@ -1365,6 +1344,9 @@ export class CreateaccountComponent implements OnInit {
         }
       }
       console.log("this.vehicleArray length " + this.vehicleArray.length)
+      if(this.vehicleArray.length > 0){
+        this.isVehicleExists = true;
+      }
     })
   }
 
@@ -1555,14 +1537,19 @@ export class CreateaccountComponent implements OnInit {
     this.utilityService.additionalInformationOperation('PostAddInfo/?enumModuleType=Customer&enumActivityType=AdditionalInformation&longCustomerId=' + sessionStorage.getItem('CustomerId'), additionalInfoObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if(resObj.Result==true) {
-        alert(resObj.ResultValue);
+        /*alert(resObj.ResultValue);*/
+        $(".nav-tabs > .active .badge").text('✔');
+        $(".nav-tabs > .active .badge").css("color","lightgreen");
+        $(".nav-tabs > .active .badge").css("background-color","forestgreen");
         $('.nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
 // the default click() function
           this.click();
         }).click();
       }else{
-        alert(resObj.ResultValue);
+        $(".nav-tabs > .active .badge").text('X');
+        $(".nav-tabs > .active .badge").css("color","white");
+        $(".nav-tabs > .active .badge").css("background-color","crimson");
       }
     })
   }
@@ -1695,6 +1682,50 @@ clickDate= function(id){
    /* return date.getMilliseconds();*/
   }
 
+
+  userFormInitialValue=function () {
+    this.user_Form = new FormGroup({
+      first_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      last_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      businessCustomerType: new FormControl('', Validators.required),
+      title: new FormControl(''),
+      businessName: new FormControl('', Validators.required),
+      suffix: new FormControl(''),
+      middle_Name: new FormControl('', Validators.compose([Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      gender: new FormControl(''),
+      date_Of_Birth: new FormControl(''),
+      primary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
+      secondary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
+      day_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      eveningPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      mobile_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      workPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      fax: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
+      ext: new FormControl(''),
+      country: new FormControl('', Validators.required),
+      city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      zip1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6)])),
+      zip2: new FormControl(''),
+      address1: new FormControl('', Validators.required),
+      address2: new FormControl(''),
+      idProofType: new FormControl('', Validators.required),
+      idProofNo: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
+      idProofFileDrop: new FormControl(''),
+      addressProof: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
+      agreeTermsAndConditions: new FormControl('', Validators.required),
+      passWord: new FormControl('', Validators.required),
+      selectedstate: new FormControl('', Validators.required),
+      idProof_other: new FormControl(''),
+      addressProof_other: new FormControl(''),
+      addressProofFileDrop: new FormControl(''),
+      preferredEmail: new FormControl('Primary Email'),
+      preferredPhone: new FormControl('Day Phone'),
+
+
+    });
+
+  }
 
 
 }
