@@ -63,7 +63,7 @@
                               <div class="form-group" [ngClass]="{'has-error': user_Form.controls['userName'].invalid && user_Form.controls['userName'].touched}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user" *ngIf="user_Form.controls['userName'].hasError('required') && !user_Form.controls['userName'].touched">*</i>
-                                  <input class="form-control" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName" id="userName" ><!--(keyup)="validateUserName()"-->
+                                  <input class="form-control" maxlength="50" placeholder="User Name" name="userName" [formControl]="user_Form.controls['userName']" formControlName="userName" id="userName" ><!--(keyup)="validateUserName()"-->
                                 </div>
                               </div>
                             </div>
@@ -72,7 +72,11 @@
                                 <span class="tooltipbadge">?</span>
                                 <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['userName'].valid && user_Form.controls['userName'].touched}">Please Enter User Name</span>
                                 <div *ngIf="user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is mandatory</div>
-                                <div *ngIf="!user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">User Name is invalid</div>
+                                <div *ngIf="!user_Form.controls['userName'].hasError('required') && user_Form.controls['userName'].touched && user_Form.controls['userName'].invalid" class="tooltiptext1">
+                                  <span class="spantag">enter only alphanumeric.</span>
+                                  <span class="spantag">special characters and spaces are not allowed.</span>
+                                  <span class="spantag">Min length 5 and Max length 50 Characters.</span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -98,7 +102,9 @@
                                 <span class="tooltipbadge">?</span>
                                 <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['passWord'].valid && user_Form.controls['passWord'].touched}">Please Enter Password</span>
                                 <div *ngIf="user_Form.controls['passWord'].hasError('required') && user_Form.controls['passWord'].touched && user_Form.controls['passWord'].invalid" class="tooltiptext1">Password is mandatory</div>
-                                <div *ngIf="!user_Form.controls['passWord'].hasError('required') && user_Form.controls['passWord'].touched && user_Form.controls['passWord'].invalid" class="tooltiptext1">Password is invalid</div>
+                                <div *ngIf="!user_Form.controls['passWord'].hasError('required') && user_Form.controls['passWord'].touched && user_Form.controls['passWord'].invalid" class="tooltiptext1">
+                                  <span class="spantag">Password is invalid</span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -124,8 +130,8 @@
                             <div class="col-lg-1">
                               <div class="tooltip1" [ngClass]="{'has-error': user_Form.controls['businessCustomerType'].hasError('required') && user_Form.controls['businessCustomerType'].touched}">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['businessCustomerType'].touched}">Please Select Business Customer</span>
-                                <div *ngIf="user_Form.controls['businessCustomerType'].hasError('required') && user_Form.controls['businessCustomerType'].touched && user_Form.controls['businessCustomerType'].invalid" class="tooltiptext1">Business Customer Is Mandatory</div>
+                                <span class="tooltiptext1" [ngClass]="{'has-error':user_Form.controls['businessCustomerType'].touched}">Please Select Account Type</span>
+                                <div *ngIf="user_Form.controls['businessCustomerType'].hasError('required') && user_Form.controls['businessCustomerType'].touched && user_Form.controls['businessCustomerType'].invalid" class="tooltiptext1">Account Type Is Mandatory</div>
                               </div>
                             </div>
 
@@ -250,7 +256,11 @@
                                 <span class="tooltipbadge">?</span>
                                 <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['first_Name'].valid && user_Form.controls['first_Name'].touched}">Please Enter First Name</span>
                                 <div *ngIf="user_Form.controls['first_Name'].hasError('required') && user_Form.controls['first_Name'].touched && user_Form.controls['first_Name'].invalid" class="tooltiptext1">First Name Is Mandatory</div>
-                                <div *ngIf="!user_Form.controls['first_Name'].hasError('required') && user_Form.controls['first_Name'].touched && user_Form.controls['first_Name'].invalid" class="tooltiptext1">First Name is invalid</div>
+                                <div *ngIf="!user_Form.controls['first_Name'].hasError('required') && user_Form.controls['first_Name'].touched && user_Form.controls['first_Name'].invalid" class="tooltiptext1">
+                                  <span class="spantag">enter only alpahets and spaces</span>
+                                  <span class="spantag">special characters are not allowed.</span>
+                                  <span class="spantag">Min length 2 and Max length 50 Characters.</span>
+                                  </div>
                               </div>
                             </div>
                           </div>
@@ -262,24 +272,28 @@
 
 
 
-
                           <div class="row">
                             <div class="col-lg-11">
-                              <div class="form-group" >
+                              <div class="form-group" [ngClass]="{'has-error': user_Form.controls['middle_Name'].invalid}">
                                 <div class="left-inner-addon ">
                                   <i class="icon-user"></i>
-                                  <input class="form-control" maxlength="2" placeholder="Middle Name" name="middle_Name" [formControl]="user_Form.controls['middle_Name']" formControlName="middle_Name">
+                                  <input class="form-control" maxlength="2" placeholder="Middl Name" name="middle_Name" [formControl]="user_Form.controls['middle_Name']" formControlName="middle_Name">
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-1">
-                              <div class="tooltip1">
+                              <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['middle_Name'].invalid && user_Form.controls['middle_Name'].touched}">
                                 <span class="tooltipbadge">?</span>
-                                <span class="tooltiptext1">Please Enter Middle Name</span>
+                                <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['middle_Name'].valid && user_Form.controls['middle_Name'].touched}">Please Enter Middle Name</span>
+                                <div *ngIf="user_Form.controls['middle_Name'].touched && user_Form.controls['middle_Name'].invalid" class="tooltiptext1">
+                                  <span class="spantag">enter only alpahets</span>
+                                  <span class="spantag">special characters are not allowed.</span>
+                                  <span class="spantag">Max length 2 Characters.</span>
+                                </div>
                               </div>
-
                             </div>
                           </div>
+
 
                           <!--</div>-->
                         </div>
@@ -307,7 +321,11 @@
                                 <span class="tooltipbadge">?</span>
                                 <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['last_Name'].valid && user_Form.controls['last_Name'].touched}">Please Enter Last Name</span>
                                 <div *ngIf="user_Form.controls['last_Name'].hasError('required') && user_Form.controls['last_Name'].touched && user_Form.controls['last_Name'].invalid" class="tooltiptext1">Last Name Is Mandatory.</div>
-                                <div *ngIf="!user_Form.controls['last_Name'].hasError('required') && user_Form.controls['last_Name'].touched && user_Form.controls['last_Name'].invalid" class="tooltiptext1">Last Name is invalid</div>
+                                <div *ngIf="!user_Form.controls['last_Name'].hasError('required') && user_Form.controls['last_Name'].touched && user_Form.controls['last_Name'].invalid" class="tooltiptext1">
+                                  <span class="spantag">enter only alpahets and spaces</span>
+                                  <span class="spantag">special characters are not allowed.</span>
+                                  <span class="spantag">Min length 2 and Max length 50 Characters.</span>
+                                  </div>
                               </div>
                             </div>
                           </div>
@@ -415,7 +433,12 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['primary_Email'].valid && user_Form.controls['primary_Email'].touched}">Please Enter Primary Email</span>
                                     <div *ngIf="user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">Primary Email is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">Primary Email is invalid</div>
+                                    <div *ngIf="!user_Form.controls['primary_Email'].hasError('required') && user_Form.controls['primary_Email'].touched && user_Form.controls['primary_Email'].invalid" class="tooltiptext1">
+                                      <span class="spantag">Enter alphanumeric and special characters (@,.,_)</span>
+                                      <span class="spantag">Spaces are not allowed</span>
+                                      <span class="spantag">Min length 6 and Max length 100 characters</span>
+                                      <span class="spantag">Valid Format. name@domain.com</span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -440,7 +463,12 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['secondary_Email'].valid && user_Form.controls['secondary_Email'].touched}">Please Enter Secondary Email</span>
                                     <div *ngIf="user_Form.controls['secondary_Email'].hasError('required') && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid" class="tooltiptext1">Secondary Email is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['secondary_Email'].hasError('required') && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid" class="tooltiptext1">Secondary Email is invalid</div>
+                                    <div *ngIf="!user_Form.controls['secondary_Email'].hasError('required') && user_Form.controls['secondary_Email'].touched && user_Form.controls['secondary_Email'].invalid" class="tooltiptext1">
+                                      <span class="spantag">Enter alphanumeric and special characters (@,.,_)</span>
+                                      <span class="spantag">Spaces are not allowed</span>
+                                      <span class="spantag">Min length 6 and Max length 100 characters</span>
+                                      <span class="spantag">Valid Format. name@domain.com</span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -546,7 +574,7 @@
                                 <div class="col-lg-5">
                                   <div class="form-group" [ngClass]="{'has-error': user_Form.controls['workPhone'].invalid && user_Form.controls['workPhone'].touched}">
                                     <div class="left-inner-addon ">
-                                      <i class="icon-user" maxlength="10" *ngIf="user_Form.controls['workPhone'].hasError('required') && !user_Form.controls['workPhone'].touched">*</i>
+                                      <i class="icon-user" *ngIf="user_Form.controls['workPhone'].hasError('required') && !user_Form.controls['workPhone'].touched">*</i>
                                       <input class="form-control" maxlength="10" placeholder="Work Phone Number" [(ngModel)]="workPhone" name="workPhone" id="workPhone" [formControl]="user_Form.controls['workPhone']" formControlName="workPhone" (change)="convertNumbertoUSFormat('workPhone')" >
                                     </div>
                                   </div>
@@ -560,14 +588,22 @@
                                   </div>
                                 </div>
                                 <div class="col-lg-2">
-                                  <input class="form-control" maxlength="3" pattern="[0-9]{3}" placeholder="Ext" name="ext" formControlName="ext">
+                                  <div class="form-group" [ngClass]="{'has-error': user_Form.controls['ext'].invalid && user_Form.controls['ext'].touched}">
+                                    <div class="left-inner-addon ">
+                                      <i class="icon-user"></i>
+                                      <input class="form-control" maxlength="3" placeholder="Ext" name="ext" [formControl]="user_Form.controls['ext']" formControlName="ext" >
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="col-lg-1">
-                                  <div class="tooltip1">
+                                  <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['ext'].invalid && user_Form.controls['ext'].touched}">
                                     <span class="tooltipbadge">?</span>
-                                    <span class="tooltiptext1">Please Enter Ext</span>
+                                    <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['ext'].valid && user_Form.controls['ext'].touched}">Please Enter Extension</span>
+                                    <div *ngIf="user_Form.controls['ext'].touched && user_Form.controls['ext'].invalid" class="tooltiptext1">
+                                      <span class="spantag">enter only Numbers</span>
+                                      <span class="spantag">Max length 3</span>
+                                    </div>
                                   </div>
-
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
@@ -666,7 +702,7 @@
                                       <div class="form-group" [ngClass]="{'has-error': user_Form.controls['city_Name'].invalid && user_Form.controls['city_Name'].touched}">
                                         <div class="left-inner-addon ">
                                           <i class="icon-user" *ngIf="!user_Form.controls['city_Name'].touched">*</i>
-                                          <input class="form-control" placeholder="City" name="city_Name" [formControl]="user_Form.controls['city_Name']">
+                                          <input class="form-control" minlength="1" maxlength="50"  placeholder="City" name="city_Name" [formControl]="user_Form.controls['city_Name']">
                                         </div>
                                       </div>
                                     </div>
@@ -675,6 +711,11 @@
                                         <span class="tooltipbadge">?</span>
                                         <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['city_Name'].valid && user_Form.controls['city_Name'].touched}">Please Enter City</span>
                                         <div *ngIf="user_Form.controls['city_Name'].hasError('required') && user_Form.controls['city_Name'].touched && user_Form.controls['city_Name'].invalid" class="tooltiptext1">City Is Mandatory</div>
+                                        <div *ngIf="!user_Form.controls['city_Name'].hasError('required') && user_Form.controls['city_Name'].touched && user_Form.controls['city_Name'].invalid" class="tooltiptext1">
+                                          <span class="spantag">Allows only alphanumeric and spaces</span>
+                                          <span class="spantag">Special Characters are not allowed</span>
+                                          <span class="spantag">Min length 1 and Max length 50 characters</span>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -708,17 +749,20 @@
                                       <div class="col-lg-6">
                                         <div class="row">
                                           <div class="col-lg-10">
-                                            <div class="left-inner-addon" >
+                                            <div class="left-inner-addon" [ngClass]="{'has-error': user_Form.controls['zip2'].invalid }">
                                               <i class="icon-user"></i>
-                                              <input class="form-control" maxlength="4" placeholder="Zip2" name="zip2" formControlName="zip2" [formControl]="user_Form.controls['zip2']">
+                                              <input class="form-control" pattern="[0-9]{3}" maxlength="3" placeholder="Zip2" name="zip2" formControlName="zip2" [formControl]="user_Form.controls['zip2']">
                                             </div>
                                           </div>
                                           <div class="col-lg-1">
-                                            <div class="tooltip1">
+                                            <div class="tooltip1" [ngClass]="{'has-error':user_Form.controls['zip2'].invalid && user_Form.controls['zip2'].touched}">
                                               <span class="tooltipbadge">?</span>
-                                              <span class="tooltiptext1">Please Enter Zip2</span>
+                                              <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['zip2'].valid && user_Form.controls['zip2'].touched}">Please Enter Zip2</span>
+                                              <div *ngIf="user_Form.controls['zip2'].touched && user_Form.controls['zip2'].invalid" class="tooltiptext1">
+                                                <span class="spantag">enter only Numbers </span>
+                                                <span class="spantag">Max length 3</span>
+                                              </div>
                                             </div>
-
                                           </div>
                                         </div>
                                       </div>
@@ -745,7 +789,7 @@
                                         <span class="tooltipbadge">?</span>
                                         <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['address1'].touched && !user_Form.controls['address1'].dirty}">Please Enter Address1</span>
                                         <div *ngIf="user_Form.controls['address1'].hasError('required') && user_Form.controls['address1'].touched" class="tooltiptext1">Address1 is mandatory</div>
-                                        <div *ngIf="user_Form.controls['address1'].hasError('required') && user_Form.controls['address1'].touched" class="tooltiptext1">Address1 is invalid</div>
+                                        <div *ngIf="user_Form.controls['address1'].hasError('required') && user_Form.controls['address1'].touched && user_Form.controls['address1'].dirty" class="tooltiptext1">Address1 is invalid</div>
                                       </div>
                                     </div>
                                   </div>

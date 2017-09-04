@@ -28,19 +28,25 @@ hr {
 
 .tooltip1 .tooltiptext1 {
   visibility: hidden;
-  width: 120px;
+  width: 229px;
   background-color: #555;
   color: #fff;
-  text-align: center;
+  text-align: left;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 5px 21px;
   position: absolute;
-  z-index: 1;
+  z-index: 11;
   bottom: 125%;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -114px;
   opacity: 0;
   transition: opacity 1s;
+}
+
+.spantag {
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: inherit;
 }
 
 .tooltip1 .tooltiptext1::after {
