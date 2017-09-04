@@ -1173,7 +1173,6 @@ export class CreateaccountComponent implements OnInit {
 
       if (idVal == 'day_Phone_Number'){
         this.user_Form.value.day_Phone_Number = tempPhone;
-        this.user_Form.controls.day_Phone_Number.setValue = tempPhone;
       }
       if (idVal == 'eveningPhone'){
         this.user_Form.value.eveningPhone = tempPhone;
@@ -1211,6 +1210,7 @@ export class CreateaccountComponent implements OnInit {
 
   vehicleFormInitialValues= function () {
 
+    this.states = [];
     return new FormGroup({
       plateNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       vehicleClass: new FormControl('', Validators.required),

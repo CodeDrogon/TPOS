@@ -499,7 +499,10 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['day_Phone_Number'].valid && user_Form.controls['day_Phone_Number'].touched}">Please Enter Day Phone</span>
                                     <div *ngIf="user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Day Phone is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <div *ngIf="!user_Form.controls['day_Phone_Number'].hasError('required') && user_Form.controls['day_Phone_Number'].touched && user_Form.controls['day_Phone_Number'].invalid" class="tooltiptext1">
+                                      <span class="spantag">enter only Numbers</span>
+                                      <span class="spantag">Max length 10</span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -532,7 +535,10 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['eveningPhone'].valid && user_Form.controls['eveningPhone'].touched}">Please Enter Evening Phone</span>
                                     <div *ngIf="user_Form.controls['eveningPhone'].hasError('required') && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid" class="tooltiptext1">Evening Phone is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['eveningPhone'].hasError('required') && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <div *ngIf="!user_Form.controls['eveningPhone'].hasError('required') && user_Form.controls['eveningPhone'].touched && user_Form.controls['eveningPhone'].invalid" class="tooltiptext1">
+                                      <span class="spantag">enter only Numbers</span>
+                                      <span class="spantag">Max length 10</span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -559,7 +565,10 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['mobile_Phone_Number'].valid && user_Form.controls['mobile_Phone_Number'].touched}">Please Enter Mobile Phone</span>
                                     <div *ngIf="user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Mobile Phone is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <div *ngIf="!user_Form.controls['mobile_Phone_Number'].hasError('required') && user_Form.controls['mobile_Phone_Number'].touched && user_Form.controls['mobile_Phone_Number'].invalid" class="tooltiptext1">
+                                      <span class="spantag">enter only Numbers</span>
+                                      <span class="spantag">Max length 10</span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -584,7 +593,10 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['workPhone'].valid && user_Form.controls['workPhone'].touched}">Please Enter Work Phone</span>
                                     <div *ngIf="user_Form.controls['workPhone'].hasError('required') && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid" class="tooltiptext1">Work Phone is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['workPhone'].hasError('required') && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <div *ngIf="!user_Form.controls['workPhone'].hasError('required') && user_Form.controls['workPhone'].touched && user_Form.controls['workPhone'].invalid" class="tooltiptext1">
+                                      <span class="spantag">enter only Numbers</span>
+                                      <span class="spantag">Max length 10</span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -630,7 +642,10 @@
                                     <span class="tooltipbadge">?</span>
                                     <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['fax'].valid && user_Form.controls['fax'].touched}">Please Enter Fax number</span>
                                     <div *ngIf="user_Form.controls['fax'].hasError('required') && user_Form.controls['fax'].touched && user_Form.controls['fax'].invalid" class="tooltiptext1">Fax number is mandatory</div>
-                                    <div *ngIf="!user_Form.controls['fax'].hasError('required') && user_Form.controls['fax'].touched && user_Form.controls['fax'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                    <div *ngIf="!user_Form.controls['fax'].hasError('required') && user_Form.controls['fax'].touched && user_Form.controls['fax'].invalid" class="tooltiptext1">
+                                      <span class="spantag">enter only Numbers</span>
+                                      <span class="spantag">Max length 10</span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -739,7 +754,10 @@
                                               <span class="tooltipbadge">?</span>
                                               <span class="tooltiptext1" [ngClass]="{'has-error':!user_Form.controls['zip1'].valid && user_Form.controls['zip1'].touched && user_Form.controls['zip1'].valid}">Please Enter Zip1</span>
                                               <div *ngIf="user_Form.controls['zip1'].hasError('required') && user_Form.controls['zip1'].touched && user_Form.controls['zip1'].invalid" class="tooltiptext1">Zip1 Is Mandatory</div>
-                                              <div *ngIf="!user_Form.controls['zip1'].hasError('required') && user_Form.controls['zip1'].touched && user_Form.controls['zip1'].invalid" class="tooltiptext1">Please Enter Numbers Only</div>
+                                              <div *ngIf="!user_Form.controls['zip1'].hasError('required') && user_Form.controls['zip1'].touched && user_Form.controls['zip1'].invalid" class="tooltiptext1">
+                                                <span class="spantag">enter only Numbers</span>
+                                                <span class="spantag">Max length 6</span>
+                                              </div>
                                             </div>
 
                                           </div>
@@ -1319,7 +1337,7 @@
                         <input class="btn btn-primary" type="button" name="reset" value="Save & Add Another Vehicle" [disabled]="!false">
                       </div>-->
                       <div class="col-lg-1">
-                        <input class="btn btn-primary" type="button" name="reset" value="Save" (click)="saveVehicle(vehicleForm.value)" [disabled]="!vehicleForm.valid">
+                        <input class="btn btn-primary" type="button" name="save" value="Save" (click)="saveVehicle(vehicleForm.value)" [disabled]="!vehicleForm.valid">
                       </div>
                     </div>
                   </div>
