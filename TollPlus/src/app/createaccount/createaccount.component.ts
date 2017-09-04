@@ -1380,6 +1380,7 @@ export class CreateaccountComponent implements OnInit {
       console.log("this.vehicleArray length " + this.vehicleArray.length)
       if(this.vehicleArray.length > 0){
         this.isVehicleExists = true;
+        $("#dynamiccollapsein").toggle();
       }
     })
   }
