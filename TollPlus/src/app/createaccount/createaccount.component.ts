@@ -1716,27 +1716,27 @@ clickDate= function(id){
   }
 
 
-  userFormInitialValue=function () {
+  userFormInitialValue= function () {
     this.user_Form = new FormGroup({
-      first_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
-      last_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      first_Name: new FormControl('', Validators.compose([Validators.required,  Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      last_Name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
       businessCustomerType: new FormControl('', Validators.required),
       title: new FormControl(''),
       businessName: new FormControl('', Validators.required),
       suffix: new FormControl(''),
-      middle_Name: new FormControl('', Validators.compose([Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      middle_Name: new FormControl('', Validators.compose([Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*'), Validators.maxLength(2)])),
       gender: new FormControl(''),
       date_Of_Birth: new FormControl(''),
-      primary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
-      secondary_Email: new FormControl('', Validators.compose([Validators.required, CreateaccountComponent.emailValidator])),
+      primary_Email: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100), CreateaccountComponent.emailValidator])),
+      secondary_Email: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100), CreateaccountComponent.emailValidator])),
       day_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       eveningPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       mobile_Phone_Number: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       workPhone: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
       fax: new FormControl('', Validators.compose([Validators.required, CustomValidator.validatePhoneNumber])),
-      ext: new FormControl(''),
+      ext: new FormControl('', Validators.compose([Validators.pattern('[0-9]{3}')])),
       country: new FormControl('', Validators.required),
-      city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-Z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       zip1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6)])),
       zip2: new FormControl(''),
       address1: new FormControl('', Validators.required),
