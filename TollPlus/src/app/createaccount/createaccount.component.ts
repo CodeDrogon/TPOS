@@ -58,6 +58,7 @@ export class CreateaccountComponent implements OnInit {
   countries= [];
   countryObject: Object= {};
   states= [];
+  statesForDialougu= [];
   suffixs= [];
   titles= [];
   genders= [];
@@ -784,7 +785,7 @@ export class CreateaccountComponent implements OnInit {
 
       const resObj = JSON.parse(res._body);
       console.log(resObj.StateCode);
-      this.states = resObj.ResultValue;
+      this.statesForDialougu = resObj.ResultValue;
     })
   };
 

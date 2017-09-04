@@ -2295,7 +2295,7 @@
                               <i class="icon-user" >*</i>
                               <select name="registeredState" class="form-control" formControlName="registeredState" [formControl]="vehicleFormEdit.controls['registeredState']">
                                 <option value="" disabled>Registered State</option>
-                                <option *ngFor="let state of states" [selected]="state.StateCode==registeredState" value="{{state.StateCode}}">{{state.StateName}}</option>
+                                <option *ngFor="let state of statesForDialougu" [selected]="state.StateCode==registeredState" value="{{state.StateCode}}">{{state.StateName}}</option>
                               </select>
                             </div>
                           </div>
