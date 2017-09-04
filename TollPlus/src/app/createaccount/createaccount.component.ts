@@ -435,14 +435,9 @@ export class CreateaccountComponent implements OnInit {
 
 
   editVehicle= function(editableVehicleObj) {
-    debugger;
     this.getStatesForDialogue(editableVehicleObj.Country);
     const editVehicleStartDate = new Date(editableVehicleObj.StartEffectiveDate);
-    /*alert('editableVehicleObj.StartEffectiveDate ' + editVehicleStartDate.toLocaleDateString());
-    alert('editableVehicleObj.StartEffectiveDate ' + editVehicleStartDate.getHours());*/
     const editVehicleEndDate = new Date(editableVehicleObj.EndEffectiveDate);
-    /*alert('editableVehicleObj.StartEffectiveDate ' + editVehicleEndDate.toLocaleDateString());
-    alert('editableVehicleObj.StartEffectiveDate ' + editVehicleEndDate.getHours());*/
     this.vehicleFormEdit = new FormGroup({
       plateNumber: new FormControl(editableVehicleObj.VehicleNumber, Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       vehicleClass: new FormControl(editableVehicleObj.VehicleClass, Validators.required),
@@ -465,17 +460,14 @@ export class CreateaccountComponent implements OnInit {
       description: new FormControl(editableVehicleObj.Description),
       isTemporaryLicencePlateNumber: new FormControl(editableVehicleObj._isTemporaryLicencePlateNumber),
     });
-
- /*   const startDate = this.vehicleFormEdit.controls['startEffectiveDate'].value;
-
-    $('#startEffectiveDate').val(startDate);*/
-    /*$("#vehicleClass").val(this.vehicleClassDropdowns[1].value);
-
-
-     this.vehicleClassSelection=this.vehicleClassDropdowns[1].value;
-     alert(this.vehicleClassSelection);*/
-
-
+    var vehicleModelCount=0;
+    for(var i=0;i<this.vehicleModels.length;i++){
+      if(this.vehicleModels[i].Make==editableVehicleObj.Make) {
+        console.log(this.vehicleModels[i].Modal);
+        this.vehicleModelArrays[vehicleModelCount] = this.vehicleModels[i].Model;
+        vehicleModelCount++;
+      }
+    }
   }
   loadDropDown= function () {
 
