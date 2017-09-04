@@ -1282,6 +1282,7 @@ export class CreateaccountComponent implements OnInit {
       const resObj = JSON.parse(res._body);
       if(resObj.ResultValue==true){
         this.getVehicles();
+        $("#dynamiccollapsein").toggle();
         toastr.success( "Vehicle Information Updated Successfully...");
       } else {
         toastr.error( resObj.ResultValue);
