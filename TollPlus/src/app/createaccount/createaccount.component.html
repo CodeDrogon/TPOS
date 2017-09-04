@@ -1540,7 +1540,12 @@
     </div>
 
     <div class="tab-pane " id="4a">
+
+      <div style="margin-left:15px;color: #999999">
+        Toll Type- <b>PostPaid</b>
+      </div>
       <div id="page-wrapper">
+
         <form role="form" #userForm="ngForm" (ngSubmit)='savePersonal(userForm.value)' class="bgColor">
           <div class="row">
             <div class="col-lg-6">
@@ -1551,15 +1556,18 @@
 
 
                     <div class="panel-group" id="accordion1">
-                      <div class="panel panel-default">
+
+                      <!--<div class="panel panel-default">
                         <div class="panel-heading">
                           <h4 class="panel-title">
 
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline">
                             </a>Toll Type
+
                           </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
+                        </div>-->
+
+                        <!--<div id="collapse1" class="panel-collapse collapse in">
                           <ul class="nav nav-tabs nav-pills">
                             <li class="active">
                               <a href="#postPaid" data-toggle="tab">PostPaid</a>
@@ -1572,7 +1580,7 @@
                             <div class="tab-pane active scrollit" id="postPaid">
 
 
-                              <!-- /.row -->
+                              &lt;!&ndash; /.row &ndash;&gt;
                               <div class="row" style="background-color: #bbbbbb">
 
                                 <div class="col-lg-2">
@@ -1624,7 +1632,7 @@
                               <div style="background-color: #999999;margin-bottom: 3px;">
                                 Tag Details
                               </div>
-                              <!-- /.row -->
+                              &lt;!&ndash; /.row &ndash;&gt;
                               <div class="row" style="background-color: #bbbbbb">
 
                                 <div class="col-lg-2">
@@ -1678,12 +1686,12 @@
                                 </div>
                                 <div class="col-lg-2">
                                   <div class="form-group">
-                                    <!--<select class="form-control" placeholder="Statement Cycle"  name="statementCycle" ngModel>
+                                    &lt;!&ndash;<select class="form-control" placeholder="Statement Cycle"  name="statementCycle" ngModel>
                                       <option>Monthly</option>
                                       <option>Quarterly</option>
                                       <option>Half-Yearly</option>
                                       <option>Annually</option>
-                                    </select>-->
+                                    </select>&ndash;&gt;
                                   </div>
                                 </div>
                               </div>
@@ -1762,7 +1770,7 @@
                             <div class="tab-pane" id="prePaid">
 
 
-                              <!-- /.row -->
+                              &lt;!&ndash; /.row &ndash;&gt;
                               <form role="form" #userForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(userForm.value)'>
                                 <div class="row">
                                   <div class="col-lg-12">
@@ -1801,48 +1809,7 @@
                           </div>
 
                         </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-
-                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse2"  class="collase-icon glyphicon glyphicon-chevron-down">
-                            </a>Billing Address
-                          </h4>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                          <div class="panel-body">
-                            <form>
-                              <div class="row">
-
-                                <div class="col-lg-3">
-                                  <div class="form-group">
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" value="">Same As Shipping Address
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="col-lg-3">
-                                  <div class="form-group">
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" value="">Use An Exsting Address
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="col-lg-3">
-                                  <div class="form-group">
-                                    <label class="checkbox-inline">
-                                      <input type="checkbox" value="">Add New Address
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-
-
-                          </div>
-                        </div>
-                      </div>
+                      </div>-->
                       <div class="panel panel-default">
                         <div class="panel-heading">
                           <h4 class="panel-title">
@@ -1850,7 +1817,7 @@
                             </a>Payment
                           </h4>
                         </div>
-                        <div id="collapse3" class="panel-collapse collapse">
+                        <div id="collapse3" class="panel-collapse collapse in">
                           <div class="panel-body">
                             <form>
                               <div class="row">
@@ -1862,7 +1829,7 @@
                                     </label>
                                   </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <!--<div class="col-lg-3">
                                   <div class="form-group">
                                     <label class="checkbox-inline">
                                       <input type="checkbox" value="">Bank Account
@@ -1882,7 +1849,7 @@
                                       <input type="checkbox" value="">Cash
                                     </label>
                                   </div>
-                                </div>
+                                </div>-->
 
                               </div>
                               <div class="row">
@@ -1994,6 +1961,48 @@
                           </div>
                         </div>
                       </div>
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+
+                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse2"  class="collase-icon glyphicon glyphicon-chevron-down">
+                            </a>Billing Address
+                          </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <form>
+                              <div class="row">
+
+                                <div class="col-lg-6">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" checked value="">Same As Shipping Address
+                                    </label>
+                                  </div>
+                                </div>
+                                <!--<div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Use An Exsting Address
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div class="form-group">
+                                    <label class="checkbox-inline">
+                                      <input type="checkbox" value="">Add New Address
+                                    </label>
+                                  </div>
+                                </div>-->
+                              </div>
+                            </form>
+
+
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                     <!-- /.panel-body -->
                   </div>
@@ -2017,7 +2026,7 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="panel panel-default">
-                      <div style="background-color: #999999">
+                      <div style="padding-left:25%;background-color: #e0e3e6;;height: 28px;">
                         Amount Summary Information
                       </div>
                       <div class="panel-body">
@@ -2045,20 +2054,43 @@
 
                             <div class="col-lg-4">
                               <div class="form-group">
-                                {{summaryDetails.description}}
-                              </div>
-                            </div>
+
+
+
+
+                                <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content else other_content"></div>
+                                <ng-template #content>
+                                  <hr style="margin-top: 0px;margin-bottom: 0px;">
+                                  <b>{{summaryDetails.description}}</b></ng-template>
+                                <ng-template #other_content>{{summaryDetails.description}}</ng-template>
+                                </div>
+                                 </div>
+
                             <div class="col-lg-4">
                               <div class="form-group">
-                                {{summaryDetails.amount}}
+                                <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content1 else other_content1"></div>
+                                <ng-template #content1>
+                                  <hr style="margin-top: 0px;margin-bottom: 0px;">
+                                  <b>{{summaryDetails.amount}}</b></ng-template>
+                                <ng-template #other_content1>{{summaryDetails.amount}}</ng-template>
+
                               </div>
                             </div>
 
                           </div>
-
                           <div class="panel panel-default">
                             <div class="panel-heading">
-                              Need help
+                              <p class="glyphicon glyphicon-info-sign">Information</p>
+                              <ul>
+                                <li>Service Tax 10% Applied on Tag Fee</li>
+                                <li>Service Tax 2% Applied on Credit Card Payment</li>
+                              </ul>
+                            </div>
+                            <!-- /.panel-body -->
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <p class="glyphicon glyphicon-question-sign">Need Help?</p>
                               <ul>
                                 <li><a href="www.sureitinc.com">Shipping</a> </li>
                                 <li><a href="www.sureitinc.com">Contact Us</a> </li>
@@ -2070,16 +2102,7 @@
                             </div>
                             <!-- /.panel-body -->
                           </div>
-                          <div class="panel panel-default">
-                            <div class="panel-heading">
-                              Note
-                              <ul>
-                                <li>Service Tax 10% Applied on Tag Fee</li>
-                                <li>Service Tax 2% Applied on Credit Card Payment</li>
-                              </ul>
-                            </div>
-                            <!-- /.panel-body -->
-                          </div>
+
 
 
                         </form>
