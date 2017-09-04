@@ -1277,6 +1277,7 @@ export class CreateaccountComponent implements OnInit {
         this.getVehicles();
         $("#dynamiccollapsein").toggle();
         toastr.success( "Vehicle Information Updated Successfully...");
+        $("[data-dismiss=modal]").trigger({ type: "click" });
       } else {
         toastr.error( resObj.ResultValue);
       }
