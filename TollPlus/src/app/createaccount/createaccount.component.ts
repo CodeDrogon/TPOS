@@ -31,7 +31,7 @@ export class CreateaccountComponent implements OnInit {
   user_Form: FormGroup;
   vehicleForm: FormGroup;
   addtnl_Info_Form: FormGroup;
-  form1;
+  payment_Form: FormGroup;
   text: FormControl;
   constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder) {
     this.idProofFullPath = '/pom.xml';
@@ -153,6 +153,7 @@ existingAddressDetails;
     const emailPattern1 = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)';
 
     this.userFormInitialValue();
+    this.paymentFormInitialValues();
 
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(''),
@@ -1188,8 +1189,8 @@ existingAddressDetails;
     return new FormGroup({
       plateNumber: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       vehicleClass: new FormControl('', Validators.required),
-      vehicle_Make: new FormControl(''),
-      vehicle_Year: new FormControl(''),
+      vehicle_Make: new FormControl('', Validators.required),
+      vehicle_Year: new FormControl('', Validators.required),
       vehicle_Model: new FormControl(''),
       vehicle_Color: new FormControl(''),
       registered_Country: new FormControl('', Validators.required),
@@ -1852,5 +1853,22 @@ clickDate= function(id){
       });
   };
 
+paymentFormInitialValues= function () {
+    this.payment_Form = new FormGroup({
+      creditType: new FormControl('', Validators.required),
+      cardNumBox1: new FormControl('', Validators.required),
+      cardNumBox2: new FormControl('', Validators.required),
+      cardNumBox3: new FormControl('', Validators.required),
+      cardNumBox4: new FormControl('', Validators.required),
+      nameOnCard: new FormControl('', Validators.compose([Validators.required,  Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
+      expiryMonth: new FormControl('', Validators.required),
+      expiryYear: new FormControl('', Validators.required)
+    });
+  }
+
+  submitPayment= function (paymentDetails) {
+console.log('submit method called');
+    this.disableButton();
+  }
 }
 
