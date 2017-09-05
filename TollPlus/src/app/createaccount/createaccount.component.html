@@ -1613,7 +1613,7 @@
 
         <form role="form" #userForm="ngForm" (ngSubmit)='savePersonal(userForm.value)' class="bgColor">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="panel panel-default">
@@ -1887,10 +1887,12 @@
                             <form>
                               <div class="row">
 
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                   <div class="form-group">
                                     <label class="checkbox-inline">
-                                      <input type="checkbox" value="">Credit Card
+                                     <!-- <input type="checkbox" value="">Credit Card-->
+                                      <input type="radio" name="creditCard" value="CreditCard" formControlName="creditCard" checked='checked' > Credit Card
+
                                     </label>
                                   </div>
                                 </div>
@@ -1927,13 +1929,10 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <select class="form-control" placeholder="Account Type" name="accountType" ngModel>
-                                      <option>1</option>
-                                      <option>1</option>
-                                      <option>2</option>
-                                      <option>3</option>
-                                      <option>4</option>
-                                      <option>5</option>
+                                    <select class="form-control" placeholder="Card Type" name="cardType" ngModel>
+                                      <option label="Card Type" disabled ></option>
+                                      <option *ngFor="let cardType of cardTypes"
+                                              value="{{cardType.key}}"> {{cardType.value}}</option>
                                     </select>
                                   </div>
                                 </div>
@@ -1980,7 +1979,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                   <div class="form-group">
-                                    <input class="form-control" placeholder="Class" name="class" ngModel>
+                                    <input class="form-control" placeholder="Name On Card" name="class" ngModel>
                                   </div>
                                 </div>
 
@@ -2086,7 +2085,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-5">
               <form role="form" #userForm="ngForm" class="bgColor" (ngSubmit)='savePersonal(userForm.value)'>
                 <div class="row">
                   <div class="col-lg-12">
@@ -2116,8 +2115,10 @@
                           </div>
 
                           <div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
-
-                            <div class="col-lg-4">
+                            <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ">
+                            <hr style="margin-top: 5px;margin-bottom: 5px;color:#e0e3e6">
+                            </div>
+                            <div class="col-lg-5">
                               <div class="form-group">
 
 
@@ -2125,17 +2126,16 @@
 
                                 <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content else other_content"></div>
                                 <ng-template #content>
-                                  <hr style="margin-top: 0px;margin-bottom: 0px;">
+
                                   <b>{{summaryDetails.description}}</b></ng-template>
                                 <ng-template #other_content>{{summaryDetails.description}}</ng-template>
                                 </div>
                                  </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-5">
                               <div class="form-group">
                                 <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content1 else other_content1"></div>
                                 <ng-template #content1>
-                                  <hr style="margin-top: 0px;margin-bottom: 0px;">
                                   <b>{{summaryDetails.amount}}</b></ng-template>
                                 <ng-template #other_content1>{{summaryDetails.amount}}</ng-template>
 
@@ -2145,7 +2145,7 @@
                           </div>
                           <div class="panel panel-default">
                             <div class="panel-heading">
-                              <p class="glyphicon glyphicon-info-sign">Information</p>
+                              <p class="glyphicon glyphicon-info-sign" style="font-size:20px;font-style: italic">Information</p>
                               <ul>
                                 <li>Service Tax 10% Applied on Tag Fee</li>
                                 <li>Service Tax 2% Applied on Credit Card Payment</li>
@@ -2155,7 +2155,7 @@
                           </div>
                           <div class="panel panel-default">
                             <div class="panel-heading">
-                              <p class="glyphicon glyphicon-question-sign">Need Help?</p>
+                              <p class="glyphicon glyphicon-question-sign" style="font-size:20px;font-style: italic">Need Help?</p>
                               <ul>
                                 <li><a href="www.sureitinc.com">Shipping</a> </li>
                                 <li><a href="www.sureitinc.com">Contact Us</a> </li>

@@ -8,7 +8,6 @@ export class UtilityService {
 
 
   getCountries=function (getCountryRelativePath) {
-    console.log("country service ")
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
 
@@ -57,5 +56,8 @@ export class UtilityService {
   additionalInformationOperation(additionalInformationObj,relativePath){
     return this.httpService.postMethodWithParams(additionalInformationObj, relativePath);
 
+  }
+  paymentInformationOperationWithoutParameters(relativePath){
+    return this.httpService.getHttpMethodWithoutParams(relativePath);
   }
 }
