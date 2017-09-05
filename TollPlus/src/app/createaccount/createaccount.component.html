@@ -1067,7 +1067,10 @@
                             <span class="tooltipbadge">?</span>
                             <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleForm.controls['plateNumber'].valid && vehicleForm.controls['plateNumber'].touched}">Please Enter Plate Number</span>
                             <div *ngIf="vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is mandatory</div>
-                            <div *ngIf="!vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is invalid</div>
+                            <div *ngIf="!vehicleForm.controls['plateNumber'].hasError('required') && vehicleForm.controls['plateNumber'].touched && vehicleForm.controls['plateNumber'].invalid" class="tooltiptext1">
+                              <span class="spantag">Allows only alphanumeric and spaces</span>
+                              <span class="spantag">Special Characters are not allowed</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -2223,7 +2226,10 @@
                             <span class="tooltipbadge">?</span>
                             <span class="tooltiptext1" [ngClass]="{'has-error':!vehicleFormEdit.controls['plateNumber'].valid && vehicleFormEdit.controls['plateNumber'].touched}">Please Enter Plate Number</span>
                             <div *ngIf="vehicleFormEdit.controls['plateNumber'].hasError('required') && vehicleFormEdit.controls['plateNumber'].touched && vehicleFormEdit.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is mandatory</div>
-                            <div *ngIf="!vehicleFormEdit.controls['plateNumber'].hasError('required') && vehicleFormEdit.controls['plateNumber'].touched && vehicleFormEdit.controls['plateNumber'].invalid" class="tooltiptext1">Plate Number is invalid</div>
+                            <div *ngIf="!vehicleFormEdit.controls['plateNumber'].hasError('required') && vehicleFormEdit.controls['plateNumber'].touched && vehicleFormEdit.controls['plateNumber'].invalid" class="tooltiptext1">
+                              <span class="spantag">Allows only alphanumeric and spaces</span>
+                              <span class="spantag">Special Characters are not allowed</span>
+                            </div>
                           </div>
                         </div>
                       </div>
