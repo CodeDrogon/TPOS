@@ -87,7 +87,7 @@ export class CreateaccountComponent implements OnInit {
   statementDeliveryOptions= [];
   accountCategories= [];
 cardTypes=[];
-
+existingAddressDetails;
   public IdProofDropped(event) {
     this.files = event.files;
 
@@ -677,10 +677,15 @@ cardTypes=[];
         $(".nav-tabs > .active .badge").text('X');
         $(".nav-tabs > .active .badge").css("color","white");
         $(".nav-tabs > .active .badge").css("background-color","crimson");
-        /*alert(resObj.ResultValue);*/
-
       }else{
         sessionStorage.setItem('CustomerId', resObj.ResultValue);
+        debugger;
+        this.existingAddressDetails="Address:-"+this.account.addressList[0].line1+","+this.account.addressList[0].line2+",\n"+
+          "City:"+this.account.addressList[0].city+",\n"+
+          "Country:"+this.account.addressList[0].country+",\n"+
+          "State:"+this.account.addressList[0].state+",\n"+
+          "Zip1:"+this.account.addressList[0].zip1+",\n"+
+          "Zip2:"+this.account.addressList[0].zip2;
         $(".nav-tabs > .active .badge").text('✔');
         $(".nav-tabs > .active .badge").css("color","lightgreen");
         $(".nav-tabs > .active .badge").css("background-color","forestgreen");
