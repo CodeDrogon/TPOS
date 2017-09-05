@@ -86,8 +86,8 @@ export class CreateaccountComponent implements OnInit {
   howDidYouHearUsOptions= [];
   statementDeliveryOptions= [];
   accountCategories= [];
-
-
+cardTypes=[];
+existingAddressDetails;
   public IdProofDropped(event) {
     this.files = event.files;
 
@@ -283,40 +283,7 @@ export class CreateaccountComponent implements OnInit {
       }
     ];
 
-    this.amountSummaryDetails = [
-      {
-        description: 'Toll Balance',
-        amount: '25.00'
-      },
-      {
-        description: 'Total Tag Fee',
-        amount: '25.00'
-      },
-      {
-        description: 'Enroll Fee',
-        amount: '25.00'
-      },
-      {
-        description: 'Total Tag Deposit',
-        amount: '25.00'
-      },
-      {
-        description: 'Sub Total',
-        amount: '25.00'
-      },
-      {
-        description: 'Service Tax',
-        amount: '25.00'
-      },
-      {
-        description: 'Shiiping Charge',
-        amount: '25.00'
-      },
-      {
-        description: 'Total Amount',
-        amount: '25.00'
-      }
-    ];
+
 
 
     this.addressSelection = [
@@ -421,6 +388,8 @@ export class CreateaccountComponent implements OnInit {
     this.getVehicleYearDropdown();
     this.getVehicleColorDropdown();
     this.getVehicleModelsDropdown();
+    this.getCardTypes();
+    this.getAmountSummaryDetials();
   }
 
 
@@ -708,10 +677,15 @@ export class CreateaccountComponent implements OnInit {
         $(".nav-tabs > .active .badge").text('X');
         $(".nav-tabs > .active .badge").css("color","white");
         $(".nav-tabs > .active .badge").css("background-color","crimson");
-        /*alert(resObj.ResultValue);*/
-
       }else{
         sessionStorage.setItem('CustomerId', resObj.ResultValue);
+        debugger;
+        this.existingAddressDetails="Address:-"+this.account.addressList[0].line1+","+this.account.addressList[0].line2+",\n"+
+          "City:"+this.account.addressList[0].city+",\n"+
+          "Country:"+this.account.addressList[0].country+",\n"+
+          "State:"+this.account.addressList[0].state+",\n"+
+          "Zip1:"+this.account.addressList[0].zip1+",\n"+
+          "Zip2:"+this.account.addressList[0].zip2;
         $(".nav-tabs > .active .badge").text('✔');
         $(".nav-tabs > .active .badge").css("color","lightgreen");
         $(".nav-tabs > .active .badge").css("background-color","forestgreen");
@@ -1768,7 +1742,115 @@ clickDate= function(id){
     toastr.success( "Payment Information Submitted Successfully...");
   }
 
+  getCardTypes= function () {
+    this.utilityService.paymentInformationOperationWithoutParameters('GetLookups/?Type=CreditCardType').subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      this.cardTypes = resObj.ResultValue;
+      //console.log("countries" + resObj.ResultValue);
+      //console.log(typeof  resObj)
+    })
+  };
 
+  getAmountSummaryDetials= function () {
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsPlanBasedStmt')
+      .subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+      var tempObj={"description":"IsPlanBasedStmt","amount":tempValue};
+      this.amountSummaryDetails.push(tempObj);
+
+    });
+
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTax')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"CCServiceTax","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsVehicleTags')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"IsVehicleTags","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CashReplnAmt')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"CashReplnAmt","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CreditCardReplnAmt')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"CreditCardReplnAmt","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ACHReplnAmt')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"ACHReplnAmt","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"IsTagFee","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/MinDaystoProcessPlan')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"MinDaystoProcessPlan","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsServiceTax')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"IsServiceTax","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ServiceTax')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"ServiceTax","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CheckBlockList')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"CheckBlockList","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTaxInd')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        var tempObj={"description":"CCServiceTaxInd","amount":tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+  };
 
 }
 
