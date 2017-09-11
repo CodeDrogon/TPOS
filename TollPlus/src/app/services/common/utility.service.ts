@@ -60,4 +60,8 @@ export class UtilityService {
   paymentInformationOperationWithoutParameters(relativePath){
     return this.httpService.getHttpMethodWithoutParams(relativePath);
   }
+
+  encryptedString(relativepath, jsonObject ){
+    return this.httpService.postMethodWithParams(relativepath, jsonObject);
+  }
 }

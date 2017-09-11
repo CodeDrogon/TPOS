@@ -7,8 +7,10 @@ export class Vehicle{
   private ActivitySource;
   private CheckBlockList;
   private Color;
+  private ColorValue;
   private ContractType;
   private Country;
+  private CountryName;
   private CurrentDateTime;
   private DeactivatedDate;
   private EndEffectiveDate;
@@ -22,7 +24,9 @@ export class Vehicle{
   private IsTemporaryNumber;
   private LoginId;
   private Make;
+  private MakeDescription;
   private Model;
+  private ModelDescription;
   private OldTagType;
   private OldVehicleNumber;
   private PageNumber;
@@ -37,6 +41,7 @@ export class Vehicle{
   private StartDateMins;
   private StartDateSecs;
   private State;
+  private StateName;
   private Subsystem;
   private SystemUserActivityInd;
   private TagSerialNum;
@@ -45,6 +50,7 @@ export class Vehicle{
   private UserName;
   private VehicleClass;
   private VehicleClassDesc;
+  private VehicleDescription;
   private VehicleHistoryActivity;
   private VehicleId;
   private VehicleLoadActivityInd;
@@ -52,6 +58,7 @@ export class Vehicle{
   private VehicleSearchActivityInd;
   private VehicleStatus;
   private Year;
+
   get accountId() {
     return this.AccountId;
   }
@@ -443,6 +450,51 @@ export class Vehicle{
 
   set startDateSecs(value) {
     this.StartDateSecs = value;
+  }
+
+
+  get countryName() {
+    return this.CountryName;
+  }
+
+  set countryName(value) {
+    this.CountryName = value;
+  }
+
+  get makeDescription() {
+    return this.MakeDescription;
+  }
+
+  set makeDescription(value) {
+    this.MakeDescription = value;
+  }
+
+  get modelDescription() {
+    return this.ModelDescription;
+  }
+
+  set modelDescription(value) {
+    this.ModelDescription = value;
+  }
+
+  get stateName() {
+    return this.StateName;
+  }
+
+  set stateName(value) {
+    this.StateName = value;
+  }
+  get colorValue() {
+    return this.ColorValue;
+  }
+  set colorValue(value) {
+    this.ColorValue = value;
+  }
+  get vehicleDescription() {
+    return this.VehicleDescription;
+  }
+  set vehicleDescription(value) {
+    this.VehicleDescription = value;
   }
 }
 
