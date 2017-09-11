@@ -10,7 +10,7 @@ import {KYCDocument} from '../pojo/kycdocument';
 import {Phone} from '../pojo/phone';
 import {Vehicle} from '../pojo/Vehicle';
 import {CustomValidator} from 'app/services/common/custom-validator';
-import {AdditionalInformation} from "../pojo/AdditionalInformation";
+import {AdditionalInformation} from '../pojo/AdditionalInformation';
 import * as toastr from 'toastr';
 declare var populateCountries: any;
 declare var businessCustomerTooltip: any;
@@ -33,6 +33,7 @@ export class CreateaccountComponent implements OnInit {
   addtnl_Info_Form: FormGroup;
   payment_Form: FormGroup;
   text: FormControl;
+  tempEncryptedPassword = '';
   constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder) {
     this.idProofFullPath = '/pom.xml';
     this.addressProofFullPath = '/pom.xml';
@@ -86,15 +87,16 @@ export class CreateaccountComponent implements OnInit {
   howDidYouHearUsOptions= [];
   statementDeliveryOptions= [];
   accountCategories= [];
-cardTypes=[];
+  inputEncryptionObject: Object= {};
+cardTypes= [];
 existingAddressDetails;
   public IdProofDropped(event) {
     this.files = event.files;
 
     //this.idProofFullPath=event.files[0].fileEntry.fullPath;
     this.idProofFullPath = '/pom.xml';
-    $(".idProofFileDropColor").css("border"," 2px dotted green");
-    $(".idProofFileDropColor").css("border-radius"," 30px");
+    $('.idProofFileDropColor').css('border', ' 2px dotted green');
+    $('.idProofFileDropColor').css('border-radius', ' 30px');
     console.log(event.files[0].fileEntry.fullPath);
     /*for (file of event.files) {
      file.fileEntry.file(info => {
@@ -112,8 +114,8 @@ existingAddressDetails;
     this.files = event.files;
     this.addressProofFullPath = event.files[0].fileEntry.fullPath;
     this.idProofFullPath = '/pom.xml';
-    $(".addressProofFileDropColor").css("border"," 2px dotted green");
-    $(".addressProofFileDropColor").css("border-radius"," 30px");
+    $('.addressProofFileDropColor').css('border', ' 2px dotted green');
+    $('.addressProofFileDropColor').css('border-radius', ' 30px');
     console.log(this.addressProofFullPath);
   }
 
@@ -128,23 +130,23 @@ existingAddressDetails;
 
   ngOnInit() {
     toastr.options = {
-      "closeButton": true,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": false,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
+      'closeButton': true,
+      'debug': false,
+      'newestOnTop': false,
+      'progressBar': false,
+      'positionClass': 'toast-top-right',
+      'preventDuplicates': false,
+      'onclick': null,
+      'showDuration': '300',
+      'hideDuration': '1000',
+      'timeOut': '5000',
+      'extendedTimeOut': '1000',
+      'showEasing': 'swing',
+      'hideEasing': 'linear',
+      'showMethod': 'fadeIn',
+      'hideMethod': 'fadeOut'
     }
-    $("#businessName").prop("disabled",true);
+    $('#businessName').prop('disabled', true);
     this.getHearAboutUs();
     this.getStatementDelivOption();
     this.getRevenueCategory();
@@ -183,9 +185,9 @@ existingAddressDetails;
       $('.btnNext').click(function(){
 
         $('.my-link').unbind('click', false);
-        $(".nav-tabs > .active .badge").text('✔');
-        $(".nav-tabs > .active .badge").css("color","lightgreen");
-        $(".nav-tabs > .active .badge").css("background-color","forestgreen");
+        $('.nav-tabs > .active .badge').text('✔');
+        $('.nav-tabs > .active .badge').css('color', 'lightgreen');
+        $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
         //alert("next "+$('.nav-tabs > .active').next('li').find('a').getAttribute("href"));
         $('.nav-tabs > .active').next('li').find('a').click(function() {
           // 'this' is not a jQuery object, so it will use
@@ -207,8 +209,8 @@ existingAddressDetails;
         $('.my-link').bind('click', false);
       });
 
-      $("#dyamicpopulate").click("on",function(){
-        $("#dynamiccollapsein").toggle();
+      $('#dyamicpopulate').click('on', function(){
+        $('#dynamiccollapsein').toggle();
       });
       /*$('#modalDiag').click('on', function (item) {
        alert("click "+item.attributes['data-id'].value);
@@ -431,9 +433,9 @@ existingAddressDetails;
       description: new FormControl(editableVehicleObj.Description),
       isTemporaryLicencePlateNumber: new FormControl(editableVehicleObj._isTemporaryLicencePlateNumber),
     });
-    var vehicleModelCount=0;
-    for(var i=0;i<this.vehicleModels.length;i++){
-      if(this.vehicleModels[i].Make==editableVehicleObj.Make) {
+    let vehicleModelCount = 0;
+    for (let i = 0; i < this.vehicleModels.length; i++){
+      if (this.vehicleModels[i].Make == editableVehicleObj.Make) {
         console.log(this.vehicleModels[i].Modal);
         this.vehicleModelArrays[vehicleModelCount] = this.vehicleModels[i].Model;
         vehicleModelCount++;
@@ -492,7 +494,32 @@ existingAddressDetails;
     this.account.sourceOfEntry = '0';
     this.account.accountType = '';
     this.account.isNotificationsEnabled = false;
-    this.account.retypePassword = customerInfo.passWord;
+    debugger;
+    //CALL FOR PASSWORD ENCRYPTION
+    //this.tempEncryptedPassword = this.getEncryptedString(customerInfo.passWord, customerInfo.userName,  'Password');
+
+    this.inputEncryptionObject = {
+      'plainText': customerInfo.passWord,
+
+      'saltValue': customerInfo.userName,
+      'encryptText': 'null',
+
+      'isEncrypted': 'false',
+
+      'SecurityType': 'Password'
+    };
+
+    const tempInpEncryObj = JSON.stringify(this.inputEncryptionObject);
+    console.log('password input object  ' + tempInpEncryObj);
+    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if (resObj.Result === true) {
+        this.tempEncryptedPassword= resObj.ResultValue;
+
+
+
+    console.log('password value ' + this.tempEncryptedPassword);
+    this.account.retypePassword = this.tempEncryptedPassword;
     this.account.addressType = '6';
     this.account.line1 = '';
     this.account.line2 = '';
@@ -539,7 +566,8 @@ existingAddressDetails;
     this.account.isCreateAccount = true;
     this.account.isPrimary = false;
     this.account.userName = customerInfo.userName;
-    this.account.password = customerInfo.passWord;
+    debugger;
+    this.account.password = this.tempEncryptedPassword;
     this.account.firstName = customerInfo.first_Name;
     this.account.lastName = customerInfo.last_Name;
     debugger;
@@ -667,6 +695,7 @@ existingAddressDetails;
     tempInputObj = tempInputObj.replace('PhoneList', 'Request Phone List');
     tempInputObj = tempInputObj.replace('AddressList', 'Request Address List');
     tempInputObj = tempInputObj.replace('AddKYCDocument', 'KYC Document List');
+    debugger;
     console.log(tempInputObj);
     this.utilityService.saveCustomer('PostCreateCustomer', tempInputObj).subscribe(res => {
 
@@ -675,21 +704,21 @@ existingAddressDetails;
       if (resObj.Result == false){
         this.userNameValidationResult = resObj.ResultValue;
         toastr.error(resObj.ResultValue);
-        $(".nav-tabs > .active .badge").text('X');
-        $(".nav-tabs > .active .badge").css("color","white");
-        $(".nav-tabs > .active .badge").css("background-color","crimson");
+        $('.nav-tabs > .active .badge').text('X');
+        $('.nav-tabs > .active .badge').css('color', 'white');
+        $('.nav-tabs > .active .badge').css('background-color', 'crimson');
       }else{
         sessionStorage.setItem('CustomerId', resObj.ResultValue);
         debugger;
-        this.existingAddressDetails="Address:-"+this.account.addressList[0].line1+","+this.account.addressList[0].line2+",\n"+
-          "City:"+this.account.addressList[0].city+",\n"+
-          "Country:"+this.account.addressList[0].country+",\n"+
-          "State:"+this.account.addressList[0].state+",\n"+
-          "Zip1:"+this.account.addressList[0].zip1+",\n"+
-          "Zip2:"+this.account.addressList[0].zip2;
-        $(".nav-tabs > .active .badge").text('✔');
-        $(".nav-tabs > .active .badge").css("color","lightgreen");
-        $(".nav-tabs > .active .badge").css("background-color","forestgreen");
+        this.existingAddressDetails = 'Address:-' + this.account.addressList[0].line1 + ',' + this.account.addressList[0].line2 + ',\n' +
+          'City:' + this.account.addressList[0].city + ',\n' +
+          'Country:' + this.account.addressList[0].country + ',\n' +
+          'State:' + this.account.addressList[0].state + ',\n' +
+          'Zip1:' + this.account.addressList[0].zip1 + ',\n' +
+          'Zip2:' + this.account.addressList[0].zip2;
+        $('.nav-tabs > .active .badge').text('✔');
+        $('.nav-tabs > .active .badge').css('color', 'lightgreen');
+        $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
         this.userFormInitialValue();
         /*alert(' Customer  Successfully Registered With ID: ' + resObj.ResultValue);*/
         $('.my-link').unbind('click', false);
@@ -699,13 +728,20 @@ existingAddressDetails;
           this.click();
         }).click();
         $('.my-link').bind('click', false);
-        toastr.success("Account Information Saved Successfully...");
+        toastr.success('Account Information Saved Successfully...');
         this.getVehicles();
       }
 
 
     })
+      }else {
+        toastr.error('Password Encryption Failed');
+        $('.nav-tabs > .active .badge').text('X');
+        $('.nav-tabs > .active .badge').css('color', 'white');
+        $('.nav-tabs > .active .badge').css('background-color', 'crimson');
+      }
 
+    })
     /*this.newService.savePersonal(customerPersonal).subscribe(res=>
      {
      var resObj=JSON.parse(res._body);
@@ -742,7 +778,7 @@ existingAddressDetails;
   getStates= function(id){
     this.countryObject = {
       'LookUpTypeCode' : 'TollSchedulePriorities',
-      'CountryCode' : $("#"+id+"").val()};
+      'CountryCode' : $('#' + id + '').val()};
     console.log(this.countryObject);
     this.utilityService.getStates('PostGetStatesByCountryCode', JSON.stringify(this.countryObject)).subscribe(res => {
 
@@ -837,8 +873,8 @@ existingAddressDetails;
       this.businesses = resObj.ResultValue;
 
     })*/
-    this.businesses=[{"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Individual","value":"Individual Customer"},
-      {"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Business","value":"Business Customer"}];
+    this.businesses = [{'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Individual', 'value': 'Individual Customer'},
+      {'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Business', 'value': 'Business Customer'}];
   }
   getBusinessCustomer= function () {
   /*  this.utilityService.getDropDownValues('GetLookups/?Type=Business&Customer').subscribe(res => {
@@ -846,8 +882,8 @@ existingAddressDetails;
       this.businessCustomers = resObj.ResultValue;
 
     })*/
-    this.businessCustomers=[{"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Individual","value":"Individual Customer"},
-      {"__type":"KeyValuePairOfstringstring:#System.Collections.Generic","key":"Business","value":"Business Customer"}];
+    this.businessCustomers = [{'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Individual', 'value': 'Individual Customer'},
+      {'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Business', 'value': 'Business Customer'}];
   }
 
   suffixOther= function () {
@@ -890,13 +926,13 @@ existingAddressDetails;
     if (accType == 'Business'){
       this.getAddressProofBusiness();
       this.getIdProofBusiness();
-      $("#businessName").prop("disabled",false);
+      $('#businessName').prop('disabled', false);
     }else{
       this.user_Form.controls['businessName']._status = 'valid';
       this.getIdProof();
       this.getAddressProof();
-      $("#businessName").text("");
-      $("#businessName").prop("disabled",true);
+      $('#businessName').text('');
+      $('#businessName').prop('disabled', true);
     }
 
   }
@@ -1031,7 +1067,7 @@ existingAddressDetails;
   static emailValidator(control) {
     // RFC 2822 compliant regex
     ///[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-    if(control.value){
+    if (control.value){
     if (control.value.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
       return null;
     } else {
@@ -1210,27 +1246,27 @@ existingAddressDetails;
 
   saveVehicle= function (vehicleInfo) {
     debugger
-    console.log('vehicle information  '+JSON.stringify(vehicleInfo));
+    console.log('vehicle information  ' + JSON.stringify(vehicleInfo));
     const tempJsonObj = JSON.stringify(vehicleInfo);
     let tempVehicleObj = this.setVehicleArrayObject(vehicleInfo);
-    tempVehicleObj=this.setVehicleObjectWithDynamicValues(tempVehicleObj,vehicleInfo);
-    tempVehicleObj.accountId=sessionStorage.getItem('CustomerId');
-    tempVehicleObj.contractType="Leased";
-    tempVehicleObj.vehicleId="0";
-    tempVehicleObj.FutureClosureDate=null;
-    console.log('actual Obj '+JSON.stringify(tempVehicleObj));
+    tempVehicleObj = this.setVehicleObjectWithDynamicValues(tempVehicleObj, vehicleInfo);
+    tempVehicleObj.accountId = sessionStorage.getItem('CustomerId');
+    tempVehicleObj.contractType = 'Leased';
+    tempVehicleObj.vehicleId = '0';
+    tempVehicleObj.FutureClosureDate = null;
+    console.log('actual Obj ' + JSON.stringify(tempVehicleObj));
     this.utilityService.vehicleOperation('PostCreate/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=' + sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
-      if(resObj.ResultValue==true){
+      if (resObj.ResultValue == true){
         this.getVehicles();
         // alert("Vehicle Added Successfully..");
-        $("#dynamiccollapsein").toggle();
+        $('#dynamiccollapsein').toggle();
         this.resetVehicleForm();
-        toastr.success( "Vehicle Information Saved Sucessfully...");
+        toastr.success( 'Vehicle Information Saved Sucessfully...');
       } else {
-        $(".nav-tabs > .active .badge").text('X');
-        $(".nav-tabs > .active .badge").css("color","white");
-        $(".nav-tabs > .active .badge").css("background-color","crimson");
+        $('.nav-tabs > .active .badge').text('X');
+        $('.nav-tabs > .active .badge').css('color', 'white');
+        $('.nav-tabs > .active .badge').css('background-color', 'crimson');
         toastr.error( resObj.ResultValue);
 
       }
@@ -1238,105 +1274,109 @@ existingAddressDetails;
     //this.vehicleArray[length] = tempVehicle;
 
   }
-  updateVehicle=function (vehicleInfo) {
+  updateVehicle= function (vehicleInfo) {
 
     const tempJsonObj = JSON.stringify(vehicleInfo);
     let tempVehicleObj = this.setVehicleArrayObject();
-    tempVehicleObj=this.setVehicleObjectWithDynamicValuesForUpdateVehicle(tempVehicleObj,vehicleInfo);
-    tempVehicleObj.accountId=sessionStorage.getItem('CustomerId');
-      tempVehicleObj.vehicleId=this.vehicleFormEdit.value.vehicleId;
-      tempVehicleObj.contractType=this.vehicleFormEdit.value.ContractType;
-    this.utilityService.vehicleOperation('PostUpdateVehicle/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId='+sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
+    tempVehicleObj = this.setVehicleObjectWithDynamicValuesForUpdateVehicle(tempVehicleObj, vehicleInfo);
+    tempVehicleObj.accountId = sessionStorage.getItem('CustomerId');
+      tempVehicleObj.vehicleId = this.vehicleFormEdit.value.vehicleId;
+      tempVehicleObj.contractType = this.vehicleFormEdit.value.ContractType;
+    this.utilityService.vehicleOperation('PostUpdateVehicle/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=' + sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
-      if(resObj.ResultValue==true){
+      if (resObj.ResultValue == true){
         this.getVehicles();
-        $("#dynamiccollapsein").toggle();
-        toastr.success( "Vehicle Information Updated Successfully...");
-        $("[data-dismiss=modal]").trigger({ type: "click" });
+        $('#dynamiccollapsein').toggle();
+        toastr.success( 'Vehicle Information Updated Successfully...');
+        $('[data-dismiss=modal]').trigger({ type: 'click' });
       } else {
         toastr.error( resObj.ResultValue);
       }
     })
   }
-  deleteVehicle=function (vehicleInfo) {
-    let deleteObj=new Vehicle();
-    deleteObj.accountId=sessionStorage.getItem('CustomerId');
-    deleteObj.checkBlockList=true;
-    deleteObj.color=vehicleInfo.Color;
-    deleteObj.contractType=vehicleInfo.ContractType;
-    deleteObj.country=vehicleInfo.CountryCode;
-    deleteObj.currentDateTime="\/Date(1245398693390)\/";
-    deleteObj.deactivatedDate="\/Date(1245398693390)\/";
-    deleteObj.endEffectiveDate="\/Date(1245398693390)\/";
-    deleteObj.filePath=null;
-    deleteObj.futureClosureDate=null;
-    deleteObj.isExempted=false;
-    deleteObj.isProtected=false;
-    deleteObj.isTemporaryNumber=false;
-    deleteObj.loginId=610901;
-    deleteObj.make=vehicleInfo.Make;
-    deleteObj.model=vehicleInfo.Model;
-    deleteObj.oldTagType=null;
-    deleteObj.oldVehicleNumber=null;
-    deleteObj.pageNumber=0;
-    deleteObj.pageSize=0;
-    deleteObj.rCNumber=null;
-    deleteObj.searchVehicleActivityInd=false;
-    deleteObj.sortColumn=null;
-    deleteObj.sortDirection=false;
-    deleteObj.source=null;
-    deleteObj.startEffectiveDate="\/Date(1245398693390)\/";
-    deleteObj.state=vehicleInfo.State;
-    deleteObj.systemUserActivityInd=true;
-    deleteObj.tagSerialNum=null;
-    deleteObj.tagType=null;
-    deleteObj.userId=10000001;
-    deleteObj.userName="tpsuperuser";
-    deleteObj.vehicleClass=vehicleInfo.VehicleClass;
-    deleteObj.vehicleClassDesc=null;
-    deleteObj.vehicleHistoryActivity=false;
-    deleteObj.vehicleId=vehicleInfo.VehicleId;
-    deleteObj.vehicleLoadActivityInd=false;
-    deleteObj.vehicleNumber=vehicleInfo.VehicleNumber;
-    deleteObj.vehicleSearchActivityInd=vehicleInfo.VehicleSearchActivityInd;
-    deleteObj.vehicleStatus=vehicleInfo.VehicleStatus;
-    deleteObj.year=vehicleInfo.Year;
+  deleteVehicle= function (vehicleInfo) {
+    const deleteObj = new Vehicle();
+    deleteObj.accountId = sessionStorage.getItem('CustomerId');
+    deleteObj.checkBlockList = true;
+    deleteObj.color = vehicleInfo.Color;
+    deleteObj.contractType = vehicleInfo.ContractType;
+    deleteObj.country = vehicleInfo.CountryCode;
+    deleteObj.currentDateTime = '\/Date(1245398693390)\/';
+    deleteObj.deactivatedDate = '\/Date(1245398693390)\/';
+    deleteObj.endEffectiveDate = '\/Date(1245398693390)\/';
+    deleteObj.filePath = null;
+    deleteObj.futureClosureDate = null;
+    deleteObj.isExempted = false;
+    deleteObj.isProtected = false;
+    deleteObj.isTemporaryNumber = false;
+    deleteObj.loginId = 610901;
+    deleteObj.make = vehicleInfo.Make;
+    deleteObj.model = vehicleInfo.Model;
+    deleteObj.oldTagType = null;
+    deleteObj.oldVehicleNumber = null;
+    deleteObj.pageNumber = 0;
+    deleteObj.pageSize = 0;
+    deleteObj.rCNumber = null;
+    deleteObj.searchVehicleActivityInd = false;
+    deleteObj.sortColumn = null;
+    deleteObj.sortDirection = false;
+    deleteObj.source = null;
+    deleteObj.startEffectiveDate = '\/Date(1245398693390)\/';
+    deleteObj.state = vehicleInfo.State;
+    deleteObj.systemUserActivityInd = true;
+    deleteObj.tagSerialNum = null;
+    deleteObj.tagType = null;
+    deleteObj.userId = 10000001;
+    deleteObj.userName = 'tpsuperuser';
+    deleteObj.vehicleClass = vehicleInfo.VehicleClass;
+    deleteObj.vehicleClassDesc = null;
+    deleteObj.vehicleHistoryActivity = false;
+    deleteObj.vehicleId = vehicleInfo.VehicleId;
+    deleteObj.vehicleLoadActivityInd = false;
+    deleteObj.vehicleNumber = vehicleInfo.VehicleNumber;
+    deleteObj.vehicleSearchActivityInd = vehicleInfo.VehicleSearchActivityInd;
+    deleteObj.vehicleStatus = vehicleInfo.VehicleStatus;
+    deleteObj.year = vehicleInfo.Year;
 
 
 
 
 
-    var deleteVehicleObj=JSON.stringify(deleteObj);
+    const deleteVehicleObj = JSON.stringify(deleteObj);
     debugger;
-    console.log("deleteVehicleObj "+deleteVehicleObj);
-    this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId='+ sessionStorage.getItem('CustomerId'), deleteVehicleObj)
+    console.log('deleteVehicleObj ' + deleteVehicleObj);
+    this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId=' + sessionStorage.getItem('CustomerId'), deleteVehicleObj)
       .subscribe(res => {
     const resObj = JSON.parse(res._body);
-    if(resObj.ResultValue==true){
+    if (resObj.ResultValue == true){
       this.getVehicles();
-      toastr.success( "Vehicle Information Deleted Successfully...");
+      toastr.success( 'Vehicle Information Deleted Successfully...');
     } else {
       toastr.error(resObj.ResultValue);
     }
   });
 
   }
-  getVehicles=function () {
-      let tempVehicleObj = this.setVehicleArrayObject();
+  getVehicles= function () {
+      const tempVehicleObj = this.setVehicleArrayObject();
       debugger;
-    tempVehicleObj.accountId=sessionStorage.getItem('CustomerId');
-    tempVehicleObj.contractType="";
-    tempVehicleObj.vehicleId="0";
-    tempVehicleObj.pageNumber=1;
-    tempVehicleObj.pageSize=10;
-    tempVehicleObj.sortColumn= "VEHICLENUMBER";
-    console.log('actual Obj '+JSON.stringify(tempVehicleObj));
+    tempVehicleObj.accountId = sessionStorage.getItem('CustomerId');
+    tempVehicleObj.contractType = '';
+    tempVehicleObj.vehicleId = '0';
+    tempVehicleObj.pageNumber = 1;
+    tempVehicleObj.pageSize = 10;
+    tempVehicleObj.sortColumn = 'VEHICLENUMBER';
+    console.log('actual Obj ' + JSON.stringify(tempVehicleObj));
     this.utilityService.vehicleOperation('PostGet/?enumModuleType=Customer&enumActivityType=ActiveVehicles&longCustomerId=' + sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       // alert(resObj.ResultValue[0].VehicleId);
       // alert(resObj.ResultValue[0].VehicleNumber);
       this.vehicleArray = resObj.ResultValue;
+      debugger;
       for (let i = 0; i < this.vehicleArray.length; i++) {
+        if (this.vehicleArray[i].Color != null || this.vehicleArray[i].Color != ''){
+          this.vehicleArray[i].ColorValue = this.getDropDownValueBasedOnKey(this.vehicleArray[i].Color, this.vehicleColors);
+        }
         if (this.vehicleArray[i].StartEffectiveDate != null){
 //          alert(this.vehicleArray[i].StartEffectiveDate);
           this.vehicleArray[i].StartEffectiveDate = this.convertNumberOfMilliSecsToDate(this.vehicleArray[i].StartEffectiveDate.split('+')[0].replace('/Date(', ''));
@@ -1347,10 +1387,11 @@ existingAddressDetails;
          // alert(this.vehicleArray[i].EndEffectiveDate);
         }
       }
-      console.log("this.vehicleArray length " + this.vehicleArray.length)
-      if(this.vehicleArray.length > 0){
+      debugger;
+      console.log('this.vehicleArray length ' + this.vehicleArray.length)
+      if (this.vehicleArray.length > 0){
         this.isVehicleExists = true;
-        $("#dynamiccollapsein").toggle();
+        $('#dynamiccollapsein').toggle();
       }
     })
   }
@@ -1361,40 +1402,40 @@ existingAddressDetails;
   setVehicleArrayObject= function () {
     const tempVehicle = new Vehicle();
     debugger;
-    tempVehicle.checkBlockList="true";
-    tempVehicle.filePath="null";
-    tempVehicle.isExempted="false";
-    tempVehicle.isProtected="false";
-    tempVehicle.isTemporaryNumber="false";
-    tempVehicle.loginId="610901";
-    tempVehicle.oldTagType="null";
-    tempVehicle.oldVehicleNumber="null";
-    tempVehicle.pageNumber="0";
-    tempVehicle.pageSize="0";
-    tempVehicle.rCNumber="null";
-    tempVehicle.searchVehicleActivityInd="false";
-    tempVehicle.sortColumn="null";
-    tempVehicle.sortDirection="false";
-    tempVehicle.source="null";
+    tempVehicle.checkBlockList = 'true';
+    tempVehicle.filePath = 'null';
+    tempVehicle.isExempted = 'false';
+    tempVehicle.isProtected = 'false';
+    tempVehicle.isTemporaryNumber = 'false';
+    tempVehicle.loginId = '610901';
+    tempVehicle.oldTagType = 'null';
+    tempVehicle.oldVehicleNumber = 'null';
+    tempVehicle.pageNumber = '0';
+    tempVehicle.pageSize = '0';
+    tempVehicle.rCNumber = 'null';
+    tempVehicle.searchVehicleActivityInd = 'false';
+    tempVehicle.sortColumn = 'null';
+    tempVehicle.sortDirection = 'false';
+    tempVehicle.source = 'null';
     // tempVehicle.startEffectiveDate=this.getCurrentDate();
-    tempVehicle.systemUserActivityInd="true";
-    tempVehicle.tagSerialNum="null";
-    tempVehicle.tagType="null";
-    tempVehicle.userId="10000001";
-    tempVehicle.userName="tpsuperuser";
-    tempVehicle.vehicleClassDesc="null";
-    tempVehicle.vehicleHistoryActivity="false";
-    tempVehicle.vehicleLoadActivityInd="false";
-    tempVehicle.vehicleSearchActivityInd="false";
-    tempVehicle.vehicleStatus="Active";
+    tempVehicle.systemUserActivityInd = 'true';
+    tempVehicle.tagSerialNum = 'null';
+    tempVehicle.tagType = 'null';
+    tempVehicle.userId = '10000001';
+    tempVehicle.userName = 'tpsuperuser';
+    tempVehicle.vehicleClassDesc = 'null';
+    tempVehicle.vehicleHistoryActivity = 'false';
+    tempVehicle.vehicleLoadActivityInd = 'false';
+    tempVehicle.vehicleSearchActivityInd = 'false';
+    tempVehicle.vehicleStatus = 'Active';
     return tempVehicle;
   }
 
-  getModels=function (vehicleMakeId) {
-    let make=$("#"+vehicleMakeId+"").val();
-    var vehicleModelCount=0;
-    for(var i=0;i<this.vehicleModels.length;i++){
-      if(this.vehicleModels[i].Make==make) {
+  getModels= function (vehicleMakeId) {
+    const make = $('#' + vehicleMakeId + '').val();
+    let vehicleModelCount = 0;
+    for (let i = 0; i < this.vehicleModels.length; i++){
+      if (this.vehicleModels[i].Make == make) {
         console.log(this.vehicleModels[i].Modal);
         this.vehicleModelArrays[vehicleModelCount] = this.vehicleModels[i].Model;
         vehicleModelCount++;
@@ -1416,7 +1457,7 @@ existingAddressDetails;
     console.log('start date value ' + $('#startEffectiveDate').val());
     console.log('passing start date' + this.convertStringDateToNumberString($('#startEffectiveDate').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
-    if($('#startEffectiveDate').val().length != 0) {
+    if ($('#startEffectiveDate').val().length != 0) {
       vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#startEffectiveDate').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
     }else {
@@ -1424,7 +1465,7 @@ existingAddressDetails;
     }
     console.log('passing start date' + this.convertStringDateToNumberString($('#endEffectiveDate').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
-    if($('#endEffectiveDate').val().length != 0) {
+    if ($('#endEffectiveDate').val().length != 0) {
       vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#endEffectiveDate').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
     } else {
@@ -1447,7 +1488,7 @@ existingAddressDetails;
     console.log('start date value ' + $('#start_Effective_Date').val());
     console.log('passing start date' + this.convertStringDateToNumberString($('#start_Effective_Date').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
-    if($('#start_Effective_Date').val().length != 0) {
+    if ($('#start_Effective_Date').val().length != 0) {
       vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#start_Effective_Date').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
     }else {
@@ -1455,7 +1496,7 @@ existingAddressDetails;
     }
     console.log('passing start date' + this.convertStringDateToNumberString($('#end_Effective_Date').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
-    if($('#end_Effective_Date').val().length != 0) {
+    if ($('#end_Effective_Date').val().length != 0) {
       vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#end_Effective_Date').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
     } else {
@@ -1469,82 +1510,82 @@ existingAddressDetails;
   saveAdditionalInformation = function(additionalInformationObj){
     debugger;
     const  additionalInfoObj = new  AdditionalInformation();
-    additionalInfoObj.accountId=sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
-    additionalInfoObj.accountType= "null";
-    additionalInfoObj.actionCode= "null";
+    additionalInfoObj.accountId = sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.accountType = 'null';
+    additionalInfoObj.actionCode = 'null';
     additionalInfoObj.activitySource = 710;
-    additionalInfoObj.activityTypeDescription= "null";
-    additionalInfoObj.autoReplenishmentType= "null";
-    additionalInfoObj.autoReplenishmentTypeDesc= "null";
-    additionalInfoObj.calculatedReBillAmount="0";
-    additionalInfoObj.customerStatus=13;
-    additionalInfoObj.checkBlockList="true";
-    additionalInfoObj.cycleUpdatedDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.driverLicenceApprovedState= "null";
-    additionalInfoObj.driverLicenceExpirationDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.driverLicenceNumber= "null";
-    additionalInfoObj.enrollmentNumber= "null";
-    additionalInfoObj.featuresCode= "null";
-    additionalInfoObj.invoiceAmount= "0";
-    additionalInfoObj.invoiceAmt= "null";
-    additionalInfoObj.invoiceDay= "0";
-    additionalInfoObj.invoiceIntervalID= "4";
-    additionalInfoObj.isCreateAccountUserActivity= "true";
-    additionalInfoObj.iSFrequentCaller= "false";
-    additionalInfoObj.isHearingImpirement= "false";
-    additionalInfoObj.isManualHold= "false";
-    additionalInfoObj.isNotificationsEnabled= "false";
-    additionalInfoObj.isPostPaidCustomer= "false";
-    additionalInfoObj.isSplitCustomer= "false";
-    additionalInfoObj.isSupervisor= "false";
-    additionalInfoObj.isTagInStatusFile= "false";
-    additionalInfoObj.isTagRequired= "false";
-    additionalInfoObj.keyValue= "null";
-    additionalInfoObj.loginId= "610908";
-    additionalInfoObj.membershipType= 82;
-    additionalInfoObj.nextRunDate="\/Date(1245398693390)\/";
-    additionalInfoObj.organizationName= "null";
-    additionalInfoObj.parentId= "0";
-    additionalInfoObj.performBy= "null";
-    additionalInfoObj.pin= "ceb6c970658f31504a901b89dcd3e461";
-    additionalInfoObj.planDescription= "null";
-    additionalInfoObj.planId= "0";
-    additionalInfoObj.preferedLanguange= "English";
-    additionalInfoObj.preferredShipment= 339;
-    additionalInfoObj.previousRunDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.rebill_Hold_EndEffectiveDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.rebill_Hold_StartEffectiveDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.referalBalance= "0";
+    additionalInfoObj.activityTypeDescription = 'null';
+    additionalInfoObj.autoReplenishmentType = 'null';
+    additionalInfoObj.autoReplenishmentTypeDesc = 'null';
+    additionalInfoObj.calculatedReBillAmount = '0';
+    additionalInfoObj.customerStatus = 13;
+    additionalInfoObj.checkBlockList = 'true';
+    additionalInfoObj.cycleUpdatedDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.driverLicenceApprovedState = 'null';
+    additionalInfoObj.driverLicenceExpirationDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.driverLicenceNumber = 'null';
+    additionalInfoObj.enrollmentNumber = 'null';
+    additionalInfoObj.featuresCode = 'null';
+    additionalInfoObj.invoiceAmount = '0';
+    additionalInfoObj.invoiceAmt = 'null';
+    additionalInfoObj.invoiceDay = '0';
+    additionalInfoObj.invoiceIntervalID = '4';
+    additionalInfoObj.isCreateAccountUserActivity = 'true';
+    additionalInfoObj.iSFrequentCaller = 'false';
+    additionalInfoObj.isHearingImpirement = 'false';
+    additionalInfoObj.isManualHold = 'false';
+    additionalInfoObj.isNotificationsEnabled = 'false';
+    additionalInfoObj.isPostPaidCustomer = 'false';
+    additionalInfoObj.isSplitCustomer = 'false';
+    additionalInfoObj.isSupervisor = 'false';
+    additionalInfoObj.isTagInStatusFile = 'false';
+    additionalInfoObj.isTagRequired = 'false';
+    additionalInfoObj.keyValue = 'null';
+    additionalInfoObj.loginId = '610908';
+    additionalInfoObj.membershipType = 82;
+    additionalInfoObj.nextRunDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.organizationName = 'null';
+    additionalInfoObj.parentId = '0';
+    additionalInfoObj.performBy = 'null';
+    additionalInfoObj.pin = this.tempEncryptedPassword;
+    additionalInfoObj.planDescription = 'null';
+    additionalInfoObj.planId = '0';
+    additionalInfoObj.preferedLanguange = 'English';
+    additionalInfoObj.preferredShipment = 339;
+    additionalInfoObj.previousRunDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.rebill_Hold_EndEffectiveDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.rebill_Hold_StartEffectiveDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.referalBalance = '0';
     additionalInfoObj.referralCustomerId = '10002865';
     /*if(additionalInformationObj.friendshipRewardAccountNo.length != 0) {
       additionalInfoObj.referralCustomerId = additionalInformationObj.friendshipRewardAccountNo;
     }*/
 
-    additionalInfoObj.refIndicator= "0";
-    additionalInfoObj.refPkId= "0";
-    additionalInfoObj.requestDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.requestStatus= 208;
-    additionalInfoObj.revenueCategory= additionalInformationObj.account_Category;
-    additionalInfoObj.securityQuestionsAndAnswers= "null";
-    additionalInfoObj.sourceOfChannel= additionalInformationObj.howDidYouHearUs;
-    additionalInfoObj.statementCycle= "null";
-    additionalInfoObj.statementDelivery= additionalInformationObj.statement_Delivery_Options;
-    additionalInfoObj.subSystem=803;
-    additionalInfoObj.templateType= "null";
-    additionalInfoObj.thresholdAmount= "0";
-    additionalInfoObj.tranponderPurchasemethod= "null";
-    additionalInfoObj.updatedUser= "tpsuperuser";
-    additionalInfoObj.user= "null";
-    additionalInfoObj.userId= "10000001";
+    additionalInfoObj.refIndicator = '0';
+    additionalInfoObj.refPkId = '0';
+    additionalInfoObj.requestDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.requestStatus = 208;
+    additionalInfoObj.revenueCategory = additionalInformationObj.account_Category;
+    additionalInfoObj.securityQuestionsAndAnswers = 'null';
+    additionalInfoObj.sourceOfChannel = additionalInformationObj.howDidYouHearUs;
+    additionalInfoObj.statementCycle = 'null';
+    additionalInfoObj.statementDelivery = additionalInformationObj.statement_Delivery_Options;
+    additionalInfoObj.subSystem = 803;
+    additionalInfoObj.templateType = 'null';
+    additionalInfoObj.thresholdAmount = '0';
+    additionalInfoObj.tranponderPurchasemethod = 'null';
+    additionalInfoObj.updatedUser = 'tpsuperuser';
+    additionalInfoObj.user = 'null';
+    additionalInfoObj.userId = '10000001';
     additionalInfoObj.userType = 11;
-    console.log('additionalInfoObj '+JSON.stringify(additionalInfoObj));
+    console.log('additionalInfoObj ' + JSON.stringify(additionalInfoObj));
     this.utilityService.additionalInformationOperation('PostAddInfo/?enumModuleType=Customer&enumActivityType=AdditionalInformation&longCustomerId=' + sessionStorage.getItem('CustomerId'), additionalInfoObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
-      if(resObj.Result==true) {
+      if (resObj.Result == true) {
 //alert(resObj.ResultValue);
-        $(".nav-tabs > .active .badge").text('✔');
-        $(".nav-tabs > .active .badge").css("color","lightgreen");
-        $(".nav-tabs > .active .badge").css("background-color","forestgreen");
+        $('.nav-tabs > .active .badge').text('✔');
+        $('.nav-tabs > .active .badge').css('color', 'lightgreen');
+        $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
         $('.my-link').unbind('click', false);
         $('.nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
@@ -1552,11 +1593,11 @@ existingAddressDetails;
           this.click();
         }).click();
         $('.my-link').bind('click', false);
-        toastr.success( "Additional Information Saved Successfully...");
+        toastr.success( 'Additional Information Saved Successfully...');
       }else{
-        $(".nav-tabs > .active .badge").text('X');
-        $(".nav-tabs > .active .badge").css("color","white");
-        $(".nav-tabs > .active .badge").css("background-color","crimson");
+        $('.nav-tabs > .active .badge').text('X');
+        $('.nav-tabs > .active .badge').css('color', 'white');
+        $('.nav-tabs > .active .badge').css('background-color', 'crimson');
         toastr.error( resObj.ResultValue);
       }
     })
@@ -1566,75 +1607,75 @@ existingAddressDetails;
   updateAdditionalInformation = function(additionalInformationObj){
     debugger;
     const  additionalInfoObj = new  AdditionalInformation();
-    additionalInfoObj.accountId=sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
-    additionalInfoObj.accountType= "null";
-    additionalInfoObj.actionCode= "null";
+    additionalInfoObj.accountId = sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
+    additionalInfoObj.accountType = 'null';
+    additionalInfoObj.actionCode = 'null';
     additionalInfoObj.activitySource = 710;
-    additionalInfoObj.activityTypeDescription= "null";
-    additionalInfoObj.autoReplenishmentType= "null";
-    additionalInfoObj.autoReplenishmentTypeDesc= "null";
-    additionalInfoObj.calculatedReBillAmount="0";
-    additionalInfoObj.customerStatus=13;
-    additionalInfoObj.checkBlockList="true";
-    additionalInfoObj.cycleUpdatedDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.driverLicenceApprovedState= "null";
-    additionalInfoObj.driverLicenceExpirationDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.driverLicenceNumber= "null";
-    additionalInfoObj.enrollmentNumber= "null";
-    additionalInfoObj.featuresCode= "null";
-    additionalInfoObj.invoiceAmount= "0";
-    additionalInfoObj.invoiceAmt= "null";
-    additionalInfoObj.invoiceDay= "0";
-    additionalInfoObj.invoiceIntervalID= "4";
-    additionalInfoObj.isCreateAccountUserActivity= "true";
-    additionalInfoObj.iSFrequentCaller= "false";
-    additionalInfoObj.isHearingImpirement= "false";
-    additionalInfoObj.isManualHold= "false";
-    additionalInfoObj.isNotificationsEnabled= "false";
-    additionalInfoObj.isPostPaidCustomer= "false";
-    additionalInfoObj.isSplitCustomer= "false";
-    additionalInfoObj.isSupervisor= "false";
-    additionalInfoObj.isTagInStatusFile= "false";
-    additionalInfoObj.isTagRequired= "false";
-    additionalInfoObj.keyValue= "null";
-    additionalInfoObj.loginId= "610908";
-    additionalInfoObj.membershipType= 82;
-    additionalInfoObj.nextRunDate="\/Date(1245398693390)\/";
-    additionalInfoObj.organizationName= "null";
-    additionalInfoObj.parentId= "0";
-    additionalInfoObj.performBy= "null";
-    additionalInfoObj.pin= "jK4EPin4aSyB+4+WlJWMvQ==";
-    additionalInfoObj.planDescription= "null";
-    additionalInfoObj.planId= "0";
-    additionalInfoObj.preferedLanguange= "English";
-    additionalInfoObj.preferredShipment= 339;
-    additionalInfoObj.previousRunDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.rebill_Hold_EndEffectiveDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.rebill_Hold_StartEffectiveDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.referalBalance= "0";
-    additionalInfoObj.referralCustomerId= "0";
-    additionalInfoObj.refIndicator= "0";
-    additionalInfoObj.refPkId= "0";
-    additionalInfoObj.requestDate= "\/Date(1245398693390)\/";
-    additionalInfoObj.requestStatus= 208;
-    additionalInfoObj.revenueCategory= additionalInformationObj.account_Category;
-    additionalInfoObj.securityQuestionsAndAnswers= "null";
-    additionalInfoObj.sourceOfChannel= additionalInformationObj.howDidYouHearUs;
-    additionalInfoObj.statementCycle= "null";
-    additionalInfoObj.statementDelivery= additionalInformationObj.statement_Delivery_Options;
-    additionalInfoObj.subSystem=803;
-    additionalInfoObj.templateType= "null";
-    additionalInfoObj.thresholdAmount= "0";
-    additionalInfoObj.tranponderPurchasemethod= "null";
-    additionalInfoObj.updatedUser= "tpsuperuser";
-    additionalInfoObj.user= "null";
-    additionalInfoObj.userId= "10000001";
+    additionalInfoObj.activityTypeDescription = 'null';
+    additionalInfoObj.autoReplenishmentType = 'null';
+    additionalInfoObj.autoReplenishmentTypeDesc = 'null';
+    additionalInfoObj.calculatedReBillAmount = '0';
+    additionalInfoObj.customerStatus = 13;
+    additionalInfoObj.checkBlockList = 'true';
+    additionalInfoObj.cycleUpdatedDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.driverLicenceApprovedState = 'null';
+    additionalInfoObj.driverLicenceExpirationDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.driverLicenceNumber = 'null';
+    additionalInfoObj.enrollmentNumber = 'null';
+    additionalInfoObj.featuresCode = 'null';
+    additionalInfoObj.invoiceAmount = '0';
+    additionalInfoObj.invoiceAmt = 'null';
+    additionalInfoObj.invoiceDay = '0';
+    additionalInfoObj.invoiceIntervalID = '4';
+    additionalInfoObj.isCreateAccountUserActivity = 'true';
+    additionalInfoObj.iSFrequentCaller = 'false';
+    additionalInfoObj.isHearingImpirement = 'false';
+    additionalInfoObj.isManualHold = 'false';
+    additionalInfoObj.isNotificationsEnabled = 'false';
+    additionalInfoObj.isPostPaidCustomer = 'false';
+    additionalInfoObj.isSplitCustomer = 'false';
+    additionalInfoObj.isSupervisor = 'false';
+    additionalInfoObj.isTagInStatusFile = 'false';
+    additionalInfoObj.isTagRequired = 'false';
+    additionalInfoObj.keyValue = 'null';
+    additionalInfoObj.loginId = '610908';
+    additionalInfoObj.membershipType = 82;
+    additionalInfoObj.nextRunDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.organizationName = 'null';
+    additionalInfoObj.parentId = '0';
+    additionalInfoObj.performBy = 'null';
+    additionalInfoObj.pin = 'jK4EPin4aSyB+4+WlJWMvQ==';
+    additionalInfoObj.planDescription = 'null';
+    additionalInfoObj.planId = '0';
+    additionalInfoObj.preferedLanguange = 'English';
+    additionalInfoObj.preferredShipment = 339;
+    additionalInfoObj.previousRunDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.rebill_Hold_EndEffectiveDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.rebill_Hold_StartEffectiveDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.referalBalance = '0';
+    additionalInfoObj.referralCustomerId = '0';
+    additionalInfoObj.refIndicator = '0';
+    additionalInfoObj.refPkId = '0';
+    additionalInfoObj.requestDate = '\/Date(1245398693390)\/';
+    additionalInfoObj.requestStatus = 208;
+    additionalInfoObj.revenueCategory = additionalInformationObj.account_Category;
+    additionalInfoObj.securityQuestionsAndAnswers = 'null';
+    additionalInfoObj.sourceOfChannel = additionalInformationObj.howDidYouHearUs;
+    additionalInfoObj.statementCycle = 'null';
+    additionalInfoObj.statementDelivery = additionalInformationObj.statement_Delivery_Options;
+    additionalInfoObj.subSystem = 803;
+    additionalInfoObj.templateType = 'null';
+    additionalInfoObj.thresholdAmount = '0';
+    additionalInfoObj.tranponderPurchasemethod = 'null';
+    additionalInfoObj.updatedUser = 'tpsuperuser';
+    additionalInfoObj.user = 'null';
+    additionalInfoObj.userId = '10000001';
     additionalInfoObj.userType = 11;
-    console.log('additionalInfoObj '+JSON.stringify(additionalInfoObj));
+    console.log('additionalInfoObj ' + JSON.stringify(additionalInfoObj));
     this.utilityService.additionalInformationOperation('PostUpdateInfo/?enumModuleType=Customer&enumActivityType=UpdateAdditionalInformation&longCustomerId=' + sessionStorage.getItem('CustomerId'), additionalInfoObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
-      if(resObj.ResultValue==true){
-        alert("Additional Information Updated Successfully...")
+      if (resObj.ResultValue == true){
+        alert('Additional Information Updated Successfully...')
       }
 
     })
@@ -1642,10 +1683,10 @@ existingAddressDetails;
 
 clickDate= function(id){
     debugger;
-    var parts = id.split('/');
+    const parts = id.split('/');
 // please put attention to the month (parts[0]), Javascript counts months from 0:
 // January - 0, February - 1, etc
-    var mydate = new Date(parts[2],  parts[1] - 1, parts[0], 18, 54, 0);
+    const mydate = new Date(parts[2],  parts[1] - 1, parts[0], 18, 54, 0);
     console.log('parsed date  ' + mydate.getTime());
     console.log('parsed date1  ' + new Date(mydate.getTime()));
     console.log('Date now  ' + Date.now());
@@ -1657,7 +1698,7 @@ clickDate= function(id){
 
   convertStringDateToNumberString= function(date, hours, mins, secs){
     debugger;
-    var parts = date.split('/');
+    const parts = date.split('/');
 // please put attention to the month (parts[0]), Javascript counts months from 0:
 // January - 0, February - 1, etc
     console.log('converted string date : ' + new Date(parts[2],  parts[1] - 1, parts[0], hours, mins, secs).getTime());
@@ -1713,7 +1754,7 @@ clickDate= function(id){
       country: new FormControl('', Validators.required),
       city_Name: new FormControl('', Validators.compose([Validators.required,  Validators.pattern('[a-zA-Z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       zip1: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(6)])),
-      zip2: new FormControl(''),
+      zip2: new FormControl('', Validators.compose([Validators.pattern('[0-9]{3}'), Validators.maxLength(3)])),
       address1: new FormControl('', Validators.required),
       address2: new FormControl(''),
       idProofType: new FormControl('', Validators.required),
@@ -1734,13 +1775,13 @@ clickDate= function(id){
     });
 
   }
-  disableButton=function () {
-    $(".nav-tabs > .active .badge").text('✔');
-    $(".nav-tabs > .active .badge").css("color","lightgreen");
-    $(".nav-tabs > .active .badge").css("background-color","forestgreen");
-    $("#paymentAdditionalInfo").prop("disabled",true);
-    $("#paymentSubmit").prop("disabled",true);
-    toastr.success( "Payment Information Submitted Successfully...");
+  disableButton= function () {
+    $('.nav-tabs > .active .badge').text('✔');
+    $('.nav-tabs > .active .badge').css('color', 'lightgreen');
+    $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
+    $('#paymentAdditionalInfo').prop('disabled', true);
+    $('#paymentSubmit').prop('disabled', true);
+    toastr.success( 'Payment Information Submitted Successfully...');
   }
 
   getCardTypes= function () {
@@ -1756,8 +1797,8 @@ clickDate= function(id){
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsPlanBasedStmt')
       .subscribe(res => {
       const resObj = JSON.parse(res._body);
-      let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-      var tempObj={"description":"IsPlanBasedStmt","amount":tempValue};
+      const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+      const tempObj = {'description': 'IsPlanBasedStmt', 'amount': tempValue};
       this.amountSummaryDetails.push(tempObj);
 
     });
@@ -1765,48 +1806,48 @@ clickDate= function(id){
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTax')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"CCServiceTax","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'CCServiceTax', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsVehicleTags')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"IsVehicleTags","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'IsVehicleTags', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CashReplnAmt')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"CashReplnAmt","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'CashReplnAmt', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CreditCardReplnAmt')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"CreditCardReplnAmt","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'CreditCardReplnAmt', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ACHReplnAmt')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"ACHReplnAmt","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'ACHReplnAmt', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"IsTagFee","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'IsTagFee', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
@@ -1814,40 +1855,40 @@ clickDate= function(id){
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/MinDaystoProcessPlan')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"MinDaystoProcessPlan","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'MinDaystoProcessPlan', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsServiceTax')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"IsServiceTax","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'IsServiceTax', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ServiceTax')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"ServiceTax","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'ServiceTax', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CheckBlockList')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"CheckBlockList","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'CheckBlockList', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTaxInd')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        let tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        var tempObj={"description":"CCServiceTaxInd","amount":tempValue};
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'CCServiceTaxInd', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
       });
@@ -1869,6 +1910,49 @@ paymentFormInitialValues= function () {
   submitPayment= function (paymentDetails) {
 console.log('submit method called');
     this.disableButton();
+  }
+
+  getDropDownValueBasedOnKey= function(dropdownKey, dropDownArray): string {
+  debugger;
+  let tempDropDownValue;
+    for (let i = 0; i < dropDownArray.length; i++) {
+      if (dropDownArray[i].LookUpTypeCodeId == dropdownKey) {
+        tempDropDownValue = dropDownArray[i].LookUpTypeCodeDesc;
+        break;
+      }
+    }
+    return tempDropDownValue;
+  }
+
+  getEncryptedString= function (inputString, saltValueInput, securityType) {
+  let encryptedPassword ;
+    this.inputEncryptionObject = {
+      'plainText': inputString,
+
+      'saltValue': saltValueInput,
+      'encryptText': 'null',
+
+      'isEncrypted': 'false',
+
+      'SecurityType': securityType
+    };
+
+    const tempInpEncryObj = JSON.stringify(this.inputEncryptionObject);
+    console.log('password input object  ' + tempInpEncryObj);
+    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if (resObj.Result === true) {
+        encryptedPassword = resObj.ResultValue;
+      }else {
+        toastr.error('Password Encryption Failed');
+        $('.nav-tabs > .active .badge').text('X');
+        $('.nav-tabs > .active .badge').css('color', 'white');
+        $('.nav-tabs > .active .badge').css('background-color', 'crimson');
+      }
+
+    })
+    console.log("before function return "+encryptedPassword)
+    return encryptedPassword;
   }
 }
 

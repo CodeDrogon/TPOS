@@ -6,8 +6,8 @@ import * as $ from 'jquery';
 export class TollPlusHttpService {
 
 
-  //contextRoot="http://192.168.50.41:85/";
-  contextRoot="http://183.82.116.26:85/";
+  contextRoot="http://192.168.50.41:85/";
+  //contextRoot="http://183.82.116.26:85/";
   contextPath="WSCustomerService.svc/";
   url=this.contextRoot+this.contextPath;
   xmlHttp;
@@ -28,6 +28,8 @@ export class TollPlusHttpService {
       {
         headers: customHeaders
       });
+console.log(this.url + relativePath);
+console.log('input object ' + inputObject);
     return this.http.post(this.url + relativePath, inputObject,
       {headers: customHeaders});
 

@@ -375,3 +375,6 @@ ul.breadcrumb li a:hover {
   border-radius:10px;
   word-wrap: break-word;
 }
+.borderless td,.borderless th {
+  border: none;
+}
