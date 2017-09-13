@@ -398,3 +398,11 @@ ul.breadcrumb li a:hover {
   background-color: #eff1f2;
   border: 2px 2px 2px 0px solid #637283 !important;
 }
+.nav-pills > li.inneractive > a, .nav-pills > li.inneractive > a:hover, .nav-pills > li.inneractive > a:focus{
+  background-color: white !important;
+  border-radius: 10px;
+}
+.list-group-item.active > .badge, .nav-pills > .inneractive > a > .badge {
+  color: #fff;
+  background-color: #015db1;
+}
