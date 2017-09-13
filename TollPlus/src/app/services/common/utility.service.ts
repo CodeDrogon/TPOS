@@ -7,6 +7,7 @@ export class UtilityService {
   constructor(public httpService:TollPlusHttpService) { }
 
 
+   const servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
   getCountries=function (getCountryRelativePath) {
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
@@ -64,4 +65,49 @@ export class UtilityService {
   encryptedString(relativepath, jsonObject ){
     return this.httpService.postMethodWithParams(relativepath, jsonObject);
   }
+
+  getAllActiveTagConfigurations() {
+    return this.httpService.getHttpMethodWithoutParams('GetAllActiveTagConfigurations');
+  }
+
+  getTollType(){
+    return this.httpService.getHttpMethodWithoutParams('GetLookups/?Type=TollType');
+  }
+
+  getTagDeliveryMethod(){
+    return this.httpService.getHttpMethodWithoutParams('GetLookups/?Type=TransponderPurchasemethod');
+  }
+
+  getStatementCycleType(){
+    return this.httpService.getHttpMethodWithoutParams('GetStatementCycleType');
+  }
+
+  getInvoiceCycleType(){
+    return this.httpService.getHttpMethodWithoutParams('GetInvoiceCycleType');
+  }
+
+  getAllPlansWithFees(customerId, inputObject){
+    return this.httpService.postMethodWithParams(this.servicePath + 'GetAllPlansWithFees&longCustomerId=' + customerId, inputObject);
+  }
+
+  getDefaultAddressForCustomer(customerId){
+    return this.httpService.postMethodWithoutParams(this.servicePath + 'GetDefaultAddress&longCustomerId=' + customerId);
+  }
+
+  getRequestedTags(customerId){
+    return this.httpService.postMethodWithoutParams(this.servicePath + 'GetRequestedTags&longCustomerId=' + customerId);
+  }
+
+  getFeesBasedOnPlanId(customerId, inputObject){
+    return this.httpService.postMethodWithParams(this.servicePath + 'GetFeesBasedonPlanID&longCustomerId=' + customerId, inputObject);
+  }
+
+  isCardInBlockList(inputObject){
+    return this.httpService.postMethodWithParams('PostIsExist/?enumActivityType=BlockList', inputObject);
+  }
+
+  isCreditCardAlreadyLinkedToAccount(inputObject){
+    return this.httpService.postMethodWithParams('PostIsExist/?enumActivityType=IsCreditCardExist', inputObject);
+  }
+
 }
