@@ -129,7 +129,7 @@ existingAddressDetails;
 
 
   ngOnInit() {
-    this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";
+    /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
     toastr.options = {
       'closeButton': true,
       'debug': false,
@@ -224,9 +224,7 @@ existingAddressDetails;
       });
 
 
-      $("#dyamicpopulate").click("on",function(){
-        $("#dynamiccollapsein").toggle();
-      });
+
       $('#dyamicpopulate').click('on', function(){
         $('#dynamiccollapsein').toggle();
       });
@@ -1281,7 +1279,7 @@ existingAddressDetails;
       if (resObj.ResultValue == true){
         this.getVehicles();
         // alert("Vehicle Added Successfully..");
-        $('#dynamiccollapsein').toggle();
+
         this.resetVehicleForm();
         toastr.success( 'Vehicle Information Saved Sucessfully...');
       } else {
