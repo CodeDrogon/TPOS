@@ -369,12 +369,32 @@ ul.breadcrumb li a:hover {
 }
 
 #rectangle{
-  width:auto;
-  height:auto;
+  width:100%;
+  height:100%;
   background-color:#e0e3e6;
-  border-radius:10px;
+  word-wrap: break-word;
+}
+#rectangleForReview{
+  width:min-content;
+  height:auto;
   word-wrap: break-word;
 }
 .borderless td,.borderless th {
   border: none;
+}
+
+.transponderFontColor{
+
+  color:#4a83c1;
+}
+.Rectangle-1 {
+  width: 55%;
+  height: 100%;
+  padding: 3%;
+  border: solid 2px #085db0;
+}
+
+.thstyle {
+  background-color: #eff1f2;
+  border: 2px 2px 2px 0px solid #637283 !important;
 }

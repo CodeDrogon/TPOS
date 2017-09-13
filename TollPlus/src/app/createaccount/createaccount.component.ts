@@ -129,6 +129,7 @@ existingAddressDetails;
 
 
   ngOnInit() {
+    this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";
     toastr.options = {
       'closeButton': true,
       'debug': false,
@@ -208,7 +209,24 @@ existingAddressDetails;
         }).click();
         $('.my-link').bind('click', false);
       });
+      $('.innerBtnNext').click(function(){
+        $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+          this.click();
+        }).click();
 
+
+      });
+
+      $('.innerBtnPrevious').click(function(){
+        $('.inner-nav-tabs > .active').prev('li').find('a').click(function() {
+          this.click();
+        }).click();
+      });
+
+
+      $("#dyamicpopulate").click("on",function(){
+        $("#dynamiccollapsein").toggle();
+      });
       $('#dyamicpopulate').click('on', function(){
         $('#dynamiccollapsein').toggle();
       });
@@ -339,21 +357,24 @@ existingAddressDetails;
         mounting: 'Transponder1',
         noOftags: '10',
         perTagFee: '10',
-        perTagDeposit: '35'
+        perTagDeposit: '35',
+        Amount: '65'
       },
       {
         protocol: '6C',
         mounting: 'Transponder2',
         noOftags: '20',
         perTagFee: '10',
-        perTagDeposit: '35'
+        perTagDeposit: '35',
+        Amount: '85'
       },
       {
         protocol: '6C',
         mounting: 'Transponder3',
         noOftags: '30',
         perTagFee: '10',
-        perTagDeposit: '35'
+        perTagDeposit: '35',
+        Amount: '100'
       }
     ];
 
@@ -1903,15 +1924,14 @@ paymentFormInitialValues= function () {
       cardNumBox4: new FormControl('', Validators.required),
       nameOnCard: new FormControl('', Validators.compose([Validators.required,  Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[a-zA-z]+([ \'-][a-zA-Z]+)*')])),
       expiryMonth: new FormControl('', Validators.required),
-      expiryYear: new FormControl('', Validators.required)
+      expiryYear: new FormControl('', Validators.required),
+      existingAddress: new FormControl(''),
+      selectedAddress: new FormControl(''),
+      existingAddressForCard: new FormControl(''),
+      selectedAddressForCard: new FormControl(''),
+      serviceType: new FormControl('')
     });
   }
-
-  submitPayment= function (paymentDetails) {
-console.log('submit method called');
-    this.disableButton();
-  }
-
   getDropDownValueBasedOnKey= function(dropdownKey, dropDownArray): string {
   debugger;
   let tempDropDownValue;
@@ -1953,6 +1973,25 @@ console.log('submit method called');
     })
     console.log("before function return "+encryptedPassword)
     return encryptedPassword;
+  }
+
+  isTagRequired=function(isReq){
+
+    if(isReq==true){
+      $("#TagReqDet").show();
+    }else{
+      $("#TagReqDet").hide();
+    }
+  }
+
+  submitPayment= function (paymentDetails) {
+
+    $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+      // 'this' is not a jQuery object, so it will use
+      // the default click() function
+      this.click();
+    }).click();
+    console.log('submit method called');
   }
 }
 
