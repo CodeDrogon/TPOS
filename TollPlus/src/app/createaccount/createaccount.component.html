@@ -2,15 +2,15 @@
 <a routerLink="/signup" class="btn btn-block btn-primary">Sign Up</a>-->
 
 <div id="exTab1" class="container" style="background-color: white">
-  <ul class="nav nav-tabs nav-pills nav-wizard " style="background-color: white">
+  <ul class="nav nav-tabs nav-pills nav-wizard " style="background-color: white;">
     <li class="active">
       <a href="#1a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class='badge'>1</span> Account Information</a>
     </li>
-    <li><a href="#2a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
+    <li ><a href="#2a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
     </li>
-    <li><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
+    <li ><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
     </li>
-    <li><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
+    <li ><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
     </li>
   </ul>
 
@@ -1607,20 +1607,32 @@
       </div>
     </div>
 
-    <div class="tab-pane " id="4a">
 
 
+    <div class="tab-pane " id="4a" style="margin-top:2%;">
 
-      <div id="exTab2" class="container" style="background-color: white">
-        <ul class="nav nav-tabs inner-nav-tabs" style="background-color: white">
-          <li class="active">
-            <a href="#5a" data-toggle="tab" class="arrow "   style="text-decoration : none; color : #000;"><span class='badge'>1</span>Select Plan/Package</a>
+      <hr class="fancy-line">
+
+      <div id="exTab2"  style="background-color: white;">
+        <ul class="nav inner-nav-tabs nav-pills" style="background-color: white;margin-left: 10%">
+          <li class="active inneractive box">
+            <a href="#5a" data-toggle="tab" class="arrow "   style="text-decoration : none; color : #000;"><span class='badge'>1</span></a>
+            Select Plan/Package
           </li>
-          <li><a href="#6a" data-toggle="tab" class="arrow "  style="text-decoration : none; color : #000;"><span class="badge">2</span>Review Order</a>
+
+
+          <li class="inneractive box"><a href="#6a" data-toggle="tab" class="arrow "  style="text-decoration : none; color : #000;"><span class="badge">2</span></a>
+          Review Order
           </li>
-          <li><a href="#7a" data-toggle="tab" class="arrow "  style="text-decoration : none; color : #000;"><span class="badge">3</span>Payment Confirmation</a>
+
+          <li  class="inneractive box"><a href="#7a" data-toggle="tab" class="arrow "  style="text-decoration : none; color : #000;"><span class="badge">3</span></a>
+          Payment Information
           </li>
+
         </ul>
+
+
+
 
 
 
@@ -2196,7 +2208,7 @@
           <div class="tab-pane" id="6a">
             <div id="page-wrapper">
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12" style="margin-top:1%;" >
                   <div class="panel panel-default">
                     <div style="padding-left:0%;background-color: #e0e3e6;;height: 28px;">
                       Amount Summary Details
@@ -2355,23 +2367,49 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="7a">
-            <div id="page-wrapper">
-              <h1>Payment Confirmation Page</h1>
+          <div class="tab-pane" id="7a" style="height:470px;">
 
-              <div class="row">
-                <div class="col-lg-6">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div id="page-wrapper">
+                  <h2>Thanks for your Order</h2>
+                  <p>Please Keep Note of your transaction details for future use.</p>
+                  Reference #:<b>V012345</b><br>
+                  Account #:<b>Ac012345</b><br>
+                  Total Payment #:<b>$350.88</b><br>
+                  Paid By #:<b>Credit Card</b><br>
+                  Card Type #:<b>VISA</b><br>
+                  Credit Card #:<b>xxxxxxxxxxx123</b><br>
+                  Transaction Date/Time #:<b>28th Jun 2017</b><br>
 
-                  <input type="button" class="btn btn-primary innerBtnPrevious"  value="Previous">
-                </div>
-                <div class="col-lg-6">
+                  <br>
 
-                  <input type="button" class="btn btn-primary"  value="Finish">
+                  Confirmation Mail has been sent to abcd@gmail.c<br>
+                  Order Place at 11:30am ,29 Jun 2017.
+                  <br><br>
+                  <div class="row">
+                    <div class="col-lg-3">
+
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-floppy-o" aria-hidden="true"></i>    Save Payment</button>
+
+                    </div>
+                    <div class="col-lg-3">
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-print" aria-hidden="true"></i> Print Payment Receipt</button>
+
+                    </div>
+                    <div class="col-lg-3">
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-plus" aria-hidden="true"></i>   Create New Account</button>
+
+                    </div>
+                    <div class="col-lg-3">
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-sign-out" aria-hidden="true"></i>    Exit</button>
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
 
         </div>
       </div>

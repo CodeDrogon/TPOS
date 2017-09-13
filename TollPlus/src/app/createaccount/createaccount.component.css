@@ -398,3 +398,70 @@ ul.breadcrumb li a:hover {
   background-color: #eff1f2;
   border: 2px 2px 2px 0px solid #637283 !important;
 }
+.nav-pills > li.inneractive > a, .nav-pills > li.inneractive > a:hover, .nav-pills > li.inneractive > a:focus{
+  background-color: white !important;
+  border-radius: 10px;
+}
+.list-group-item.active > .badge, .nav-pills > .inneractive > a > .badge {
+  color: #fff;
+  background-color: #015db1;
+}
+
+
+
+hr.fancy-line {
+  border: 0;
+  height: 1px;
+  position: relative;
+  margin: 0.5em 0; /* Keep other elements away from pseudo elements*/
+}
+hr.fancy-line:before {
+  top: -0.5em;
+  height: 1em;
+}
+hr.fancy-line:after {
+  content:'';
+  height: 0.5em;   /* half the height of :before */
+  top: 1px;        /* height of hr*/
+}
+
+hr.fancy-line:before, hr.fancy-line:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+}
+
+hr.fancy-line, hr.fancy-line:before {
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 75%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 75%, color-stop(0%,rgba(0,0,0,0.1)), color-stop(75%,rgba(0,0,0,0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 75%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 75%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 75%);
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 75%);
+}
+
+ hr.fancy-line:after {
+  background: #f4f4f4;
+}
+
+.box {
+  padding: 16px 5px 2px 5px;
+}
+ .box:not(:last-child) {
+  margin-right: 90px;
+}
+.box:not(:last-child):after {
+  position: absolute;
+  content: '';
+  right: -168%;
+  top: 0%;
+  width: 219%;
+  height: 50%;
+  border-bottom: 1px solid #dddddd;
+  color: #4a4a4a;
+}
+
+
+
+
+
