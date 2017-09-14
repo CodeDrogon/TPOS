@@ -34,12 +34,6 @@ export class CreateaccountComponent implements OnInit {
   payment_Form: FormGroup;
   text: FormControl;
   tempEncryptedPassword = '';
-  constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder) {
-    this.idProofFullPath = '/pom.xml';
-    this.addressProofFullPath = '/pom.xml';
-  }
-
-
 
   vehicleFormEdit: FormGroup;
 
@@ -87,9 +81,22 @@ export class CreateaccountComponent implements OnInit {
   howDidYouHearUsOptions= [];
   statementDeliveryOptions= [];
   accountCategories= [];
+  //payment information changes start
+  planArray = [];
+  isTagRequested = true;
+  getCreditCardExpiryMonths =  ['January', 'February', 'March', 'April', 'May',
+    'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  getCreditCardExpiryYears = [];
+  //payment information changes end
   inputEncryptionObject: Object= {};
-cardTypes= [];
-existingAddressDetails;
+  cardTypes= [];
+  existingAddressDetails;
+
+  constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder) {
+    this.idProofFullPath = '/pom.xml';
+    this.addressProofFullPath = '/pom.xml';
+  }
+
   public IdProofDropped(event) {
     this.files = event.files;
 
@@ -129,6 +136,9 @@ existingAddressDetails;
 
 
   ngOnInit() {
+    this.getAllPlansWithFees();
+    this.creditCardExpiryYears();
+    this.getAllActiveTagConfiguration();
     /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
     toastr.options = {
       'closeButton': true,
@@ -157,7 +167,7 @@ existingAddressDetails;
 
     this.userFormInitialValue();
     this.paymentFormInitialValues();
-
+    this.tagDeliveryMethodSelected();
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(''),
       howDidYouHearUs: new FormControl(''),
@@ -349,33 +359,6 @@ existingAddressDetails;
       }
     ];
 
-    this.TagDetails = [
-      {
-        protocol: '6C',
-        mounting: 'Transponder1',
-        noOftags: '10',
-        perTagFee: '10',
-        perTagDeposit: '35',
-        Amount: '65'
-      },
-      {
-        protocol: '6C',
-        mounting: 'Transponder2',
-        noOftags: '20',
-        perTagFee: '10',
-        perTagDeposit: '35',
-        Amount: '85'
-      },
-      {
-        protocol: '6C',
-        mounting: 'Transponder3',
-        noOftags: '30',
-        perTagFee: '10',
-        perTagDeposit: '35',
-        Amount: '100'
-      }
-    ];
-
     /*this.vehicleClassDropdown = [
      {
      key: 1,
@@ -533,226 +516,226 @@ existingAddressDetails;
     this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if (resObj.Result === true) {
-        this.tempEncryptedPassword= resObj.ResultValue;
+        this.tempEncryptedPassword = resObj.ResultValue;
 
 
 
-    console.log('password value ' + this.tempEncryptedPassword);
-    this.account.retypePassword = this.tempEncryptedPassword;
-    this.account.addressType = '6';
-    this.account.line1 = '';
-    this.account.line2 = '';
-    this.account.line3 = '';
-    this.account.city = '';
-    this.account.state = '';
-    this.account.country = '';
-    this.account.isCommunication = false;
-    this.account.pin = '';
-    this.account.currentPasswordExpiryDate = this.getCurrentDate();
-    this.account.address = null;
-    let OrganizationName = '';
-    if (customerInfo.businessCustomerType == 'Business') {
-      OrganizationName = 'Business';
-    }else{
-      OrganizationName = 'Individual';
-    }
-    this.account.organizationName = OrganizationName;
-    this.account.webType = '';
-    this.account.subSystem = '1';
-    this.account.isSplitCustomer = false;
-    this.account.BoolActivityRequired = true;
-    this.account.ConvertToCustomer = false;
-    this.account.actionCode = '';
-    this.account.featuresCode = '';
-    this.account.keyValue = '';
-    this.account.user = 'SureIT'; // Logged in user User Name
-    this.account.loginId = 0;
-    this.account.activityTypeDescription = '';
-    this.account.checkBlockList = true;
-    this.account.kYCStatus = 'Received';
-    this.account.kYCDate = this.getCurrentDate();
-    this.account.kYCRequired = true // false : If it's optional
-    this.account.loginStatus = '';
-    this.account.unPaidAmount = 0;
-    this.account.planCode = ''
-    this.account.planDescription = '';
-    this.account.parentPlanId = 0;
-    this.account.parentPlanCode = '';
-    this.account.parentPlanDescription = '';
-    this.account.enrollmentNumber = '';
-    this.account.isRegistered = false;
-    this.account.preloadedAccountId = 0;
-    this.account.isCreateAccount = true;
-    this.account.isPrimary = false;
-    this.account.userName = customerInfo.userName;
-    debugger;
-    this.account.password = this.tempEncryptedPassword;
-    this.account.firstName = customerInfo.first_Name;
-    this.account.lastName = customerInfo.last_Name;
-    debugger;
-    if ($('#date_Of_Birth').val().length != 0) {
-      this.account.dOB = this.convertStringDateToNumberString($('#date_Of_Birth').val(), 0, 0, 0);
-    } else {
-      this.account.dOB = this.getCurrentDate();
-    }
-     // $("#date_Of_Birth").val();
-    this.account.gender = customerInfo.gender;
-    this.account.suffix = customerInfo.suffix;
-    this.account.title = customerInfo.title;
-    //this.account.city=customerInfo.city;
-    //this.account.country=customerInfo.country;
-    this.account.zip1 = customerInfo.zip1;
-    this.account.zip2 = customerInfo.zip2;
-    this.account.activitySource = '0';
-    this.account.contactId = 0;
-    this.account.initiatedBy = 'SureIT';
-    this.account.middleName = customerInfo.middle_Name;
-    this.account.nameType = '6';
-    this.account.parentId = 0;
-    this.account.planDescription = '';
-    this.account.userId = 12345;
-    this.account.loginId = 12345;
-    this.account.userType = '7';
-    this.account.email = {};
-    //Email List
-    const primaryEmail = this.getEmailObject();
-    primaryEmail.emailAddress = customerInfo.primary_Email;
-    primaryEmail.isPreferred = primaryEmailIsPrefd;
-    primaryEmail.type = 'PrimaryEmail';
-    const secondaryEmail = this.getEmailObject();
-    secondaryEmail.emailAddress = customerInfo.secondary_Email;
-    secondaryEmail.isPreferred = secondaryEmailisPrfd;
-    secondaryEmail.type = 'SecondaryEmail';
-    const emailAddressArray: Email[] = [];
-    emailAddressArray[0] = primaryEmail;
-    emailAddressArray[1] = secondaryEmail;
-    this.account.emailList = emailAddressArray;
-
-
-    //Address List
-    const addressObject: Address = this.getAddressObject();
-    addressObject.line1 = customerInfo.address1;
-    addressObject.line2 = customerInfo.address2;
-    addressObject.line3 = customerInfo.address2;
-    addressObject.city = customerInfo.city_Name;
-    addressObject.country = customerInfo.country;
-    addressObject.state = customerInfo.selectedstate;
-    addressObject.zip1 = customerInfo.zip1;
-    addressObject.zip2 = customerInfo.zip2;
-    addressObject.state = customerInfo.selectedstate;
-    const addressArray: Address[] = [];
-    console.log(' addressObject ' + addressObject);
-    addressArray[0] = addressObject;
-    this.account.addressList = addressArray;
-
-    //KYC List
-    const kYCDocumentIdProof: KYCDocument = this.getKYCDocumentObject();
-    kYCDocumentIdProof.documentNumber = customerInfo.idProofNo;
-    kYCDocumentIdProof.documentType = customerInfo.businessCustomerType;
-    kYCDocumentIdProof.description = customerInfo.businessCustomerType;
-    if (customerInfo.businessCustomerType == 'Business') {
-      kYCDocumentIdProof.documentCategory = 'IDProofBusiness';
-      kYCDocumentIdProof.documentCategoryDesc = 'IDProofBusiness';
-    }else{
-      kYCDocumentIdProof.documentCategory = 'IDProof';
-      kYCDocumentIdProof.documentCategoryDesc = 'Individual';
-    }
-    const kYCDocumentAddressProof: KYCDocument = this.getKYCDocumentObject();
-    kYCDocumentAddressProof.documentType = customerInfo.businessCustomerType;
-    kYCDocumentAddressProof.description = customerInfo.businessCustomerType;
-    kYCDocumentAddressProof.documentNumber = customerInfo.addressProof;
-    if (customerInfo.businessCustomerType == 'Business') {
-      kYCDocumentAddressProof.documentCategory = 'AddressProofBusiness';
-      kYCDocumentAddressProof.documentCategoryDesc = 'AddressProofBusiness';
-    }else{
-      kYCDocumentAddressProof.documentCategory = 'AddressProof';
-      kYCDocumentAddressProof.documentCategoryDesc = 'AddressProof';
-    }
-    kYCDocumentIdProof.documentPath = this.idProofFullPath;
-    kYCDocumentAddressProof.documentPath = this.addressProofFullPath;
-    const KYCDocumentArray: KYCDocument[] = [];
-    KYCDocumentArray[0] = kYCDocumentIdProof;
-    KYCDocumentArray[1] = kYCDocumentAddressProof;
-    this.account.addKYCDocument = KYCDocumentArray;
-
-
-    //Phone List
-    const dayPhone: Phone = this.getPhoneObject();
-    dayPhone.phoneNumber = $('#day_Phone_Number').val();
-    dayPhone.type = 'DayPhone';
-    dayPhone.isCommunication = dayPhoneIsPrfd;
-    const eveningPhone: Phone = this.getPhoneObject();
-    eveningPhone.phoneNumber = $('#eveningPhone').val();
-    eveningPhone.isCommunication = eveningPhoneIsPrfd;
-    eveningPhone.type = 'EveningPhone';
-    const mobile_Phone_Number: Phone = this.getPhoneObject();
-    mobile_Phone_Number.phoneNumber = $('#mobile_Phone_Number').val();
-    mobile_Phone_Number.isCommunication = mobilePhoneIsPrfd;
-    mobile_Phone_Number.type = 'MobileNo';
-    const workPhone: Phone = this.getPhoneObject();
-    workPhone.phoneNumber = $('#workPhone').val();
-    workPhone.isCommunication = workPhoneIsPrfd;
-    workPhone.type = 'WorkPhone';
-    const phoneFax: Phone = this.getPhoneObject();
-    phoneFax.phoneNumber = $('#fax').val();
-    phoneFax.isCommunication = false;
-    phoneFax.type = 'Fax';
-    const phoneArray: Phone[] = [];
-    phoneArray[0] = dayPhone;
-    phoneArray[1] = eveningPhone;
-    phoneArray[2] = mobile_Phone_Number;
-    phoneArray[3] = workPhone;
-    phoneArray[4] = phoneFax;
-    this.account.phoneList = phoneArray;
-
-
-
-
-
-    let tempInputObj = JSON.stringify(this.account);
-    tempInputObj = tempInputObj.replace('EmailList', 'Request Email List');
-    tempInputObj = tempInputObj.replace('PhoneList', 'Request Phone List');
-    tempInputObj = tempInputObj.replace('AddressList', 'Request Address List');
-    tempInputObj = tempInputObj.replace('AddKYCDocument', 'KYC Document List');
-    debugger;
-    console.log(tempInputObj);
-    this.utilityService.saveCustomer('PostCreateCustomer', tempInputObj).subscribe(res => {
-
-      const resObj = JSON.parse(res._body);
-      console.log(resObj.ResultValue);
-      if (resObj.Result == false){
-        this.userNameValidationResult = resObj.ResultValue;
-        toastr.error(resObj.ResultValue);
-        $('.nav-tabs > .active .badge').text('X');
-        $('.nav-tabs > .active .badge').css('color', 'white');
-        $('.nav-tabs > .active .badge').css('background-color', 'crimson');
-      }else{
-        sessionStorage.setItem('CustomerId', resObj.ResultValue);
+        console.log('password value ' + this.tempEncryptedPassword);
+        this.account.retypePassword = this.tempEncryptedPassword;
+        this.account.addressType = '6';
+        this.account.line1 = '';
+        this.account.line2 = '';
+        this.account.line3 = '';
+        this.account.city = '';
+        this.account.state = '';
+        this.account.country = '';
+        this.account.isCommunication = false;
+        this.account.pin = '';
+        this.account.currentPasswordExpiryDate = this.getCurrentDate();
+        this.account.address = null;
+        let OrganizationName = '';
+        if (customerInfo.businessCustomerType == 'Business') {
+          OrganizationName = 'Business';
+        }else{
+          OrganizationName = 'Individual';
+        }
+        this.account.organizationName = OrganizationName;
+        this.account.webType = '';
+        this.account.subSystem = '1';
+        this.account.isSplitCustomer = false;
+        this.account.BoolActivityRequired = true;
+        this.account.ConvertToCustomer = false;
+        this.account.actionCode = '';
+        this.account.featuresCode = '';
+        this.account.keyValue = '';
+        this.account.user = 'SureIT'; // Logged in user User Name
+        this.account.loginId = 0;
+        this.account.activityTypeDescription = '';
+        this.account.checkBlockList = true;
+        this.account.kYCStatus = 'Received';
+        this.account.kYCDate = this.getCurrentDate();
+        this.account.kYCRequired = true // false : If it's optional
+        this.account.loginStatus = '';
+        this.account.unPaidAmount = 0;
+        this.account.planCode = ''
+        this.account.planDescription = '';
+        this.account.parentPlanId = 0;
+        this.account.parentPlanCode = '';
+        this.account.parentPlanDescription = '';
+        this.account.enrollmentNumber = '';
+        this.account.isRegistered = false;
+        this.account.preloadedAccountId = 0;
+        this.account.isCreateAccount = true;
+        this.account.isPrimary = false;
+        this.account.userName = customerInfo.userName;
         debugger;
-        this.existingAddressDetails = 'Address:-' + this.account.addressList[0].line1 + ',' + this.account.addressList[0].line2 + ',\n' +
-          'City:' + this.account.addressList[0].city + ',\n' +
-          'Country:' + this.account.addressList[0].country + ',\n' +
-          'State:' + this.account.addressList[0].state + ',\n' +
-          'Zip1:' + this.account.addressList[0].zip1 + ',\n' +
-          'Zip2:' + this.account.addressList[0].zip2;
-        $('.nav-tabs > .active .badge').text('✔');
-        $('.nav-tabs > .active .badge').css('color', 'lightgreen');
-        $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
-        this.userFormInitialValue();
-        /*alert(' Customer  Successfully Registered With ID: ' + resObj.ResultValue);*/
-        $('.my-link').unbind('click', false);
-        $('.nav-tabs > .active').next('li').find('a').click(function () {
+        this.account.password = this.tempEncryptedPassword;
+        this.account.firstName = customerInfo.first_Name;
+        this.account.lastName = customerInfo.last_Name;
+        debugger;
+        if ($('#date_Of_Birth').val().length != 0) {
+          this.account.dOB = this.convertStringDateToNumberString($('#date_Of_Birth').val(), 0, 0, 0);
+        } else {
+          this.account.dOB = this.getCurrentDate();
+        }
+        // $("#date_Of_Birth").val();
+        this.account.gender = customerInfo.gender;
+        this.account.suffix = customerInfo.suffix;
+        this.account.title = customerInfo.title;
+        //this.account.city=customerInfo.city;
+        //this.account.country=customerInfo.country;
+        this.account.zip1 = customerInfo.zip1;
+        this.account.zip2 = customerInfo.zip2;
+        this.account.activitySource = '0';
+        this.account.contactId = 0;
+        this.account.initiatedBy = 'SureIT';
+        this.account.middleName = customerInfo.middle_Name;
+        this.account.nameType = '6';
+        this.account.parentId = 0;
+        this.account.planDescription = '';
+        this.account.userId = 12345;
+        this.account.loginId = 12345;
+        this.account.userType = '7';
+        this.account.email = {};
+        //Email List
+        const primaryEmail = this.getEmailObject();
+        primaryEmail.emailAddress = customerInfo.primary_Email;
+        primaryEmail.isPreferred = primaryEmailIsPrefd;
+        primaryEmail.type = 'PrimaryEmail';
+        const secondaryEmail = this.getEmailObject();
+        secondaryEmail.emailAddress = customerInfo.secondary_Email;
+        secondaryEmail.isPreferred = secondaryEmailisPrfd;
+        secondaryEmail.type = 'SecondaryEmail';
+        const emailAddressArray: Email[] = [];
+        emailAddressArray[0] = primaryEmail;
+        emailAddressArray[1] = secondaryEmail;
+        this.account.emailList = emailAddressArray;
+
+
+        //Address List
+        const addressObject: Address = this.getAddressObject();
+        addressObject.line1 = customerInfo.address1;
+        addressObject.line2 = customerInfo.address2;
+        addressObject.line3 = customerInfo.address2;
+        addressObject.city = customerInfo.city_Name;
+        addressObject.country = customerInfo.country;
+        addressObject.state = customerInfo.selectedstate;
+        addressObject.zip1 = customerInfo.zip1;
+        addressObject.zip2 = customerInfo.zip2;
+        addressObject.state = customerInfo.selectedstate;
+        const addressArray: Address[] = [];
+        console.log(' addressObject ' + addressObject);
+        addressArray[0] = addressObject;
+        this.account.addressList = addressArray;
+
+        //KYC List
+        const kYCDocumentIdProof: KYCDocument = this.getKYCDocumentObject();
+        kYCDocumentIdProof.documentNumber = customerInfo.idProofNo;
+        kYCDocumentIdProof.documentType = customerInfo.businessCustomerType;
+        kYCDocumentIdProof.description = customerInfo.businessCustomerType;
+        if (customerInfo.businessCustomerType == 'Business') {
+          kYCDocumentIdProof.documentCategory = 'IDProofBusiness';
+          kYCDocumentIdProof.documentCategoryDesc = 'IDProofBusiness';
+        }else{
+          kYCDocumentIdProof.documentCategory = 'IDProof';
+          kYCDocumentIdProof.documentCategoryDesc = 'Individual';
+        }
+        const kYCDocumentAddressProof: KYCDocument = this.getKYCDocumentObject();
+        kYCDocumentAddressProof.documentType = customerInfo.businessCustomerType;
+        kYCDocumentAddressProof.description = customerInfo.businessCustomerType;
+        kYCDocumentAddressProof.documentNumber = customerInfo.addressProof;
+        if (customerInfo.businessCustomerType == 'Business') {
+          kYCDocumentAddressProof.documentCategory = 'AddressProofBusiness';
+          kYCDocumentAddressProof.documentCategoryDesc = 'AddressProofBusiness';
+        }else{
+          kYCDocumentAddressProof.documentCategory = 'AddressProof';
+          kYCDocumentAddressProof.documentCategoryDesc = 'AddressProof';
+        }
+        kYCDocumentIdProof.documentPath = this.idProofFullPath;
+        kYCDocumentAddressProof.documentPath = this.addressProofFullPath;
+        const KYCDocumentArray: KYCDocument[] = [];
+        KYCDocumentArray[0] = kYCDocumentIdProof;
+        KYCDocumentArray[1] = kYCDocumentAddressProof;
+        this.account.addKYCDocument = KYCDocumentArray;
+
+
+        //Phone List
+        const dayPhone: Phone = this.getPhoneObject();
+        dayPhone.phoneNumber = $('#day_Phone_Number').val();
+        dayPhone.type = 'DayPhone';
+        dayPhone.isCommunication = dayPhoneIsPrfd;
+        const eveningPhone: Phone = this.getPhoneObject();
+        eveningPhone.phoneNumber = $('#eveningPhone').val();
+        eveningPhone.isCommunication = eveningPhoneIsPrfd;
+        eveningPhone.type = 'EveningPhone';
+        const mobile_Phone_Number: Phone = this.getPhoneObject();
+        mobile_Phone_Number.phoneNumber = $('#mobile_Phone_Number').val();
+        mobile_Phone_Number.isCommunication = mobilePhoneIsPrfd;
+        mobile_Phone_Number.type = 'MobileNo';
+        const workPhone: Phone = this.getPhoneObject();
+        workPhone.phoneNumber = $('#workPhone').val();
+        workPhone.isCommunication = workPhoneIsPrfd;
+        workPhone.type = 'WorkPhone';
+        const phoneFax: Phone = this.getPhoneObject();
+        phoneFax.phoneNumber = $('#fax').val();
+        phoneFax.isCommunication = false;
+        phoneFax.type = 'Fax';
+        const phoneArray: Phone[] = [];
+        phoneArray[0] = dayPhone;
+        phoneArray[1] = eveningPhone;
+        phoneArray[2] = mobile_Phone_Number;
+        phoneArray[3] = workPhone;
+        phoneArray[4] = phoneFax;
+        this.account.phoneList = phoneArray;
+
+
+
+
+
+        let tempInputObj = JSON.stringify(this.account);
+        tempInputObj = tempInputObj.replace('EmailList', 'Request Email List');
+        tempInputObj = tempInputObj.replace('PhoneList', 'Request Phone List');
+        tempInputObj = tempInputObj.replace('AddressList', 'Request Address List');
+        tempInputObj = tempInputObj.replace('AddKYCDocument', 'KYC Document List');
+        debugger;
+        console.log(tempInputObj);
+        this.utilityService.saveCustomer('PostCreateCustomer', tempInputObj).subscribe(res => {
+
+          const resObj = JSON.parse(res._body);
+          console.log(resObj.ResultValue);
+          if (resObj.Result == false){
+            this.userNameValidationResult = resObj.ResultValue;
+            toastr.error(resObj.ResultValue);
+            $('.nav-tabs > .active .badge').text('X');
+            $('.nav-tabs > .active .badge').css('color', 'white');
+            $('.nav-tabs > .active .badge').css('background-color', 'crimson');
+          }else{
+            sessionStorage.setItem('CustomerId', resObj.ResultValue);
+            debugger;
+            this.existingAddressDetails = 'Address:-' + this.account.addressList[0].line1 + ',' + this.account.addressList[0].line2 + ',\n' +
+              'City:' + this.account.addressList[0].city + ',\n' +
+              'Country:' + this.account.addressList[0].country + ',\n' +
+              'State:' + this.account.addressList[0].state + ',\n' +
+              'Zip1:' + this.account.addressList[0].zip1 + ',\n' +
+              'Zip2:' + this.account.addressList[0].zip2;
+            $('.nav-tabs > .active .badge').text('✔');
+            $('.nav-tabs > .active .badge').css('color', 'lightgreen');
+            $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
+            this.userFormInitialValue();
+            /*alert(' Customer  Successfully Registered With ID: ' + resObj.ResultValue);*/
+            $('.my-link').unbind('click', false);
+            $('.nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
 // the default click() function
-          this.click();
-        }).click();
-        $('.my-link').bind('click', false);
-        toastr.success('Account Information Saved Successfully...');
-        this.getVehicles();
-      }
+              this.click();
+            }).click();
+            $('.my-link').bind('click', false);
+            toastr.success('Account Information Saved Successfully...');
+            this.getVehicles();
+          }
 
 
-    })
+        })
       }else {
         toastr.error('Password Encryption Failed');
         $('.nav-tabs > .active .badge').text('X');
@@ -887,20 +870,20 @@ existingAddressDetails;
 
 
   getBusiness= function () {
-   /* this.utilityService.getDropDownValues('GetLookups/?Type=Business').subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      this.businesses = resObj.ResultValue;
+    /* this.utilityService.getDropDownValues('GetLookups/?Type=Business').subscribe(res => {
+       const resObj = JSON.parse(res._body);
+       this.businesses = resObj.ResultValue;
 
-    })*/
+     })*/
     this.businesses = [{'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Individual', 'value': 'Individual Customer'},
       {'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Business', 'value': 'Business Customer'}];
   }
   getBusinessCustomer= function () {
-  /*  this.utilityService.getDropDownValues('GetLookups/?Type=Business&Customer').subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      this.businessCustomers = resObj.ResultValue;
+    /*  this.utilityService.getDropDownValues('GetLookups/?Type=Business&Customer').subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        this.businessCustomers = resObj.ResultValue;
 
-    })*/
+      })*/
     this.businessCustomers = [{'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Individual', 'value': 'Individual Customer'},
       {'__type': 'KeyValuePairOfstringstring:#System.Collections.Generic', 'key': 'Business', 'value': 'Business Customer'}];
   }
@@ -1087,11 +1070,11 @@ existingAddressDetails;
     // RFC 2822 compliant regex
     ///[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     if (control.value){
-    if (control.value.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
-      return null;
-    } else {
-      return { 'invalidEmailAddress': true };
-    }
+      if (control.value.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
+        return null;
+      } else {
+        return { 'invalidEmailAddress': true };
+      }
     }
   }
 
@@ -1299,8 +1282,8 @@ existingAddressDetails;
     let tempVehicleObj = this.setVehicleArrayObject();
     tempVehicleObj = this.setVehicleObjectWithDynamicValuesForUpdateVehicle(tempVehicleObj, vehicleInfo);
     tempVehicleObj.accountId = sessionStorage.getItem('CustomerId');
-      tempVehicleObj.vehicleId = this.vehicleFormEdit.value.vehicleId;
-      tempVehicleObj.contractType = this.vehicleFormEdit.value.ContractType;
+    tempVehicleObj.vehicleId = this.vehicleFormEdit.value.vehicleId;
+    tempVehicleObj.contractType = this.vehicleFormEdit.value.ContractType;
     this.utilityService.vehicleOperation('PostUpdateVehicle/?enumModuleType=Customer&enumActivityType=Vehicles&longCustomerId=' + sessionStorage.getItem('CustomerId'), tempVehicleObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if (resObj.ResultValue == true){
@@ -1366,19 +1349,19 @@ existingAddressDetails;
     console.log('deleteVehicleObj ' + deleteVehicleObj);
     this.utilityService.vehicleOperation('PostDeleteVehicle/?enumModuleType=Customer&enumActivityType=RemoveVehicle&longCustomerId=' + sessionStorage.getItem('CustomerId'), deleteVehicleObj)
       .subscribe(res => {
-    const resObj = JSON.parse(res._body);
-    if (resObj.ResultValue == true){
-      this.getVehicles();
-      toastr.success( 'Vehicle Information Deleted Successfully...');
-    } else {
-      toastr.error(resObj.ResultValue);
-    }
-  });
+        const resObj = JSON.parse(res._body);
+        if (resObj.ResultValue == true){
+          this.getVehicles();
+          toastr.success( 'Vehicle Information Deleted Successfully...');
+        } else {
+          toastr.error(resObj.ResultValue);
+        }
+      });
 
   }
   getVehicles= function () {
-      const tempVehicleObj = this.setVehicleArrayObject();
-      debugger;
+    const tempVehicleObj = this.setVehicleArrayObject();
+    debugger;
     tempVehicleObj.accountId = sessionStorage.getItem('CustomerId');
     tempVehicleObj.contractType = '';
     tempVehicleObj.vehicleId = '0';
@@ -1401,9 +1384,9 @@ existingAddressDetails;
           this.vehicleArray[i].StartEffectiveDate = this.convertNumberOfMilliSecsToDate(this.vehicleArray[i].StartEffectiveDate.split('+')[0].replace('/Date(', ''));
         }
         if (this.vehicleArray[i].EndEffectiveDate != null) {
-         // alert(this.vehicleArray[i].EndEffectiveDate);
+          // alert(this.vehicleArray[i].EndEffectiveDate);
           this.vehicleArray[i].EndEffectiveDate = this.convertNumberOfMilliSecsToDate(this.vehicleArray[i].EndEffectiveDate.split('+')[0].replace('/Date(', ''));
-         // alert(this.vehicleArray[i].EndEffectiveDate);
+          // alert(this.vehicleArray[i].EndEffectiveDate);
         }
       }
       debugger;
@@ -1475,7 +1458,7 @@ existingAddressDetails;
     debugger;
     console.log('start date value ' + $('#startEffectiveDate').val());
     console.log('passing start date' + this.convertStringDateToNumberString($('#startEffectiveDate').val(),
-        vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
+      vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
     if ($('#startEffectiveDate').val().length != 0) {
       vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#startEffectiveDate').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
@@ -1483,7 +1466,7 @@ existingAddressDetails;
       vehicleWholeObject.startEffectiveDate = this.getCurrentDate();
     }
     console.log('passing start date' + this.convertStringDateToNumberString($('#endEffectiveDate').val(),
-        vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
+      vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
     if ($('#endEffectiveDate').val().length != 0) {
       vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#endEffectiveDate').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
@@ -1506,7 +1489,7 @@ existingAddressDetails;
     debugger;
     console.log('start date value ' + $('#start_Effective_Date').val());
     console.log('passing start date' + this.convertStringDateToNumberString($('#start_Effective_Date').val(),
-        vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
+      vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs));
     if ($('#start_Effective_Date').val().length != 0) {
       vehicleWholeObject.startEffectiveDate = this.convertStringDateToNumberString($('#start_Effective_Date').val(),
         vehicleFormObj.startDateHours, vehicleFormObj.startDateMins, vehicleFormObj.startDateSecs);
@@ -1514,7 +1497,7 @@ existingAddressDetails;
       vehicleWholeObject.startEffectiveDate = this.getCurrentDate();
     }
     console.log('passing start date' + this.convertStringDateToNumberString($('#end_Effective_Date').val(),
-        vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
+      vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs));
     if ($('#end_Effective_Date').val().length != 0) {
       vehicleWholeObject.endEffectiveDate = this.convertStringDateToNumberString($('#end_Effective_Date').val(),
         vehicleFormObj.endDateHours, vehicleFormObj.endDateMins, vehicleFormObj.endDateSecs);
@@ -1700,7 +1683,7 @@ existingAddressDetails;
     })
   }
 
-clickDate= function(id){
+  clickDate= function(id){
     debugger;
     const parts = id.split('/');
 // please put attention to the month (parts[0]), Javascript counts months from 0:
@@ -1747,7 +1730,7 @@ clickDate= function(id){
     console.log('date.getTime() ' + '\/Date(' + date.getTime() + ')\/');
     console.log('date.now() ' + '\/Date(' + Date.now() + ')\/');
     return '\/Date(' + date.getTime() + ')\/';
-   /* return date.getMilliseconds();*/
+    /* return date.getMilliseconds();*/
   }
 
 
@@ -1813,80 +1796,72 @@ clickDate= function(id){
   };
 
   getAmountSummaryDetials= function () {
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsPlanBasedStmt')
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsPlanBasedStmt')
       .subscribe(res => {
       const resObj = JSON.parse(res._body);
       const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
       const tempObj = {'description': 'IsPlanBasedStmt', 'amount': tempValue};
       this.amountSummaryDetails.push(tempObj);
 
-    });
+    });*/
 
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTax')
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTax')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'CCServiceTax', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsVehicleTags')
+      });*/
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsVehicleTags')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'IsVehicleTags', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CashReplnAmt')
+      });*/
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CashReplnAmt')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'CashReplnAmt', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CreditCardReplnAmt')
+      });*/
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CreditCardReplnAmt')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'CreditCardReplnAmt', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ACHReplnAmt')
+      });*/
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ACHReplnAmt')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'ACHReplnAmt', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
-      .subscribe(res => {
-        const resObj = JSON.parse(res._body);
-        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
-        const tempObj = {'description': 'IsTagFee', 'amount': tempValue};
-        this.amountSummaryDetails.push(tempObj);
+      });*/
 
-      });
-
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/MinDaystoProcessPlan')
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/MinDaystoProcessPlan')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'MinDaystoProcessPlan', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsServiceTax')
+      });*/
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsServiceTax')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'IsServiceTax', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
+      });*/
     this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ServiceTax')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
@@ -1895,25 +1870,33 @@ clickDate= function(id){
         this.amountSummaryDetails.push(tempObj);
 
       });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CheckBlockList')
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+        const tempObj = {'description': 'Toll Tag Fee', 'amount': tempValue};
+        this.amountSummaryDetails.push(tempObj);
+
+      });
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CheckBlockList')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'CheckBlockList', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTaxInd')
+      });*/
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CCServiceTaxInd')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'CCServiceTaxInd', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
+      });*/
   };
 
-paymentFormInitialValues= function () {
+  paymentFormInitialValues= function () {
     this.payment_Form = new FormGroup({
       creditType: new FormControl('', Validators.required),
       cardNumBox1: new FormControl('', Validators.required),
@@ -1927,12 +1910,13 @@ paymentFormInitialValues= function () {
       selectedAddress: new FormControl(''),
       existingAddressForCard: new FormControl(''),
       selectedAddressForCard: new FormControl(''),
-      serviceType: new FormControl('')
+      serviceType: new FormControl(''),
+      tagDeliveryMethod: new FormControl('ShipmentByPost')
     });
   }
   getDropDownValueBasedOnKey= function(dropdownKey, dropDownArray): string {
-  debugger;
-  let tempDropDownValue;
+    debugger;
+    let tempDropDownValue;
     for (let i = 0; i < dropDownArray.length; i++) {
       if (dropDownArray[i].LookUpTypeCodeId == dropdownKey) {
         tempDropDownValue = dropDownArray[i].LookUpTypeCodeDesc;
@@ -1943,7 +1927,7 @@ paymentFormInitialValues= function () {
   }
 
   getEncryptedString= function (inputString, saltValueInput, securityType) {
-  let encryptedPassword ;
+    let encryptedPassword ;
     this.inputEncryptionObject = {
       'plainText': inputString,
 
@@ -1969,16 +1953,23 @@ paymentFormInitialValues= function () {
       }
 
     })
-    console.log("before function return "+encryptedPassword)
+    console.log('before function return ' + encryptedPassword)
     return encryptedPassword;
   }
 
-  isTagRequired=function(isReq){
-
-    if(isReq==true){
-      $("#TagReqDet").show();
+  isTagRequired= function(isRequested){
+    debugger;
+    this.isTagRequested = isRequested;
+    if (isRequested == true){
+      $('#TagReqDet').show();
+      $('#TagDeliveryCarrier').show();
+      $('#TagDeliveryMethodDD').show();
+      $('#TagShippingAddressDiv').show();
     }else{
-      $("#TagReqDet").hide();
+      $('#TagReqDet').hide();
+      $('#TagDeliveryCarrier').hide();
+      $('#TagDeliveryMethodDD').hide();
+      $('#TagShippingAddressDiv').hide();
     }
   }
 
@@ -1991,5 +1982,230 @@ paymentFormInitialValues= function () {
     }).click();
     console.log('submit method called');
   }
+
+  getAllPlansWithFees= function() {
+//this method is used to get all plans and corresponding fees
+    const inputObject = {
+      'PlanId' : '3',
+      'StartEffDate': this.getCurrentDate()
+    }
+
+    debugger;
+    console.log('get all plans' + JSON.stringify(inputObject));
+    this.utilityService.getAllPlansWithFees('10002999', JSON.stringify(inputObject))
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result == true) {
+          this.planArray = resObj.ResultValue;
+
+        }/*else{
+        }*/
+
+
+      });
+  }
+
+  getDefaultAddressForCustomer= function() {
+    //this method is used to get Defualt Address for customer
+    debugger;
+    this.utilityService.getDefaultAddressForCustomer(sessionStorage.getItem('CustomerId'))
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result == true) {
+          this.existingAddressDetails = resObj.ResultValue;
+        }
+
+
+      });
+  }
+
+  getFeesBasedOnPlanId= function(){
+    //this method is used to get Fees applicable for selected plani
+    const inputObject = {
+      'PlanId' : '3',
+      'StartEffDate' : this.getCurrentDate()
+    }
+    this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result == true) {
+          this.existingAddressDetails = resObj.ResultValue;
+        }
+
+
+      });
+  }
+
+  tagDeliveryMethodSelected = function(){
+//if its requested by courrier then Enable Shipping address.
+    let tagDeliveryMethod = this.payment_Form.controls['tagDeliveryMethod'].value;
+    if (tagDeliveryMethod == 'ShipmentByPost' ){
+      $('#TagDeliveryCarrier').show();
+      $('#TagShippingAddressDiv').show();
+    }else{
+      $('#TagDeliveryCarrier').hide();
+      $('#TagShippingAddressDiv').hide();
+    }
+  }
+
+  creditCardExpiryYears= function () {
+    //this will creat credit card year array starting from current year to +10 years
+    var getCurrentYear = new Date().getFullYear();
+    for (let i = 0; i < 10; i++){
+      this.getCreditCardExpiryYears[i] = getCurrentYear++;
+    }
+  }
+
+  getAllActiveTagConfiguration = function(){
+    this.utilityService.getAllActiveTagConfigurations()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        console.log("Tag Required Details "+resObj.ResultValue);
+        this.TagDetails=resObj.ResultValue;
+
+      });
+
+
+  }
+
+  getTagDeliveryMethod= function(){
+    this.utilityService.getTagDeliveryMethod()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        console.log("getTagDeliveryMethod "+resObj.ResultValue);
+        resObj.ResultValue;
+
+      });
+
+
+  }
+  getStatementCycleType = function(){
+    this.utilityService.getStatementCycleType()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        console.log("Statement Cycle Type Details "+resObj.ResultValue);
+        resObj.ResultValue;
+
+      });
+
+
+  }
+  getInvoiceCycleType = function(){
+    this.utilityService.getInvoiceCycleType()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        console.log("Invoice Cycle Type  Details "+resObj.ResultValue);
+        resObj.ResultValue;
+
+      });
+  }
+  isCardInBlockList= function() {
+    var tempCustomerDetails = /*
+    {
+      "BlockListId":"1",
+      "CustomerId": sessionStorage.getItem("CustomerId"),
+      "FirstName":this.account.firstName,
+      "MiddleName":this.account.middleName,
+      "LastName":this.account.lastName,
+      "Line1":this.account.addressList[0].line1,
+      "Line2":this.account.addressList[0].line2,
+      "Line3":this.account.addressList[0].line2,
+      "City":this.account.addressList[0].city,
+      "State":this.account.addressList[0].state,
+      "Country":this.account.addressList[0].country,
+      "Zip1":this.account.addressList[0].zip1,
+      "Zip2":this.account.addressList[0].zip2,
+      "EmailAddress":this.account.emailList[0].emailAddress,
+      "EmailAddress1":this.account.emailList[1].emailAddress,
+      "EmailAddress2":this.account.emailList[0].emailAddress,
+      "PhoneNumber": this.account.phoneList[0].dayPhone.phoneNumber,
+      "DayPhoneNumber":this.account.phoneList[0].dayPhone.phoneNumber,
+      "EveningPhoneNumber":this.account.phoneList[1].eveningPhone.phoneNumber,
+      "MobilePhoneNumber":this.account.phoneList[2].mobile_Phone_Number.phoneNumber,
+      "OfficePhoneNumber":this.account.phoneList[3].workPhone.phoneNumber
+    }*/
+
+      {
+        "BlockListId": "1",
+        "CustomerId": "10002999",
+        "FirstName": "ch",
+        "MiddleName": "venu",
+        "LastName": "gopal",
+        "Line1": "KPHB",
+        "Line2": "Hyderabad",
+        "Line3": "PragathiNagar",
+        "City": "Hyderabad",
+        "State": "AndhraPradesh",
+        "Country": "India",
+        "Zip1": "521345",
+        "Zip2": "521333",
+        "EmailAddress": "chadalavada_venu@yahoo.co.in",
+        "EmailAddress1": "venugopal.chadalavada@gmail.com",
+        "EmailAddress2": "venu@yahoo.com",
+        "PhoneNumber": "90000750345",
+        "DayPhoneNumber": "0123456789",
+        "EveningPhoneNumber": "098765432",
+        "MobilePhoneNumber": "099888883",
+        "OfficePhoneNumber": "93929299292",
+        "VehicleNumber": "aP16ax5643",
+        "CCNumber": "123",
+        "FlagIndicator": "1",
+        "FlagReason": "tEST",
+        "FieldValue": "56789",
+        "CreatedUser": "VENU",
+        "UpdatedUser": "GOPAL",
+        "CreatedDateTime": "\/Date(1245398693390)\/",
+        "UpdatedDateTime": "\/Date(1245398693390)\/",
+        "CCExpiryMonth": "\/Date(1245398693390)\/",
+        "CCAccountId": "10002999"
+      };
+    this.utilityService.isCardInBlockList(JSON.stringify(tempCustomerDetails))
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        console.log("Card Block List Details " + resObj.ResultValue);
+        resObj.ResultValue;
+
+      });
+  }
+
+  isCreditCardExist = function(){
+
+
+    this.inputEncryptionObject = {
+      'plainText': "12212112",
+
+      'saltValue': "10002999",
+      'encryptText': 'null',
+
+      'isEncrypted': 'false',
+
+      'SecurityType': 'Creditcard'
+    };
+
+    const tempInpEncryObj = JSON.stringify(this.inputEncryptionObject);
+    console.log('password input object  ' + tempInpEncryObj);
+    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if (resObj.Result === true) {
+
+        console.log("Encription of Card "+resObj.ResultValue)
+        var tempDetails = {
+          "CustomerId": "10002999",
+          "CC": "wDhwUEbKbGQc/A4fxw3tn1DvCvuPcM4gleXvqprf0hE=",
+          "ExpDate": "201701"
+        };
+        this.utilityService.isCreditCardExist(tempDetails)
+          .subscribe(res => {
+            const resObj = JSON.parse(res._body);
+            console.log("Is Card already exist " + resObj.ResultValue);
+            resObj.ResultValue;
+
+          });
+      }else{
+        console.log("Card Encription process failed ")
+      }
+    })
+  }
+
 }
 
