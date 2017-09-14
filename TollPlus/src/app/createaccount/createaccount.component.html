@@ -1732,28 +1732,27 @@
                                   <tbody>
                                   <tr class=" borderless" *ngFor="let tagDetail of TagDetails">
 
-                                    <td>{{tagDetail.protocol}}</td>
-                                    <td> {{tagDetail.mounting}}</td>
+                                    <td>{{tagDetail.Protocol}}</td>
+                                    <td> {{tagDetail.Mounting}}</td>
                                     <td><input class="form-control" type="number" min="0" max="24" step="1" placeholder="0" /></td>
-                                    <td>{{tagDetail.perTagDeposit}}</td>
-                                    <td>{{tagDetail.perTagDeposit}}</td>
+                                    <td>{{tagDetail.TagFee}}</td>
+                                    <td>{{tagDetail.TagDeposit}}</td>
                                   </tr>
                                   </tbody>
                                 </table>
-                                <table class="table table-bordered" >
+                                <table class="table table-bordered" id="TagDeliveryMethodDD" >
                                   <tr class=" borderless">
                                     <td>Tag Delivery Method</td>
-                                    <td><select class="form-control" placeholder="Tag Delivery Method" name="tagDeliverMethod">
-                                      <option>Shipment by Post</option>
-                                      <option>Email</option>
-                                      <option>Shipment by Courier</option>
+                                    <td><select class="form-control" name="tagDeliverMethod" id="tagDeliveryMethod" formControlName="tagDeliveryMethod" (change)="tagDeliveryMethodSelected()" >
+                                      <option value="ShipmentByPost">Shipment By Post</option>
+                                      <option value="PickUpAfterNotification">PickUp After Notification</option>
                                     </select></td>
                                     <td></td>
 
                                   </tr>
 
                                 </table>
-                                <table class="table table-bordered" >
+                                <table class="table table-bordered" id="TagDeliveryCarrier" >
 
                                   <tr class=" borderless">
                                     <th style="border-bottom: 1px solid #dddddd !important;">Service Type</th>
@@ -1769,7 +1768,7 @@
                                   </tr>
                                   </tbody>
                                 </table>
-                                <div class="panel panel-default">
+                                <div class="panel panel-default" id="TagShippingAddressDiv">
                                   <h2 class="panel-title" style="font-size: larger">
                                     Shipping Address
                                   </h2>
@@ -1948,13 +1947,8 @@
                                       <div class="left-inner-addon ">
                                         <i class="icon-user" *ngIf="!payment_Form.controls['expiryMonth'].touched">*</i>
                                         <select class="form-control" placeholder="Expiry Month" name="expiryMonth" formControlName="expiryMonth" [formControl]="payment_Form.controls['expiryMonth']">
-                                          <option label="Month" disabled selected="selected" value=""></option>
-                                          <option>1</option>
-                                          <option>1</option>
-                                          <option>2</option>
-                                          <option>3</option>
-                                          <option>4</option>
-                                          <option>5</option>
+                                          <option label="Select Month" disabled selected="selected" value=""></option>
+                                          <option   *ngFor="let months of getCreditCardExpiryMonths" value="{{months}}"> {{months}}</option>getCreditCardExpiryYears
                                         </select>
                                       </div>
 
@@ -1973,12 +1967,7 @@
                                         <i class="icon-user" *ngIf="!payment_Form.controls['expiryYear'].touched">*</i>
                                         <select class="form-control" placeholder="Expiry Year" name="expiryYear" formControlName="expiryYear" [formControl]="payment_Form.controls['expiryYear']">
                                           <option label="Year" disabled selected="selected" value=""></option>
-                                          <option>1</option>
-                                          <option>1</option>
-                                          <option>2</option>
-                                          <option>3</option>
-                                          <option>4</option>
-                                          <option>5</option>
+                                          <option   *ngFor="let year of getCreditCardExpiryYears" value="{{year}}"> {{year}}</option>
                                         </select>
                                       </div>
 
@@ -2124,9 +2113,6 @@
                                 </div>
                                 <div class="col-lg-5">
                                   <div class="form-group">
-
-
-
 
                                     <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content else other_content"></div>
                                     <ng-template #content>
@@ -2274,12 +2260,11 @@
                             <tbody>
                             <tr class=" borderless" *ngFor="let tagDetail of TagDetails">
 
-                              <td style="text-align: center">{{tagDetail.protocol}}</td>
-                              <td style="text-align: center"> {{tagDetail.mounting}}</td>
-                              <td style="text-align: center">1</td>
-                              <td style="text-align: center">{{tagDetail.perTagDeposit}}</td>
-                              <td style="text-align: center">{{tagDetail.perTagDeposit}}</td>
-                              <td style="text-align: right; padding-right: 4%">{{tagDetail.Amount}}</td>
+                              <td>{{tagDetail.Protocol}}</td>
+                              <td> {{tagDetail.Mounting}}</td>
+                              <td><input class="form-control" type="number" min="0" max="24" step="1" placeholder="0" /></td>
+                              <td>{{tagDetail.TagFee}}</td>
+                              <td>{{tagDetail.TagDeposit}}</td>
                             </tr>
                             </tbody>
                           </table>

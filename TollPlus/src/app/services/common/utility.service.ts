@@ -85,7 +85,8 @@ export class UtilityService {
   }
 
   getAllPlansWithFees(customerId, inputObject){
-    return this.httpService.postMethodWithParams(this.servicePath + 'GetAllPlansWithFees&longCustomerId=' + customerId, inputObject);
+
+    return this.httpService.postMethodWithParams('PostGetPlansWithFees/?enumModuleType=Customer&enumActivityType=GetAllPlansWithFees&longCustomerId=' + customerId, inputObject);
   }
 
   getDefaultAddressForCustomer(customerId){
@@ -101,11 +102,11 @@ export class UtilityService {
   }
 
   isCardInBlockList(inputObject){
-    return this.httpService.postMethodWithParams('PostIsExist/?enumActivityType=BlockList', inputObject);
+    return this.httpService.postMethodWithParams('PostIsExistBlockList/?enumActivityType=BlockList', inputObject);
   }
 
   isCreditCardAlreadyLinkedToAccount(inputObject){
-    return this.httpService.postMethodWithParams('PostIsExist/?enumActivityType=IsCreditCardExist', inputObject);
+    return this.httpService.postMethodWithParams('PostIsExistBlockList/?enumActivityType=IsCreditCardExist', inputObject);
   }
 
 }
