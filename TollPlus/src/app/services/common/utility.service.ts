@@ -7,7 +7,7 @@ export class UtilityService {
   constructor(public httpService:TollPlusHttpService) { }
 
 
-   const servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
+   readonly servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
   getCountries=function (getCountryRelativePath) {
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
@@ -40,13 +40,11 @@ export class UtilityService {
   }
 
   vehicleClassDropdown= function (vehicleClassRelativePath) {
-    console.log(vehicleClassRelativePath);
     return this.httpService.postMethodWithoutParams(vehicleClassRelativePath);
   }
 
   vehicleColorDropdown= function (vehicleColorRelativePath, inputObject) {
-    debugger;
-    return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
+     return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
   }
 
 
