@@ -7,7 +7,7 @@ export class UtilityService {
   constructor(public httpService:TollPlusHttpService) { }
 
 
-   const servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
+   readonly servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
   getCountries=function (getCountryRelativePath) {
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
