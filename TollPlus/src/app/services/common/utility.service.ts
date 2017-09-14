@@ -40,13 +40,11 @@ export class UtilityService {
   }
 
   vehicleClassDropdown= function (vehicleClassRelativePath) {
-    console.log(vehicleClassRelativePath);
     return this.httpService.postMethodWithoutParams(vehicleClassRelativePath);
   }
 
   vehicleColorDropdown= function (vehicleColorRelativePath, inputObject) {
-    debugger;
-    return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
+     return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
   }
 
 
