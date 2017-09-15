@@ -10,7 +10,7 @@
     </li>
     <li ><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
     </li>
-    <li ><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
+    <li ><a href="#4a" data-toggle="tab" class="arrow " style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
     </li>
   </ul>
 
@@ -1675,7 +1675,7 @@
                                     <!--<th style="background-color: #eff1f2;" align="top"></th>-->
                                     <th style="background-color: #eff1f2; text-align: start"><span>Choose a Plan </span> </th>
                                     <td style="padding-left: 10% !important;border-right: 1px solid #dddddd !important; border-bottom: 1px solid #dddddd !important;"><img src="../assets/icons/car_transponder.png" class="Rectangle-1"  >
-                                      <span style="color:#085db0;position: relative;float: left;">Transponder Toll (Tag Required)</span></td>
+                                      <span style="color:#085db0;position: relative; float: left;">Transponder Toll (Tag Required)</span></td>
                                     <td style="padding-left: 10% !important; border-bottom: 1px solid #dddddd !important;"><img src="../assets/icons/car_video.png" class="Rectangle-1" style="width:62% !important; margin-right: 20% !important;" >
                                       <span style="color:#085db0;position: relative;" >Video Toll</span></td>
 
@@ -1694,10 +1694,34 @@
                                   </tr>-->
                                   <tr class=" borderless">
                                     <th style="background-color: #eff1f2;"><span>Choose Plan Name</span></th>
+<!--
                                     <th style="border-right: 1px solid #dddddd !important;"><input type="radio" name="postPaidToll" (click)="isTagRequired(true)"><span class="transponderFontColor">PostPaid Transponder</span></th>
                                     <th><input type="radio" name="postPaidToll" (click)="isTagRequired(false)"><span class="transponderFontColor">PostPaid Video(PostvToll)</span></th>
+-->                                  <td style="border-right: 1px solid #dddddd !important; margin-left: 50px;"  >
+
+                                    <table>
+
+                                      <tr *ngFor="let plan of planArray">
+
+                                        <td *ngIf="plan.Name.includes('Transponder') || plan.Name.includes('transponder')">
+                                          <input style="margin-left: 59px;" type="radio" name="postPaidToll" (click)="isTagRequired(true)"><span class="transponderFontColor">{{plan.Name}}</span>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                    <td style="border-right: 1px solid #dddddd !important;  margin-left: 50px;"  >
+                                      <table>
+
+                                        <tr *ngFor="let plan of planArray">
+                                          <td *ngIf="plan.Name.includes('Video') || plan.Name.includes('video')">
+                                            <input style="margin-left: 59px;" type="radio" name="postPaidToll" (click)="isTagRequired(false)"><span class="transponderFontColor">{{plan.Name}}</span>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
 
                                   </tr>
+<!--
                                   <tr class=" borderless">
                                     <th style="background-color: #eff1f2;"></th>
                                     <th style="border-right: 1px solid #dddddd !important;"><input type="radio" name="postPaidToll" (click)="isTagRequired(true)"><span class="transponderFontColor">Daily Toll by Transponder(PostdToll)</span></th>
@@ -1710,6 +1734,7 @@
                                     <th><input type="radio" name="postPaidToll" (click)="isTagRequired(false)"><span class="transponderFontColor">Daily Tolls by Vehicle(Postdveh)</span></th>
 
                                   </tr>
+-->
                                 </table>
 
                                 <table class="table table-bordered" id="TagReqDet">
@@ -1730,11 +1755,11 @@
                                   </tr>
 
                                   <tbody>
-                                  <tr class=" borderless" *ngFor="let tagDetail of TagDetails">
+                                  <tr class=" borderless" *ngFor="let tagDetail of TagDetails; let i = index">
 
                                     <td>{{tagDetail.Protocol}}</td>
                                     <td> {{tagDetail.Mounting}}</td>
-                                    <td><input class="form-control" type="number" min="0" max="24" step="1" placeholder="0" /></td>
+                                    <td><input class="form-control" id="{{'noOfTags'+i}}" formControlName="{{'noOfTags'+i}}" type="number" min="0" max="24" step="1" placeholder="noOfTags" (change)="calculateTollTagFeeAndTotalTagDeposit(i)" /></td>
                                     <td>{{tagDetail.TagFee}}</td>
                                     <td>{{tagDetail.TagDeposit}}</td>
                                   </tr>
@@ -1761,10 +1786,10 @@
 
                                   </tr>
 
-                                  <tr class=" borderless" *ngFor="let service of ServiceType">
-                                    <td><input type="radio" name="serviceType" value={{service.description}} formControlName="serviceType" >{{service.description}}</td>
-                                    <td>US Mail Service</td>
-                                    <td> 2.00</td>
+                                  <tr class=" borderless" *ngFor="let service of tagShipmentTypes; let i=index">
+                                    <td><input type="radio" name="tagShipmentType" formControlName="tagShipmentType" > {{service.ServiceTypeName}}</td>
+                                    <td>{{service.ServiceDescription}}</td>
+                                    <td>{{service.Cost}}</td>
                                   </tr>
                                   </tbody>
                                 </table>
@@ -2087,7 +2112,7 @@
                             Amount Summary Information
                           </div>
                           <div class="panel-body">
-                            <form>
+
                               <div class="row">
 
                                 <div class="col-lg-5">
@@ -2106,6 +2131,73 @@
                                 </div>
 
                               </div>
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    Toll Balance
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+
+                                      0.00
+
+                                  </div>
+                                </div>
+
+                              </div>
+                            <div class="row">
+
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  Toll Tag Fee
+
+                                </div>
+                              </div>
+                              <div class="col-lg-7" style="text-align: right">
+                                <div class="form-group">
+                                {{calculatedTollTagFee}}
+
+
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="row">
+
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  Enroll Fee
+
+                                </div>
+                              </div>
+                              <div class="col-lg-7" style="text-align: right">
+                                <div class="form-group">
+
+                0.0
+
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="row">
+
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  Total Tag Deposit
+
+                                </div>
+                              </div>
+                              <div class="col-lg-7" style="text-align: right">
+                                <div class="form-group">
+                                  {{calculatedTotalTagDeposit}}
+
+                                </div>
+                              </div>
+
+                            </div>
 
                               <div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
                                 <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ">
@@ -2144,7 +2236,7 @@
                                 </div>
                                 <div class="col-lg-3" style="text-align: right">
                                   <div class="form-group">
-                                   <input class="form-control" type="text" value="250" >
+                                   <!--<input class="form-control" formControlName="totalAmount" type="text" value="{{totalAmount}}" >-->
                                   </div>
                                 </div>
                               </div>
@@ -2152,8 +2244,8 @@
                                 <div class="panel-heading">
                                   <p class="glyphicon glyphicon-info-sign" style="font-size:20px;font-style: italic">Information</p>
                                   <ul>
-                                    <li>Service Tax 10% Applied on Tag Fee</li>
-                                    <li>Service Tax 2% Applied on Credit Card Payment</li>
+                                    <li>Service Tax {{serviceTaxAppliedOnTagFee}}% Applied on Tag Fee</li>
+                                    <li>Service Tax {{creditCardServiceTax}}% Applied on Credit Card Payment</li>
                                   </ul>
                                 </div>
                                 <!-- /.panel-body -->
@@ -2173,9 +2265,6 @@
                                 <!-- /.panel-body -->
                               </div>
 
-
-
-                            </form>
                           </div>
                         </div>
 
@@ -2262,7 +2351,7 @@
 
                               <td>{{tagDetail.Protocol}}</td>
                               <td> {{tagDetail.Mounting}}</td>
-                              <td><input class="form-control" type="number" min="0" max="24" step="1" placeholder="0" /></td>
+                              <td><input class="form-control" type="number" min="0" max="24" step="1" placeholder="noOfTags" /></td>
                               <td>{{tagDetail.TagFee}}</td>
                               <td>{{tagDetail.TagDeposit}}</td>
                             </tr>
@@ -2277,8 +2366,8 @@
                             <div class="panel-heading">
                               <p class="glyphicon glyphicon-info-sign" style="font-size:20px;font-style: italic">Information</p>
                               <ul>
-                                <li>Service Tax 10% Applied on Tag Fee</li>
-                                <li>Service Tax 2% Applied on Credit Card Payment</li>
+                                <li>Service Tax {{serviceTaxAppliedOnTagFee}}% Applied on Tag Fee</li>
+                                <li>Service Tax {{creditCardServiceTax}}% Applied on Credit Card Payment</li>
                               </ul>
                             </div>
                             <!-- /.panel-body -->
