@@ -1701,10 +1701,10 @@
 
                                     <table>
 
-                                      <tr *ngFor="let plan of planArray">
+                                      <tr *ngFor="let plan of planArray; let i = index">
 
                                         <td *ngIf="plan.Name.includes('Transponder') || plan.Name.includes('transponder')">
-                                          <input style="margin-left: 59px;" type="radio" name="postPaidToll" (click)="isTagRequired(true)"><span class="transponderFontColor">{{plan.Name}}</span>
+                                          <input style="margin-left: 59px;" type="radio" name="postPaidToll"  (click)="isTagRequired(true, i)"><span class="transponderFontColor">{{plan.Name}}</span>
                                         </td>
                                       </tr>
                                     </table>
@@ -1712,9 +1712,9 @@
                                     <td style="border-right: 1px solid #dddddd !important;  margin-left: 50px;"  >
                                       <table>
 
-                                        <tr *ngFor="let plan of planArray">
+                                        <tr *ngFor="let plan of planArray; let i1 = index">
                                           <td *ngIf="plan.Name.includes('Video') || plan.Name.includes('video')">
-                                            <input style="margin-left: 59px;" type="radio" name="postPaidToll" (click)="isTagRequired(false)"><span class="transponderFontColor">{{plan.Name}}</span>
+                                            <input style="margin-left: 59px;" type="radio" name="postPaidToll" (click)="isTagRequired(false, i1)"><span class="transponderFontColor">{{plan.Name}}</span>
                                           </td>
                                         </tr>
                                       </table>
@@ -1759,7 +1759,7 @@
 
                                     <td>{{tagDetail.Protocol}}</td>
                                     <td> {{tagDetail.Mounting}}</td>
-                                    <td><input class="form-control" id="{{'noOfTags'+i}}" formControlName="{{'noOfTags'+i}}" type="number" min="0" max="24" step="1" placeholder="noOfTags" (change)="calculateTollTagFeeAndTotalTagDeposit(i)" /></td>
+                                    <td><input class="form-control" id="{{'noOfTags'+i}}" pattern="[0-9]{2}" maxlength="2" formControlName="{{'noOfTags'+i}}" type="number" min="0" max="24" step="1" placeholder="noOfTags" (change)="calculateTollTagFeeAndTotalTagDeposit(i)" /></td>
                                     <td>{{tagDetail.TagFee}}</td>
                                     <td>{{tagDetail.TagDeposit}}</td>
                                   </tr>
@@ -1787,7 +1787,8 @@
                                   </tr>
 
                                   <tr class=" borderless" *ngFor="let service of tagShipmentTypes; let i=index">
-                                    <td><input type="radio" name="tagShipmentType" formControlName="tagShipmentType" > {{service.ServiceTypeName}}</td>
+                                    <td><input type="radio" name="tagShipmentRadioType" (change)="calculateShippingCharges(i)" [checked]="(i === 0)" [value]="service.id" formControlName="tagShipmentRadioType">{{service.ServiceTypeName}}</td>
+                                    <!--<td><input type="radio" name="tagShipmentType" value="service.ServiceTypeName" (click)="calculateShippingCharges(i)" formControlName="tagShipmentType" > {{service.ServiceTypeName}}</td>-->
                                     <td>{{service.ServiceDescription}}</td>
                                     <td>{{service.Cost}}</td>
                                   </tr>
@@ -2142,7 +2143,7 @@
                                 <div class="col-lg-7" style="text-align: right">
                                   <div class="form-group">
 
-                                      0.00
+                                      0.0
 
                                   </div>
                                 </div>
@@ -2152,7 +2153,7 @@
 
                               <div class="col-lg-5">
                                 <div class="form-group">
-                                  Toll Tag Fee
+                                  Total Toll Tag Fee
 
                                 </div>
                               </div>
@@ -2175,8 +2176,7 @@
                               </div>
                               <div class="col-lg-7" style="text-align: right">
                                 <div class="form-group">
-
-                0.0
+                                  {{getEnrollmentFee}}
 
                                 </div>
                               </div>
@@ -2198,8 +2198,56 @@
                               </div>
 
                             </div>
+                            <hr style="margin-top: -6px; margin-bottom: 2px;">
+                            <div class="row">
 
-                              <div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  <b>Sub Total</b>
+
+                                </div>
+                              </div>
+                              <div class="col-lg-7" style="text-align: right">
+                                <div class="form-group">
+                                  <b>{{calculatedSubTotal}}</b>
+
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="row">
+
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  Service Tax
+
+                                </div>
+                              </div>
+                              <div class="col-lg-7" style="text-align: right">
+                                <div class="form-group">
+                                  {{calculatedServiceTaxOnTollTagFee}}
+
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="row">
+
+                              <div class="col-lg-5">
+                                <div class="form-group">
+                                  Shipping Charges
+
+                                </div>
+                              </div>
+                              <div class="col-lg-7" style="text-align: right">
+                                <div class="form-group">
+                                  {{calculatedShippingCharges}}
+
+                                </div>
+                              </div>
+
+                            </div>
+                              <!--<div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
                                 <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ">
                                   <hr style="margin-top: 5px;margin-bottom: 5px;color:#e0e3e6">
                                 </div>
@@ -2226,7 +2274,7 @@
 
 
 
-                              </div>
+                              </div>-->
                               <hr style="margin-top: -6px; margin-bottom: 2px;">
                               <div class="row">
                                 <div class="col-lg-9">
@@ -2236,7 +2284,7 @@
                                 </div>
                                 <div class="col-lg-3" style="text-align: right">
                                   <div class="form-group">
-                                   <!--<input class="form-control" formControlName="totalAmount" type="text" value="{{totalAmount}}" >-->
+                                   <input class="form-control" formControlName="totalAmount" type="text" disabled value="{{calculatedTotalAmount}}" >
                                   </div>
                                 </div>
                               </div>

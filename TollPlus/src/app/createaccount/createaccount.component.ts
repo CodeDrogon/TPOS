@@ -88,10 +88,17 @@ export class CreateaccountComponent implements OnInit {
     'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   getCreditCardExpiryYears = [];
   creditCardServiceTax='';
-  serviceTaxAppliedOnTagFee='';
-  calculatedTollTagFee='';
-  calculatedTotalTagDeposit='';
+  serviceTaxAppliedOnTagFee=0;
+  calculatedTollTagFee=0;
+  calculatedTotalTagDeposit=0;
+  calculatedSubTotal= 0;
+  calculatedTotalAmount = 0;
+  calculatedServiceTaxOnTollTagFee = 0;
+  calculatedShippingCharges = 0;
   tagShipmentTypes=[];
+  noOfTagEntered = 0;
+  getEnrollmentFee = 0;
+  tempShipmentTypeIndex = 0;
   //payment information changes end
   inputEncryptionObject: Object= {};
   cardTypes= [];
@@ -175,6 +182,7 @@ export class CreateaccountComponent implements OnInit {
     this.paymentFormInitialValues();
     this.tagDeliveryMethodSelected();
     this.getCreditCardServiceTax();
+    this.getServiceTaxAppliedOnTagFee();
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(''),
       howDidYouHearUs: new FormControl(''),
@@ -1877,14 +1885,14 @@ export class CreateaccountComponent implements OnInit {
         this.amountSummaryDetails.push(tempObj);
 
       });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'Toll Tag Fee', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
+      });*/
     /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CheckBlockList')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
@@ -1918,9 +1926,13 @@ export class CreateaccountComponent implements OnInit {
       selectedAddress: new FormControl(''),
       existingAddressForCard: new FormControl(''),
       selectedAddressForCard: new FormControl(''),
-      tagShipmentType: new FormControl(''),
+      tagShipmentRadioType: new FormControl(''),
       tagDeliveryMethod: new FormControl('ShipmentByPost'),
-      noOfTags: new FormControl('0'),
+      noOfTags0: new FormControl('0'),
+      noOfTags1: new FormControl('0'),
+      noOfTags2: new FormControl('0'),
+      noOfTags3: new FormControl('0'),
+      noOfTags4: new FormControl('0'),
       totalAmount: new FormControl('250')
     });
   }
@@ -1967,8 +1979,8 @@ export class CreateaccountComponent implements OnInit {
     return encryptedPassword;
   }
 
-  isTagRequired= function(isRequested){
-    debugger;
+  isTagRequired= function(isRequested, indexOfPlanArray){
+    this.getFeesBasedOnPlanId(this.planArray[indexOfPlanArray].PlanId);
     this.isTagRequested = isRequested;
     if (isRequested == true){
       $('#TagReqDet').show();
@@ -1980,7 +1992,10 @@ export class CreateaccountComponent implements OnInit {
       $('#TagDeliveryCarrier').hide();
       $('#TagDeliveryMethodDD').hide();
       $('#TagShippingAddressDiv').hide();
+        this.resetAmountSummaryInfovalues();
     }
+
+
   }
 
   submitPayment= function (paymentDetails) {
@@ -2024,17 +2039,20 @@ export class CreateaccountComponent implements OnInit {
       });
   }
 
-  getFeesBasedOnPlanId= function(){
+  getFeesBasedOnPlanId= function(planId){
     //this method is used to get Fees applicable for selected plani
+    debugger;
     const inputObject = {
-      'PlanId' : '3',
+      'PlanId' : planId,
       'StartEffDate' : this.getCurrentDate()
     }
-    this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)
+    /*this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)*/
+    this.utilityService.getFeesBasedOnPlanId('10002999', inputObject)
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         if (resObj.Result == true) {
-          this.existingAddressDetails = resObj.ResultValue;
+          this.getEnrollmentFee = resObj.ResultValue[0].Amount;
+          this.getSubTotalAndTotalAmount();
         }
 
 
@@ -2069,8 +2087,6 @@ export class CreateaccountComponent implements OnInit {
         this.TagDetails=resObj.ResultValue;
 
       });
-
-
   }
 
   getTagDeliveryMethod= function(){
@@ -2238,25 +2254,55 @@ export class CreateaccountComponent implements OnInit {
         this.tagShipmentTypes = resObj.GetShipmentTypesResult.ResultValue;
       });
   }
+
+
   calculateTollTagFeeAndTotalTagDeposit=function (index) {
 
 debugger;
-    this.calculatedTollTagFee ='';
-    this.calculatedTotalTagDeposit = '';
+    this.calculatedTollTagFee =0;
+    this.calculatedTotalTagDeposit = 0;
+    this.noOfTagEntered = 0;
     for(let i = 0; i < this.TagDetails.length; i++){
       let tempString = 'noOfTags' + i;
-      let tempTollVal =  $("#"+tempString+"").val() * this.TagDetails[index].TagFee;
+      let tempTollVal =  $("#"+tempString+"").val() * this.TagDetails[i].TagFee;
       if(tempTollVal != 0){
-        this.calculatedTollTagFee  = this.calculatedTollTagFee + tempTollVal ;
+        this.calculatedTollTagFee  = parseInt(this.calculatedTollTagFee, 10) + tempTollVal ;
+        this.noOfTagEntered = parseInt(this.noOfTagEntered, 10) + parseInt($("#"+tempString+"").val());
       }
-      let tempTagDepositVal =  $("#"+tempString+"").val() * this.TagDetails[index].TagDeposit;
+      let tempTagDepositVal =  $("#"+tempString+"").val() * this.TagDetails[i].TagDeposit;
       if(tempTagDepositVal != 0){
-        this.calculatedTotalTagDeposit  = this.calculatedTotalTagDeposit + tempTagDepositVal ;
+        this.calculatedTotalTagDeposit  = parseInt(this.calculatedTotalTagDeposit, 10) + tempTagDepositVal ;
       }
 
     }
-    //this.calculatedTollTagFee = $("#"+tempString+"").val() * this.TagDetails[index].TagFee;
-      //this.calculatedTotalTagDeposit = $("#"+tempString+"").val() * this.TagDetails[index].TagDeposit;
+    this.calculatedServiceTaxOnTollTagFee = parseInt(this.calculatedTollTagFee, 10) * (this.serviceTaxAppliedOnTagFee / 100);
+    this.calculateShippingCharges(this.tempShipmentTypeIndex);
+    // this.getSubTotalAndTotalAmount();
+  }
+
+  calculateShippingCharges= function (index) {
+    debugger;
+    this.tempShipmentTypeIndex = index;
+    this.calculatedShippingCharges = this.noOfTagEntered * this.tagShipmentTypes[index].Cost;
+    this.getSubTotalAndTotalAmount();
+  }
+
+  getSubTotalAndTotalAmount=function () {
+    this.calculatedSubTotal = this.calculatedTotalTagDeposit + parseInt(this.getEnrollmentFee, 10) + this.calculatedTollTagFee + 0.0;
+    this.calculatedTotalAmount = this.calculatedSubTotal + this.calculatedServiceTaxOnTollTagFee + this.calculatedShippingCharges;
+  }
+
+  resetAmountSummaryInfovalues=function () {
+
+    this.serviceTaxAppliedOnTagFee=0;
+    this.calculatedTollTagFee=0;
+    this.calculatedTotalTagDeposit=0;
+    this.calculatedServiceTaxOnTollTagFee = 0;
+    this.calculatedShippingCharges = 0;
+    this.noOfTagEntered = 0;
+    this.tempShipmentTypeIndex = 0;
+    this.calculateShippingCharges(this.tempShipmentTypeIndex);
+
   }
   /*isCreditCardExist = function(){
     var tempDetails = {
