@@ -12,6 +12,7 @@ import {Vehicle} from '../pojo/Vehicle';
 import {CustomValidator} from 'app/services/common/custom-validator';
 import {AdditionalInformation} from '../pojo/AdditionalInformation';
 import * as toastr from 'toastr';
+import {ConstructPaymentObject} from "../pojo/payment/ConstructPaymentObject";
 declare var populateCountries: any;
 declare var businessCustomerTooltip: any;
 @Component({
@@ -84,8 +85,7 @@ export class CreateaccountComponent implements OnInit {
   //payment information changes start
    planArray = [];
   isTagRequested = true;
-  getCreditCardExpiryMonths =  ['January', 'February', 'March', 'April', 'May',
-    'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  getCreditCardExpiryMonths = [];
   getCreditCardExpiryYears = [];
   creditCardServiceTax='';
   serviceTaxAppliedOnTagFee=0;
@@ -99,12 +99,16 @@ export class CreateaccountComponent implements OnInit {
   noOfTagEntered = 0;
   getEnrollmentFee = 0;
   tempShipmentTypeIndex = 0;
+  arrayOfTagsEntered=[];
+  selectedPlanId;
   //payment information changes end
   inputEncryptionObject: Object= {};
   cardTypes= [];
   existingAddressDetails;
+  FullAddress;
 
-  constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder) {
+  constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder,
+              private constructPaymentObject:ConstructPaymentObject) {
     this.idProofFullPath = '/pom.xml';
     this.addressProofFullPath = '/pom.xml';
   }
@@ -148,6 +152,7 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
+    /*sessionStorage.setItem("CustomerId","10002878");*/
     this.creditCardExpiryYears();
     this.getAllActiveTagConfiguration();
     /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
@@ -178,8 +183,8 @@ export class CreateaccountComponent implements OnInit {
 
     this.userFormInitialValue();
     this.paymentFormInitialValues();
-    this.tagDeliveryMethodSelected();
     this.getTagShipmentTypeMethod();
+    //this.tagDeliveryMethodSelected();
     this.getCreditCardServiceTax();
     this.getServiceTaxAppliedOnTagFee();
     this.addtnl_Info_Form = new FormGroup({
@@ -409,6 +414,46 @@ export class CreateaccountComponent implements OnInit {
     this.getVehicleModelsDropdown();
     this.getCardTypes();
     this.getAmountSummaryDetials();
+
+    this.getCreditCardExpiryMonths = [
+      {
+        id: '01',
+        description: 'January'
+      }, {
+        id: '02',
+        description: 'February'
+      }, {
+        id: '03',
+        description: 'March'
+      }, {
+        id: '04',
+        description: 'April'
+      }, {
+        id: '05',
+        description: 'May'
+      },
+      {
+        id: '06',
+        description: 'June'
+      }, {
+        id: '07',
+        description: 'July'
+      }, {
+        id: '08',
+        description: 'August'
+      }, {
+        id: '09',
+        description: 'September'
+      }, {
+        id: '10',
+        description: 'October'
+      }, {
+        id: '11',
+        description: 'November'
+      }, {
+        id: '12',
+        description: 'December'
+      }];
   }
 
 
@@ -726,12 +771,6 @@ export class CreateaccountComponent implements OnInit {
           }else{
             sessionStorage.setItem('CustomerId', resObj.ResultValue);
             debugger;
-            this.existingAddressDetails = 'Address:-' + this.account.addressList[0].line1 + ',' + this.account.addressList[0].line2 + ',\n' +
-              'City:' + this.account.addressList[0].city + ',\n' +
-              'Country:' + this.account.addressList[0].country + ',\n' +
-              'State:' + this.account.addressList[0].state + ',\n' +
-              'Zip1:' + this.account.addressList[0].zip1 + ',\n' +
-              'Zip2:' + this.account.addressList[0].zip2;
             $('.nav-tabs > .active .badge').text('✔');
             $('.nav-tabs > .active .badge').css('color', 'lightgreen');
             $('.nav-tabs > .active .badge').css('background-color', 'forestgreen');
@@ -1408,6 +1447,9 @@ export class CreateaccountComponent implements OnInit {
       if (this.vehicleArray.length > 0){
         this.isVehicleExists = true;
         $('#dynamiccollapsein').toggle();
+      } else {
+        this.isVehicleExists = false;
+        $('#dynamiccollapsein').toggle();
       }
     })
   }
@@ -1611,6 +1653,7 @@ export class CreateaccountComponent implements OnInit {
         $('.my-link').bind('click', false);
         toastr.success( 'Additional Information Saved Successfully...');
         this.getAllPlansWithFees();
+        this.getDefaultAddressForCustomer();
       }else{
         $('.nav-tabs > .active .badge').text('X');
         $('.nav-tabs > .active .badge').css('color', 'white');
@@ -1928,12 +1971,7 @@ export class CreateaccountComponent implements OnInit {
       selectedAddressForCard: new FormControl(''),
       tagShipmentRadioType: new FormControl(''),
       tagDeliveryMethod: new FormControl('ShipmentByPost'),
-      noOfTags0: new FormControl('0'),
-      noOfTags1: new FormControl('0'),
-      noOfTags2: new FormControl('0'),
-      noOfTags3: new FormControl('0'),
-      noOfTags4: new FormControl('0'),
-      totalAmount: new FormControl('250')
+      totalAmount: new FormControl(this.calculatedTotalAmount)
     });
   }
   getDropDownValueBasedOnKey= function(dropdownKey, dropDownArray): string {
@@ -1980,6 +2018,7 @@ export class CreateaccountComponent implements OnInit {
   }
 
   isTagRequired= function(isRequested, indexOfPlanArray){
+    this.selectedPlanId = this.planArray[indexOfPlanArray].PlanId;
     this.getFeesBasedOnPlanId(this.planArray[indexOfPlanArray].PlanId);
     this.isTagRequested = isRequested;
     if (isRequested == true){
@@ -2023,6 +2062,7 @@ export class CreateaccountComponent implements OnInit {
         const resObj = JSON.parse(res._body);
         if (resObj.Result == true) {
           this.existingAddressDetails = resObj.ResultValue;
+          this.FullAddress = resObj.ResultValue.FullAddress;
         }
 
 
@@ -2051,14 +2091,18 @@ export class CreateaccountComponent implements OnInit {
 
   tagDeliveryMethodSelected = function(){
 //if its requested by courrier then Enable Shipping address.
-    let tagDeliveryMethod = this.payment_Form.controls['tagDeliveryMethod'].value;
+    let tagDeliveryMethod = $('#tagDeliveryMethodId').val();
     if (tagDeliveryMethod == 'ShipmentByPost' ){
+      //this.getTagShipmentTypeMethod();
+      this.tempShipmentTypeIndex = 0;
+      this.calculateTollTagFeeAndTotalTagDeposit();
       $('#TagDeliveryCarrier').show();
       $('#TagShippingAddressDiv').show();
-      //this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
     }else{
       $('#TagDeliveryCarrier').hide();
       $('#TagShippingAddressDiv').hide();
+      this.calculatedShippingCharges = 0;
+      this.tempShipmentTypeIndex = 0;
       this.calculatedShippingCharges = 0;
       this.getSubTotalAndTotalAmount();
     }
@@ -2249,7 +2293,7 @@ export class CreateaccountComponent implements OnInit {
   }
 
 
-  calculateTollTagFeeAndTotalTagDeposit=function (index) {
+  calculateTollTagFeeAndTotalTagDeposit=function () {
 
 debugger;
     this.calculatedTollTagFee =0;
@@ -2257,6 +2301,7 @@ debugger;
     this.noOfTagEntered = 0;
     for(let i = 0; i < this.TagDetails.length; i++){
       let tempString = 'noOfTags' + i;
+      this.arrayOfTagsEntered[i]=$("#"+tempString+"").val();
       let tempTollVal =  $("#"+tempString+"").val() * this.TagDetails[i].TagFee;
       if(tempTollVal != 0){
         this.calculatedTollTagFee  = parseInt(this.calculatedTollTagFee, 10) + tempTollVal ;
@@ -2291,6 +2336,7 @@ debugger;
 
   resetAmountSummaryInfovalues=function () {
 
+    this.paymentFormInitialValues();
     this.serviceTaxAppliedOnTagFee=0;
     this.calculatedTollTagFee=0;
     this.calculatedTotalTagDeposit=0;
@@ -2306,14 +2352,12 @@ debugger;
     return this.utilityService.postMakePayment(paymentInputObject);
   }
 
- submitPayment= function () {
-
-
-    var paymentDetails={}
-
+  submitPayment= function (paymentDetails) {
+    var tempcardNumber=paymentDetails.cardNumBox1+""+paymentDetails.cardNumBox2+""+paymentDetails.cardNumBox3+""+paymentDetails.cardNumBox4;
+    console.log("paymentDetails "+JSON.stringify(paymentDetails));
     var tempInputEncryptionObject = {
-      "plainText":"4111111111111111",
-      "saltValue":"10002999~11~AB",
+      "plainText":tempcardNumber,
+      "saltValue":sessionStorage.getItem("CustomerId")+"~"+paymentDetails.expiryMonth+"~AB",
       "encryptText":"null",
       "isEncrypted":"false",
       "SecurityType":"CREDITCARD"
@@ -2325,11 +2369,16 @@ debugger;
       const resObj = JSON.parse(res._body);
       if (resObj.Result === true) {
 
-        this.utilityService.postMakePayment(JSON.stringify(this.constructPaymentObject.returnPaymentObject(paymentDetails))).subscribe(res => {
-          const resObj = JSON.parse(res._body);
-          if (resObj.Result === true) {
-            console.log("payment Success Message "+resObj.ResultValue);
-          }
+        var tempPaymentObject=
+          this.constructPaymentObject.returnPaymentObject(paymentDetails,resObj.ResultValue
+            ,this.existingAddressDetails,this.TagDetails,
+            this.arrayOfTagsEntered,this.selectedPlanId, this.calculatedTotalAmount);
+        console.log("tempPaymentObject "+JSON.stringify(tempPaymentObject));
+        this.utilityService.postMakePayment(JSON.stringify(tempPaymentObject)).subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result === true) {
+        console.log("payment Success Message "+resObj.ResultValue);
+        }
         });
       }
     });

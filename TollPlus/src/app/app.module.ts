@@ -26,6 +26,7 @@ import {Address} from "./pojo/address";
 import {Phone} from "./pojo/phone";
 import {Email} from "./pojo/email";
 import {KYCDocument} from "./pojo/kycdocument";
+import {ConstructPaymentObject} from "./pojo/payment/ConstructPaymentObject";
 /* End*/
 
 @NgModule({
@@ -56,7 +57,7 @@ import {KYCDocument} from "./pojo/kycdocument";
     ReactiveFormsModule,
     RouterModule
   ],
-  providers: [LoginService,CreateaccountService,UtilityService,TollPlusHttpService,Pagination,Account,Address,Phone,Email,KYCDocument],
+  providers: [LoginService,CreateaccountService,UtilityService,TollPlusHttpService,Pagination,Account,Address,Phone,Email,KYCDocument, ConstructPaymentObject],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
