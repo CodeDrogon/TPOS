@@ -148,7 +148,6 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllPlansWithFees();
     this.creditCardExpiryYears();
     this.getAllActiveTagConfiguration();
     /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
@@ -178,9 +177,9 @@ export class CreateaccountComponent implements OnInit {
     const emailPattern1 = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)';
 
     this.userFormInitialValue();
-    this.getTagShipmentTypeMethod();
     this.paymentFormInitialValues();
     this.tagDeliveryMethodSelected();
+    this.getTagShipmentTypeMethod();
     this.getCreditCardServiceTax();
     this.getServiceTaxAppliedOnTagFee();
     this.addtnl_Info_Form = new FormGroup({
@@ -1611,6 +1610,7 @@ export class CreateaccountComponent implements OnInit {
         }).click();
         $('.my-link').bind('click', false);
         toastr.success( 'Additional Information Saved Successfully...');
+        this.getAllPlansWithFees();
       }else{
         $('.nav-tabs > .active .badge').text('X');
         $('.nav-tabs > .active .badge').css('color', 'white');
@@ -1998,16 +1998,6 @@ export class CreateaccountComponent implements OnInit {
 
   }
 
-  submitPayment= function (paymentDetails) {
-
-    $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
-      // 'this' is not a jQuery object, so it will use
-      // the default click() function
-      this.click();
-    }).click();
-    console.log('submit method called');
-  }
-
   getAllPlansWithFees= function() {
 //this method is used to get all plans and corresponding fees
     const inputObject = {
@@ -2017,7 +2007,7 @@ export class CreateaccountComponent implements OnInit {
 
     debugger;
     console.log('get all plans' + JSON.stringify(inputObject));
-    this.utilityService.getAllPlansWithFees('10002999', JSON.stringify(inputObject))
+    this.utilityService.getAllPlansWithFees(sessionStorage.getItem('CustomerId'), JSON.stringify(inputObject))
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         console.log(resObj.ResultValue);
@@ -2047,7 +2037,7 @@ export class CreateaccountComponent implements OnInit {
       'StartEffDate' : this.getCurrentDate()
     }
     /*this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)*/
-    this.utilityService.getFeesBasedOnPlanId('10002999', inputObject)
+    this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         if (resObj.Result == true) {
@@ -2065,9 +2055,12 @@ export class CreateaccountComponent implements OnInit {
     if (tagDeliveryMethod == 'ShipmentByPost' ){
       $('#TagDeliveryCarrier').show();
       $('#TagShippingAddressDiv').show();
+      //this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
     }else{
       $('#TagDeliveryCarrier').hide();
       $('#TagShippingAddressDiv').hide();
+      this.calculatedShippingCharges = 0;
+      this.getSubTotalAndTotalAmount();
     }
   }
 
@@ -2189,7 +2182,7 @@ export class CreateaccountComponent implements OnInit {
       });
   }
 
-  isCreditCardExist = function(){
+  /*isCreditCardExist = function(){
 
 
     this.inputEncryptionObject = {
@@ -2226,7 +2219,7 @@ export class CreateaccountComponent implements OnInit {
         console.log("Card Encription process failed ")
       }
     })
-  }
+  }*/
 
   getCreditCardServiceTax= function () {
 
@@ -2275,15 +2268,19 @@ debugger;
       }
 
     }
+    debugger;
     this.calculatedServiceTaxOnTollTagFee = parseInt(this.calculatedTollTagFee, 10) * (this.serviceTaxAppliedOnTagFee / 100);
-    this.calculateShippingCharges(this.tempShipmentTypeIndex);
+    this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
     // this.getSubTotalAndTotalAmount();
   }
 
-  calculateShippingCharges= function (index) {
+  calculateShippingCharges= function (tagShipmentTypeSelected, index) {
     debugger;
+    //this.payment_Form.controls['tagShipmentRadioType'].checked = true;
+    /*var tempTagShipmentType = 'tagShipmentType' + index;*/
+    //this.payment_Form.controls['tagShipmentRadioType'].value = tagShipmentTypeSelected.ServiceTypeName;
     this.tempShipmentTypeIndex = index;
-    this.calculatedShippingCharges = this.noOfTagEntered * this.tagShipmentTypes[index].Cost;
+    this.calculatedShippingCharges = this.noOfTagEntered * (tagShipmentTypeSelected.Cost);
     this.getSubTotalAndTotalAmount();
   }
 
@@ -2301,10 +2298,54 @@ debugger;
     this.calculatedShippingCharges = 0;
     this.noOfTagEntered = 0;
     this.tempShipmentTypeIndex = 0;
-    this.calculateShippingCharges(this.tempShipmentTypeIndex);
+    this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
 
   }
-  /*isCreditCardExist = function(){
+
+  postMakePayment(paymentInputObject){
+    return this.utilityService.postMakePayment(paymentInputObject);
+  }
+
+ submitPayment= function () {
+
+
+    var paymentDetails={}
+
+    var tempInputEncryptionObject = {
+      "plainText":"4111111111111111",
+      "saltValue":"10002999~11~AB",
+      "encryptText":"null",
+      "isEncrypted":"false",
+      "SecurityType":"CREDITCARD"
+    }
+
+    const tempInpEncryObj = JSON.stringify(tempInputEncryptionObject);
+    console.log('password input object ' + tempInpEncryObj);
+    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if (resObj.Result === true) {
+
+        this.utilityService.postMakePayment(JSON.stringify(this.constructPaymentObject.returnPaymentObject(paymentDetails))).subscribe(res => {
+          const resObj = JSON.parse(res._body);
+          if (resObj.Result === true) {
+            console.log("payment Success Message "+resObj.ResultValue);
+          }
+        });
+      }
+    });
+
+
+
+    $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+      this.click();
+    }).click();
+    console.log('submit method called');
+  }
+
+
+  isCreditCardExist = function(){
     var tempDetails = {
       "CustomerId":"10002576",
       "CC":"J+B/gV7BPKwV2ri5W+nH4A==",
@@ -2318,7 +2359,6 @@ debugger;
 
       });
 
-  }*/
-
+  }
 }
 

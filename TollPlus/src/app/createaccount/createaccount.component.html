@@ -10,7 +10,7 @@
     </li>
     <li ><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
     </li>
-    <li ><a href="#4a" data-toggle="tab" class="arrow " style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
+    <li ><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
     </li>
   </ul>
 
@@ -1737,7 +1737,7 @@
 -->
                                 </table>
 
-                                <table class="table table-bordered" id="TagReqDet">
+                                <table class="table table-bordered" style="display:none;" id="TagReqDet">
                                   <tr class=" borderless" style="background-color: #eff1f2;">
                                     <th>Tag Details</th>
                                     <th></th>
@@ -1786,8 +1786,8 @@
 
                                   </tr>
 
-                                  <tr class=" borderless" *ngFor="let service of tagShipmentTypes; let i=index">
-                                    <td><input type="radio" name="tagShipmentRadioType" (change)="calculateShippingCharges(i)" [checked]="(i === 0)" [value]="service.id" formControlName="tagShipmentRadioType">{{service.ServiceTypeName}}</td>
+                                  <tr class=" borderless" *ngFor="let service of tagShipmentTypes; let idx = index">
+                                    <td><input type="radio" name="tagShipmentRadioType" (change)="calculateShippingCharges(service, idx)" [checked]="(idx === 0)" [value]="service.ServiceTypeName" formControlName="tagShipmentRadioType">{{service.ServiceTypeName}}</td>
                                     <!--<td><input type="radio" name="tagShipmentType" value="service.ServiceTypeName" (click)="calculateShippingCharges(i)" formControlName="tagShipmentType" > {{service.ServiceTypeName}}</td>-->
                                     <td>{{service.ServiceDescription}}</td>
                                     <td>{{service.Cost}}</td>
@@ -2095,7 +2095,7 @@
                     </div>
                     <div class="row" style="padding-bottom: 4%">
                       <div class="col-lg-9">
-                        <input class="btn btn-primary" id="paymentAdditionalInfo" type="button" value="< Additional Information" (click)="disableButton()">
+                        <input class="btn btn-primary" id="paymentAdditionalInfo" type="button" value="< Additional Information">
                       </div>
 
                       <div class="col-lg-3" align="right" >

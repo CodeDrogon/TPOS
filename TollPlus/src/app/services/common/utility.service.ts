@@ -117,4 +117,7 @@ export class UtilityService {
     return this.httpService.getHttpMethodWithoutParams('GetShipmentTypes');
   }
 
+  postMakePayment(paymentInputObject){
+    return this.httpService.postMethodWithParams('PostMakePayment', paymentInputObject);
+  }
 }
