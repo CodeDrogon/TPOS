@@ -82,11 +82,23 @@ export class CreateaccountComponent implements OnInit {
   statementDeliveryOptions= [];
   accountCategories= [];
   //payment information changes start
-  planArray = [];
+   planArray = [];
   isTagRequested = true;
   getCreditCardExpiryMonths =  ['January', 'February', 'March', 'April', 'May',
     'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   getCreditCardExpiryYears = [];
+  creditCardServiceTax='';
+  serviceTaxAppliedOnTagFee=0;
+  calculatedTollTagFee=0;
+  calculatedTotalTagDeposit=0;
+  calculatedSubTotal= 0;
+  calculatedTotalAmount = 0;
+  calculatedServiceTaxOnTollTagFee = 0;
+  calculatedShippingCharges = 0;
+  tagShipmentTypes=[];
+  noOfTagEntered = 0;
+  getEnrollmentFee = 0;
+  tempShipmentTypeIndex = 0;
   //payment information changes end
   inputEncryptionObject: Object= {};
   cardTypes= [];
@@ -136,7 +148,6 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllPlansWithFees();
     this.creditCardExpiryYears();
     this.getAllActiveTagConfiguration();
     /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
@@ -168,6 +179,9 @@ export class CreateaccountComponent implements OnInit {
     this.userFormInitialValue();
     this.paymentFormInitialValues();
     this.tagDeliveryMethodSelected();
+    this.getTagShipmentTypeMethod();
+    this.getCreditCardServiceTax();
+    this.getServiceTaxAppliedOnTagFee();
     this.addtnl_Info_Form = new FormGroup({
       friendshipRewardAccountNo: new FormControl(''),
       howDidYouHearUs: new FormControl(''),
@@ -1596,6 +1610,7 @@ export class CreateaccountComponent implements OnInit {
         }).click();
         $('.my-link').bind('click', false);
         toastr.success( 'Additional Information Saved Successfully...');
+        this.getAllPlansWithFees();
       }else{
         $('.nav-tabs > .active .badge').text('X');
         $('.nav-tabs > .active .badge').css('color', 'white');
@@ -1870,14 +1885,14 @@ export class CreateaccountComponent implements OnInit {
         this.amountSummaryDetails.push(tempObj);
 
       });
-    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
+    /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/IsTagFee')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         const tempValue = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
         const tempObj = {'description': 'Toll Tag Fee', 'amount': tempValue};
         this.amountSummaryDetails.push(tempObj);
 
-      });
+      });*/
     /*this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/CheckBlockList')
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
@@ -1897,6 +1912,7 @@ export class CreateaccountComponent implements OnInit {
   };
 
   paymentFormInitialValues= function () {
+    debugger;
     this.payment_Form = new FormGroup({
       creditType: new FormControl('', Validators.required),
       cardNumBox1: new FormControl('', Validators.required),
@@ -1910,8 +1926,14 @@ export class CreateaccountComponent implements OnInit {
       selectedAddress: new FormControl(''),
       existingAddressForCard: new FormControl(''),
       selectedAddressForCard: new FormControl(''),
-      serviceType: new FormControl(''),
-      tagDeliveryMethod: new FormControl('ShipmentByPost')
+      tagShipmentRadioType: new FormControl(''),
+      tagDeliveryMethod: new FormControl('ShipmentByPost'),
+      noOfTags0: new FormControl('0'),
+      noOfTags1: new FormControl('0'),
+      noOfTags2: new FormControl('0'),
+      noOfTags3: new FormControl('0'),
+      noOfTags4: new FormControl('0'),
+      totalAmount: new FormControl('250')
     });
   }
   getDropDownValueBasedOnKey= function(dropdownKey, dropDownArray): string {
@@ -1957,8 +1979,8 @@ export class CreateaccountComponent implements OnInit {
     return encryptedPassword;
   }
 
-  isTagRequired= function(isRequested){
-    debugger;
+  isTagRequired= function(isRequested, indexOfPlanArray){
+    this.getFeesBasedOnPlanId(this.planArray[indexOfPlanArray].PlanId);
     this.isTagRequested = isRequested;
     if (isRequested == true){
       $('#TagReqDet').show();
@@ -1970,38 +1992,26 @@ export class CreateaccountComponent implements OnInit {
       $('#TagDeliveryCarrier').hide();
       $('#TagDeliveryMethodDD').hide();
       $('#TagShippingAddressDiv').hide();
+        this.resetAmountSummaryInfovalues();
     }
-  }
 
-  submitPayment= function (paymentDetails) {
 
-    $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
-      // 'this' is not a jQuery object, so it will use
-      // the default click() function
-      this.click();
-    }).click();
-    console.log('submit method called');
   }
 
   getAllPlansWithFees= function() {
 //this method is used to get all plans and corresponding fees
     const inputObject = {
-      'PlanId' : '3',
+      'PlanId' : '4',
       'StartEffDate': this.getCurrentDate()
     }
 
     debugger;
     console.log('get all plans' + JSON.stringify(inputObject));
-    this.utilityService.getAllPlansWithFees('10002999', JSON.stringify(inputObject))
+    this.utilityService.getAllPlansWithFees(sessionStorage.getItem('CustomerId'), JSON.stringify(inputObject))
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
-        if (resObj.Result == true) {
+        console.log(resObj.ResultValue);
           this.planArray = resObj.ResultValue;
-
-        }/*else{
-        }*/
-
-
       });
   }
 
@@ -2019,17 +2029,20 @@ export class CreateaccountComponent implements OnInit {
       });
   }
 
-  getFeesBasedOnPlanId= function(){
+  getFeesBasedOnPlanId= function(planId){
     //this method is used to get Fees applicable for selected plani
+    debugger;
     const inputObject = {
-      'PlanId' : '3',
+      'PlanId' : planId,
       'StartEffDate' : this.getCurrentDate()
     }
+    /*this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)*/
     this.utilityService.getFeesBasedOnPlanId(sessionStorage.getItem('CustomerId'), inputObject)
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         if (resObj.Result == true) {
-          this.existingAddressDetails = resObj.ResultValue;
+          this.getEnrollmentFee = resObj.ResultValue[0].Amount;
+          this.getSubTotalAndTotalAmount();
         }
 
 
@@ -2042,9 +2055,12 @@ export class CreateaccountComponent implements OnInit {
     if (tagDeliveryMethod == 'ShipmentByPost' ){
       $('#TagDeliveryCarrier').show();
       $('#TagShippingAddressDiv').show();
+      //this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
     }else{
       $('#TagDeliveryCarrier').hide();
       $('#TagShippingAddressDiv').hide();
+      this.calculatedShippingCharges = 0;
+      this.getSubTotalAndTotalAmount();
     }
   }
 
@@ -2064,8 +2080,6 @@ export class CreateaccountComponent implements OnInit {
         this.TagDetails=resObj.ResultValue;
 
       });
-
-
   }
 
   getTagDeliveryMethod= function(){
@@ -2168,7 +2182,7 @@ export class CreateaccountComponent implements OnInit {
       });
   }
 
-  isCreditCardExist = function(){
+  /*isCreditCardExist = function(){
 
 
     this.inputEncryptionObject = {
@@ -2205,7 +2219,146 @@ export class CreateaccountComponent implements OnInit {
         console.log("Card Encription process failed ")
       }
     })
+  }*/
+
+  getCreditCardServiceTax= function () {
+
+    this.utilityService.getCreditCardServiceTax()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        this.creditCardServiceTax = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+
+
+      });
   }
 
+  getServiceTaxAppliedOnTagFee= function () {
+    this.utilityService.paymentInformationOperationWithoutParameters('GetApplicationParameterValueByParameterKey/ServiceTax')
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        this.serviceTaxAppliedOnTagFee = resObj.GetApplicationParameterValueByParameterKeyResult.ResultValue;
+      });
+  }
+
+  getTagShipmentTypeMethod=function () {
+    this.utilityService.getTagShipmentTypeMethod()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        this.tagShipmentTypes = resObj.GetShipmentTypesResult.ResultValue;
+      });
+  }
+
+
+  calculateTollTagFeeAndTotalTagDeposit=function (index) {
+
+debugger;
+    this.calculatedTollTagFee =0;
+    this.calculatedTotalTagDeposit = 0;
+    this.noOfTagEntered = 0;
+    for(let i = 0; i < this.TagDetails.length; i++){
+      let tempString = 'noOfTags' + i;
+      let tempTollVal =  $("#"+tempString+"").val() * this.TagDetails[i].TagFee;
+      if(tempTollVal != 0){
+        this.calculatedTollTagFee  = parseInt(this.calculatedTollTagFee, 10) + tempTollVal ;
+        this.noOfTagEntered = parseInt(this.noOfTagEntered, 10) + parseInt($("#"+tempString+"").val());
+      }
+      let tempTagDepositVal =  $("#"+tempString+"").val() * this.TagDetails[i].TagDeposit;
+      if(tempTagDepositVal != 0){
+        this.calculatedTotalTagDeposit  = parseInt(this.calculatedTotalTagDeposit, 10) + tempTagDepositVal ;
+      }
+
+    }
+    debugger;
+    this.calculatedServiceTaxOnTollTagFee = parseInt(this.calculatedTollTagFee, 10) * (this.serviceTaxAppliedOnTagFee / 100);
+    this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
+    // this.getSubTotalAndTotalAmount();
+  }
+
+  calculateShippingCharges= function (tagShipmentTypeSelected, index) {
+    debugger;
+    //this.payment_Form.controls['tagShipmentRadioType'].checked = true;
+    /*var tempTagShipmentType = 'tagShipmentType' + index;*/
+    //this.payment_Form.controls['tagShipmentRadioType'].value = tagShipmentTypeSelected.ServiceTypeName;
+    this.tempShipmentTypeIndex = index;
+    this.calculatedShippingCharges = this.noOfTagEntered * (tagShipmentTypeSelected.Cost);
+    this.getSubTotalAndTotalAmount();
+  }
+
+  getSubTotalAndTotalAmount=function () {
+    this.calculatedSubTotal = this.calculatedTotalTagDeposit + parseInt(this.getEnrollmentFee, 10) + this.calculatedTollTagFee + 0.0;
+    this.calculatedTotalAmount = this.calculatedSubTotal + this.calculatedServiceTaxOnTollTagFee + this.calculatedShippingCharges;
+  }
+
+  resetAmountSummaryInfovalues=function () {
+
+    this.serviceTaxAppliedOnTagFee=0;
+    this.calculatedTollTagFee=0;
+    this.calculatedTotalTagDeposit=0;
+    this.calculatedServiceTaxOnTollTagFee = 0;
+    this.calculatedShippingCharges = 0;
+    this.noOfTagEntered = 0;
+    this.tempShipmentTypeIndex = 0;
+    this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
+
+  }
+
+  postMakePayment(paymentInputObject){
+    return this.utilityService.postMakePayment(paymentInputObject);
+  }
+
+ submitPayment= function () {
+
+
+    var paymentDetails={}
+
+    var tempInputEncryptionObject = {
+      "plainText":"4111111111111111",
+      "saltValue":"10002999~11~AB",
+      "encryptText":"null",
+      "isEncrypted":"false",
+      "SecurityType":"CREDITCARD"
+    }
+
+    const tempInpEncryObj = JSON.stringify(tempInputEncryptionObject);
+    console.log('password input object ' + tempInpEncryObj);
+    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if (resObj.Result === true) {
+
+        this.utilityService.postMakePayment(JSON.stringify(this.constructPaymentObject.returnPaymentObject(paymentDetails))).subscribe(res => {
+          const resObj = JSON.parse(res._body);
+          if (resObj.Result === true) {
+            console.log("payment Success Message "+resObj.ResultValue);
+          }
+        });
+      }
+    });
+
+
+
+    $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+      this.click();
+    }).click();
+    console.log('submit method called');
+  }
+
+
+  isCreditCardExist = function(){
+    var tempDetails = {
+      "CustomerId":"10002576",
+      "CC":"J+B/gV7BPKwV2ri5W+nH4A==",
+      "ExpDate":"201804"
+    }
+    this.utilityService.isCreditCardExist(tempDetails)
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        console.log("Is Card already exist " + resObj.ResultValue);
+        resObj.ResultValue;
+
+      });
+
+  }
 }
 

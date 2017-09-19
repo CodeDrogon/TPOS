@@ -109,4 +109,15 @@ export class UtilityService {
     return this.httpService.postMethodWithParams('PostIsExistBlockList/?enumActivityType=IsCreditCardExist', inputObject);
   }
 
+  getCreditCardServiceTax(){
+    return this.httpService.getHttpMethodWithoutParams('GetApplicationParameterValueByParameterKey/CCServiceTax');
+  }
+
+  getTagShipmentTypeMethod(){
+    return this.httpService.getHttpMethodWithoutParams('GetShipmentTypes');
+  }
+
+  postMakePayment(paymentInputObject){
+    return this.httpService.postMethodWithParams('PostMakePayment', paymentInputObject);
+  }
 }
