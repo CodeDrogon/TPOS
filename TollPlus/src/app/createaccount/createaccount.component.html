@@ -8,9 +8,9 @@
     </li>
     <li ><a href="#2a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">2</span> Vehicle Information</a>
     </li>
-    <li ><a href="#3a" data-toggle="tab" class="arrow " style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
+    <li ><a href="#3a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">3</span> Additional Information</a>
     </li>
-    <li ><a href="#4a" data-toggle="tab" class="arrow " style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
+    <li ><a href="#4a" data-toggle="tab" class="arrow my-link" style="text-decoration : none; color : #000;"><span class="badge">4</span> Payment Information</a>
     </li>
   </ul>
 
@@ -1640,7 +1640,7 @@
           <div class="tab-pane active" id="5a">
 
             <div id="page-wrapper">
-              <form role="form" [formGroup]="payment_Form" class="bgColor" (ngSubmit)='submitPayment(payment_Form.value)' novalidate name="payment_Form">
+              <form role="form" [formGroup]="payment_Form" class="bgColor" (ngSubmit)='constructPaymentObj(payment_Form.value)' novalidate name="payment_Form">
                 <!--<form role="form" #userForm="ngForm" (ngSubmit)='savePersonal(userForm.value)' class="bgColor">-->
                 <div class="row">
                   <div class="col-lg-8">
@@ -1705,7 +1705,7 @@
                                       <tr *ngFor="let plan of planArray; let i = index">
 
                                         <td *ngIf="plan.Name.includes('Transponder') || plan.Name.includes('transponder')">
-                                          <input style="margin-left: 59px;" type="radio" name="postPaidToll"  (click)="isTagRequired(true, i)"><span class="transponderFontColor">{{plan.Name}}</span>
+                                          <input style="margin-left: 59px;" type="radio" name="postPaidToll"  (click)="isTagRequired(true, i)" [checked]="(i === 0)" [value]="plan.Name"><span class="transponderFontColor">{{plan.Name}}</span>
                                         </td>
                                       </tr>
                                     </table>
@@ -1738,7 +1738,7 @@
 -->
                                 </table>
 
-                                <table class="table table-bordered" style="display:none;" id="TagReqDet">
+                                <table class="table table-bordered" id="TagReqDet">
                                   <tr class=" borderless" style="background-color: #eff1f2;">
                                     <th>Tag Details</th>
                                     <th></th>
@@ -1803,11 +1803,11 @@
                                     <div class="row">
                                       <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="radio" name="existingAddress" value="existingAddress" formControlName="existingAddress" checked='true' >Same As Existing Address
+                                            <input type="radio" name="existingAddress" value="existingAddress" formControlName="existingAddress" [checked]='true' >Same As Existing Address
                                         </div>
                                         <div style="padding-left: 10% !important;">
                                           <div class="col-lg-1" id="rectangle">
-                                            <input type="radio" name="selectedAddress" value="selectedAddress" formControlName="selectedAddress" checked="true">
+                                            <input type="radio" name="selectedAddress" value="selectedAddress" formControlName="selectedAddress" [checked]="true">
                                             <div>
                                               <span>{{FullAddress}}</span>
                                             </div>
@@ -2011,11 +2011,11 @@
                                 <div class="row">
                                   <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="radio" name="existingAddressForCard" value="existingAddressForCard" formControlName="existingAddressForCard" checked="true" >Same As Existing Address
+                                        <input type="radio" name="existingAddressForCard" value="existingAddressForCard" formControlName="existingAddressForCard" [checked]="true" >Same As Existing Address
                                     </div>
                                     <div style="padding-left: 10% !important;">
                                       <div class="col-lg-1" id="rectangle">
-                                        <input type="radio" name="selectedAddressForCard" value="selectedAddressForCard" formControlName="selectedAddressForCard" checked="true" checked="checked">
+                                        <input type="radio" name="selectedAddressForCard" value="selectedAddressForCard" formControlName="selectedAddressForCard" [checked]="true">
                                         <div>
                                           <span>{{FullAddress}}</span>
                                         </div>
@@ -2100,7 +2100,7 @@
                       </div>
 
                       <div class="col-lg-3" align="right" >
-                        <input type="submit" class="btn btn-primary" id="paymentSubmit" value="Submit">
+                        <input type="submit" class="btn btn-primary" id="paymentSubmit" value="Next">
 
                       </div>
                     </div>
@@ -2341,9 +2341,10 @@
                       <div class="row">
                         <div class="col-lg-6">
                           <img src="../assets/icons/Shipping-icon.png" style="width: 33px; height: 28px" > <span style="color: #637283; font-weight: 800;">Shipping Address </span>
-                          <div  id="rectangleForReview">
+                          <br>
+                          <div  id="rectangle" style="background-color:white;width:40% !important">
 
-                            <span>{{existingAddressDetails}}</span>
+                            <span>{{FullAddress}}</span>
 
 
                           </div>
@@ -2356,16 +2357,16 @@
                             <table style="margin-left: 50px;">
                               <tr>
                                 <td style="padding-right: 65px !important; padding-bottom: 5px;">Name on Card:</td>
-                                <td>Sai</td>
+                                <td>{{payment_Form.controls['nameOnCard'].value}}</td>
                               </tr>
                               <tr>
                                 <td style="padding-right: 65px !important; padding-bottom: 5px;">Card Type:</td>
                                 <td>Visa</td>
                               </tr>
-                              <tr>
+                              <!--<tr>
                                 <td style="padding-right: 65px !important; padding-bottom: 5px;">Replenishment Type:</td>
                                 <td>Cash</td>
-                              </tr>
+                              </tr>-->
                               <tr>
                                 <td style="padding-right: 65px !important; padding-bottom: 5px;">Pay by:</td>
                                 <td>Credit Card</td>
@@ -2390,18 +2391,18 @@
                               <th style="text-align: center; color: #637283 !important; font-weight: 800">Protocol</th>
                               <th style="text-align: center; color: #637283 !important; font-weight: 800">Mounting</th>
                               <th style="text-align: center; color: #637283 !important; font-weight: 800">No of Tags</th>
-                              <th style="text-align: center; color: #637283 !important; font-weight: 800">Per Tag Fee ($)</th>
-                              <th style="text-align: center; color: #637283 !important; font-weight: 800">Per Tag Deposit ($)</th>
-                              <th style="text-align: center; color: #637283 !important; font-weight: 800">Amount ($)</th>
+                              <th style="text-align: right !important; color: #637283 !important; font-weight: 800">Per Tag Fee ($)</th>
+                              <th style="text-align: right !important; color: #637283 !important; font-weight: 800">Per Tag Deposit ($)</th>
+                              <!--<th style="text-align: center; color: #637283 !important; font-weight: 800">Amount ($)</th>-->
                             </tr>
 
                             <tbody>
-                            <tr class=" borderless" *ngFor="let tagDetail of TagDetails">
+                            <tr class=" borderless" *ngFor="let tagDetail of TagDetails; let i=index" style="text-align: right !important;">
 
                               <td>{{tagDetail.Protocol}}</td>
                               <td> {{tagDetail.Mounting}}</td>
-                              <td><input class="form-control" type="number" min="0" max="24" step="1" placeholder="noOfTags" /></td>
-                              <td>{{tagDetail.TagFee}}</td>
+                              <td>{{arrayOfTagsEntered[i]}} </td>
+                              <td style="text-align: end !important;">{{tagDetail.TagFee}}</td>
                               <td>{{tagDetail.TagDeposit}}</td>
                             </tr>
                             </tbody>
@@ -2425,44 +2426,190 @@
                         <div class="col-lg-4">
                           <div class="panel panel-default">
                             <div class="panel-body">
-                              <table class="borderless" id="TagReqDet">
-                                <tr class=" borderless">
-                                  <th style="padding-right: 101px">Total Tag Fees & Deposit</th>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-right: 101px">Toll Balance</td>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-right: 101px">Enroll Fee</td>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <hr style="margin-top: 2px; margin-bottom: 2px;">
-                                <tr>
-                                  <th style="padding-right: 101px">Sub Total</th>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-right: 101px">Shipping Charge</td>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-right: 101px">Service Tax</td>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <tr>
-                                  <td style="padding-right: 101px">Credit Card Service Tax</td>
-                                  <td>sadfasd</td>
-                                </tr>
-                                <hr style="margin-top: 2px; margin-bottom: 2px;">
-                                <tr>
-                                  <th style="padding-right: 101px">Total Amount</th>
-                                  <td>sadfasd</td>
-                                </tr>
-                              </table>
 
 
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    <b>Total Toll Tag Fee & Deposit</b>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    {{calculatedTollTagFee + calculatedTotalTagDeposit}}
+
+
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    Toll Balance
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+
+                                    0.0
+
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    Enroll Fee
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    {{getEnrollmentFee}}
+
+                                  </div>
+                                </div>
+
+                              </div>
+                              <hr style="margin-top: -6px; margin-bottom: 2px;">
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    <b>Sub Total</b>
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    <b>{{calculatedSubTotal}}</b>
+
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    Shipping Charges
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    {{calculatedShippingCharges}}
+
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    Service Tax
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    {{calculatedServiceTaxOnTollTagFee}}
+
+                                  </div>
+                                </div>
+
+                              </div>
+                              <div class="row">
+
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+                                    Credit Card Service Tax
+
+                                  </div>
+                                </div>
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    {{calculatedTotalAmount * (creditCardServiceTax/100)}}
+
+                                  </div>
+                                </div>
+
+                              </div>
+
+
+                              <!--<div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
+                                <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ">
+                                  <hr style="margin-top: 5px;margin-bottom: 5px;color:#e0e3e6">
+                                </div>
+                                <div class="col-lg-5">
+                                  <div class="form-group">
+
+                                    <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content else other_content"></div>
+                                    <ng-template #content>
+
+                                      <b>{{summaryDetails.description}}</b></ng-template>
+                                    <ng-template #other_content>{{summaryDetails.description}}</ng-template>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-7" style="text-align: right">
+                                  <div class="form-group">
+                                    <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content1 else other_content1"></div>
+                                    <ng-template #content1>
+                                      <b>{{summaryDetails.amount}}</b></ng-template>
+                                    <ng-template #other_content1>{{summaryDetails.amount}}</ng-template>
+
+                                  </div>
+                                </div>
+
+
+
+                              </div>-->
+                              <hr style="margin-top: -6px; margin-bottom: 2px;">
+                              <div class="row">
+                                <div class="col-lg-9">
+                                  <div class="form-group">
+                                    <b>Total Amount</b>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3" style="text-align: right">
+                                  <div class="form-group">
+                                    <input class="form-control" formControlName="totalAmount" type="text" disabled value="{{finalAmount}}" >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <p class="glyphicon glyphicon-info-sign" style="font-size:20px;font-style: italic">Information</p>
+                                  <ul>
+                                    <li>Service Tax {{serviceTaxAppliedOnTagFee}}% Applied on Tag Fee</li>
+                                    <li>Service Tax {{creditCardServiceTax}}% Applied on Credit Card Payment</li>
+                                  </ul>
+                                </div>
+                                <!-- /.panel-body -->
+                              </div>
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <p class="glyphicon glyphicon-question-sign" style="font-size:20px;font-style: italic">Need Help?</p>
+                                  <ul>
+                                    <li><a href="www.sureitinc.com">Shipping</a> </li>
+                                    <li><a href="www.sureitinc.com">Contact Us</a> </li>
+                                  </ul>
+
+                                  Accepted Payment Methods<br>
+
+                                  <img src="./../../assets/icons/credit-cards-logos_orig.png" width="250">
+                                </div>
+                                <!-- /.panel-body -->
+                              </div>
 
                             </div>
                           </div>
@@ -2484,7 +2631,7 @@
                 </div>
                 <div class="col-lg-1" align="right">
 
-                  <input type="button" class="btn btn-primary innerBtnNext"  value="Payment">
+                  <input type="button" class="btn btn-primary "  value="MakePayment" (click)="SubmitPayment()">
                 </div>
               </div>
             </div>
@@ -2497,35 +2644,35 @@
                 <div id="page-wrapper">
                   <h2>Thanks for your Order</h2>
                   <p>Please Keep Note of your transaction details for future use.</p>
-                  Reference #:<b>V012345</b><br>
-                  Account #:<b>Ac012345</b><br>
-                  Total Payment #:<b>$350.88</b><br>
+                  Reference #:<b>{{payementResponseObject.VoucherNo}}</b><br>
+                  Account #:<b>{{payementResponseObject.CustomerId}}</b><br>
+                  Total Payment #:<b>{{payementResponseObject.ToltalAmountPaid}}</b><br>
                   Paid By #:<b>Credit Card</b><br>
                   Card Type #:<b>VISA</b><br>
                   Credit Card #:<b>xxxxxxxxxxx123</b><br>
-                  Transaction Date/Time #:<b>28th Jun 2017</b><br>
+                  Transaction Date/Time #:<b>{{currentDate}}</b><br>
 
                   <br>
 
-                  Confirmation Mail has been sent to abcd@gmail.c<br>
-                  Order Place at 11:30am ,29 Jun 2017.
+                  Confirmation Mail has been sent to {{prefEmail}}<br>
+                  Order Place at {{currentDate}}.
                   <br><br>
                   <div class="row">
                     <div class="col-lg-3">
 
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-floppy-o" aria-hidden="true"></i>    Save Payment</button>
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-floppy-o" aria-hidden="true" disabled></i>    Save Payment</button>
 
                     </div>
                     <div class="col-lg-3">
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-print" aria-hidden="true"></i> Print Payment Receipt</button>
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-print" aria-hidden="true" disabled></i> Print Payment Receipt</button>
 
                     </div>
                     <div class="col-lg-3">
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-plus" aria-hidden="true"></i>   Create New Account</button>
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-plus" aria-hidden="true" disabled></i>   Create New Account</button>
 
                     </div>
                     <div class="col-lg-3">
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-sign-out" aria-hidden="true"></i>    Exit</button>
+                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-sign-out" aria-hidden="true" disabled></i>    Exit</button>
 
                     </div>
                   </div>

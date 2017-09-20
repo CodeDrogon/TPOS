@@ -87,12 +87,13 @@ export class CreateaccountComponent implements OnInit {
   isTagRequested = true;
   getCreditCardExpiryMonths = [];
   getCreditCardExpiryYears = [];
-  creditCardServiceTax='';
+  creditCardServiceTax=0;
   serviceTaxAppliedOnTagFee=0;
   calculatedTollTagFee=0;
   calculatedTotalTagDeposit=0;
   calculatedSubTotal= 0;
   calculatedTotalAmount = 0;
+  finalAmount= 0;
   calculatedServiceTaxOnTollTagFee = 0;
   calculatedShippingCharges = 0;
   tagShipmentTypes=[];
@@ -101,12 +102,15 @@ export class CreateaccountComponent implements OnInit {
   tempShipmentTypeIndex = 0;
   arrayOfTagsEntered=[];
   selectedPlanId;
+  tempPaymentObject;
   //payment information changes end
   inputEncryptionObject: Object= {};
   cardTypes= [];
   existingAddressDetails;
   FullAddress;
-
+  payementResponseObject={};
+  currentDate;
+  prefEmail;
   constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder,
               private constructPaymentObject:ConstructPaymentObject) {
     this.idProofFullPath = '/pom.xml';
@@ -514,9 +518,12 @@ export class CreateaccountComponent implements OnInit {
     if (customerInfo.preferredEmail == 'Primary Email'){
       primaryEmailIsPrefd = true;
       secondaryEmailisPrfd = false;
+      this.prefEmail = customerInfo.primary_Email;
+
     }else{
       primaryEmailIsPrefd = false;
       secondaryEmailisPrfd = true;
+      this.prefEmail = customerInfo.secondary_Email;
     }
     let dayPhoneIsPrfd = false;
     let eveningPhoneIsPrfd = false;
@@ -2051,6 +2058,7 @@ export class CreateaccountComponent implements OnInit {
         const resObj = JSON.parse(res._body);
         console.log(resObj.ResultValue);
           this.planArray = resObj.ResultValue;
+        this.isTagRequired(true, 0);
       });
   }
 
@@ -2332,6 +2340,7 @@ debugger;
   getSubTotalAndTotalAmount=function () {
     this.calculatedSubTotal = this.calculatedTotalTagDeposit + parseInt(this.getEnrollmentFee, 10) + this.calculatedTollTagFee + 0.0;
     this.calculatedTotalAmount = this.calculatedSubTotal + this.calculatedServiceTaxOnTollTagFee + this.calculatedShippingCharges;
+    this.finalAmount = this.calculatedTotalAmount + (this.calculatedTotalAmount * (this.creditCardServiceTax/100));
   }
 
   resetAmountSummaryInfovalues=function () {
@@ -2344,6 +2353,12 @@ debugger;
     this.calculatedShippingCharges = 0;
     this.noOfTagEntered = 0;
     this.tempShipmentTypeIndex = 0;
+    for(let i = 0; i < this.TagDetails.length; i++){
+      let tempString = 'noOfTags' + i;
+      $("#"+tempString+"").val("");
+      this.arrayOfTagsEntered[i]=$("#"+tempString+"").val();
+
+    }
     this.calculateShippingCharges(this.tagShipmentTypes[this.tempShipmentTypeIndex], this.tempShipmentTypeIndex);
 
   }
@@ -2352,7 +2367,7 @@ debugger;
     return this.utilityService.postMakePayment(paymentInputObject);
   }
 
-  submitPayment= function (paymentDetails) {
+  constructPaymentObj= function (paymentDetails) {
     var tempcardNumber=paymentDetails.cardNumBox1+""+paymentDetails.cardNumBox2+""+paymentDetails.cardNumBox3+""+paymentDetails.cardNumBox4;
     console.log("paymentDetails "+JSON.stringify(paymentDetails));
     var tempInputEncryptionObject = {
@@ -2369,28 +2384,34 @@ debugger;
       const resObj = JSON.parse(res._body);
       if (resObj.Result === true) {
 
-        var tempPaymentObject=
+        this.tempPaymentObject=
           this.constructPaymentObject.returnPaymentObject(paymentDetails,resObj.ResultValue
             ,this.existingAddressDetails,this.TagDetails,
-            this.arrayOfTagsEntered,this.selectedPlanId, this.calculatedTotalAmount);
-        console.log("tempPaymentObject "+JSON.stringify(tempPaymentObject));
-        this.utilityService.postMakePayment(JSON.stringify(tempPaymentObject)).subscribe(res => {
-        const resObj = JSON.parse(res._body);
-        if (resObj.Result === true) {
-        console.log("payment Success Message "+resObj.ResultValue);
-        }
-        });
+            this.arrayOfTagsEntered,this.selectedPlanId, this.finalAmount);
+        $('.inner-nav-tabs > .active .badge').text('✔');
+        $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
+        $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
+        $('.my-link').unbind('click', false);
+        $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+          this.click();
+        }).click();
+        $('.my-link').bind('click', false);
+        console.log("tempPaymentObject "+JSON.stringify(this.tempPaymentObject));
+
+      }else{
+        $('.inner-nav-tabs > .active .badge').text('X');
+        $('.inner-nav-tabs > .active .badge').css('color', 'white');
+        $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
+        toastr.error("Credit Card Encryption Failed");
       }
     });
 
 
 
-    $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
-// 'this' is not a jQuery object, so it will use
-// the default click() function
-      this.click();
-    }).click();
-    console.log('submit method called');
+
+
   }
 
 
@@ -2408,6 +2429,33 @@ debugger;
 
       });
 
+  }
+
+  SubmitPayment=function () {
+    this.utilityService.postMakePayment(JSON.stringify(this.tempPaymentObject)).subscribe(res => {
+      const resObj = JSON.parse(res._body);
+      if (resObj.Result === true) {
+        $('.inner-nav-tabs > .active .badge').text('✔');
+        $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
+        $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
+        $('.my-link').unbind('click', false);
+        $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+          this.click();
+        }).click();
+        var tempDate=new Date();
+        this.currentDate =tempDate.getDate()+"-"+(tempDate.getMonth()+1)+"-"+tempDate.getFullYear()+" "+tempDate.getHours()+":"+ tempDate.getMinutes()+":"+tempDate.getSeconds();
+        $('.my-link').bind('click', false);
+        this.payementResponseObject=resObj.ResultValue;
+        toastr.success("Payment Successful");
+      }else{
+        $('.inner-nav-tabs > .active .badge').text('X');
+        $('.inner-nav-tabs > .active .badge').css('color', 'white');
+        $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
+        toastr.error("Payment UnSuccessful")
+      }
+    });
   }
 }
 
