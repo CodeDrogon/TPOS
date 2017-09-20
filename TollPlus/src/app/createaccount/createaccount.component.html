@@ -1616,16 +1616,16 @@
       <div id="exTab2"  style="background-color: white;">
         <ul class="nav inner-nav-tabs nav-pills" style="background-color: white;margin-left: 10%">
           <li class="active inneractive box">
-            <a href="#5a" data-toggle="tab" class="arrow "   style="text-decoration : none; color : #000;"><span class='badge'>1</span></a>
+            <a href="#5a" data-toggle="tab" class="arrow my-link"   style="text-decoration : none; color : #000;"><span class='badge'>1</span></a>
             Select Plan/Package
           </li>
 
 
-          <li class="inneractive box"><a href="#6a" data-toggle="tab" class="arrow "  style="text-decoration : none; color : #000;"><span class="badge">2</span></a>
+          <li class="inneractive box"><a href="#6a" data-toggle="tab" class="arrow my-link"  style="text-decoration : none; color : #000;"><span class="badge">2</span></a>
           Review Order
           </li>
 
-          <li  class="inneractive box"><a href="#7a" data-toggle="tab" class="arrow "  style="text-decoration : none; color : #000;"><span class="badge">3</span></a>
+          <li  class="inneractive box"><a href="#7a" data-toggle="tab" class="arrow my-link"  style="text-decoration : none; color : #000;"><span class="badge">3</span></a>
           Payment Information
           </li>
 
@@ -2027,67 +2027,8 @@
 
                               </div>
 
-                              <!--<div class="panel panel-default">
-                                <h2 class="panel-title" style="font-size: larger">
-                                  Shipping Address
-                                </h2>
-                                <div class="panel-body">
-                                  <div class="row">
-                                    <div class="col-lg-6">
-                                      <div class="form-group">
-                                          <input type="radio" name="existingAddress" value="existingAddress" formControlName="existingAddress" checked='checked' >Same As Existing Address
-                                      </div>
-                                      <div style="padding-left: 10% !important;">
-                                        <div class="col-lg-1" id="rectangle">
-                                          <input type="radio" name="selectedAddress" value="selectedAddress" formControlName="selectedAddress" >
-                                          <div>
-                                            <span>{{existingAddressDetails}}</span>
-                                          </div>
-
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>-->
                             </div>
                           </div>
-                          <!--<div class="panel panel-default">
-                            <div class="panel-heading">
-                              <h4 class="panel-title">
-
-                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapse2"  class="collase-icon glyphicon glyphicon-chevron-down anchor-no-underline">
-                                </a>Billing Address
-                              </h4>
-                            </div>
-                            <div id="collapse2" class="panel-collapse collapse">
-                              <div class="panel-body">
-
-                                <div class="row">
-                                  <div class="col-lg-6">
-                                    <div class="form-group">
-                                      <label class="checkbox-inline">
-                                        <input type="radio" name="existingAddress" value="existingAddress" formControlName="existingAddress" checked='checked' >Same As Existing Address
-                                      </label>
-                                    </div>
-                                    <div style="padding-left: 10% !important;">
-                                      <div class="col-lg-1" id="rectangle">
-                                        <input type="radio" name="selectedAddress" value="selectedAddress" formControlName="selectedAddress" >
-                                        <div>
-                                          <span>{{existingAddressDetails}}</span>
-                                        </div>
-
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                </div>
-
-
-
-                              </div>
-                            </div>
-                          </div>-->
 
                         </div>
                         <!-- /.panel -->
@@ -2100,7 +2041,7 @@
                       </div>
 
                       <div class="col-lg-3" align="right" >
-                        <input type="submit" class="btn btn-primary" id="paymentSubmit" value="Next">
+                        <input type="submit" class="btn btn-primary" id="paymentSubmit" value="Next" [disabled]="!payment_Form.valid">
 
                       </div>
                     </div>
@@ -2378,17 +2319,16 @@
 
                       <div class="row" style="padding-top: 40px;">
                         <div class="col-lg-12">
-                          <table class="table table-bordered" id="TagReqDet">
+                          <table class="table table-bordered" id="TagReqDetReview">
                             <tr class=" borderless" style="background-color: #eff1f2;">
                               <th style=" color: #637283 !important;">Tag Details</th>
                               <th></th>
                               <th ></th>
                               <th></th>
                               <th></th>
-                              <th></th>
                             </tr>
                             <tr class=" borderless">
-                              <th style="text-align: center; color: #637283 !important; font-weight: 800">Protocol</th>
+                              <th style="text-align: left; color: #637283 !important; font-weight: 800">Protocol</th>
                               <th style="text-align: center; color: #637283 !important; font-weight: 800">Mounting</th>
                               <th style="text-align: center; color: #637283 !important; font-weight: 800">No of Tags</th>
                               <th style="text-align: right !important; color: #637283 !important; font-weight: 800">Per Tag Fee ($)</th>
@@ -2399,10 +2339,10 @@
                             <tbody>
                             <tr class=" borderless" *ngFor="let tagDetail of TagDetails; let i=index" style="text-align: right !important;">
 
-                              <td>{{tagDetail.Protocol}}</td>
-                              <td> {{tagDetail.Mounting}}</td>
-                              <td>{{arrayOfTagsEntered[i]}} </td>
-                              <td style="text-align: end !important;">{{tagDetail.TagFee}}</td>
+                              <td style="text-align: left !important;">{{tagDetail.Protocol}}</td>
+                              <td style="text-align: center !important;"> {{tagDetail.Mounting}}</td>
+                              <td  style="text-align: center !important;">{{arrayOfTagsEntered[i]}} </td>
+                              <td style="text-align: right !important;">{{tagDetail.TagFee}}</td>
                               <td>{{tagDetail.TagDeposit}}</td>
                             </tr>
                             </tbody>
@@ -2411,7 +2351,7 @@
                       </div>
 
                       <div class="row">
-                        <div class="col-lg-8" style="padding-top: 118px;padding-right: 233px;" >
+                        <div class="col-lg-8" style="padding-top: 293px;padding-right: 233px;" >
                           <div class="panel panel-default" >
                             <div class="panel-heading">
                               <p class="glyphicon glyphicon-info-sign" style="font-size:20px;font-style: italic">Information</p>
@@ -2430,13 +2370,13 @@
 
                               <div class="row">
 
-                                <div class="col-lg-5">
+                                <div class="col-lg-8">
                                   <div class="form-group">
-                                    <b>Total Toll Tag Fee & Deposit</b>
+                                    <b>Total Tag Fee & Deposit</b>
 
                                   </div>
                                 </div>
-                                <div class="col-lg-7" style="text-align: right">
+                                <div class="col-lg-4" style="text-align: right">
                                   <div class="form-group">
                                     {{calculatedTollTagFee + calculatedTotalTagDeposit}}
 
@@ -2529,13 +2469,13 @@
                               </div>
                               <div class="row">
 
-                                <div class="col-lg-5">
+                                <div class="col-lg-8">
                                   <div class="form-group">
                                     Credit Card Service Tax
 
                                   </div>
                                 </div>
-                                <div class="col-lg-7" style="text-align: right">
+                                <div class="col-lg-4" style="text-align: right">
                                   <div class="form-group">
                                     {{calculatedTotalAmount * (creditCardServiceTax/100)}}
 
@@ -2545,70 +2485,19 @@
                               </div>
 
 
-                              <!--<div class="row" *ngFor="let summaryDetails of amountSummaryDetails">
-                                <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ">
-                                  <hr style="margin-top: 5px;margin-bottom: 5px;color:#e0e3e6">
-                                </div>
-                                <div class="col-lg-5">
-                                  <div class="form-group">
 
-                                    <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content else other_content"></div>
-                                    <ng-template #content>
-
-                                      <b>{{summaryDetails.description}}</b></ng-template>
-                                    <ng-template #other_content>{{summaryDetails.description}}</ng-template>
-                                  </div>
-                                </div>
-
-                                <div class="col-lg-7" style="text-align: right">
-                                  <div class="form-group">
-                                    <div *ngIf="summaryDetails.description=='Sub Total'|| summaryDetails.description== 'Total Amount' ;then content1 else other_content1"></div>
-                                    <ng-template #content1>
-                                      <b>{{summaryDetails.amount}}</b></ng-template>
-                                    <ng-template #other_content1>{{summaryDetails.amount}}</ng-template>
-
-                                  </div>
-                                </div>
-
-
-
-                              </div>-->
                               <hr style="margin-top: -6px; margin-bottom: 2px;">
                               <div class="row">
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                   <div class="form-group">
                                     <b>Total Amount</b>
                                   </div>
                                 </div>
-                                <div class="col-lg-3" style="text-align: right">
+                                <div class="col-lg-4" style="text-align: right">
                                   <div class="form-group">
                                     <input class="form-control" formControlName="totalAmount" type="text" disabled value="{{finalAmount}}" >
                                   </div>
                                 </div>
-                              </div>
-                              <div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <p class="glyphicon glyphicon-info-sign" style="font-size:20px;font-style: italic">Information</p>
-                                  <ul>
-                                    <li>Service Tax {{serviceTaxAppliedOnTagFee}}% Applied on Tag Fee</li>
-                                    <li>Service Tax {{creditCardServiceTax}}% Applied on Credit Card Payment</li>
-                                  </ul>
-                                </div>
-                                <!-- /.panel-body -->
-                              </div>
-                              <div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <p class="glyphicon glyphicon-question-sign" style="font-size:20px;font-style: italic">Need Help?</p>
-                                  <ul>
-                                    <li><a href="www.sureitinc.com">Shipping</a> </li>
-                                    <li><a href="www.sureitinc.com">Contact Us</a> </li>
-                                  </ul>
-
-                                  Accepted Payment Methods<br>
-
-                                  <img src="./../../assets/icons/credit-cards-logos_orig.png" width="250">
-                                </div>
-                                <!-- /.panel-body -->
                               </div>
 
                             </div>
@@ -2625,13 +2514,13 @@
               </div>
 
               <div class="row" style="padding-bottom: 4%">
-                <div class="col-lg-11">
+                <div class="col-lg-10">
 
-                  <input type="button" class="btn btn-primary  innerBtnPrevious"  value="Back">
+                  <input type="button" class="btn btn-primary  innerBtnPrevious"  value="Previous">
                 </div>
-                <div class="col-lg-1" align="right">
+                <div class="col-lg-2" align="right">
 
-                  <input type="button" class="btn btn-primary "  value="MakePayment" (click)="SubmitPayment()">
+                  <input type="button" class="btn btn-primary "  value="Make Payment" (click)="SubmitPayment()">
                 </div>
               </div>
             </div>
@@ -2649,7 +2538,7 @@
                   Total Payment #:<b>{{payementResponseObject.ToltalAmountPaid}}</b><br>
                   Paid By #:<b>Credit Card</b><br>
                   Card Type #:<b>VISA</b><br>
-                  Credit Card #:<b>xxxxxxxxxxx123</b><br>
+                  Credit Card #:<b>{{enteredCreditCard}}</b><br>
                   Transaction Date/Time #:<b>{{currentDate}}</b><br>
 
                   <br>
@@ -2660,19 +2549,19 @@
                   <div class="row">
                     <div class="col-lg-3">
 
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-floppy-o" aria-hidden="true" disabled></i>    Save Payment</button>
+                      <button class="btn btn-primary innerBtnPrevious" disabled><i class="fa fa-floppy-o" aria-hidden="true" ></i>    Save Payment</button>
 
                     </div>
                     <div class="col-lg-3">
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-print" aria-hidden="true" disabled></i> Print Payment Receipt</button>
+                      <button class="btn btn-primary innerBtnPrevious" disabled><i class="fa fa-print" aria-hidden="true" ></i> Print Payment Receipt</button>
 
                     </div>
                     <div class="col-lg-3">
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-plus" aria-hidden="true" disabled></i>   Create New Account</button>
+                      <button class="btn btn-primary innerBtnPrevious" disabled><i class="fa fa-plus" aria-hidden="true" ></i>   Create New Account</button>
 
                     </div>
                     <div class="col-lg-3">
-                      <button class="btn btn-primary innerBtnPrevious"><i class="fa fa-sign-out" aria-hidden="true" disabled></i>    Exit</button>
+                      <button class="btn btn-primary innerBtnPrevious" disabled><i class="fa fa-sign-out" aria-hidden="true" ></i>    Exit</button>
 
                     </div>
                   </div>
