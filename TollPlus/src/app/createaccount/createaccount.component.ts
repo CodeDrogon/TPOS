@@ -103,6 +103,7 @@ export class CreateaccountComponent implements OnInit {
   arrayOfTagsEntered=[];
   selectedPlanId;
   tempPaymentObject;
+  enteredCreditCard;
   //payment information changes end
   inputEncryptionObject: Object= {};
   cardTypes= [];
@@ -2033,11 +2034,14 @@ export class CreateaccountComponent implements OnInit {
       $('#TagDeliveryCarrier').show();
       $('#TagDeliveryMethodDD').show();
       $('#TagShippingAddressDiv').show();
+      $('#TagReqDetReview').show();
     }else{
       $('#TagReqDet').hide();
       $('#TagDeliveryCarrier').hide();
       $('#TagDeliveryMethodDD').hide();
       $('#TagShippingAddressDiv').hide();
+      $('#TagReqDetReview').hide();
+
         this.resetAmountSummaryInfovalues();
     }
 
@@ -2369,6 +2373,7 @@ debugger;
 
   constructPaymentObj= function (paymentDetails) {
     var tempcardNumber=paymentDetails.cardNumBox1+""+paymentDetails.cardNumBox2+""+paymentDetails.cardNumBox3+""+paymentDetails.cardNumBox4;
+    this.enteredCreditCard = "xxxxxxxxxxxx"+paymentDetails.cardNumBox4;
     console.log("paymentDetails "+JSON.stringify(paymentDetails));
     var tempInputEncryptionObject = {
       "plainText":tempcardNumber,
