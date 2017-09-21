@@ -120,4 +120,8 @@ export class UtilityService {
   postMakePayment(paymentInputObject){
     return this.httpService.postMethodWithParams('PostMakePayment', paymentInputObject);
   }
+
+  postMakePaymentForZeroPayement (paymentInputObject){
+    return this.httpService.postMethodWithParams('PostCreateZeroMakePaymentAccount', paymentInputObject);
+  }
 }
