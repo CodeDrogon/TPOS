@@ -285,119 +285,6 @@ export class CreateaccountComponent implements OnInit {
     //this.isLogin=this.newService.getLogin();
     this.myApp.isLogin = true;
     console.log('model driven result ' + this.isLogin);
-    this.Options = [
-      {name: 'OptionA', value: '1', checked: true},
-      {name: 'OptionB', value: '2', checked: true},
-      {name: 'OptionC', value: '3', checked: true},
-      {name: 'OptionD', value: '4', checked: true}
-    ]
-
-    this.paymentMethods = [
-      {
-        id: 1,
-        description: 'Credit Card'
-
-      },
-      {
-        id: 2,
-        description: 'Bank Account'
-      },
-      {
-        id: 3,
-        description: 'Check'
-      },
-      {
-        id: 4,
-        description: 'Cash',
-
-      },
-      {
-        id: 5,
-        description: 'Money Order'
-      },
-      {
-        id: 6,
-        description: 'Gift Certificate'
-      }
-    ];
-    this.billingAddress = [
-      {
-        id: 1,
-        description: 'Same as Shipping Address',
-
-      },
-      {
-        id: 2,
-        description: 'Use Existing Address'
-      },
-      {
-        id: 3,
-        description: 'Add New Address'
-      }
-    ];
-
-
-
-
-    this.addressSelection = [
-      {
-        id: 1,
-        description: 'Address1, line 2, 3452345',
-
-      },
-      {
-        id: 2,
-        description: 'Address2, line 2, 3452345'
-      }
-    ];
-
-    this.shippingAddress = [
-      {
-        id: 1,
-        description: 'Use Existing Address',
-
-      },
-      {
-        id: 2,
-        description: 'Add New Address'
-      }
-    ];
-    this.ServiceType = [
-      {
-        id: 1,
-        description: 'US Mail'
-      },
-      {
-        id: 2,
-        description: 'FedEx'
-      }
-    ];
-    this.Selections = [
-      {
-        id: 1,
-        description: 'Transponder Toll'
-      },
-      {
-        id: 2,
-        description: 'Video Toll'
-      }
-    ];
-
-    /*this.vehicleClassDropdown = [
-     {
-     key: 1,
-     value: 'Class1'
-     },
-     {
-     key: 2,
-     value: 'Class2'
-     },
-     {
-     key: 3,
-     value: 'Class3'
-     }
-     ]*/
-
     this.vehicleForm = this.vehicleFormInitialValues();
     this.vehicleFormEdit = this.vehicleFormInitialValues();
 
@@ -2169,113 +2056,6 @@ export class CreateaccountComponent implements OnInit {
 
       });
   }
-  isCardInBlockList= function() {
-    var tempCustomerDetails = /*
-    {
-      "BlockListId":"1",
-      "CustomerId": sessionStorage.getItem("CustomerId"),
-      "FirstName":this.account.firstName,
-      "MiddleName":this.account.middleName,
-      "LastName":this.account.lastName,
-      "Line1":this.account.addressList[0].line1,
-      "Line2":this.account.addressList[0].line2,
-      "Line3":this.account.addressList[0].line2,
-      "City":this.account.addressList[0].city,
-      "State":this.account.addressList[0].state,
-      "Country":this.account.addressList[0].country,
-      "Zip1":this.account.addressList[0].zip1,
-      "Zip2":this.account.addressList[0].zip2,
-      "EmailAddress":this.account.emailList[0].emailAddress,
-      "EmailAddress1":this.account.emailList[1].emailAddress,
-      "EmailAddress2":this.account.emailList[0].emailAddress,
-      "PhoneNumber": this.account.phoneList[0].dayPhone.phoneNumber,
-      "DayPhoneNumber":this.account.phoneList[0].dayPhone.phoneNumber,
-      "EveningPhoneNumber":this.account.phoneList[1].eveningPhone.phoneNumber,
-      "MobilePhoneNumber":this.account.phoneList[2].mobile_Phone_Number.phoneNumber,
-      "OfficePhoneNumber":this.account.phoneList[3].workPhone.phoneNumber
-    }*/
-
-      {
-        "BlockListId": "1",
-        "CustomerId": "10002999",
-        "FirstName": "ch",
-        "MiddleName": "venu",
-        "LastName": "gopal",
-        "Line1": "KPHB",
-        "Line2": "Hyderabad",
-        "Line3": "PragathiNagar",
-        "City": "Hyderabad",
-        "State": "AndhraPradesh",
-        "Country": "India",
-        "Zip1": "521345",
-        "Zip2": "521333",
-        "EmailAddress": "chadalavada_venu@yahoo.co.in",
-        "EmailAddress1": "venugopal.chadalavada@gmail.com",
-        "EmailAddress2": "venu@yahoo.com",
-        "PhoneNumber": "90000750345",
-        "DayPhoneNumber": "0123456789",
-        "EveningPhoneNumber": "098765432",
-        "MobilePhoneNumber": "099888883",
-        "OfficePhoneNumber": "93929299292",
-        "VehicleNumber": "aP16ax5643",
-        "CCNumber": "123",
-        "FlagIndicator": "1",
-        "FlagReason": "tEST",
-        "FieldValue": "56789",
-        "CreatedUser": "VENU",
-        "UpdatedUser": "GOPAL",
-        "CreatedDateTime": "\/Date(1245398693390)\/",
-        "UpdatedDateTime": "\/Date(1245398693390)\/",
-        "CCExpiryMonth": "\/Date(1245398693390)\/",
-        "CCAccountId": "10002999"
-      };
-    this.utilityService.isCardInBlockList(JSON.stringify(tempCustomerDetails))
-      .subscribe(res => {
-        const resObj = JSON.parse(res._body);
-        console.log("Card Block List Details " + resObj.ResultValue);
-        resObj.ResultValue;
-
-      });
-  }
-
-  /*isCreditCardExist = function(){
-
-
-    this.inputEncryptionObject = {
-      'plainText': "12212112",
-
-      'saltValue': "10002999",
-      'encryptText': 'null',
-
-      'isEncrypted': 'false',
-
-      'SecurityType': 'Creditcard'
-    };
-
-    const tempInpEncryObj = JSON.stringify(this.inputEncryptionObject);
-    console.log('password input object  ' + tempInpEncryObj);
-    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      if (resObj.Result === true) {
-
-        console.log("Encription of Card "+resObj.ResultValue)
-        var tempDetails = {
-          "CustomerId": "10002999",
-          "CC": "wDhwUEbKbGQc/A4fxw3tn1DvCvuPcM4gleXvqprf0hE=",
-          "ExpDate": "201701"
-        };
-        this.utilityService.isCreditCardExist(tempDetails)
-          .subscribe(res => {
-            const resObj = JSON.parse(res._body);
-            console.log("Is Card already exist " + resObj.ResultValue);
-            resObj.ResultValue;
-
-          });
-      }else{
-        console.log("Card Encription process failed ")
-      }
-    })
-  }*/
 
   getCreditCardServiceTax= function () {
 
@@ -2388,11 +2168,18 @@ debugger;
     this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
       const resObj = JSON.parse(res._body);
       if (resObj.Result === true) {
-
-        this.tempPaymentObject=
-          this.constructPaymentObject.returnPaymentObject(paymentDetails,resObj.ResultValue
-            ,this.existingAddressDetails,this.TagDetails,
-            this.arrayOfTagsEntered,this.selectedPlanId, this.finalAmount);
+        if (this.isTagRequired == true){
+          this.tempPaymentObject =
+            this.constructPaymentObject.returnPaymentObject(paymentDetails, resObj.ResultValue
+              , this.existingAddressDetails, this.TagDetails,
+              this.arrayOfTagsEntered, this.selectedPlanId, this.finalAmount);
+        }else{
+          this.tempPaymentObject =
+            this.constructPaymentObject.returnPaymentObjectForVideoToll(paymentDetails, resObj.ResultValue
+              , this.existingAddressDetails,
+              this.arrayOfTagsEntered, this.selectedPlanId, this.finalAmount);
+        }
+        $('.my-link').unbind('click', false);
         $('.inner-nav-tabs > .active .badge').text('✔');
         $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
         $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
@@ -2413,54 +2200,68 @@ debugger;
       }
     });
 
-
-
-
-
-  }
-
-
-  isCreditCardExist = function(){
-    var tempDetails = {
-      "CustomerId":"10002576",
-      "CC":"J+B/gV7BPKwV2ri5W+nH4A==",
-      "ExpDate":"201804"
-    }
-    this.utilityService.isCreditCardExist(tempDetails)
-      .subscribe(res => {
-        const resObj = JSON.parse(res._body);
-        console.log("Is Card already exist " + resObj.ResultValue);
-        resObj.ResultValue;
-
-      });
-
   }
 
   SubmitPayment=function () {
-    this.utilityService.postMakePayment(JSON.stringify(this.tempPaymentObject)).subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      if (resObj.Result === true) {
-        $('.inner-nav-tabs > .active .badge').text('✔');
-        $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
-        $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
-        $('.my-link').unbind('click', false);
-        $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+
+
+    if (this.finalAmount>0) {
+
+      this.utilityService.postMakePayment(JSON.stringify(this.tempPaymentObject)).subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result === true) {
+          $('.my-link').unbind('click', false);
+          $('.inner-nav-tabs > .active .badge').text('✔');
+          $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
+          $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
+          $('.my-link').unbind('click', false);
+          $('.inner-nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
 // the default click() function
-          this.click();
-        }).click();
-        var tempDate=new Date();
-        this.currentDate =tempDate.getDate()+"-"+(tempDate.getMonth()+1)+"-"+tempDate.getFullYear()+" "+tempDate.getHours()+":"+ tempDate.getMinutes()+":"+tempDate.getSeconds();
-        $('.my-link').bind('click', false);
-        this.payementResponseObject=resObj.ResultValue;
-        toastr.success("Payment Successful");
-      }else{
-        $('.inner-nav-tabs > .active .badge').text('X');
-        $('.inner-nav-tabs > .active .badge').css('color', 'white');
-        $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
-        toastr.error("Payment UnSuccessful")
-      }
-    });
+            this.click();
+          }).click();
+          var tempDate = new Date();
+          this.currentDate = tempDate.getDate() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getFullYear() + " " + tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds();
+          $('.my-link').bind('click', false);
+          this.payementResponseObject = resObj.ResultValue;
+          toastr.success("Payment Successful");
+        } else {
+          $('.inner-nav-tabs > .active .badge').text('X');
+          $('.inner-nav-tabs > .active .badge').css('color', 'white');
+          $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
+          toastr.error("Payment UnSuccessful")
+        }
+      });
+
+    } else {
+      this.utilityService.postMakePaymentForZeroPayement(JSON.stringify(this.tempPaymentObject)).subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result === true) {
+          $('.my-link').unbind('click', false);
+          $('.inner-nav-tabs > .active .badge').text('✔');
+          $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
+          $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
+          $('.my-link').unbind('click', false);
+          $('.inner-nav-tabs > .active').next('li').find('a').click(function () {
+// 'this' is not a jQuery object, so it will use
+// the default click() function
+            this.click();
+          }).click();
+          var tempDate = new Date();
+          this.currentDate = tempDate.getDate() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getFullYear() + " " + tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds();
+          $('.my-link').bind('click', false);
+          //this.payementResponseObject = resObj.ResultValue;
+          toastr.success("Payment Successful");
+        } else {
+          $('.inner-nav-tabs > .active .badge').text('X');
+          $('.inner-nav-tabs > .active .badge').css('color', 'white');
+          $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
+          toastr.error("Payment UnSuccessful")
+        }
+      });
+    }
   }
+
+
 }
 
