@@ -7,7 +7,7 @@ export class UtilityService {
   constructor(public httpService:TollPlusHttpService) { }
 
 
-   readonly servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
+  readonly servicePath = 'PostGet/?enumModuleType=Customer&enumActivityType=';
   getCountries=function (getCountryRelativePath) {
     return this.httpService.getHttpMethodWithoutParams(getCountryRelativePath);
   }
@@ -44,7 +44,7 @@ export class UtilityService {
   }
 
   vehicleColorDropdown= function (vehicleColorRelativePath, inputObject) {
-     return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
+    return this.httpService.postMethodWithParams(vehicleColorRelativePath, inputObject);
   }
 
 
@@ -123,5 +123,9 @@ export class UtilityService {
 
   postMakePaymentForZeroPayement (paymentInputObject){
     return this.httpService.postMethodWithParams('PostCreateZeroMakePaymentAccount', paymentInputObject);
+  }
+
+  postFileUpload(streamObj, inputFile){
+    return this.httpService.postMethodWithParams('UploadFile?fileName=' + inputFile, streamObj);
   }
 }

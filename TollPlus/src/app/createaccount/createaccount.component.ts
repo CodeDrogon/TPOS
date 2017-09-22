@@ -83,7 +83,7 @@ export class CreateaccountComponent implements OnInit {
   statementDeliveryOptions= [];
   accountCategories= [];
   //payment information changes start
-   planArray = [];
+  planArray = [];
   isTagRequested = true;
   getCreditCardExpiryMonths = [];
   getCreditCardExpiryYears = [];
@@ -120,9 +120,24 @@ export class CreateaccountComponent implements OnInit {
 
   public IdProofDropped(event) {
     this.files = event.files;
+    debugger;
+    //var fileFormData = new FormData();
+    //fileFormData.append('file', this.files[0].getBlob());
+    var reader = new FileReader();
+    //reader.readAsArrayBuffer(this.files[0]);
+    //console.log("file upload result "+reader.result);
+    //reader.readAsDataURL(this.files[0]);
+    console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
+    console.log('blob object ' + new Blob([this.files[0]]));
 
     //this.idProofFullPath=event.files[0].fileEntry.fullPath;
     this.idProofFullPath = '/pom.xml';
+    /*this.utilityService.postFileUpload()
+      .subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        this.tagShipmentTypes = resObj.GetShipmentTypesResult.ResultValue;
+      });*/
+
     $('.idProofFileDropColor').css('border', ' 2px dotted green');
     $('.idProofFileDropColor').css('border-radius', ' 30px');
     console.log(event.files[0].fileEntry.fullPath);
@@ -157,7 +172,7 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
-    sessionStorage.setItem("CustomerId","10002878");
+    /*sessionStorage.setItem("CustomerId","10002878");*/
     this.creditCardExpiryYears();
     this.getAllActiveTagConfiguration();
     /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
@@ -401,6 +416,7 @@ export class CreateaccountComponent implements OnInit {
     /*alert($('#vehicleClass').val());*/
   }
   savePersonal= function(customerInfo){
+    $('#saveCustomerId').prop('disabled', true);
     let primaryEmailIsPrefd = false;
     let secondaryEmailisPrfd = false;
     if (customerInfo.preferredEmail == 'Primary Email'){
@@ -658,6 +674,7 @@ export class CreateaccountComponent implements OnInit {
           const resObj = JSON.parse(res._body);
           console.log(resObj.ResultValue);
           if (resObj.Result == false){
+            $('#saveCustomerId').prop('disabled', false);
             this.userNameValidationResult = resObj.ResultValue;
             toastr.error(resObj.ResultValue);
             $('.nav-tabs > .active .badge').text('X');
@@ -735,6 +752,7 @@ export class CreateaccountComponent implements OnInit {
       const resObj = JSON.parse(res._body);
       console.log(resObj.StateCode);
       this.states = resObj.ResultValue;
+      this.statesForDialougu = resObj.ResultValue;
     })
   };
   getStatesForDialogue= function(countryCode){
@@ -745,7 +763,7 @@ export class CreateaccountComponent implements OnInit {
     this.utilityService.getStates('PostGetStatesByCountryCode', JSON.stringify(this.countryObject)).subscribe(res => {
 
       const resObj = JSON.parse(res._body);
-      console.log(resObj.StateCode);
+      //console.log(resObj.StateCode);
       this.statesForDialougu = resObj.ResultValue;
     })
   };
@@ -1463,6 +1481,7 @@ export class CreateaccountComponent implements OnInit {
 
 
   saveAdditionalInformation = function(additionalInformationObj){
+    $('#saveAddtnlButtonId').prop('disabled', true);
     debugger;
     const  additionalInfoObj = new  AdditionalInformation();
     additionalInfoObj.accountId = sessionStorage.getItem('CustomerId'); //additionalInformationObj.friendshipRewardAccountNo;
@@ -1552,6 +1571,7 @@ export class CreateaccountComponent implements OnInit {
         this.getAllPlansWithFees();
         this.getDefaultAddressForCustomer();
       }else{
+        $('#saveAddtnlButtonId').prop('disabled', false);
         $('.nav-tabs > .active .badge').text('X');
         $('.nav-tabs > .active .badge').css('color', 'white');
         $('.nav-tabs > .active .badge').css('background-color', 'crimson');
@@ -1718,7 +1738,7 @@ export class CreateaccountComponent implements OnInit {
       idProofNo: new FormControl('', Validators.compose([Validators.required, Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
       idProofFileDrop: new FormControl(''),
       addressProof: new FormControl('', Validators.required),
-      userName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-z0-9]+([ \'-][a-zA-Z0-9]+)*')])),
+      userName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('[a-zA-Z0-9]+([\'][a-zA-Z0-9]+)*')])),
       agreeTermsAndConditions: new FormControl('', Validators.required),
       passWord: new FormControl('', Validators.required),
       selectedstate: new FormControl('', Validators.required),
@@ -1931,7 +1951,7 @@ export class CreateaccountComponent implements OnInit {
       $('#TagShippingAddressDiv').hide();
       $('#TagReqDetReview').hide();
 
-        this.resetAmountSummaryInfovalues();
+      this.resetAmountSummaryInfovalues();
     }
 
 
@@ -1950,7 +1970,7 @@ export class CreateaccountComponent implements OnInit {
       .subscribe(res => {
         const resObj = JSON.parse(res._body);
         console.log(resObj.ResultValue);
-          this.planArray = resObj.ResultValue;
+        this.planArray = resObj.ResultValue;
         this.isTagRequired(true, 0);
       });
   }
@@ -2089,7 +2109,7 @@ export class CreateaccountComponent implements OnInit {
 
   calculateTollTagFeeAndTotalTagDeposit=function () {
 
-debugger;
+    debugger;
     this.calculatedTollTagFee =0;
     this.calculatedTotalTagDeposit = 0;
     this.noOfTagEntered = 0;
@@ -2205,7 +2225,7 @@ debugger;
   }
 
   SubmitPayment=function () {
-
+    $('#makePaymentButtonId').prop('disabled', true);
 
     if (this.finalAmount>0) {
 
@@ -2228,6 +2248,7 @@ debugger;
           this.payementResponseObject = resObj.ResultValue;
           toastr.success("Payment Successful");
         } else {
+          $('#makePaymentButtonId').prop('disabled', false);
           $('.inner-nav-tabs > .active .badge').text('X');
           $('.inner-nav-tabs > .active .badge').css('color', 'white');
           $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');

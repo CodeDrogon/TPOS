@@ -1003,7 +1003,7 @@
                     <input type="submit" class="btn btn-primary" value="Submit" />
                   </div -->
                   <div class="col-lg-3" align="right">
-                    <input type="submit" class="btn btn-primary" value="View Vehicle Information" disabled [disabled]="!user_Form.valid">
+                    <input type="submit" class="btn btn-primary" value="View Vehicle Information" id="saveCustomerId" disabled [disabled]="!user_Form.valid">
                     <!--<a class="btn btn-primary btnNext" [disabled]="!user_Form.valid">View Vehicle Information</a>-->
                   </div>
                 </div>
@@ -1258,23 +1258,23 @@
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="startDateHours" [formControl]="vehicleForm.controls['startDateHours']"/>
+                            <input class="form-control" type="number" min="0"  max="24" maxlength="2" step="1" placeholder="hh" formControlName="startDateHours" [formControl]="vehicleForm.controls['startDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="startDateMins" [formControl]="vehicleForm.controls['startDateMins']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2"step="1" placeholder="mm" formControlName="startDateMins" [formControl]="vehicleForm.controls['startDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="startDateSecs" [formControl]="vehicleForm.controls['startDateSecs']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2" step="1" placeholder="ss" formControlName="startDateSecs" [formControl]="vehicleForm.controls['startDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
                           <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['startEffectiveDate'].invalid && !vehicleForm.controls['startEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleForm.controls['startEffectiveDate'].valid && !vehicleForm.controls['startEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleForm.controls['startEffectiveDate'].valid && !vehicleForm.controls['startEffectiveDate'].dirty}">Please Select Start Effective Date</span>
                             <div *ngIf="vehicleForm.controls['startEffectiveDate'].invalid && vehicleForm.controls['startEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
@@ -1289,23 +1289,23 @@
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="endDateHours" [formControl]="vehicleForm.controls['endDateHours']"/>
+                            <input class="form-control" type="number" min="0" max="24"  maxlength="2" step="1" placeholder="hh" formControlName="endDateHours" [formControl]="vehicleForm.controls['endDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="endDateMins" [formControl]="vehicleForm.controls['endDateMins']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2" step="1" placeholder="mm" formControlName="endDateMins" [formControl]="vehicleForm.controls['endDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="endDateSecs" [formControl]="vehicleForm.controls['endDateSecs']"/>
+                            <input class="form-control" type="number" min="0" max="60"  step="1" maxlength="2" placeholder="ss" formControlName="endDateSecs" [formControl]="vehicleForm.controls['endDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
                           <div class="tooltip1" [ngClass]="{'has-error':vehicleForm.controls['endEffectiveDate'].invalid && !vehicleForm.controls['endEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleForm.controls['endEffectiveDate'].valid && !vehicleForm.controls['endEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleForm.controls['endEffectiveDate'].valid && !vehicleForm.controls['endEffectiveDate'].dirty}">Please Select End Effective Date</span>
                             <div *ngIf="vehicleForm.controls['endEffectiveDate'].invalid && vehicleForm.controls['endEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
@@ -1583,7 +1583,7 @@
                 <div class="col-lg-3" align="right">
                  <!-- <input class="btn btn-primary" type="button" name="Payment Information" value="Payment Information" (click)="saveVehicle(vehicleForm.value)" [disabled]="!vehicleForm.valid">-->
                  <!-- <a class="btn btn-primary"  >Payment Information</a>-->
-                  <input type="submit" class="btn btn-primary" value="Payment Information" disabled [disabled]="!addtnl_Info_Form.valid">
+                  <input type="submit" class="btn btn-primary" value="Payment Information" id="saveAddtnlButtonId" disabled [disabled]="!addtnl_Info_Form.valid">
                 </div>
               </div>
             </div>
@@ -2450,7 +2450,7 @@
                 </div>
                 <div class="col-lg-2" align="right">
 
-                  <input type="button" class="btn btn-primary "  value="Make Payment" (click)="SubmitPayment()">
+                  <input type="button" class="btn btn-primary "  id="makePaymentButtonId" value="Make Payment" (click)="SubmitPayment()">
                 </div>
               </div>
             </div>
@@ -2733,23 +2733,23 @@
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="startDateHours" [formControl]="vehicleFormEdit.controls['startDateHours']"/>
+                            <input class="form-control" type="number" min="0" max="24"  maxlength="2" step="1" placeholder="hh" formControlName="startDateHours" [formControl]="vehicleFormEdit.controls['startDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="startDateMins" [formControl]="vehicleFormEdit.controls['startDateMins']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2" step="1" placeholder="mm" formControlName="startDateMins" [formControl]="vehicleFormEdit.controls['startDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="startDateSecs" [formControl]="vehicleFormEdit.controls['startDateSecs']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2" step="1" placeholder="ss" formControlName="startDateSecs" [formControl]="vehicleFormEdit.controls['startDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
                           <div class="tooltip1" [ngClass]="{'has-error':vehicleFormEdit.controls['startEffectiveDate'].invalid && !vehicleFormEdit.controls['startEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleFormEdit.controls['startEffectiveDate'].valid && !vehicleFormEdit.controls['startEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleFormEdit.controls['startEffectiveDate'].valid && !vehicleFormEdit.controls['startEffectiveDate'].dirty}">Please Select Start Effective Date</span>
                             <div *ngIf="vehicleFormEdit.controls['startEffectiveDate'].invalid && vehicleFormEdit.controls['startEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
@@ -2764,23 +2764,23 @@
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="24" step="1" placeholder="hh" formControlName="endDateHours" [formControl]="vehicleFormEdit.controls['endDateHours']"/>
+                            <input class="form-control" type="number" min="0" max="24"  maxlength="2" step="1" placeholder="hh" formControlName="endDateHours" [formControl]="vehicleFormEdit.controls['endDateHours']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="mm" formControlName="endDateMins" [formControl]="vehicleFormEdit.controls['endDateMins']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2" step="1" placeholder="mm" formControlName="endDateMins" [formControl]="vehicleFormEdit.controls['endDateMins']"/>
                           </div>
                         </div>
                         <div class="col-lg-2">
                           <div class="form-group">
-                            <input class="form-control" type="number" min="0" max="60" step="1" placeholder="ss" formControlName="endDateSecs" [formControl]="vehicleFormEdit.controls['endDateSecs']"/>
+                            <input class="form-control" type="number" min="0" max="60"  maxlength="2" step="1" placeholder="ss" formControlName="endDateSecs" [formControl]="vehicleFormEdit.controls['endDateSecs']"/>
                           </div>
                         </div>
                         <div class="col-lg-1">
                           <div class="tooltip1" [ngClass]="{'has-error':vehicleFormEdit.controls['endEffectiveDate'].invalid && !vehicleFormEdit.controls['endEffectiveDate'].dirty}">
                             <span class="tooltipbadge">?</span>
-                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleFormEdit.controls['endEffectiveDate'].valid && !vehicleFormEdit.controls['endEffectiveDate'].dirty}">Please Select Date Of Birth</span>
+                            <span class="tooltiptext1" [ngClass]="{'has-error': vehicleFormEdit.controls['endEffectiveDate'].valid && !vehicleFormEdit.controls['endEffectiveDate'].dirty}">Please Select End Effective Date</span>
                             <div *ngIf="vehicleFormEdit.controls['endEffectiveDate'].invalid && vehicleFormEdit.controls['endEffectiveDate'].dirty" class="tooltiptext1">Invalid Date. Valid Format (dd/mm/yyyy)</div>
                           </div>
                         </div>
