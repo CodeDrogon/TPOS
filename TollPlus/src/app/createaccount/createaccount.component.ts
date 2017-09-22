@@ -156,7 +156,7 @@ export class CreateaccountComponent implements OnInit {
 
 
   ngOnInit() {
-    /*sessionStorage.setItem("CustomerId","10002878");*/
+    sessionStorage.setItem("CustomerId","10002878");
     this.creditCardExpiryYears();
     this.getAllActiveTagConfiguration();
     /*this.existingAddressDetails="Address:-Addres1,Addres2, City:Hyderabadsd, Country:IND, State:AN, Zip1:212112, Zip2:2121";*/
@@ -1435,6 +1435,7 @@ export class CreateaccountComponent implements OnInit {
       // alert(resObj.ResultValue[0].VehicleNumber);
       this.vehicleArray = resObj.ResultValue;
       debugger;
+      if(resObj.ResultValue!=null)
       for (let i = 0; i < this.vehicleArray.length; i++) {
         if (this.vehicleArray[i].Color != null || this.vehicleArray[i].Color != ''){
           this.vehicleArray[i].ColorValue = this.getDropDownValueBasedOnKey(this.vehicleArray[i].Color, this.vehicleColors);
@@ -1450,8 +1451,9 @@ export class CreateaccountComponent implements OnInit {
         }
       }
       debugger;
-      console.log('this.vehicleArray length ' + this.vehicleArray.length)
-      if (this.vehicleArray.length > 0){
+      console.log("before length function ");
+      //console.log('this.vehicleArray length ' + this.vehicleArray.length);
+      if (resObj.ResultValue!=null){
         this.isVehicleExists = true;
         $('#dynamiccollapsein').toggle();
       } else {
