@@ -300,9 +300,11 @@ toastr.error("Invalid Format, Supported Formats are JPEG,JPG,PNG")
       });
 
       $('.innerBtnPrevious').click(function(){
+        $('.my-link').unbind('click', false);
         $('.inner-nav-tabs > .active').prev('li').find('a').click(function() {
           this.click();
         }).click();
+        $('.my-link').bind('click', false);
       });
 
 
