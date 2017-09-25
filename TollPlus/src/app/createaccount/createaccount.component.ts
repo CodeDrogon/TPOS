@@ -136,7 +136,6 @@ export class CreateaccountComponent implements OnInit {
       console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
       console.log('blob object ' + new Blob([this.files[0]]));
       this.idProofFileUpload(reader, this.files[0]);
-
     }else{
       this.idProofFullPath =null;
       $('.idProofFileDropColor').css('border', ' 2px dotted red');
