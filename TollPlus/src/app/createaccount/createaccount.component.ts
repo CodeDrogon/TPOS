@@ -135,13 +135,13 @@ export class CreateaccountComponent implements OnInit {
       var reader = new FileReader();
       console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
       console.log('blob object ' + new Blob([this.files[0]]));
-      this.idProofFullPath = this.idProofFileUpload(reader, this.files[0]);
+      this.idProofFileUpload(reader, this.files[0]);
 
     }else{
       this.idProofFullPath =null;
       $('.idProofFileDropColor').css('border', ' 2px dotted red');
       $('.idProofFileDropColor').css('border-radius', ' 30px');
-      toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
+      toastr.error("Invalid Format, Supported Formats are JPEG,JPG,PNG")
     }
 
 
@@ -155,7 +155,7 @@ export class CreateaccountComponent implements OnInit {
           $('.idProofFileDropColor').css('border', ' 2px dotted green');
           $('.idProofFileDropColor').css('border-radius', ' 30px');
           toastr.success(inputFile.fileEntry.name+" File Uploaded Successfully.." );
-          return resObj.ResultValue;
+          this.idProofFullPath =resObj.ResultValue;
         }
       });
   }
@@ -167,7 +167,7 @@ export class CreateaccountComponent implements OnInit {
           $('.addressProofFileDropColor').css('border', ' 2px dotted green');
           $('.addressProofFileDropColor').css('border-radius', ' 30px');
           toastr.success(inputFile.fileEntry.name+" File Uploaded Successfully..");
-          return resObj.ResultValue;
+          this.addressProofFullPath = resObj.ResultValue;
         }
       });
   }
@@ -184,13 +184,13 @@ export class CreateaccountComponent implements OnInit {
       var reader = new FileReader();
       console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
       console.log('blob object ' + new Blob([this.files[0]]));
-      this.addressProofFullPath = this.addressProofFileUpload(reader, this.files[0]);
+       this.addressProofFileUpload(reader, this.files[0]);
 
     }else{
       this.addressProofFullPath =null;
       $('.addressProofFileDropColor').css('border', ' 2px dotted red');
       $('.addressProofFileDropColor').css('border-radius', ' 30px');
-toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
+toastr.error("Invalid Format, Supported Formats are JPEG,JPG,PNG")
     }
 
 
