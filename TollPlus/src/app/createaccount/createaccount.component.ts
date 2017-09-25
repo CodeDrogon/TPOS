@@ -155,7 +155,7 @@ export class CreateaccountComponent implements OnInit {
           $('.idProofFileDropColor').css('border', ' 2px dotted green');
           $('.idProofFileDropColor').css('border-radius', ' 30px');
           toastr.success(inputFile.fileEntry.name+" File Uploaded Successfully.." );
-          return res.ResultValue;
+          return resObj.ResultValue;
         }
       });
   }
@@ -167,7 +167,7 @@ export class CreateaccountComponent implements OnInit {
           $('.addressProofFileDropColor').css('border', ' 2px dotted green');
           $('.addressProofFileDropColor').css('border-radius', ' 30px');
           toastr.success(inputFile.fileEntry.name+" File Uploaded Successfully..");
-          return res.ResultValue;
+          return resObj.ResultValue;
         }
       });
   }
