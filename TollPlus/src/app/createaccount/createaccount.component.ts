@@ -121,33 +121,50 @@ export class CreateaccountComponent implements OnInit {
   public IdProofDropped(event) {
     this.files = event.files;
     debugger;
-    //var fileFormData = new FormData();
-    //fileFormData.append('file', this.files[0].getBlob());
+
     var reader = new FileReader();
-    //reader.readAsArrayBuffer(this.files[0]);
-    //console.log("file upload result "+reader.result);
-    //reader.readAsDataURL(this.files[0]);
-    console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
-    console.log('blob object ' + new Blob([this.files[0]]));
 
-    //this.idProofFullPath=event.files[0].fileEntry.fullPath;
-    this.idProofFullPath = '/pom.xml';
-    /*this.utilityService.postFileUpload()
-      .subscribe(res => {
-        const resObj = JSON.parse(res._body);
-        this.tagShipmentTypes = resObj.GetShipmentTypesResult.ResultValue;
-      });*/
+    var fileExt=this.files[0].relativePath.split(".")[1];
+    if(fileExt=="jpeg" ||fileExt=="jpg" || fileExt=="png" ){
+      var reader = new FileReader();
+      console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
+      console.log('blob object ' + new Blob([this.files[0]]));
+      this.idProofFullPath = this.idProofFileUpload(reader, this.files[0]);
 
-    $('.idProofFileDropColor').css('border', ' 2px dotted green');
-    $('.idProofFileDropColor').css('border-radius', ' 30px');
-    console.log(event.files[0].fileEntry.fullPath);
-    /*for (file of event.files) {
-     file.fileEntry.file(info => {
-     console.log(info);
-     });
-     }*/
+    }else{
+      this.idProofFullPath =null;
+      $('.idProofFileDropColor').css('border', ' 2px dotted red');
+      $('.idProofFileDropColor').css('border-radius', ' 30px');
+      toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
+    }
+
+
   }
 
+  idProofFileUpload=function (reader:any, inputFile) {
+    this.utilityService.postFileUpload(reader,inputFile.fileEntry.fullPath)
+      .subscribe(res => {
+        var resObj=JSON.parse(res._body);
+        if(resObj.Result==true){
+          $('.idProofFileDropColor').css('border', ' 2px dotted green');
+          $('.idProofFileDropColor').css('border-radius', ' 30px');
+          toastr.success(inputFile.fileEntry.name+" File Uploaded Successfully.." );
+          return res.ResultValue;
+        }
+      });
+  }
+  addressProofFileUpload=function (reader:any, inputFile) {
+    this.utilityService.postFileUpload(reader,inputFile.fileEntry.fullPath)
+      .subscribe(res => {
+        var resObj=JSON.parse(res._body);
+        if(resObj.Result==true){
+          $('.addressProofFileDropColor').css('border', ' 2px dotted green');
+          $('.addressProofFileDropColor').css('border-radius', ' 30px');
+          toastr.success(inputFile.fileEntry.name+" File Uploaded Successfully..");
+          return res.ResultValue;
+        }
+      });
+  }
   public IdProofFileOver(event){
   }
 
@@ -155,13 +172,23 @@ export class CreateaccountComponent implements OnInit {
   }
   public AddressProofDropped(event) {
     this.files = event.files;
-    this.addressProofFullPath = event.files[0].fileEntry.fullPath;
-    this.idProofFullPath = '/pom.xml';
-    $('.addressProofFileDropColor').css('border', ' 2px dotted green');
-    $('.addressProofFileDropColor').css('border-radius', ' 30px');
-    console.log(this.addressProofFullPath);
-  }
+    debugger;
+    var fileExt=this.files[0].relativePath.split(".")[1];
+    if(fileExt=="jpeg" ||fileExt=="jpg" || fileExt=="png" ){
+      var reader = new FileReader();
+      console.log('reader object ' + reader.readAsArrayBuffer(new Blob([this.files[0]])));
+      console.log('blob object ' + new Blob([this.files[0]]));
+      this.addressProofFullPath = this.addressProofFileUpload(reader, this.files[0]);
 
+    }else{
+      this.addressProofFullPath =null;
+      $('.addressProofFileDropColor').css('border', ' 2px dotted red');
+      $('.addressProofFileDropColor').css('border-radius', ' 30px');
+toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
+    }
+
+
+  }
 
   public AddressProofFileOver(event){
   }

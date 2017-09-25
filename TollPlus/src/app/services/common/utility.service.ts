@@ -125,7 +125,7 @@ export class UtilityService {
     return this.httpService.postMethodWithParams('PostCreateZeroMakePaymentAccount', paymentInputObject);
   }
 
-  postFileUpload(streamObj, inputFile){
-    return this.httpService.postMethodWithParams('UploadFile?fileName=' + inputFile, streamObj);
+  postFileUpload(streamObj:any, inputFile){
+    return this.httpService.postMethodForFileUpload('UploadFile?fileName=' + inputFile, streamObj);
   }
 }

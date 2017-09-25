@@ -50,7 +50,20 @@ console.log('input object ' + inputObject);
     return this.http.post(this.url + relativePath , {},
       {headers: customHeaders});
 
+  }
+  postMethodForFileUpload(relativePath,inputObject){
+    var customHeaders = new Headers({
+      'content-type' : 'application/x-www-form-urlencoded'
+    });
 
+    var option = new RequestOptions(
+      {
+        headers: customHeaders
+      });
+    console.log(this.url + relativePath);
+    console.log('input object ' + inputObject);
+    return this.http.post(this.url + relativePath, inputObject,
+      {headers: customHeaders});
 
   }
 }
