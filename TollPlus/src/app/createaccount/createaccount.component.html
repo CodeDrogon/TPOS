@@ -1129,7 +1129,7 @@
                               <i class="icon-user" *ngIf="!vehicleForm.controls['vehicle_Make'].touched">*</i>
                               <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" id='vehicle_Make' [formControl]="vehicleForm.controls['vehicle_Make']" (change)="getModels('vehicle_Make')">
                                 <option label="Make" disabled selected="selected" value=""></option>
-                                <option   *ngFor="let vehicle_model of vehicleModels" value="{{vehicle_model.Make}}"> {{vehicle_model.Make}}</option>
+                                <option   *ngFor="let vehicle_make of vehicleMakeArrayWithUniqueValues" value="{{vehicle_make}}"> {{vehicle_make}}</option>
                               </select>
                             </div>
                           </div>
@@ -1996,7 +1996,7 @@
                     </div>
                     <div class="row" style="padding-bottom: 4%">
                       <div class="col-lg-9">
-                        <input class="btn btn-primary" id="paymentAdditionalInfo" type="button" value="< Additional Information">
+                        <input class="btn btn-primary btnPrevious" id="paymentAdditionalInfo" type="button" value="Additional Information">
                       </div>
 
                       <div class="col-lg-3" align="right" >
@@ -2467,7 +2467,7 @@
                   Account #:<b>{{payementResponseObject.CustomerId}}</b><br>
                   Total Payment #:<b>{{payementResponseObject.ToltalAmountPaid}}</b><br>
                   Paid By #:<b>Credit Card</b><br>
-                  Card Type #:<b>VISA</b><br>
+                  Card Type #:<b>{{creditTypeSelected}}</b><br>
                   Credit Card #:<b>{{enteredCreditCard}}</b><br>
                   Transaction Date/Time #:<b>{{currentDate}}</b><br>
 
@@ -2606,7 +2606,7 @@
                           <div class="form-group">
                             <select class="form-control" placeholder="Make" name="vehicle_Make" formControlName="vehicle_Make" id="editable_vehicle_make" [formControl]="vehicleFormEdit.controls['vehicle_Make']"  (change)="getModels('editable_vehicle_make')">
                               <option label="Make" disabled selected="selected" value=""></option>
-                              <option   *ngFor="let vehicle_make of vehicleModels" [selected]="vehicle_make.Make==vehicle_Make" value="{{vehicle_make.Make}}"> {{vehicle_make.Make}}</option>
+                              <option   *ngFor="let vehicle_make of vehicleMakeArrayWithUniqueValues" [selected]="vehicle_make==vehicle_Make" value="{{vehicle_make}}"> {{vehicle_make}}</option>
                             </select>
 
                           </div>

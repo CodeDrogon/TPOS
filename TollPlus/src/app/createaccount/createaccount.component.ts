@@ -49,6 +49,9 @@ export class CreateaccountComponent implements OnInit {
   paymentMethods = [];
   Options = [];
 
+
+   makesArray =[];
+
   businesses= [];
   businessCustomers= [];
   countries= [];
@@ -77,6 +80,8 @@ export class CreateaccountComponent implements OnInit {
   vehicleColors= [];
   vehicleMake= [];
   vehicleModels= [];
+  vehicleMakeArrayWithUniqueValues= [];
+   myMakesArray  =[];
 
   //additional information dropdowns
   howDidYouHearUsOptions= [];
@@ -104,6 +109,7 @@ export class CreateaccountComponent implements OnInit {
   selectedPlanId;
   tempPaymentObject;
   enteredCreditCard;
+  creditTypeSelected;
   //payment information changes end
   inputEncryptionObject: Object= {};
   cardTypes= [];
@@ -276,6 +282,7 @@ toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
       });
 
       $('.btnPrevious').click(function(){
+        $('#saveAddtnlButtonId').prop('disabled', false);
         $('.my-link').unbind('click', false);
         //alert("previous "+$('.nav-tabs > .active').prev('li').find('a'));
         $('.nav-tabs > .active').prev('li').find('a').click(function() {
@@ -1115,13 +1122,39 @@ toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
     })
   }
 
+
+
   getVehicleModelsDropdown= function () {
     this.utilityService.vehicleClassDropdown('PostGet/?enumModuleType=Customer&enumActivityType=VehicleModels&longCustomerId=0', '').subscribe(res => {
       const resObj = JSON.parse(res._body);
-
       this.vehicleModels = resObj.ResultValue;
+      this.vehicleMakeArrayWithUniqueValues = this.eliminateDuplicatesInArray(this.vehicleModels);
     })
+
   }
+
+  eliminateDuplicatesInArray = function(array) {
+    debugger;
+    var origArr = array;
+  var newArr = [],
+  origLen = origArr.length, x, y;
+  var found;
+
+  for (x = 0; x < origLen; x++) {
+  found = undefined;
+  for (y = 0; y < newArr.length; y++) {
+  if (origArr[x].Make == newArr[y]) {
+  found = true;
+  debugger;
+  break;
+}
+}
+if (!found) {
+  newArr.push(origArr[x].Make);
+}
+}
+return newArr;
+}
 
 //vehicle dropdown functions ends here
 
@@ -1432,6 +1465,7 @@ toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
   }
 
   getModels= function (vehicleMakeId) {
+    this.vehicleModelArrays = [];
     const make = $('#' + vehicleMakeId + '').val();
     let vehicleModelCount = 0;
     for (let i = 0; i < this.vehicleModels.length; i++){
@@ -2203,7 +2237,8 @@ toastr.error("Invalid Formate,Supported Formates are JPEG,JPG,PNG")
   constructPaymentObj= function (paymentDetails) {
     var tempcardNumber=paymentDetails.cardNumBox1+""+paymentDetails.cardNumBox2+""+paymentDetails.cardNumBox3+""+paymentDetails.cardNumBox4;
     this.enteredCreditCard = "xxxxxxxxxxxx"+paymentDetails.cardNumBox4;
-    console.log("paymentDetails "+JSON.stringify(paymentDetails));
+    this.creditTypeSelected = paymentDetails.creditType;
+      console.log("paymentDetails "+JSON.stringify(paymentDetails));
     var tempInputEncryptionObject = {
       "plainText":tempcardNumber,
       "saltValue":sessionStorage.getItem("CustomerId")+"~"+paymentDetails.expiryMonth+"~AB",
