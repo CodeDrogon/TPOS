@@ -13,6 +13,7 @@ import {CustomValidator} from 'app/services/common/custom-validator';
 import {AdditionalInformation} from '../pojo/AdditionalInformation';
 import * as toastr from 'toastr';
 import {ConstructPaymentObject} from "../pojo/payment/ConstructPaymentObject";
+import {Creditcardvalidatior} from "../services/common/creditcardvalidatior";
 declare var populateCountries: any;
 declare var businessCustomerTooltip: any;
 @Component({
@@ -119,7 +120,7 @@ export class CreateaccountComponent implements OnInit {
   currentDate;
   prefEmail;
   constructor(private  myApp: AppComponent, private utilityService: UtilityService, private formBuilder: FormBuilder,
-              private constructPaymentObject:ConstructPaymentObject) {
+              private constructPaymentObject:ConstructPaymentObject,private creditcardvalidatior:Creditcardvalidatior) {
     this.idProofFullPath = '/pom.xml';
     this.addressProofFullPath = '/pom.xml';
   }
@@ -2237,54 +2238,58 @@ return newArr;
 
   constructPaymentObj= function (paymentDetails) {
     var tempcardNumber=paymentDetails.cardNumBox1+""+paymentDetails.cardNumBox2+""+paymentDetails.cardNumBox3+""+paymentDetails.cardNumBox4;
-    this.enteredCreditCard = "xxxxxxxxxxxx"+paymentDetails.cardNumBox4;
-    this.creditTypeSelected = paymentDetails.creditType;
-      console.log("paymentDetails "+JSON.stringify(paymentDetails));
-    var tempInputEncryptionObject = {
-      "plainText":tempcardNumber,
-      "saltValue":sessionStorage.getItem("CustomerId")+"~"+paymentDetails.expiryMonth+"~AB",
-      "encryptText":"null",
-      "isEncrypted":"false",
-      "SecurityType":"CREDITCARD"
-    }
+    var isCreditCardDetValid=this.creditcardvalidatior.checkCreditCard(tempcardNumber,paymentDetails.creditType);
+    if(isCreditCardDetValid==true) {
+      this.enteredCreditCard = "xxxxxxxxxxxx" + paymentDetails.cardNumBox4;
+      this.creditTypeSelected = paymentDetails.creditType;
+      console.log("paymentDetails " + JSON.stringify(paymentDetails));
+      var tempInputEncryptionObject = {
+        "plainText": tempcardNumber,
+        "saltValue": sessionStorage.getItem("CustomerId") + "~" + paymentDetails.expiryMonth + "~AB",
+        "encryptText": "null",
+        "isEncrypted": "false",
+        "SecurityType": "CREDITCARD"
+      }
 
-    const tempInpEncryObj = JSON.stringify(tempInputEncryptionObject);
-    console.log('password input object ' + tempInpEncryObj);
-    this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
-      const resObj = JSON.parse(res._body);
-      if (resObj.Result === true) {
-        if (this.isTagRequired == true){
-          this.tempPaymentObject =
-            this.constructPaymentObject.returnPaymentObject(paymentDetails, resObj.ResultValue
-              , this.existingAddressDetails, this.TagDetails,
-              this.arrayOfTagsEntered, this.selectedPlanId, this.finalAmount);
-        }else{
-          this.tempPaymentObject =
-            this.constructPaymentObject.returnPaymentObjectForVideoToll(paymentDetails, resObj.ResultValue
-              , this.existingAddressDetails,
-              this.arrayOfTagsEntered, this.selectedPlanId, this.finalAmount);
-        }
-        $('.my-link').unbind('click', false);
-        $('.inner-nav-tabs > .active .badge').text('✔');
-        $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
-        $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
-        $('.my-link').unbind('click', false);
-        $('.inner-nav-tabs > .active').next('li').find('a').click(function() {
+      const tempInpEncryObj = JSON.stringify(tempInputEncryptionObject);
+      console.log('password input object ' + tempInpEncryObj);
+      this.utilityService.encryptedString('PostEncrypt', tempInpEncryObj).subscribe(res => {
+        const resObj = JSON.parse(res._body);
+        if (resObj.Result === true) {
+          if (this.isTagRequired == true) {
+            this.tempPaymentObject =
+              this.constructPaymentObject.returnPaymentObject(paymentDetails, resObj.ResultValue
+                , this.existingAddressDetails, this.TagDetails,
+                this.arrayOfTagsEntered, this.selectedPlanId, this.finalAmount);
+          } else {
+            this.tempPaymentObject =
+              this.constructPaymentObject.returnPaymentObjectForVideoToll(paymentDetails, resObj.ResultValue
+                , this.existingAddressDetails,
+                this.arrayOfTagsEntered, this.selectedPlanId, this.finalAmount);
+          }
+          $('.my-link').unbind('click', false);
+          $('.inner-nav-tabs > .active .badge').text('✔');
+          $('.inner-nav-tabs > .active .badge').css('color', 'lightgreen');
+          $('.inner-nav-tabs > .active .badge').css('background-color', 'forestgreen');
+          $('.my-link').unbind('click', false);
+          $('.inner-nav-tabs > .active').next('li').find('a').click(function () {
 // 'this' is not a jQuery object, so it will use
 // the default click() function
-          this.click();
-        }).click();
-        $('.my-link').bind('click', false);
-        console.log("tempPaymentObject "+JSON.stringify(this.tempPaymentObject));
+            this.click();
+          }).click();
+          $('.my-link').bind('click', false);
+          console.log("tempPaymentObject " + JSON.stringify(this.tempPaymentObject));
 
-      }else{
-        $('.inner-nav-tabs > .active .badge').text('X');
-        $('.inner-nav-tabs > .active .badge').css('color', 'white');
-        $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
-        toastr.error("Credit Card Encryption Failed");
-      }
-    });
-
+        } else {
+          $('.inner-nav-tabs > .active .badge').text('X');
+          $('.inner-nav-tabs > .active .badge').css('color', 'white');
+          $('.inner-nav-tabs > .active .badge').css('background-color', 'crimson');
+          toastr.error("Credit Card Encryption Failed");
+        }
+      });
+    }else{
+      toastr.error("Card number is invalid ");
+    }
   }
 
   SubmitPayment=function () {
